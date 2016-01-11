@@ -4,7 +4,7 @@ var authorMail;
 $("#logout").click(function(){
     bootbox.confirm("You sure you want to logout?",function(result){
         if(result==true){
-         window.location = window.location.origin+"/xi/index.php/home/logout";
+         window.location = window.location.origin+"/index.php/home/logout";
         }
     });
     
@@ -35,13 +35,13 @@ $("#btn_savebook").click(function(){
 				}else{
 
 					$.ajax({
-						url: window.location.origin+"/xi/index.php/ajax/savebook",
+						url: window.location.origin+"/index.php/ajax/savebook",
 						type: "post",
 						data: "bookname="+bookName+"&authormail="+authorMail,
 						success: function(response){
 							if(response==1){
 							 
-                                                                   window.location = window.location.origin+"/xi/index.php";
+                                                                   window.location = window.location.origin+"/index.php";
 
 							}else{
 								bootbox.alert("Book was not added!");
@@ -58,14 +58,14 @@ $("#btn_savebook").click(function(){
 
 function deletebook(datasets){
     $.ajax({
-        url: window.location.origin+"/xi/index.php/ajax/deletebook",
+        url: window.location.origin+"/index.php/ajax/deletebook",
         type: 'GET',
         data: 'bookid='+datasets.dataset.id,
         success: function(response){
             
                 if(response==1){
                     
-                    window.location = window.location.origin+"/xi/index.php";
+                    window.location = window.location.origin+"/index.php";
                 }
             
         }
@@ -75,7 +75,7 @@ function view(datasets){
 
 	box = bootbox.dialog({
 		title: 'Viewing Book Info',
-		message: "<center><img src='"+window.location.origin+"/xi/res/img/loader.gif'></center>",
+		message: "<center><img src='"+window.location.origin+"/res/img/loader.gif'></center>",
 		size: 'large',
 		onEscape: function(){
      
@@ -85,7 +85,7 @@ function view(datasets){
 
 	$.ajax({
 
-		url: window.location.origin+"/xi/index.php/ajax/getbookbyId",
+		url: window.location.origin+"/index.php/ajax/getbookbyId",
 		type: 'GET',
 		data: 'bookid='+datasets.dataset.id,
 		success: function(response){

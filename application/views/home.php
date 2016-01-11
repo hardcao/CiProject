@@ -58,7 +58,7 @@
                 <?php foreach($books as $items){ ?>
                   <tr>
                       <td><?php echo $items['bookID']; ?></td>
-                      <td><?php echo $items['Title']; ?></td>
+                      <td><?php echo $items['Tittle']; ?></td>
                       <td><a href="#" data-id="<?php echo $items['bookID']; ?>" class="btn btn-success viewbook">View</a>
                           <a href="#" data-id="<?php echo $items['bookID']; ?>" class="btn btn-danger deletebook">Delete</a>
                       </td>

@@ -26,9 +26,10 @@ public  function __construct()
   }
 
   public function login(){
+   
     $username = $this->input->post('uname');
 
-    $result = $this->home_model->getLoginInfo($this->input->post('uname'),md5($this->input->post('pass')));
+    $result = $this->home_model->getLoginInfo($this->input->post('uname'),$this->input->post('pass'));
 
       if($result==1){
          echo $result;
@@ -36,6 +37,7 @@ public  function __construct()
       }else{
         $username="";
       }
+      echo $result;
   }
 
   public function savebook(){

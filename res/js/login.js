@@ -18,16 +18,20 @@ $("#btn_login").click(function(){
 		}else{
 				
 			$.ajax({
-				url: window.location.origin+"/xi/index.php/ajax/login",
+				url: window.location.origin+"/index.php/ajax/login",
 				type: "post",
 				data: "uname="+username+"&pass="+password,
 				success: function(data){
+					
 					if(data==0){
 						bootbox.alert("Invalid account");
 					}else{
-						window.location=window.location.origin+"/xi/index.php/home";
+						window.location=window.location.origin+"/index.php/home";
 					}
 
+				},
+			error : function(){
+				bootbox.alert("Error");
 				}
 
 			});

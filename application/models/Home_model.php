@@ -48,7 +48,7 @@ class Home_model extends CI_Model
   }
 
   public function savebookInfo($book,$email){
-    $data = array('Title'=>$book,'email'=>$email);
+    $data = array('Tittle'=>$book,'email'=>$email);
     return $this->db->insert('books',$data);
   }
   
