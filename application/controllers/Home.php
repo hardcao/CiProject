@@ -25,14 +25,14 @@
      $data['books'] = $this->home_model->getBooks();
      $this->load->view('home',$data); 
    }else{
-    redirect(base_url('index.php/home/login'));
+    redirect(base_url('/index.php/home/login'));
    }
      
    }
 
    public function login(){
       if($this->session->userdata('username')!=''){
-        redirect(base_url('index.php/home/index'));
+        redirect(base_url('/index.php/home/index'));
       }else{
         $this->load->view('loginview');  
       }
@@ -41,7 +41,7 @@
 
    public function logout(){
       $this->session->unset_userdata('username');
-      redirect(base_url('index.php/home/login'));
+      redirect(base_url('home/login'));
    }
 
  }
