@@ -30,7 +30,7 @@ class Home_model extends CI_Model
     $query = $this->db->from("users");
     $query = $this->db->where("username",$username);
     $query = $this->db->where("password",$password);
-
+   // return  $this->db->result();
       if($this->db->count_all_results()==1){
         return TRUE;
       }else{

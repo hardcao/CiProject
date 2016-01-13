@@ -22,12 +22,8 @@ $("#btn_login").click(function(){
 				type: "post",
 				data: "uname="+username+"&pass="+password,
 				success: function(data){
+					bootbox.alert(data);
 					
-					if(data==0){
-						bootbox.alert("Invalid account");
-					}else{
-						window.location=window.location.origin+"/index.php/home";
-					}
 
 				},
 			error : function(){
