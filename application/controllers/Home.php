@@ -20,13 +20,7 @@
    public function index()
    {
      # code...
-    if($this->session->userdata('username')!='')
-    {
-     $data['books'] = $this->home_model->getBooks();
-     $this->load->view('home',$data); 
-   }else{
-    redirect(base_url('/index.php/home/login'));
-   }
+    $this->load->view('/front/index');
      
    }
 
