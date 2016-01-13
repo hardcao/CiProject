@@ -65,7 +65,7 @@ function deletebook(datasets){
             
                 if(response==1){
                     
-                    window.location = window.location.origin+"/index.php";
+                    window.location = window.location.origin;
                 }
             
         }
@@ -75,7 +75,7 @@ function view(datasets){
 
 	box = bootbox.dialog({
 		title: 'Viewing Book Info',
-		message: "<center><img src='"+window.location.origin+"/res/img/loader.gif'></center>",
+		message: "<center><img src='"+window.location.origin+"/index.php/res/img/loader.gif'></center>",
 		size: 'large',
 		onEscape: function(){
      

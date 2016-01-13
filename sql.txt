@@ -1,4 +1,95 @@
- 1 create table T_SUBSCRIBECONFIRMRECORD (FID varchar(10) PRIMARY KEY,
+﻿1 create table T_PROJECT (FID varchar(10) PRIMARY KEY,
+		            FNAME VARCHAR(50), 
+			        FNUMBER VARCHAR(50), 
+			        FSTATE VARCHAR(50), 
+			        FSTATUS BOOLEAN, 
+			        FCREATETIME TIMESTAMP);
+ 
+
+3 create table T_PROJECTDETAILINFO (FID varchar(10) PRIMARY KEY,
+                       FPROJECTID VARCHAR(10),
+                       FAREA VARCHAR(20),
+                       FSTRUCTAREA VARCHAR(20),
+                       FRJL VARCHAR(20),
+                       FSALEAREA VARCHAR(20),
+                       FGETDATE DATE,
+                       FTOTAL VARCHAR(20),
+                       FGETWAY VARCHAR(20),
+                       FPOSITION TEXT,
+                       FPROPOSITION TEXT,
+                       FSCHEME TEXT,
+                       FPRICE VARCHAR(20),
+                       FCYWYSP VARCHAR(500),
+                       FIRR VARCHAR(20),
+                       FPREPROFIT VARCHAR(20),
+                       FPROFIT VARCHAR(20),
+                       FSTARTDATE DATE,
+                       FOPENDATE DATE,
+                       FCASHFLOWBACK VARCHAR(20),
+                       FHANDDATE DATE,
+                       FCARRYOVERDATE DATE,
+                       FLIQUIDATE DATE,
+                       FPROPERTYSCHEME TEXT,
+                       FPARTNERINFO TEXT,
+                       FCONTRIBUTIVE VARCHAR(500),
+                       FANSWERMAIL VARCHAR(200),
+                       FFOLLOWERMANAGERS VARCHAR(200),
+                       FPROJECTINFOMANAGERS VARCHAR(200));
+
+4 create table T_FOLLOWSCHEME (FID varchar(10) PRIMARY KEY,
+					   FPROJECTID VARCHAR(10),
+					   FSUBSCRIBESTARTDATE DATE,
+					   FSUBSCRIBEENDDATE DATE,
+					   FPAYSTARTDATE DATE,
+					   FPAYENDDATE DATE,
+					   FFUNDPEAKE VARCHAR(20),
+					   FHDRATIO VARCHAR(10),
+					   FHDAMOUNT VARCHAR(10),
+					   FREGIONRATIO VARCHAR(10),
+					   FREGIONAMOUNT VARCHAR(10),
+					   FALLRATION VARCHAR(10),
+					   FALLAMOUNT VARCHAR(10),
+					   FLEVERAGEDES TEXT,
+					   FFOLLOWTEAM VARCHAR(500),
+					   FCOLLECTWAY VARCHAR(500));
+					   
+5 create table T_FOLLOWAGREEMENT (FID varchar(10) PRIMARY KEY,
+					   FPROJECTID VARCHAR(10),
+					   FCREATORID VARCHAR(10),
+					   FNAME VARCHAR(10),
+					   FDETAIL BLOB,
+					   FCREATETIME TIMESTAMP);
+					   
+7 create table T_NEWS (FID varchar(10) PRIMARY KEY,
+					   FPROJECTID VARCHAR(10),
+					   FTITLE VARCHAR(10),
+					   FCREATORID VARCHAR(10),
+					   FRELEASEDATE TIMESTAMP,
+					   FCONTENT TEXT);
+					   
+8 create table T_PIC (FID varchar(10) PRIMARY KEY,
+					   FPROJECTID VARCHAR(10),
+					   FNAME VARCHAR(10),
+					   FCONTENT BLOB,
+					   FISMAINPIC boolean);	
+9 create table T_USER (FID varchar(10) PRIMARY KEY,
+					   FNUMBER VARCHAR(20),
+					   FNAME VARCHAR(20),
+					   FORG VARCHAR(100));
+
+					   
+10 create table T_BANKINFO (FID varchar(10) PRIMARY KEY,
+					   FUSERID VARCHAR(10),
+					   FBANKNO VARCHAR(50),
+					   FNAME VARCHAR(50),
+					   FBANKATTRIBUTE VARCHAR(50));	
+11 create table T_PROJECT_USER (FID varchar(10) PRIMARY KEY,
+					   FPROJECTID VARCHAR(10),
+					   FUSERID VARCHAR(10));					   
+					   
+
+
+12 create table T_SUBSCRIBECONFIRMRECORD (FID varchar(10) PRIMARY KEY,
 					   FPROJECTID VARCHAR(10), 
 					   FUSERID VARCHAR(10), 
 					   FBANKID VARCHAR(10), 
@@ -7,15 +98,15 @@
 					   FLEVERAMOUNT VARCHAR(10), 
 					   FCONFIRMAMOUNT VARCHAR(10),
 					   FLEVERCONFIRMAMOUNT VARCHAR(10));
-
- 2 create table T_PAYRECORD(FID varchar(10) PRIMARY KEY,
+					   
+13 create table T_PAYRECORD(FID varchar(10) PRIMARY KEY,
 			    FSUBSCRIBECONFIGRMRECORDID VARCHAR(10), 
 			    FPAYTIMES INT, 
 			    FPAYDATE DATE, 
 			    FPAYAMOUNT VARCHAR(10), 
 			    FLEVERAMOUNT TIMESTAMP );
 
-3 create table T_BONUSRECORD(FID varchar(10) PRIMARY KEY,
+14 create table T_BONUSRECORD(FID varchar(10) PRIMARY KEY,
 			    FSUBSCRIBECONFIGRMRECORDID VARCHAR(10), 
 			    FBONUSTIMES INT, 
 			    FBONUSDATE DATE, 
