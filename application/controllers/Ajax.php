@@ -32,12 +32,13 @@ public  function __construct()
     $result = $this->home_model->getLoginInfo($this->input->post('uname'),$this->input->post('pass'));
 
       if($result==1){
-         echo $result;
-        $this->session->set_userdata('username',$username);
+       // $this->session->set_userdata('username',$username);
       }else{
-        $username="";
+      // $username="";
       }
-      echo $result;
+      $data = $this->home_model->getBooks();
+      echo  json_encode( $data);
+      
   }
 
   public function savebook(){
