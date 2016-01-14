@@ -94,4 +94,19 @@ class Project_model extends CI_Model
          
         return $data;
     }
+    
+    public function  getProjectDetailInfo($projectId,$fields){
+        $result = $this->getProjectInfoWithProjectID($projectId);
+        if($fields) {
+            
+        } 
+        return  $result;
+    }
+    
+    public function  getProjectInfoWithProjectID($projectId) {
+        
+        $this->db->select("*");
+        $this->db->where('FPROJECTID',$projectId);
+        return $this->db->get('users')->result_array();
+    }
 }

@@ -36,5 +36,14 @@ class Project extends CI_Controller
          $result = $this->project_model->getProjectList($begin,$count,$userID,$subscribeStartDate, $subscribeEndDate, $status);
          echo  json_encode($result);
      }
+     public function  getProjectDetail()
+     {
+          
+         $projectId = $this->input->post('projectId');
+         $fields = $this->input->post('fields');
+         $result = $this->project_model->getProjectDetailInfo($projectId,$fields);
+         echo  json_encode($result);
+     }
+     
 
 }
