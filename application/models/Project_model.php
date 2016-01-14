@@ -38,8 +38,9 @@ class Project_model extends CI_Model
             array_push($resultArr,$tempItem);
             
         }
+        $data['data'] =  $resultArr;
      
-        echo json_encode($data);
+        return $data;
     }
     
     /* 鑾峰彇鍒嗛〉鏁版嵁鍙婃�绘潯鏁�
@@ -100,7 +101,11 @@ class Project_model extends CI_Model
         if($fields) {
             
         } 
-        return  $result;
+        $data["success"] = true;
+        $data["errorCode"] = 0;
+        $data["error"] = 0;
+        $data['data'] = $result;
+        return  $data;
     }
     
     public function  getProjectInfoWithProjectID($projectId) {
