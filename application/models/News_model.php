@@ -60,16 +60,20 @@ class News_model extends CI_Model
             $db->offset($offset);
         }
          
-        if($joinTableName_1)
-        {
-            $db->jion($joinTableName_1,$joinTableCondition_1);
-        }
-        if($joinTableName_2)
-        {
-            $db->jion($joinTableName_2,$joinTableCondition_2);
-        }
         $data = $db->get($tablename)->result_array();
          
+        return $data;
+    }
+    
+    public function  getDynamicNewsDetail($newsId) {
+        $this->db->select("*");
+        $this->db->where('FID',$newsId);
+        $this->db->order_by('FRELEASEDATE', 'asc');
+        $result = $this->db->get('T_NEWS')->result_array();
+        $data["success"] = true;
+        $data["errorCode"] = 0;
+        $data["error"] = 0;
+        $data['data'] = $result;
         return $data;
     }
 }
