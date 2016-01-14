@@ -42,8 +42,9 @@ class Project_model extends CI_Model
             $tempItem['regioAmount'] = $item['FREGIONAMOUNT'];
             $tempItem['HDAmountComplete'] = "test";
             $tempItem['regioAmountComplete'] = "test";// 临时数据，还没有加入照片
+            $this->load->model('Picture_model');
+            $tempItem['picList'] = $this->Picture_model->getPictureWithProjectID($item['FID']);
             array_push($resultArr,$tempItem);
-            
         }
         $data['data'] =  $resultArr;
      
