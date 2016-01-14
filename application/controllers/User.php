@@ -22,4 +22,12 @@ class User extends CI_Controller
         echo json_encode($result);
         
     }
+    public function getPersonSubscribeDetail() {
+        $begin = $this->input->post('begin');
+        $count = $this->input->post('count');
+        $userID = $this->input->post('uid');
+        $projectId = $this->input->post('projectId');
+        $result = $this->User_model->getPersonSubscribeDetail($begin,$count,$userID,$projectId);
+        echo json_encode($result);
+    }
 }

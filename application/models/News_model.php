@@ -76,4 +76,11 @@ class News_model extends CI_Model
         $data['data'] = $result;
         return $data;
     }
+    public function  getDynamicNewsDetailtest() {
+        $this->db->select("*");
+        $this->db->join('booktest','users.username = booktest.username');
+        return $this->db->get('users')->result_array();;
+    }
+    
+    
 }

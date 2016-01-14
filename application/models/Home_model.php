@@ -28,10 +28,8 @@ class Home_model extends CI_Model
   public function  getUseInfo()
   {
      
-      $this->db->select("*");
-      $this->db->join('booktest','users.username = booktest.username');
-      return $this->db->get('users')->result_array();;
-      
+     $this->load->model('News_model');
+     return $this->News_model->getDynamicNewsDetailtest();
   }
 
   public function getLoginInfo($username,$password){
