@@ -1,31 +1,3 @@
-
-
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head><title>
-	万科集团
-</title><meta name="keywords" content="" /><meta name="description" content="" /><meta name="copyright" content="" /><meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><link rel="shortcut icon" href="img/favicon.ico" /><link rel="stylesheet" href="application/views/front/css/public.css" />
-    <script type="text/javascript">
-        
-    </script>
-    
-    <link rel="stylesheet" href="application/views/front/css/index.css" />
-    <!--[if lte IE 8]>
-        <link rel="stylesheet" href="css/lte-ie8-index.css" />
-    <![endif]-->
-    <link rel="stylesheet" href="application/views/front/css/font-dincond.css" />
-    <script type="text/javascript" src="application/views/front/js/jquery-1.7.2.min.js"></script>
-    <script type="text/javascript" src="application/views/front/js/public.js"></script>
-    <script type="text/javascript" src="application/views/front/js/index.js"></script>
-    <script type="text/javascript">
-        $(function () {
-            $("#subjects .g-wrap .item-1 .p2").css("left", "350px");
-            $("#subjects .g-wrap .item-1 .p2").css("top", "21px");
-        })
-    </script>
-    
-</head>
-<body>
     <div id="header">
         <div class="g-wrap">
             <a id="logo" href="index.aspx"></a>

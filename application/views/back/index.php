@@ -14,11 +14,11 @@
 <title>数据维护平台</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 
-<link rel="stylesheet" type="text/css" href="css/public.css">
-<link rel="stylesheet" type="text/css" href="css/header.css">
-<script type="text/javascript" src="../plugins/jquery-1.8.0.min.js"></script>
-
+<link rel="stylesheet" type="text/css" href="application/views/back/css/public.css">
+<link rel="stylesheet" type="text/css" href="application/views/back/css/header.css">
+<?php require (dirname(dirname(__FILE__)).'\common\header_include.php'); ?>
 <style type="text/css">
+
 .displayNone{display: none;}
 #contentLayer{width: 1240px;}
 #contentLayer #roleLayer{height: 40px; line-height: 40px;font-size: 1.2em;/*padding: 0px 40px;*/}
@@ -39,7 +39,7 @@
 #contentLayer #proManageLayer{min-height: 400px;width: 1030px;margin: 0px auto;border: 1px solid #e8e8e8;border-radius: 3px;/*border:none;*//*box-shadow: 5px 5px 15px #929292;*/}
 #contentLayer #proManageLayer #searchLayer{text-align: right;width: 95%;margin: 10px auto 0px;}
 #contentLayer #proManageLayer #proTable{border-spacing: 1px;border-collapse: collapse;width: 95%;margin: 5px auto;font-size: 1em;border: 1px solid #e8e8e8;}
-#contentLayer #proManageLayer #proTable thead{background: url(images/thead_bg.png);}
+#contentLayer #proManageLayer #proTable thead{background: url(application/views/back/images/thead_bg.png);}
 #contentLayer #proManageLayer #proTable tbody{font-size: 1.2em;}
 #contentLayer #proManageLayer #proTable td{text-align: center;border: 1px solid #e8e8e8;}
 #contentLayer #proManageLayer #proTable td a{color: #21B4F6;}
@@ -163,12 +163,12 @@ function loadContentPage () {
 </script>
 </head>
 <body>
-<jsp:include page="header.jsp"></jsp:include>
+<?php require (dirname(dirname(__FILE__)).'\common\header.php'); ?>
 <div id="contentLayer">
 	<div id="roleLayer"><!-- 当前用户角色：系统管理员 -->您好，欢迎使用旭辉跟投内容管理系统！</div>
 	<div id="leftLayer" class="frameSTY">
 		<div class="leftTitle">
-			<img src="images/menu_0.png" style="vertical-align:middle;" />&nbsp;&nbsp;管理菜单
+			<img src="application/views/back/images/menu_0.png" style="vertical-align:middle;" />&nbsp;&nbsp;管理菜单
 		</div>
 		<ul class="naviUl">
 			<li val="projectInfo" class="focusOn">项目信息维护</li>

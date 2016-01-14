@@ -1,7 +1,6 @@
 #header{height: 100px;width: 100%;min-width:1280px;border-bottom: 1px solid #E8E8E8;margin:0px auto;background: #FFF;box-shadow: 0px 5px 10px -5px #919191;}
 #header #topLayer{position:relative;width: 1080px;min-height: 100px;margin: 10px auto;background:url(../../images/logo.png) no-repeat;}
-#header #logo{position:absolute;width: 150px; height: 100px;/*background:url(../../images/logo.png) no-repeat;*/
-	left: 0px;top: 0px;cursor: pointer;}
+#header #logo{}
 #header #loginer{float: right;display: block;width: 60%;text-align: right;margin: 15px 0px;}
 #header #navigation{float: right;display: block;width: 90%;text-align: right;position: relative;}
 #header #navigation ul{list-style:none;overflow: hidden;padding: 0px;}
