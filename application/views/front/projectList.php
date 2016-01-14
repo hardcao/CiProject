@@ -5,10 +5,10 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 
 
-<link href="<?php echo base_url('zlgt\application/views/plugins/css/jquery.datetimepicker.css')?>" rel="stylesheet">
+<link href="<?php echo site_url('application/views/plugins/jquery.datetimepicker.css')?>" rel="stylesheet">
 
-<link rel="stylesheet" type="text/css" href="application/views/front/css/public.css">
-<link rel="stylesheet" type="text/css" href="application/views/front/css/header.css">
+<link rel="stylesheet" type="text/css" href="<?php echo site_url('application/views/back/css/public.css')?>">
+<link rel="stylesheet" type="text/css" href="<?php echo site_url('application/views/back/css/header.css')?>">
 <link rel="stylesheet" type="text/css" href="application/views/front/css/projectList.css">
 <script type="text/javascript" src="application/views/plugins/jquery-1.8.0.min.js"></script>
 <script type="text/javascript" src="application/views/plugins/jquery.datetimepicker.js"></script>

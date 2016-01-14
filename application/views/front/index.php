@@ -7,7 +7,7 @@
 <meta name="description" content="" />
 <meta name="copyright" content="" />
 
-<?php require (dirname(dirname(__FILE__)).'\common\header_include.php'); ?>
+<?php require (dirname(dirname(__FILE__)).'/common/header_include.php'); ?>
 <style type="text/css">
 .float{float: left;}
 .divide25{width: 25%}
@@ -53,7 +53,7 @@ h2
 </style>
 </head>
 <body>
-<?php require (dirname(dirname(__FILE__)).'\common\header.php'); ?>
+<?php require (dirname(dirname(__FILE__)).'/common/header.php'); ?>
 <div style = "margin-top:-67px">
 	<img src="application/views/front/img/title.jpg" width="100%">
 	

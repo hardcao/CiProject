@@ -12,8 +12,8 @@
    {
      # code...
      parent::__construct();
-     $this->load->library(array('session','form_validation'));
-     $this->load->helper(array('url'));
+     //$this->load->library(array('session','form_validation'));
+    // $this->load->helper(array('url'));
      $this->load->model('home_model');
    }
 
