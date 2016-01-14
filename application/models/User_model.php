@@ -25,8 +25,6 @@ class User_model extends CI_Model
         $subscribeAmountTotal = 0;
         $payAmountTotal = 0;
         $leverageAmountTotal = 0;
-        $payAmountTotal = 0;
-        $bonusAmountTotal = 0;
         $subscribeProCount = 0;
         foreach ($SubscriptionArray as $item) {
             $subscribeProCount ++;
@@ -41,7 +39,13 @@ class User_model extends CI_Model
             foreach ($recodeArray as $recodeItem) {
                 $payAmountTotal += intval($recodeItem['FPAYAMOUNT']);
             }
+            $leverageAmountTotal += intval($item['FAMOUNT']);
         }
+        $result['subscribeAmountTotal'] = $subscribeAmountTotal;
+        $result['bonusAmountTotal'] = $bonusAmountTotal;
+        $result['payAmountTotal'] = $payAmountTotal;
+        $result['leverageAmountTotal'] = $leverageAmountTotal;
+        $result['subscribeProCount'] = $subscribeProCount;
         $data['data'] = $result;
         return $data;
     }
