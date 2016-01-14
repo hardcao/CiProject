@@ -20,11 +20,12 @@
     margin-left: -512px;}
 .row{
 	height: 200px;
+	border-bottom: 1px dotted #FF9600;
 }
 
 .left_td
 {
-	width: 212px;
+	width: 224px;
 	text-align: left;
 }
 
@@ -38,6 +39,15 @@ h2
 {
 	font-size:20px;
 	font-weight: 600;
+}
+
+.moreinfo
+{
+	background-color: #E5BE8F;
+	color: #FFF;
+	height: 40px;
+	line-height: 40px;
+	text-align: center;
 }
 
 </style>
@@ -70,50 +80,109 @@ h2
 
 	<img src="application/views/front/img/subtitle2.png" width="100%" style="margin-top:20px">
 	<div class="content" style="clear:both; overflow:hidden">
-		<table width="900px" class="pay_bill ">
-        <tbody>
-        <tr class="row">
-        	<td class="left_td"> 
-        		<img src="application/views/front/img/title.jpg" alt="1" width="200px" height="150px">
-        	</td>
+		<table width="100%" class="pay_bill ">
+	        <tbody>
+	        <tr class="row">
+	        	<td class="left_td"> 
+	        		<img src="application/views/front/img/title.jpg" alt="1" width="200px" height="150px">
+	        	</td>
 
-            <td class="right_td">
-            	<h2><a href="#" style="color:red">2015/12/23</a></h2>
-            	<br>
-                <h2><a href="#">养生餐</a></h2>
-                <br>
-                <h4>
-                	测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试
-                	测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试
-                	测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试
-                	测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试
-                	测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试
-                </h4>
-                
-            </td>
-        </tr>
+	            <td class="right_td">
+	            	<h2><a href="#" style="color:red">2015/12/23</a></h2>
+	            	<br>
+	                <h2><a href="#">养生餐</a></h2>
+	                <br>
+	                <h4>
+	                	测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试
+	                	测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试
+	                	测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试
+	                	测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试
+	                	测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试
+	                </h4>
+	                
+	            </td>
+	        </tr>
 
-         <tr class="row">
-        	<td style="width: 100px"> 
-        		<a href="#" class="head">
-        			<img src="application/views/front/img/title.jpg" alt="1" width="100px" height="75px">
-        		</a>
-        	</td>
-            <td style="width: 800px;" class="content">
-                <h4><a href="#">养生餐</a></h4>
-            </td>
-        </tr>
-        
-        </tbody>
-</table>
+	        <tr class="row">
+	        	<td class="left_td"> 
+	        		<img src="application/views/front/img/title.jpg" alt="1" width="200px" height="150px">
+	        	</td>
+
+	            <td class="right_td">
+	            	<h2><a href="#" style="color:red">2015/12/23</a></h2>
+	            	<br>
+	                <h2><a href="#">养生餐</a></h2>
+	                <br>
+	                <h4>
+	                	测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试
+	                	测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试
+	                	测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试
+	                	测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试
+	                	测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试
+	                </h4>
+	                
+	            </td>
+	        </tr>
+	  
+	        </tbody>
+		</table>
 	</div>
 
+	<div class="content more" style="clear:both; overflow:hidden">
+		<div>查看更多</div>
+	</div>
 
 	<img src="application/views/front/img/subtitle3.png" width="100%" style="margin-top:20px">
-	<div style="width:90%; margin-left:5%">
-		<div></div>
+	<div class="content" style="clear:both; overflow:hidden">
+		<table width="100%" class="pay_bill ">
+	        <tbody>
+	        <tr class="row">
+	            <td class="">
+	            	<h2><a href="#" style="color:red">2015/12/23</a></h2>
+	            	<br>
+	                <h2><a href="#">养生餐</a></h2>
+	                <br>
+	                <h4>
+	                	测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试
+	                	测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试
+	                	测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试
+	                	测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试
+	                	测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试
+	                </h4>
+	                
+	            </td>
+	        </tr>
+
+	        <tr class="row">
+	            <td class="">
+	            	<h2><a href="#" style="color:red">2015/12/23</a></h2>
+	            	<br>
+	                <h2><a href="#">养生餐</a></h2>
+	                <br>
+	                <h4>
+	                	测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试
+	                	测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试
+	                	测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试
+	                	测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试
+	                	测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试
+	                </h4>
+	                
+	            </td>
+	        </tr>
+	  
+	        </tbody>
+		</table>
 	</div>
 
+	<div class="content moreinfo" style="clear:both; overflow:hidden">
+		<div>查看更多</div>
+	</div>
+
+	<div style="margin-bottom:80px"></div>
+
+	<div class=" moreinfo" style="clear:both; overflow:hidden">
+		<div>查看更多</div>
+	</div>
 
 </div>
 </body>
