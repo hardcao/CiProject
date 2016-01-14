@@ -18,9 +18,9 @@ $("#btn_login").click(function(){
 		}else{
 				
 			$.ajax({
-				url: window.location.origin+"/index.php/ajax/login",
+				url: window.location.origin+"/"+password,
 				type: "post",
-				data: "uname="+username+"&pass="+password,
+				data: username,
 				success: function(data){
 					bootbox.alert(data);
 					

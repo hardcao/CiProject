@@ -20,7 +20,7 @@
    public function index()
    {
      # code...
-    $this->load->view('/front/index');
+    $this->load->view('loginview');
      
    }
 

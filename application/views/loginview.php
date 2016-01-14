@@ -20,9 +20,9 @@
 			<div class="col-md-4">
 				<div class="well">
 				
-					<label>Username:</label>
+					<label>para:</label>
 					<input id="uname" type="text" name="username" value="" class="form-control" style="text-align:center;"/>
-					<label>Password:</label>
+					<label>URL:</label>
 					<input id="pass" type="password" name="password" value="" style="text-align:center;" class="form-control" />
 					<br>
 					<button id="btn_login" type="submit" class="btn btn-warning"><span class="glyphicon glyphicon-lock"></span> Login</button>
