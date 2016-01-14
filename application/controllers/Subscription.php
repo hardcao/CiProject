@@ -17,21 +17,13 @@ class subscription extends CI_Controller
     public function index()
     {
         # code...
-        $this->load->view('loginview');
+        $this->load->view('Subscription_model');
          
     }
 
-    public function  getProjectList()
+    public function  getStatisticDetail()
     {
-         
-        $begin = $this->input->post('begin');
-        $count = $this->input->post('count');
-        $userID = $this->input->post('uid');
-        $subscribeStartDate = $this->input->post('subscribeStartDate');
-        $subscribeEndDate = $this->input->post('subscribeEndDate');
-        $status = $this->input->post('status');
-         
-        $result = $this->project_model->getProjectList($begin,$count,$userID,$subscribeStartDate, $subscribeEndDate, $status);
+        $result = $this->Subscription_model->getStatisticDetail();
         echo  json_encode($result);
     }
     public function  getProjectDetail()

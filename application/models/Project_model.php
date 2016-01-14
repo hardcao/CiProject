@@ -13,6 +13,13 @@ class Project_model extends CI_Model
         $this->load->database();
     }
     
+    public function  getProjectTotalNum()
+    {
+        $this->db->select("*");
+        $this->db->where('FSTATUS =', 1);
+        return $this->db->get('T_PROJECT')->count_all_results();
+    }
+    
     public function getProjectList($begin,$count,$userID,$subscribeStartDate, $subscribeEndDate, $status){
         $tablename = 'T_PROJECT';
         $joinTableName_1 = 'T_FOLLOWSCHEME';
