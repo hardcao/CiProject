@@ -13,17 +13,42 @@ class Project_model extends CI_Model
         $this->load->database();
     }
     
-    public function getLoginInfo($begin,$count,$userID,$subscribeStartDate, $subscribeEndDate, $status){
-        
+    public function getProjectList($begin,$count,$userID,$subscribeStartDate, $subscribeEndDate, $status){
+        $tablename = 'T_PROJECT';
+        $joinTableName_1 = 'T_FOLLOWSCHEME';
+        $joinTableCondition_1 = 'T_FOLLOWSCHEME.FPROJECTID = T_PROJECT.FPROJECTID';
+        $joinTableName_2 = 'T_SUBSCRIBECONFIRMRECORD';
+        $joinTableCondition_2 = 'T_SUBSCRIBECONFIRMRECORD.FPROJECTID = T_PROJECT.FPROJECTID';
+        $where = $subscribeStartDate+'< FCREATETIME AND  FCREATETIME < ' +  $subscribeEndDate;
+        if($status) {
+            $where += 'AND FSTATUS = ' + $status;
+        }
+        $dataArray = $this->getPageData($tablename, $where, $count, $begin, $this->db, $joinTableName_1, $joinTableCondition_1, $joinTableName_2, $joinTableCondition_2);
+        $data["success"] = true;
+        $data["errorCode"] = 0;
+        $data["error"] = 0;
+        $resultArr = array();
+        foreach($dataArray as $item) {
+            $tempItem['projectName'] = $item['FNAME'];
+            $tempItem['projectId'] = $item['FID'];
+            $tempItem['HDAmount'] = $item['FHDAMOUNT'];
+            $tempItem['regioAmount'] = $item['FREGIONAMOUNT'];
+            $tempItem['HDAmountComplete'] = "test";
+            $tempItem['regioAmountComplete'] = "test";// 临时数据，还没有加入照片
+            array_push($resultArr,$tempItem);
+            
+        }
+     
+        echo json_encode($data);
     }
     
-    /* 获取分页数据及总条数
-    * @param string @tablename 表名
-    * @param mixed $where 条件
-    * @param int $limit 每页条数
-    * @param int $offset 当前页
+    /* 鑾峰彇鍒嗛〉鏁版嵁鍙婃�绘潯鏁�
+    * @param string @tablename 琛ㄥ悕
+    * @param mixed $where 鏉′欢
+    * @param int $limit 姣忛〉鏉℃暟
+    * @param int $offset 褰撳墠椤�
     */
-    public function getPageData($tablename, $where, $limit, $offset, $order_by, $db)
+    public function getPageData($tablename, $where, $limit, $offset, $db,$joinTableName_1,$joinTableCondition_1,$joinTableName_2,$joinTableCondition_2)
     {
         if(empty($tablename))
         {
@@ -57,11 +82,14 @@ class Project_model extends CI_Model
             $db->offset($offset);
         }
          
-        if($order_by)
+        if($joinTableName_1)   
         {
-            $db->order_by($order_by);
+            $db->jion($joinTableName_1,$joinTableCondition_1);
         }
-         
+        if($joinTableName_2)
+        {
+            $db->jion($joinTableName_2,$joinTableCondition_2);
+        }
         $data = $db->get($tablename)->result_array();
          
         return $data;

@@ -36,8 +36,14 @@ public  function __construct()
       }else{
       // $username="";
       }
-      $data = $this->home_model->getBooks();
-      echo  json_encode( $data);
+      $data = $this->home_model->getUseInfo();
+      $resultArr = array();
+      foreach ($data as $item) {
+         $temp['userName'] = $item['username'];
+         array_push($resultArr,$temp);
+         
+      }
+      echo  json_encode( $resultArr);
       
   }
 

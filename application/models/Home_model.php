@@ -24,6 +24,15 @@ class Home_model extends CI_Model
       return $query->result_array();
 
   }
+  
+  public function  getUseInfo()
+  {
+     
+      $this->db->select("*");
+      $this->db->join('booktest','users.username = booktest.username');
+      return $this->db->get('users')->result_array();;
+      
+  }
 
   public function getLoginInfo($username,$password){
     $query = $this->db->select("*");
