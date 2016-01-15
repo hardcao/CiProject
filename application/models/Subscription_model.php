@@ -12,6 +12,14 @@ class Subscription_model extends CI_Model
         parent::__construct();
         $this->load->database();
     }
+    
+    public function getSubscriptionDataWithRecordId($RecordId) {
+        $this->db->select("*");
+        $this->db->where('FID',$RecordId);
+        $result = $this->db->get('T_SUBSCRIBECONFIRMRECORD')->result_array();
+        return $result[0];
+    }
+    
     public function getSubscriptionDataWithProjectID($projectID) {
         $this->db->select("*");
         $this->db->where('FPROJECTID',$projectID);

@@ -12,6 +12,22 @@ class BonusRecord_model extends CI_Model
         parent::__construct();
         $this->load->database();
     }
+    
+    public function  addpay($subscribeConfigrmRecordId, $payTimes,$payAmount,$payDate) {
+        $this->load->model('Subscription_model');
+        $result = $this->Subscription_model->getSubscriptionDataWithRecordId($subscribeConfigrmRecordId);
+        $data = array (
+            'FSUBSCRIBECONFIGRMRECORDID' => $subscribeConfigrmRecordId,
+            'FPAYTIMES' => $payTimes,
+            'FPAYDATE' => $payDate,
+            'FPAYAMOUNT' => $payAmount,
+            'FCREATETIME' => time(),
+            'FPROJECTNAME' =>$result['FPROJECTNAME'],
+            'FPROJECTID' => $result['FPROJECTID'],
+            'FUSERID' => $result['FUSERID']
+        );
+        return $this->db->insert('T_BONUSRECORD', $data);
+    }
     public function getSubscriptionDataWithRecodeID($RecodeID) {
         $this->db->select("*");
         $this->db->where('FSUBSCRIBECONFIGRMRECORDID',$RecodeID);
