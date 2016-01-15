@@ -15,22 +15,20 @@ class Project_model extends CI_Model
     
     public function  getProjectTotalNum()
     {
-        $this->db->select("*");
-        $this->db->where('FSTATUS =', 1);
-        return $this->db->get('T_PROJECT')->count_all_results();
+        $query=$this->db->select('*');
+        $query=$this->db->where('FSTATUS =', 1);
+        $query=$this->db->get('T_PROJECT');
+        return $query->count_all_results();
     }
     
     public function getProjectList($begin,$count,$userID,$subscribeStartDate, $subscribeEndDate, $status){
         $tablename = 'T_PROJECT';
-        $joinTableName_1 = 'T_FOLLOWSCHEME';
-        $joinTableCondition_1 = 'T_FOLLOWSCHEME.FPROJECTID = T_PROJECT.FPROJECTID';
-        $joinTableName_2 = 'T_SUBSCRIBECONFIRMRECORD';
-        $joinTableCondition_2 = 'T_SUBSCRIBECONFIRMRECORD.FPROJECTID = T_PROJECT.FPROJECTID';
-        $where = $subscribeStartDate+'< FCREATETIME AND  FCREATETIME < ' +  $subscribeEndDate;
+        $where ='';
+        $where = $subscribeStartDate.'< FCREATETIME AND  FCREATETIME < '.$subscribeEndDate;
         if($status) {
-            $where += 'AND FSTATUS = ' + $status;
+            $where += 'AND FSTATUS = '.$status;
         }
-        $dataArray = $this->getPageData($tablename, $where, $count, $begin, $this->db, $joinTableName_1, $joinTableCondition_1, $joinTableName_2, $joinTableCondition_2);
+        $dataArray = $this->getPageData($tablename, $where, $count, $begin, $this->db);
         $data["success"] = true;
         $data["errorCode"] = 0;
         $data["error"] = 0;
@@ -38,8 +36,8 @@ class Project_model extends CI_Model
         foreach($dataArray as $item) {
             $tempItem['projectName'] = $item['FNAME'];
             $tempItem['projectId'] = $item['FID'];
-            $tempItem['HDAmount'] = $item['FHDAMOUNT'];
-            $tempItem['regioAmount'] = $item['FREGIONAMOUNT'];
+            $tempItem['HDAmount'] = 3;
+            $tempItem['regioAmount'] = 3;
             $tempItem['HDAmountComplete'] = "test";
             $tempItem['regioAmountComplete'] = "test";// 临时数据，还没有加入照片
             $this->load->model('Picture_model');
@@ -57,7 +55,7 @@ class Project_model extends CI_Model
     * @param int $limit 姣忛〉鏉℃暟
     * @param int $offset 褰撳墠椤�
     */
-    public function getPageData($tablename, $where, $limit, $offset, $db,$joinTableName_1,$joinTableCondition_1,$joinTableName_2,$joinTableCondition_2)
+    public function getPageData($tablename, $where, $limit, $offset, $db)
     {
         if(empty($tablename))
         {
@@ -70,36 +68,28 @@ class Project_model extends CI_Model
         {
             if(is_array($where))
             {
-                $dbhandle->where($where);
+                 $query=$dbhandle->where($where);
             }
             else
             {
-                $dbhandle->where($where, NULL, false);
+                $query = $dbhandle->where($where, NULL, false);
             }
         }
          
         $db = clone($dbhandle);
-        $total = $dbhandle->count_all_results($tablename);
          
         if($limit)
         {
-            $db->limit($limit);
+            $query= $db->limit($limit);
         }
          
         if($offset)
         {
-            $db->offset($offset);
+            $query = $db->offset($offset);
         }
          
-        if($joinTableName_1)   
-        {
-            $db->jion($joinTableName_1,$joinTableCondition_1);
-        }
-        if($joinTableName_2)
-        {
-            $db->jion($joinTableName_2,$joinTableCondition_2);
-        }
-        $data = $db->get($tablename)->result_array();
+        $query = $db->get($tablename);
+        $data = $query->result_array();
          
         return $data;
     }

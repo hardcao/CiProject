@@ -23,7 +23,6 @@ $("#btn_login").click(function(){
 				data: username,
 				success: function(data){
 					bootbox.alert(data);
-					
 
 				},
 			error : function(){

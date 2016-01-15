@@ -22,7 +22,16 @@ class Project extends CI_Controller
         $this->load->view('loginview');
          
     }
+    /*
+     * 输入数据：
+     * begin=0&count=2&uid=test1&subscribeStartDate='2014-09-01 09:50:00'&subscribeEndDate='2014-09-01 09:50:00'&status=1
+     * 访问接口：project/getProjectList
+     * 
+     * 输出数据：{"success":true,"errorCode":0,"error":0,"data":[{"projectName":"123","projectId":"123","HDAmount":3,"regioAmount":3,"HDAmountComplete":"test","regioAmountComplete":"test","picList":[]}]
+     * 
+     * */
 
+    
      public function  getProjectList()
      {
          

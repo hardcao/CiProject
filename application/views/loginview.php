@@ -20,13 +20,15 @@
 			<div class="col-md-4">
 				<div class="well">
 				
-					<label>para:</label>
+					<label>para demo:par1=val1&par2=val2...</label>
 					<input id="uname" type="text" name="username" value="" class="form-control" style="text-align:center;"/>
-					<label>URL:</label>
+					<label>URL demo: user/getPersonalDetail</label>
 					<input id="pass" type="text" name="password" value="" style="text-align:center;" class="form-control" />
 					<br>
-					<button id="btn_login" type="submit" class="btn btn-warning"><span class="glyphicon glyphicon-lock"></span> Login</button>
-				 
+					<button id="btn_login" type="submit" class="btn btn-warning"><span class="glyphicon glyphicon-lock"></span> test</button>
+				    <br>
+				    <label>output:</label>
+					<input id="output" type="text" name="username" value="" class="form-control" style="text-align:center;" height = 200, size = 400/>
 			<br>
 				
 			</div>
