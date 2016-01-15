@@ -4,7 +4,7 @@ defined('BASEPATH') or exit('Error');
 /**
  *½É¿î¼ÇÂ¼±í
 */
-class PayRecord_model extends CI_Model
+class Payrecord_model extends CI_Model
 {
     public function __construct()
     {
@@ -23,16 +23,16 @@ class PayRecord_model extends CI_Model
         $tablename = 'T_PAYRECORD';
         $where ='';
         if($projectId){
-            $where += 'FPROJECTID = ' + $projectId;
+            $where += 'FPROJECTID = '.$projectId;
         }
         if($userID) {
-            $where += 'AND FUSERID =' + $userID;
+            $where += ' AND FUSERID ='.$userID;
         }
         $data["success"] = true;
         $data["errorCode"] = 0;
         $data["error"] = 0;
-        $result =  $this->getPageData($tablename, $where, $count, $begin, $his->db);;
-        $totalPayAmount = 0;
+        $result =  $this->getPageData($tablename, $where, $count, $begin, $this->db);;
+       $totalPayAmount = 0;
         if($projectId && $userID) {
             foreach ($result as $item) {
                 $totalPayAmount +=intval($item['FPAYAMOUNT']);
@@ -67,7 +67,6 @@ class PayRecord_model extends CI_Model
         }
          
         $db = clone($dbhandle);
-        $total = $dbhandle->count_all_results($tablename);
          
         if($limit)
         {
