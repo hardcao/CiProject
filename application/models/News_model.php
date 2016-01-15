@@ -16,14 +16,15 @@ class News_model extends CI_Model
     public function  getDynamicNews($begin,$count,$userID,$projectId)
     {
         $tablename = 'T_NEWS';
-        $where = 'FPROJECTID = ' + $projectId;
+        $where = '';//FPROJECTID='.$projectId;
         if($userID) {
-            $where += 'AND FCREATORID =' + $userID;
+          //  $where +=' AND FCREATORID ='.$userID;
         }
         $data["success"] = true;
         $data["errorCode"] = 0;
         $data["error"] = 0;
-        $data['data'] = $this->getPageData($tablename, $where, $count, $begin, $his->db);;
+        $result = $this->getPageData($tablename, $where, $count, $begin, $this->db);
+        $data['data'] = $result;
         return $data;
     }
     public function getPageData($tablename, $where, $limit, $offset, $db)
@@ -39,28 +40,28 @@ class News_model extends CI_Model
         {
             if(is_array($where))
             {
-                $dbhandle->where($where);
+                $query=$dbhandle->where($where);
             }
             else
             {
-                $dbhandle->where($where, NULL, false);
+                $query = $dbhandle->where($where, NULL, false);
             }
         }
          
         $db = clone($dbhandle);
-        $total = $dbhandle->count_all_results($tablename);
          
         if($limit)
         {
-            $db->limit($limit);
+            $query= $db->limit($limit);
         }
          
         if($offset)
         {
-            $db->offset($offset);
+            $query = $db->offset($offset);
         }
          
-        $data = $db->get($tablename)->result_array();
+        $query = $db->get($tablename);
+        $data = $query->result_array();
          
         return $data;
     }
