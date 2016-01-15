@@ -39,5 +39,14 @@ class BackInfo_model extends CI_Model
         $data['data'] = '0';
         return  $data;
     }
-    
+    public function  deleteBankCardRecord($userID,$bankNo) {
+        $this->db->where('FUSERID', $userID);
+        $this->db->where('FBANKNO', $bankNo);
+        $result =  $this->db->delete('T_BANKINFO');
+        $data["success"] = true;
+        $data["errorCode"] = 0;
+        $data["error"] = 0;
+        $data['data'] = $result;
+        return  $data;
+    }
 }

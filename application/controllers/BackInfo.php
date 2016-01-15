@@ -27,5 +27,15 @@ class BankInfo extends CI_Controller
         $result = $this->BackInfo_model->addProject($userID,$bankNo,$bankName,$bankAttribute);
         echo  json_encode($result);
     }
+    
+    public function  deleteBankCardRecord()
+    {
+         
+        $userID = $this->input->post('uid');
+        $bankNo = $this->input->post('bankNo');
+    
+        $result = $this->BackInfo_model->delBankCardRecord($userID,$bankNo);
+        echo  json_encode($result);
+    }
  }
     
