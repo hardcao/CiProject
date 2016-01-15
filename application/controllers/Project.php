@@ -60,5 +60,17 @@ class Project extends CI_Controller
          echo  json_encode($result);
      }
      
+     public function  addProject()
+     {
+         
+         $userID = $this->input->post('uid');
+         $projectNumber = $this->input->post('$projectNumber');
+         $projectName = $this->input->post('$projectName');
+         $state = $this->input->post('state');
+          
+         $result = $this->project_model->addProject($userID,$projectNumber,$projectName,$state);
+         echo  json_encode($result);
+     }
+     
 
 }
