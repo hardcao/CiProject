@@ -45,6 +45,12 @@ class Project extends CI_Controller
          $result = $this->project_model->getProjectList($begin,$count,$userID,$subscribeStartDate, $subscribeEndDate, $status);
          echo  json_encode($result);
      }
+     
+     /*
+      * 输入：projectId=123
+      * 接口：project/getProjectDetail
+      * 输出：[{"FID":"123","FNAME":"123","FNUMBER":"123","FSTATE":"\u534f\u8bae","FSTATUS":"1","FCREATETIME":"2014-10-01 05:00:00"}]
+      * */
      public function  getProjectDetail()
      {
           

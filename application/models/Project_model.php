@@ -103,13 +103,14 @@ class Project_model extends CI_Model
         $data["errorCode"] = 0;
         $data["error"] = 0;
         $data['data'] = $result;
-        return  $data;
+        return  $result;
     }
     
     public function  getProjectInfoWithProjectID($projectId) {
         
-        $this->db->select("*");
-        $this->db->where('FPROJECTID',$projectId);
-        return $this->db->get('users')->result_array();
+        $query=$this->db->select("*");
+        $query=$this->db->where('FID',$projectId);
+        $query=$this->db->get('T_PROJECT');
+        return $query->result_array();
     }
 }
