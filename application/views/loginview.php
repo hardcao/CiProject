@@ -23,7 +23,7 @@
 					<label>para:</label>
 					<input id="uname" type="text" name="username" value="" class="form-control" style="text-align:center;"/>
 					<label>URL:</label>
-					<input id="pass" type="password" name="password" value="" style="text-align:center;" class="form-control" />
+					<input id="pass" type="text" name="password" value="" style="text-align:center;" class="form-control" />
 					<br>
 					<button id="btn_login" type="submit" class="btn btn-warning"><span class="glyphicon glyphicon-lock"></span> Login</button>
 				 
