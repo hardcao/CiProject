@@ -13,7 +13,11 @@ class User extends CI_Controller
         parent::__construct();
         $this->load->model('User_model');
     }
-
+/*
+ * 输入：uid=test1
+ * 接口：user/getPersonalDetail
+ * 输出：{"success":true,"errorCode":0,"error":0,"data":{"0":{"FID":"test1","FNUMBER":"\u9676\u6587\u6d01b","FNAME":"test1","FORG":"20140901053445.0Z"},"subscribeAmountTotal":0,"bonusAmountTotal":3,"payAmountTotal":3,"leverageAmountTotal":3,"subscribeProCount":1}}
+ * */
     public function  getPersonalDetail()
     {
         
