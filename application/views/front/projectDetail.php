@@ -1,22 +1,26 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <title>项目详细</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 
-<link rel="stylesheet" type="text/css" href="css/public.css">
-<link rel="stylesheet" type="text/css" href="css/header.css">
-<link rel="stylesheet" type="text/css" href="css/projectDetail.css">
-<script type="text/javascript" src="../plugins/jquery-1.8.0.min.js"></script>
-<script type="text/javascript" src="../plugins/jquery.json-2.4.js"></script>
-<script type="text/javascript" src="../plugins/dateFormat.js"></script>
-<script type="text/javascript" src="../plugins/util.js"></script>
-<script type="text/javascript" src="js/header.js"></script>
-<script type="text/javascript" src="js/projectDetail.js"></script>
+
+<?php require (dirname(dirname(__FILE__)).'/common/header_include.php'); ?>
+<link href="<?php echo site_url('application/views/plugins/jquery.datetimepicker.css')?>" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="<?php echo site_url('application/views/front/css/public.css')?>">
+<link rel="stylesheet" type="text/css" href="<?php echo site_url('application/views/front/css/header.css')?>">
+<link rel="stylesheet" type="text/css" href="<?php echo site_url('application/views/front/css/projectDetail.css')?>">
+
+
+<script type="text/javascript" src="<?php echo site_url('application/views/plugins/jquery.json-2.4.js')?>"></script>
+<script type="text/javascript" src="<?php echo site_url('application/views/plugins/util.js')?>"></script>
+<script type="text/javascript" src="<?php echo site_url('application/views/plugins/dateFormat.js')?>"></script>
+<script type="text/javascript" src="<?php echo site_url('application/views/front/js/header.js')?>"></script>
+<script type="text/javascript" src="<?php echo site_url('application/views/front/js/projectDetail.js')?>"></script>
 </head>
 <body>
-<jsp:include page="header.jsp"></jsp:include>
+<?php require (dirname(dirname(__FILE__)).'/common/header.php'); ?>
+	<p style="display:none" id="site_url"><?php echo site_url();?></p>
 <div id="contentLayer">
 	<div id="naviTitle">
 		<a href="index.jsp">首页</a> ><a href="projectList.jsp">项目信息查看 </a> > <a id="naviProName" href="#">合肥高新项目</a>
@@ -32,7 +36,7 @@
 		</div>
 		<div id="basic_info" class="info_STY">
 			<div class="moduleTitle" ind="0_0">
-				<img src="./images/arrow_down.png" width="13" height="13" />基础信息
+				<img src="<?php echo site_url().'application/views/front/images/arrow_down.png' ?>" width="13" height="13" />基础信息
 			</div>
 			<div id="0_0" class="content">
 				<div class="titleSTY">项目体量</div>
@@ -70,7 +74,7 @@
 				</tr></table>
 			</div>
 			<div class="moduleTitle" ind="0_1">
-				<img src="./images/arrow_up.png" width="13" height="13" />经营计划
+				<img src="<?php echo site_url().'application/views/front/images/arrow_up.png' ?>" width="13" height="13" />经营计划
 			</div>
 			<div id="0_1" class="content" style="display:block;">
 				<div class="titleSTY">预计销售计划</div>
@@ -121,7 +125,7 @@
 				</tr></table>
 			</div>
 			<div class="moduleTitle" ind="0_2">
-				<img src="./images/arrow_up.png" width="13" height="13" />合作信息
+				<img src="<?php echo site_url().'application/views/front/images/arrow_up.png' ?>" width="13" height="13" />合作信息
 			</div>
 			<div id="0_2" class="content" style="display:block;">
 				<div class="titleSTY">预计回报水平</div>
@@ -140,7 +144,7 @@
 				</tr></table>
 			</div>
 			<div class="moduleTitle" ind="0_3">
-				<img src="./images/arrow_up.png" width="13" height="13" />其他信息
+				<img src="<?php echo site_url().'application/views/front/images/arrow_up.png' ?>" width="13" height="13" />其他信息
 			</div>
 			<div id="0_3" class="content" style="display:block;">
 				<table border="1"><tr>
@@ -158,7 +162,7 @@
 				</tr></table>
 			</div>
 			<div class="moduleTitle" ind="0_4" style="display:none;">
-				<img src="./images/arrow_up.png" width="13" height="13" />相关图片
+				<img src="<?php echo site_url().'application/views/front/images/arrow_up.png' ?>" width="13" height="13" />相关图片
 			</div>
 			<div id="0_4" class="content" style="display:none;">
 				<div class="picSTY"><img src="./images/254_142.png" width="254" height="142"></div>

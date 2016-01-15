@@ -1,12 +1,12 @@
     <div id="header">
         <div class="g-wrap">
-            <a id="logo" href="index.aspx"></a>
+            <a id="logo" href="<?php echo site_url();?>"></a>
             <ul id="nav">
-                <li class="n1"><a href="index.aspx"><span>首页</span><span class="bkg"></span></a></li>
-                <li class="n2 more"><a href="about.aspx"><span>跟投项目信息</span><span class="bkg"></span></a></li>
-                <li class="n3 more"><a href="news.aspx"><span>个人中心</span></span><span class="bkg"></span></a></li>
-                <li class="n4 "><a href="investors.aspx"><span>跟投制度</span><span class="bkg"></span></a></li>
-                <li class="n5 "><a href="service.aspx"><span>帮助中心</span><span class="bkg"></span></a></li>
+                <li class="n1"><a href="<?php echo site_url();?>"><span>首页</span><span class="bkg"></span></a></li>
+                <li class="n2 more"><a href="<?php echo site_url().'home/index/projectList';?>"><span>跟投项目信息</span><span class="bkg"></span></a></li>
+                <li class="n3 more"><a href="<?php echo site_url().'home/index/personalCenter';?>"><span>个人中心</span></span><span class="bkg"></span></a></li>
+                <li class="n4 "><a href="<?php echo site_url().'home/index/followRules';?>"><span>跟投制度</span><span class="bkg"></span></a></li>
+                <li class="n5 "><a href="<?php echo site_url().'home/index/helpCenter';?>"><span>帮助中心</span><span class="bkg"></span></a></li>
             </ul>
 
             <div id="shop">
@@ -20,16 +20,16 @@
         <div id="subNav">
             <div class="g-wrap">
                 <div class="item about">
-                    <a href="about.aspx?type=3">项目信息<span></a>
-                    <a href="about.aspx?type=5">动态新闻<span></a>
+                    <a href="<?php echo site_url().'home/index/projectList';?>">项目信息<span></a>
+                    <a href="<?php echo site_url().'home/index/newsList';?>">动态新闻<span></a>
                 </div>
                 <div class="item news">
-                    <a href="news.aspx?type=8">我要认购<span></a>
-                    <a href="news.aspx?type=10">未完成认购<span></a>
-                    <a href="news.aspx?type=8">已完成认购<span></a>
-                    <a href="news.aspx?type=10">缴款确认<span></a>
-                    <a href="news.aspx?type=8">分红明细<span></a>
-                    <a href="news.aspx?type=10">个人信息<span></a>
+                    <a href="<?php echo site_url().'home/index/newsList';?>">我要认购<span></a>
+                    <a href="<?php echo site_url().'home/index/newsList';?>">未完成认购<span></a>
+                    <a href="<?php echo site_url().'home/index/completed';?>">已完成认购<span></a>
+                    <a href="<?php echo site_url().'home/index/payInDetail';?>">缴款确认<span></a>
+                    <a href="<?php echo site_url().'home/index/bonusDetail';?>">分红明细<span></a>
+                    <a href="<?php echo site_url().'home/index/personalInfo';?>">个人信息<span></a>
 
 
 

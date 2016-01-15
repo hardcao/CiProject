@@ -35,10 +35,11 @@ function initListeners(){
 	$("#basic_info .moduleTitle").click(function(){
 		var _id = $(this).attr("ind")
 		var _display = $("#"+_id).css("display");
+		var url = $('#site_url').text();
 		if("none" == _display){
-			$(this).find("img").attr("src","./images/arrow_down.png");
+			$(this).find("img").attr("src", url+'application/views/front/images/arrow_down.png');
 		}else{
-			$(this).find("img").attr("src","./images/arrow_up.png");
+			$(this).find("img").attr("src",url+'application/views/front/images/arrow_up.png');
 		}
 		$("#"+_id).toggle();
 	});

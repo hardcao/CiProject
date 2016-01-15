@@ -1,20 +1,20 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
 <title>动态新闻列表</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 
-<link rel="stylesheet" type="text/css" href="css/public.css">
-<link rel="stylesheet" type="text/css" href="css/header.css">
-<link rel="stylesheet" type="text/css" href="css/newsList.css">
-<script type="text/javascript" src="../plugins/jquery-1.8.0.min.js"></script>
-<script type="text/javascript" src="../plugins/util.js"></script>
-<script type="text/javascript" src="js/header.js"></script>
-<script type="text/javascript" src="js/newsList.js"></script>
+
+<?php require (dirname(dirname(__FILE__)).'/common/header_include.php'); ?>
+<link rel="stylesheet" type="text/css" href="<?php echo site_url('application/views/front/css/public.css')?>">
+<link rel="stylesheet" type="text/css" href="<?php echo site_url('application/views/front/css/header.css')?>">
+<link rel="stylesheet" type="text/css" href="<?php echo site_url('application/views/front/css/newsList.css')?>">
+<script type="text/javascript" src="<?php echo site_url('application/views/plugins/util.js')?>"></script>
+<script type="text/javascript" src="<?php echo site_url('application/views/front/js/header.js')?>"></script>
+<script type="text/javascript" src="<?php echo site_url('application/views/front/js/newsList.js')?>"></script>
 </head>
 <body>
-<jsp:include page="header.jsp"></jsp:include>
+<?php require (dirname(dirname(__FILE__)).'/common/header.php'); ?>
 <div id="contentLayer">
 	<div id="naviTitle"><a href="index.jsp">首页</a> > 动态新闻列表</div>
 	<div id="searchLayer">

@@ -4,28 +4,27 @@
 <title>跟投项目信息</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 
-
+<?php require (dirname(dirname(__FILE__)).'/common/header_include.php'); ?>
 <link href="<?php echo site_url('application/views/plugins/jquery.datetimepicker.css')?>" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="<?php echo site_url('application/views/front/css/public.css')?>">
+<link rel="stylesheet" type="text/css" href="<?php echo site_url('application/views/front/css/header.css')?>">
+<link rel="stylesheet" type="text/css" href="<?php echo site_url('application/views/front/css/projectList.css')?>">
 
-<link rel="stylesheet" type="text/css" href="<?php echo site_url('application/views/back/css/public.css')?>">
-<link rel="stylesheet" type="text/css" href="<?php echo site_url('application/views/back/css/header.css')?>">
-<link rel="stylesheet" type="text/css" href="application/views/front/css/projectList.css">
-<script type="text/javascript" src="application/views/plugins/jquery-1.8.0.min.js"></script>
-<script type="text/javascript" src="application/views/plugins/jquery.datetimepicker.js"></script>
-<script type="text/javascript" src="application/views/plugins/jquery.json-2.4.js"></script>
-<script type="text/javascript" src="application/views/plugins/util.js"></script>
-<script type="text/javascript" src="application/views/plugins/dateFormat.js"></script>
-<script type="text/javascript" src="application/views/front/js/header.js"></script>
-<script type="text/javascript" src="application/views/front/js/projectList.js"></script>
-<script type="text/javascript">
-	 
-</script>
+<script type="text/javascript" src="<?php echo site_url('application/views/plugins/jquery.datetimepicker.js')?>"></script>
+<script type="text/javascript" src="<?php echo site_url('application/views/plugins/jquery.json-2.4.js')?>"></script>
+<script type="text/javascript" src="<?php echo site_url('application/views/plugins/util.js')?>"></script>
+<script type="text/javascript" src="<?php echo site_url('application/views/plugins/dateFormat.js')?>"></script>
+<script type="text/javascript" src="<?php echo site_url('application/views/front/js/header.js')?>"></script>
+<script type="text/javascript" src="<?php echo site_url('application/views/front/js/projectList.js')?>"></script>
+
 </head>
 
 <body>
 <form id="listform" >
-<jsp:include page="header.jsp"></jsp:include>
+<?php require (dirname(dirname(__FILE__)).'/common/header.php'); ?>
+
 <div id="contentLayer">
+
 	<input type="hidden" name="type" value="1">
 	<div id="naviTitle"><a href="index.jsp">首页</a> > 认购项目列表</div>
 	<div id="searchLayer">

@@ -128,8 +128,8 @@ h2
 		</table>
 	</div>
 
-	<div class="content more" style="clear:both; overflow:hidden">
-		<div>查看更多</div>
+	<div class="content moreinfo" style="clear:both; overflow:hidden">
+		<div><a>查看更多</a></div>
 	</div>
 
 	<img src="application/views/front/img/subtitle3.png" width="100%" style="margin-top:20px">
@@ -181,7 +181,7 @@ h2
 	<div style="margin-bottom:80px"></div>
 
 	<div class=" moreinfo" style="clear:both; overflow:hidden">
-		<div>查看更多</div>
+		
 	</div>
 
 </div>

@@ -20,8 +20,8 @@
    public function index($page = 'index')
    {
      # code...
-    $this->load->view('loginview');
-     
+    //$this->load->view('loginview');
+     $this->load->view('/front/'.$page);
    }
 
    public function login(){

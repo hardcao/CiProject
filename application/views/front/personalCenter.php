@@ -1,23 +1,26 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <title>个人中心</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 
-<link rel="stylesheet" type="text/css" href="css/public.css">
-<link rel="stylesheet" type="text/css" href="css/header.css">
-<link rel="stylesheet" type="text/css" href="css/personalCenter.css">
-<script type="text/javascript" src="../plugins/jquery-1.8.0.min.js"></script>
-<script type="text/javascript" src="../plugins/jquery.json-2.4.js"></script>
-<script type="text/javascript" src="../plugins/util.js"></script>
-<script type="text/javascript" src="../plugins/dateFormat.js"></script>
-<script type="text/javascript" src="js/header.js"></script>
-<script type="text/javascript" src="js/personalCenter.js"></script>
+<?php require (dirname(dirname(__FILE__)).'/common/header_include.php'); ?>
+<link href="<?php echo site_url('application/views/plugins/jquery.datetimepicker.css')?>" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="<?php echo site_url('application/views/front/css/public.css')?>">
+<link rel="stylesheet" type="text/css" href="<?php echo site_url('application/views/front/css/header.css')?>">
+<link rel="stylesheet" type="text/css" href="<?php echo site_url('application/views/front/css/personalCenter.css')?>">
+
+
+<script type="text/javascript" src="<?php echo site_url('application/views/plugins/jquery.json-2.4.js')?>"></script>
+<script type="text/javascript" src="<?php echo site_url('application/views/plugins/util.js')?>"></script>
+<script type="text/javascript" src="<?php echo site_url('application/views/plugins/dateFormat.js')?>"></script>
+<script type="text/javascript" src="<?php echo site_url('application/views/front/js/header.js')?>"></script>
+<script type="text/javascript" src="<?php echo site_url('application/views/front/js/personalCenter.js')?>"></script>
+
+
 </head>
 <body>
 <form id="listform" >
-<jsp:include page="header.jsp"></jsp:include>
+<?php require (dirname(dirname(__FILE__)).'/common/header.php'); ?>
 <input type="hidden" name="type" value="1">
 <input type="hidden" name="releaseStartDate" value="">
 <input type="hidden" name="releaseEndDate" value="">
@@ -90,14 +93,14 @@
 				</div> -->
 			</div>
 		</div>
-		<div id="newsInfo">
+		<!--div id="newsInfo">
 			<div class="newsTitle"><span class="titleSTY">动态新闻</span><a class="moreSTY" href="newsList.jsp">更多 》</a></div>
 			<div class="newsList">
 				<!-- <div class="listSTY">
 					<a href="#">2014-07-19&nbsp;&nbsp;新安集团钢筋战略采购招标新安集团钢筋战略采购招标</a>
-				</div> -->
+				</div>
 			</div>
-		</div>
+		</div> -->
 	</div>
 	<div id="completedInfo">
 		<div class="compTitle">
@@ -149,7 +152,7 @@
 			</tr></thead>
 			<tbody id="payInTbody">
 				<tr><td colspan="6" height="70" valign="middle">
-						<img src="./images/tips.png" align="absmiddle">&nbsp; 对不起，暂无相关数据
+						<img src="<?php echo site_url().'application/views/front/images/tips.png';?>" align="absmiddle">&nbsp; 对不起，暂无相关数据
 				</td></tr>
 				<!-- <tr>
 					<td height="25">1</td>
@@ -177,7 +180,7 @@
 			</tr></thead>
 			<tbody id="bonusTbody">
 				<tr><td colspan="7" height="70" valign="middle">
-						<img src="./images/tips.png" align="absmiddle">&nbsp; 对不起，暂无相关数据
+						<img src="<?php echo site_url().'application/views/front/images/tips.png';?>" align="absmiddle">&nbsp; 对不起，暂无相关数据
 				</td></tr>
 				<!-- <tr>
 					<td height="25">1</td>

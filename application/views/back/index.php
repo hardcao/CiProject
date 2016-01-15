@@ -86,17 +86,29 @@ function initialPages(){
 	}*/
 	UserProjectList();
 }
+
+/*
+ * 输入数据：
+ * begin=0&count=2&uid=test1&subscribeStartDate='2014-09-01 09:50:00'&subscribeEndDate='2014-09-01 09:50:00'&status=1
+ * 访问接口：project/getProjectList
+ * 
+ * 输出数据：{"success":true,"errorCode":0,"error":0,"data":[{"projectName":"123","projectId":"123","HDAmount":3,"regioAmount":3,"HDAmountComplete":"test","regioAmountComplete":"test","picList":[]}]
+ * 
+     * */
 function UserProjectList(){
-	var ctx=$("#ctx").val();
+	var ctx="<?php echo site_url();?>";
 	var projectName=$("#projectName").val();
-	/*$.ajax({
+	$.ajax({
 		type:'post',//可选get
-		url:ctx+'/UserProjectRelateController/getUserProjectList.action',
+		url:ctx+'Project/getProjectList',
 		dataType:'Json',//服务器返回的数据类型 可选XML ,Json jsonp script html text等
 		data:{
-			'projectName':projectName,
-			'startPage':0,
-			'endPage':30
+			begin: 0,
+			count: 2,
+			uid: 'test1',
+			subscribeStartDate: '2014-09-01 09:50:00',
+			subscribeEndDate:'2016-09-01 09:50:00',
+			status: 1		
 		},
 		success:function(msg){
 			if(msg.success){
@@ -107,9 +119,9 @@ function UserProjectList(){
 			}
 		},
 		error: function (XMLHttpRequest, textStatus, errorThrown) {
-        	 sessionTimeout(XMLHttpRequest, textStatus, errorThrown);
+        	 //sessionTimeout(XMLHttpRequest, textStatus, errorThrown);
         }
-	})*/
+	})
 }
 function loadProjectData () {
 	$("#projectTbody").empty();
