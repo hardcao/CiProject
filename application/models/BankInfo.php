@@ -4,6 +4,11 @@
  */
 class BackInfo_model extends CI_Model
 {
+   public $FUSERID;
+    public $FBANKNO;
+    public $FNAME;
+    public $FBANKATTRIBUTE;
+    
     public function __construct()
     {
         # code...
@@ -21,4 +26,18 @@ class BackInfo_model extends CI_Model
         $data['data'] = $result;
         return $data;
     }
+    
+    public function  addProject($userID,$bankNo,$bankName,$bankAttribute) {
+        $this->FUSERID = $userID;
+        $this->FBANKNO = $bankNo;
+        $this->FNAME = $bankName;
+        $this->FBANKATTRIBUTE = $bankAttribute;
+        $this->db->insert('T_BANKINFO', $this);
+        $data["success"] = true;
+        $data["errorCode"] = 0;
+        $data["error"] = 0;
+        $data['data'] = '0';
+        return  $data;
+    }
+    
 }

@@ -64,8 +64,8 @@ class Project extends CI_Controller
      {
          
          $userID = $this->input->post('uid');
-         $projectNumber = $this->input->post('$projectNumber');
-         $projectName = $this->input->post('$projectName');
+         $projectNumber = $this->input->post('projectNumber');
+         $projectName = $this->input->post('projectName');
          $state = $this->input->post('state');
           
          $result = $this->project_model->addProject($userID,$projectNumber,$projectName,$state);
