@@ -16,9 +16,9 @@ class Project_model extends CI_Model
     public function  getProjectTotalNum()
     {
         $query=$this->db->select('*');
-        $query=$this->db->where('FSTATUS =', 1);
+        $query=$this->db->where('FSTATUS =', true);
         $query=$this->db->get('T_PROJECT');
-        return $query->count_all_results();
+        return $query->num_rows();
     }
     
     public function getProjectList($begin,$count,$userID,$subscribeStartDate, $subscribeEndDate, $status){

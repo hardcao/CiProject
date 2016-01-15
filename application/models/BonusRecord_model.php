@@ -20,8 +20,9 @@ class BonusRecord_model extends CI_Model
     }
     
     public function  getBonusAmountTotal() {
-        $this->db->select("*");
-        $result = $this->db->get('T_BONUSRECORD')->result_array();
+        $query=$this->db->select("*");
+        $query = $this->db->get('T_BONUSRECORD');
+        $result = $query->result_array();
         $subcribeAmountTotal = 0;
         foreach ( $result as $item) {
             $subcribeAmountTotal += intval($item['FBONUSAMOUNT']);

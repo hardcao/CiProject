@@ -35,7 +35,7 @@ class Subscription_model extends CI_Model
     public function getPeopleCount()
     {
         $this->db->select("*");
-        return $this->db->get('T_SUBSCRIBECONFIRMRECORD')->count_all_results();
+        return $this->db->get('T_SUBSCRIBECONFIRMRECORD')->num_rows();
     }
     
     public function getSubcribeAmountTotal()
@@ -61,5 +61,6 @@ class Subscription_model extends CI_Model
         $this->load->model("BonusRecord_model");
         $result['bonusAmountTotal'] = $this->BonusRecord_model->getBonusAmountTotal();
         $data['data'] = $result;
+        return $data;
     }
 }
