@@ -113,7 +113,7 @@ function UserProjectList(){
 		},
 		success:function(msg){
 			if(msg.success){
-				projectList=msg.dataDto;
+				projectList=msg.data;
 				loadProjectData();
 			}else{
 				alert(msg.error);
@@ -131,8 +131,8 @@ function loadProjectData () {
 		var perArr = [];
 		var tempUrl = "";
 		$.each(projectList, function(ind,val){
-			perArr = val.permissionFlag.split("");
-			tempUrl = "projectManage.jsp?projectId="+val.projectId+"&projectName="+escape(val.projectName);
+		    perArr = null;//val.permissionFlag.split("");
+			tempUrl = "back/index/projectManage?projectId="+val.projectId+"&projectName="+escape(val.projectName);
 			tempHtml +=
 			'<tr><td height="40">'+(ind+1)+'</td>'+
 				'<td>'+val.projectName+'</td>'+
@@ -141,8 +141,6 @@ function loadProjectData () {
 				'<a href="'+tempUrl+'#subscribeConfirm" class="'+(isPermission(perArr,2)?"":"displayNone")+'">&nbsp;&nbsp;认购核准</a>'+
 				'<a href="'+tempUrl+'#payInConfirm" class="'+(isPermission(perArr,3)?"":"displayNone")+'">&nbsp;&nbsp;缴款确认</a><br>'+
 				'<a href="'+tempUrl+'#projectBonusInfo" class="'+(isPermission(perArr,4)?"":"displayNone")+'">&nbsp;&nbsp;分红明细</a>'+
-				'<a href="'+tempUrl+'#specialInfo" class="'+(isPermission(perArr,5)?"":"displayNone")+'">&nbsp;&nbsp;特别跟投</a>'+
-				'<a href="'+tempUrl+'#dimissionInfo" class="'+(isPermission(perArr,6)?"":"displayNone")+'">&nbsp;&nbsp;离职处理</a></td>'+
 			'</tr>';
 		});
 		$("#projectTbody").html(tempHtml);

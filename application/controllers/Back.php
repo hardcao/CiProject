@@ -17,10 +17,11 @@
      $this->load->model('home_model');
    }
 
-   public function index()
+   public function index($page = 'index')
    {
      # code...
-    $this->load->view('/back/index');
+    $this->load->view('/back/'.$page);
+    //$this->load->view('/back/index');
      
    }
 
