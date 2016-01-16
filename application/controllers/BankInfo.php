@@ -6,13 +6,18 @@ class BankInfo extends CI_Controller
     {
         # code...
         parent::__construct();
-        $this->load->model('BackInfo_model');
+        $this->load->model('BankInfo_model');
     }
-    
+    /*
+     * 
+     * 参数：uid=test1
+     *接口：bankInfo/getPersonBankInfo
+     * 输出：{"test":"test1"}
+     * */
     public function  getPersonBankInfo() {
     
         $userID = $this->input->post('uid');
-        $result = $this->BackInfo_model->getPersonBankInfo($userID);
+        $result['test'] = $userID;// = $this->BackInfo_model->getPersonBankInfo($userID);
         echo json_encode($result);
     }
     

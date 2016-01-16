@@ -25,9 +25,9 @@ $("#btn_login").click(function(){
 					bootbox.alert(data);
 
 				},
-			error : function(){
-				bootbox.alert("Error");
-				}
+				error: function (XMLHttpRequest, textStatus, errorThrown) {
+					bootbox.alert(XMLHttpRequest.responseText);
+		        }
 
 			});
 

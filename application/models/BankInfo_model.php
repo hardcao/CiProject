@@ -2,7 +2,7 @@
 /**
  *
  */
-class BackInfo_model extends CI_Model
+class BankInfo_model extends CI_Model
 {
    public $FUSERID;
     public $FBANKNO;
