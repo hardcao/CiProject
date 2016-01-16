@@ -114,7 +114,8 @@ function initPages(){
 
 function loadContentPage(){
 	location.hash = naviVal;
-	var url = naviVal+".jsp";
+	var ctx="<?php echo site_url();?>";
+	var url = ctx+'/application/views/back/'+naviVal+".php";
 	$("#rightLayer").load(url);
 }
 </script>
