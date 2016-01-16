@@ -6,6 +6,7 @@ defined('BASEPATH') or exit('Error');
 */
 class Project_model extends CI_Model
 {
+    public $FID;
     public $FNAME;
     public $FNUMBER;
     public $FSTATE;
@@ -127,9 +128,10 @@ class Project_model extends CI_Model
     public function  addProject($userID,$projectNumber,$projectName,$state) {
         $this->FNUMBER = $projectNumber;
         $this->FNAME = $projectName;
-        $this->FCREATETIME = time();
-        $this->FSTATUS = $state;
-        $this->FSTATE =true;
+        $this->FCREATETIME = date('Y-m-d H:i:s');
+        $this->FSTATUS = true;
+        $this->FSTATE =$state;
+        $this->FID='12345';//临时
         $this->db->insert('T_PROJECT', $this);
         $data["success"] = true;
         $data["errorCode"] = 0;

@@ -59,7 +59,11 @@ class Project extends CI_Controller
          $result = $this->project_model->getProjectDetailInfo($projectId,$fields);
          echo  json_encode($result);
      }
-     
+     /*
+      * 参数：uid=test5&projectNumber=34534&projectName=sdfsaxvs&state=1
+      * 接口：Project/addProject
+      * 输出：{"success":true,"errorCode":0,"error":0,"data":"0"}
+      * */
      public function  addProject()
      {
          
