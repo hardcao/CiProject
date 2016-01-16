@@ -2,7 +2,7 @@
 defined('BASEPATH') or exit('Error');
 
 /**
- *·Öºì¼ÇÂ¼±í
+ *ï¿½Öºï¿½ï¿½Â¼ï¿½ï¿½
 */
 class BonusRecord_model extends CI_Model
 {
@@ -13,7 +13,7 @@ class BonusRecord_model extends CI_Model
         $this->load->database();
     }
     
-    public function  addpay($subscribeConfigrmRecordId, $payTimes,$payAmount,$payDate) {
+    public function  addpayDataArry($subscribeConfigrmRecordId, $payTimes,$payAmount,$payDate) {
         $this->load->model('Subscription_model');
         $result = $this->Subscription_model->getSubscriptionDataWithRecordId($subscribeConfigrmRecordId);
         $data = array (
@@ -26,7 +26,22 @@ class BonusRecord_model extends CI_Model
             'FPROJECTID' => $result['FPROJECTID'],
             'FUSERID' => $result['FUSERID']
         );
-        return $this->db->insert('T_BONUSRECORD', $data);
+        return $data;
+    }
+    
+    public function addpayList($dataArr) {
+        $insertArr = array();
+        foreach ($dataArr as $item) {
+        	$oneData = $this->addpayDataArry($item['subscribeConfigrmRecordId'], $item['payTimes'], $item['payAmount'], $item['payDate']);
+        	array_push($insertArr, $oneData);
+        }
+       
+        $result=  $this->db->insert('T_BONUSRECORD', $insertArr);
+        $data["success"] = true;
+        $data["errorCode"] = 0;
+        $data["error"] = 0;
+        $data['data'] = $result;
+        return  $data;
     }
     public function getSubscriptionDataWithRecodeID($RecodeID) {
         $this->db->select("*");
