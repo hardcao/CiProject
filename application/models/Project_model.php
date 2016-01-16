@@ -6,6 +6,11 @@ defined('BASEPATH') or exit('Error');
 */
 class Project_model extends CI_Model
 {
+    public $FNAME;
+    public $FNUMBER;
+    public $FSTATE;
+    public $FSTATUS;
+    public $FCREATETIME;
     public function __construct()
     {
         # code...
@@ -112,5 +117,19 @@ class Project_model extends CI_Model
         $query=$this->db->where('FID',$projectId);
         $query=$this->db->get('T_PROJECT');
         return $query->result_array();
+    }
+    
+    public function  addProject($userID,$projectNumber,$projectName,$state) {
+        $this->FNUMBER = $projectNumber;
+        $this->FNAME = $projectName;
+        $this->FCREATETIME = time();
+        $this->FSTATUS = $state;
+        $this->FSTATE =true;
+        $this->db->insert('T_PROJECT', $this);
+        $data["success"] = true;
+        $data["errorCode"] = 0;
+        $data["error"] = 0;
+        $data['data'] = '0';
+        return  $data;
     }
 }

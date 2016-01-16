@@ -12,6 +12,14 @@ class Subscription_model extends CI_Model
         parent::__construct();
         $this->load->database();
     }
+    
+    public function getSubscriptionDataWithRecordId($RecordId) {
+        $this->db->select("*");
+        $this->db->where('FID',$RecordId);
+        $result = $this->db->get('T_SUBSCRIBECONFIRMRECORD')->result_array();
+        return $result[0];
+    }
+    
     public function getSubscriptionDataWithProjectID($projectID) {
         $this->db->select("*");
         $this->db->where('FPROJECTID',$projectID);
@@ -62,5 +70,27 @@ class Subscription_model extends CI_Model
         $result['bonusAmountTotal'] = $this->BonusRecord_model->getBonusAmountTotal();
         $data['data'] = $result;
         return $data;
+    }
+    
+    public  function  applySubscribe($userID, $projectID, $subscribeAmount, $subscribeRatio, $bankId) {
+    	$this->load->model('Project_model');
+        $project = $this->Project_model->getProjectInfoWithProjectID($projectID);
+        $insertArr = array(
+            'FPROJECTID' => $projectID,
+            'FUSERID' => $userID,
+            'FBANKID' => $bankId,
+            'FAMOUNT' => 'test',
+            'FLEVERRATIO' => $subscribeRatio,
+            'FLEVERAMOUNT' => 'test',
+            'FCONFIRMAMOUNT' => 'test',
+            'FLEVERCONFIRMAMOUNT' => 'test',
+            'FPROJECTNAME' => $project['FNAME']
+        );
+        $result=  $this->db->insert('T_SUBSCRIBECONFIRMRECORD', $insertArr);
+        $data["success"] = true;
+        $data["errorCode"] = 0;
+        $data["error"] = 0;
+        $data['data'] = $result;
+        return  $data;
     }
 }

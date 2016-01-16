@@ -55,15 +55,15 @@ class User_model extends CI_Model
         $tablename = 'T_SUBSCRIBECONFIRMRECORD';
         $where ='';
         if($projectId){
-           $where += 'FPROJECTID = ' + $projectId;
+           $where += 'FPROJECTID = '.$projectId;
         }
         if($userID) {
-            $where += 'AND FCREATORID =' + $userID;
+            $where += ' AND FCREATORID ='.$userID;
         }
         $data["success"] = true;
         $data["errorCode"] = 0;
         $data["error"] = 0;
-        $data['data'] = $this->getPageData($tablename, $where, $count, $begin, $his->db);;
+        $data['data'] = $this->getPageData($tablename, $where, $count, $begin, $this->db);;
         return $data;
     }
     
@@ -89,7 +89,6 @@ class User_model extends CI_Model
         }
          
         $db = clone($dbhandle);
-        $total = $dbhandle->count_all_results($tablename);
          
         if($limit)
         {

@@ -23,8 +23,8 @@ class Subscription extends CI_Controller
 /*
  * 
  * 
- * ½Ó¿Ú£ºsubscription/getStatisticDetail
- *Êä³ö£º {"success":true,"errorCode":0,"error":0,"data":{"projectCount":1,"peopleCount":1,"subcribeAmountTotal":5,"bonusAmountTotal":3}}
+ * ï¿½Ó¿Ú£ï¿½subscription/getStatisticDetail
+ *ï¿½ï¿½ï¿½ï¿½ï¿½ {"success":true,"errorCode":0,"error":0,"data":{"projectCount":1,"peopleCount":1,"subcribeAmountTotal":5,"bonusAmountTotal":3}}
  * */
     public function  getStatisticDetail()
     {
@@ -36,8 +36,19 @@ class Subscription extends CI_Controller
 
         $projectId = $this->input->post('projectId');
         $fields = $this->input->post('fields');
-      //  $result = $this->project_model->getProjectDetailInfo($projectId,$fields);
-        //echo  json_encode($result);
+        $result = $this->project_model->getProjectDetailInfo($projectId,$fields);
+        echo  json_encode($result);
+    }
+    
+    public function  applySubscribe()
+    {
+        $userID = $this->input->post('uid');
+        $projectId = $this->input->post('projectId');
+        $subscribeAmount = $this->input->post('subscribeAmount');
+        $subscribeRatio = $this->input->post('subscribeRatio');
+        $backId = $this->input->post('backId');
+        $result = $this->Subscription_model->applySubscribe($userID, $projectID, $subscribeAmount, $subscribeRatio, $bankId);
+        echo  json_encode($result);
     }
      
 
