@@ -13,14 +13,14 @@ class BonusRecord_model extends CI_Model
         $this->load->database();
     }
     
-    public function  addpayDataArry($subscribeConfigrmRecordId, $payTimes,$payAmount,$payDate) {
+    public function  addpayDataArry($subscribeConfigrmRecordId, $bonusTimes,$bonusAmount,$bonusyDate) {
         $this->load->model('Subscription_model');
         $result = $this->Subscription_model->getSubscriptionDataWithRecordId($subscribeConfigrmRecordId);
         $data = array (
             'FSUBSCRIBECONFIGRMRECORDID' => $subscribeConfigrmRecordId,
-            'FPAYTIMES' => $payTimes,
-            'FPAYDATE' => $payDate,
-            'FPAYAMOUNT' => $payAmount,
+            'FBONUSTIMES' => $bonusTimes,
+            'FBONUSDATE' => $bonusyDate,
+            'FBONUSAMOUNT' => $bonusAmount,
             'FCREATETIME' => time(),
             'FPROJECTNAME' =>$result['FPROJECTNAME'],
             'FPROJECTID' => $result['FPROJECTID'],
@@ -29,10 +29,10 @@ class BonusRecord_model extends CI_Model
         return $data;
     }
     
-    public function addpayList($dataArr) {
+    public function addBonusList($dataArr) {
         $insertArr = array();
         foreach ($dataArr as $item) {
-        	$oneData = $this->addpayDataArry($item['subscribeConfigrmRecordId'], $item['payTimes'], $item['payAmount'], $item['payDate']);
+        	$oneData = $this->addpayDataArry($item['subscribeConfigrmRecordId'], $item['bonusTimes'], $item['bonusAmount'], $item['bonusyDate']);
         	array_push($insertArr, $oneData);
         }
        

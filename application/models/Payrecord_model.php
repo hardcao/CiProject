@@ -2,7 +2,7 @@
 defined('BASEPATH') or exit('Error');
 
 /**
- *½É¿î¼ÇÂ¼±í
+ *ï¿½É¿ï¿½ï¿½Â¼ï¿½ï¿½
 */
 class Payrecord_model extends CI_Model
 {
@@ -11,6 +11,37 @@ class Payrecord_model extends CI_Model
         # code...
         parent::__construct();
         $this->load->database();
+    }
+    
+    public function  addpayDataArry($subscribeConfigrmRecordId, $payTimes,$payAmount,$payDate) {
+        $this->load->model('Subscription_model');
+        $result = $this->Subscription_model->getSubscriptionDataWithRecordId($subscribeConfigrmRecordId);
+        $data = array (
+            'FSUBSCRIBECONFIGRMRECORDID' => $subscribeConfigrmRecordId,
+            'FPAYTIMES' => $payTimes,
+            'FPAYDATE' => $payDate,
+            'FPAYAMOUNT' => $payAmount,
+            'FCREATETIME' => time(),
+            'FPROJECTNAME' =>$result['FPROJECTNAME'],
+            'FPROJECTID' => $result['FPROJECTID'],
+            'FUSERID' => $result['FUSERID']
+        );
+        return $data;
+    }
+    
+    public function addpayList($dataArr) {
+        $insertArr = array();
+        foreach ($dataArr as $item) {
+            $oneData = $this->addpayDataArry($item['subscribeConfigrmRecordId'], $item['payTimes'], $item['payAmount'], $item['payDate']);
+            array_push($insertArr, $oneData);
+        }
+         
+        $result=  $this->db->insert('T_PAYRECORD', $insertArr);
+        $data["success"] = true;
+        $data["errorCode"] = 0;
+        $data["error"] = 0;
+        $data['data'] = $result;
+        return  $data;
     }
     public function getSubscriptionDataWithRecodeID($RecodeID) {
         $this->db->select("*");

@@ -14,9 +14,9 @@ class Payrecord extends CI_Controller
         $this->load->model('Payrecord_model');
     }
 /*
- * ÊäÈë£ºbegin=0&count=2&uid=test1&projectId=123
- * ½Ó¿Ú£ºplayRecode/getPersonalDetail
- * Êä³ö£º{"success":true,"errorCode":0,"error":0,"data":[{"FID":"123","FSUBSCRIBECONFIGRMRECORDID":"123","FPAYTIMES":"1","FPAYDATE":"2014-09-01","FPAYAMOUNT":"3","FLEVERAMOUNT":"2014-09-01 09:53:00","FPROJECTNAME":"test","FPROJECTID":"123","FUSERID":"test1"}],"totalPayAmount":3}
+ * ï¿½ï¿½ï¿½ë£ºbegin=0&count=2&uid=test1&projectId=123
+ * ï¿½Ó¿Ú£ï¿½playRecode/getPersonalDetail
+ * ï¿½ï¿½ï¿½ï¿½ï¿½{"success":true,"errorCode":0,"error":0,"data":[{"FID":"123","FSUBSCRIBECONFIGRMRECORDID":"123","FPAYTIMES":"1","FPAYDATE":"2014-09-01","FPAYAMOUNT":"3","FLEVERAMOUNT":"2014-09-01 09:53:00","FPROJECTNAME":"test","FPROJECTID":"123","FUSERID":"test1"}],"totalPayAmount":3}
  * */
     public function  getPersonPayDetail()
     {
@@ -36,5 +36,12 @@ class Payrecord extends CI_Controller
         $projectId = $this->input->post('projectId');
         $result = $this->User_model->getPersonSubscribeDetail($begin,$count,$userID,$projectId);
         echo 3;
+    }
+    
+    public function  addpayList() {
+        $data = $this->input->post['data'];
+        $insertDataArr = array();
+        $result = $this->Payrecord_model->addpayList($data);
+        echo json_encode($result);
     }
 }

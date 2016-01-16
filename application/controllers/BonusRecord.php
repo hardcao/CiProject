@@ -14,7 +14,7 @@ class BonusRecord extends CI_Controller
         $this->load->model('BonusRecord_model');
     }
     
-    public function  addpayList() {
+    public function  addBonusList() {
     	$data = $this->input->post['data'];
     	$insertDataArr = array();
     	$result = $this->BonusRecord_model->addpayList($data);
