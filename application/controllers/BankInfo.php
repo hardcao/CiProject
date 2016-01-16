@@ -36,14 +36,18 @@ class BankInfo extends CI_Controller
         $result = $this->BankInfo_model->addProject($userID,$bankNo,$bankName,$bankAttribute);
         echo  json_encode($result);
     }
-    
+    /*
+     * 参数：uid=123&bankNo=123456
+     * 接口：BankInfo/deleteBankCardRecord
+     * 输出：{"success":true,"errorCode":0,"error":0,"data":true}
+     * */
     public function  deleteBankCardRecord()
     {
          
         $userID = $this->input->post('uid');
         $bankNo = $this->input->post('bankNo');
     
-        $result = $this->BankInfo_model->delBankCardRecord($userID,$bankNo);
+        $result = $this->BankInfo_model->deleteBankCardRecord($userID,$bankNo);
         echo  json_encode($result);
     }
  }
