@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-=======
-﻿<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
->>>>>>> 0761ccf998d845482970f181e30b55d998ff3ad0
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -25,7 +21,7 @@
 #rightLayer .editor textarea{height:100px;width: 45%;resize:none;padding: 5px;margin: 3px 0px;}
 #rightLayer .btnBox button{margin:10px 5px;}
 #rightLayer #forceTable, #rightLayer #subTable{border-spacing: 1px; border-collapse: collapse;border:1px solid #C0BEBE;font-size: 0.9em;}
-#rightLayer #forceTable .trTitle, #rightLayer #subTable .trTitle{background: url(images/thead_bg.png);color: #727070;}
+#rightLayer #forceTable .trTitle, #rightLayer #subTable .trTitle{background: url(application/views/back/images/thead_bg.png);color: #727070;}
 #rightLayer #forceTable td, #rightLayer #subTable td{text-align: center;border:1px solid #C0BEBE;}
 #rightLayer #forceTable tbody td, #rightLayer #subTable tbody td{height: 30px;border:1px solid #C0BEBE;}
 #rightLayer #forceTable tbody input, #rightLayer #subTable tbody input{padding: 0px 3px;width: 70%;text-align: center;font-size: 1.1em;}
@@ -38,7 +34,7 @@
 #forceDialogLayer .dialogSTY .searDiv{text-align: right;padding:10px 10px 0px;}
 #forceDialogLayer .dialogSTY .contentDiv{width: 96%;height: 275px;margin: 3px auto;border: 0px solid #e8e8e8;overflow: hidden;}
 #forceDialogLayer .dialogSTY .contentDiv table{width: 100%;border: 1px solid #e8e8e8;border-spacing: 1px;border-collapse: collapse;}
-#forceDialogLayer .dialogSTY .contentDiv table thead{background: url(images/thead_bg.png);}
+#forceDialogLayer .dialogSTY .contentDiv table thead{background: url(application/views/back/images/thead_bg.png);}
 #forceDialogLayer .dialogSTY .contentDiv table td{padding: 3px 5px;text-align: center;border: 1px solid #e8e8e8;}
 #forceDialogLayer .dialogSTY .contentDiv table input{padding: 0px 3px;margin: 0px;width: 70px;text-align: center;}
 #forceDialogLayer .dialogSTY .btnDiv{width: 96%;text-align: right;margin: 0px auto;}

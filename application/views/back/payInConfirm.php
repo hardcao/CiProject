@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-=======
-﻿<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
->>>>>>> 0761ccf998d845482970f181e30b55d998ff3ad0
 <!DOCTYPE html>
 <html>
 <head>

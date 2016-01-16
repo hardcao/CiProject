@@ -1,7 +1,6 @@
-﻿<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%
-	String loginId = (String)request.getSession().getAttribute("loginId");
-	String loginName = (String)request.getSession().getAttribute("loginName");
+﻿<%
+	//String loginId = (String)request.getSession().getAttribute("loginId");
+	//String loginName = (String)request.getSession().getAttribute("loginName");
 	// System.out.println("wyyyyyyy --- loginId:::"+loginId);
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
