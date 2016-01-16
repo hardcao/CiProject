@@ -120,7 +120,7 @@ function UserProjectList(){
 			}
 		},
 		error: function (XMLHttpRequest, textStatus, errorThrown) {
-        	 //sessionTimeout(XMLHttpRequest, textStatus, errorThrown);
+        	 //sessionTimeout(XMLHttpRequest,  textStatus, errorThrown);
         }
 	})
 }
