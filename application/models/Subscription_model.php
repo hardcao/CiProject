@@ -71,4 +71,26 @@ class Subscription_model extends CI_Model
         $data['data'] = $result;
         return $data;
     }
+    
+    public  function  applySubscribe($userID, $projectID, $subscribeAmount, $subscribeRatio, $bankId) {
+    	$this->load->model('Project_model');
+        $project = $this->Project_model->getProjectInfoWithProjectID($projectID);
+        $insertArr = array(
+            'FPROJECTID' => $projectID,
+            'FUSERID' => $userID,
+            'FBANKID' => $bankId,
+            'FAMOUNT' => 'test',
+            'FLEVERRATIO' => $subscribeRatio,
+            'FLEVERAMOUNT' => 'test',
+            'FCONFIRMAMOUNT' => 'test',
+            'FLEVERCONFIRMAMOUNT' => 'test',
+            'FPROJECTNAME' => $project['FNAME']
+        );
+        $result=  $this->db->insert('T_SUBSCRIBECONFIRMRECORD', $insertArr);
+        $data["success"] = true;
+        $data["errorCode"] = 0;
+        $data["error"] = 0;
+        $data['data'] = $result;
+        return  $data;
+    }
 }
