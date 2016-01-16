@@ -40,7 +40,7 @@
 	<div id="listLayer">
 		<div class="listSTY">
 			<table width="95%"><tr>
-				<td height="35" class="titleTd">系统管理员：王鑫</td>
+				<td height="35" class="titleTd">系统管理员：王鑫  </td>
 			</tr><tr>
 				<td height="25">移动电话：18616614688</td>
 			</tr><tr>
