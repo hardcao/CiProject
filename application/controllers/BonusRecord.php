@@ -15,9 +15,9 @@ class BonusRecord extends CI_Controller
     }
     
     public function  addBonusList() {
-    	$data = $this->input->post['data'];
-    	$insertDataArr = array();
-    	$result = $this->BonusRecord_model->addpayList($data);
+        $data = $this->input->input_stream();
+         
+        $result = $this->BonusRecord_model->addBonusList($data['data']);
     	echo json_encode($result);
     }
 }

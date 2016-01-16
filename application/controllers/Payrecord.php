@@ -37,11 +37,20 @@ class Payrecord extends CI_Controller
         $result = $this->User_model->getPersonSubscribeDetail($begin,$count,$userID,$projectId);
         echo 3;
     }
-    
+    /*
+     * 
+     * 参数：{"data":[{ "subscribeConfigrmRecordId":"123",
+			    	"payTimes":"12",
+			    	"payAmount":"12",
+			    	"payDate":"2014-09-01 09:50:00"}]}
+     * 接口：payrecord/addpayList
+     * 输出：{"success":true,"errorCode":0,"error":0,"data":true}
+     * */
     public function  addpayList() {
-        $data = $this->input->post['data'];
-        $insertDataArr = array();
-        $result = $this->Payrecord_model->addpayList($data);
+        $data = $this->input->input_stream();
+       
+        $result = $this->Payrecord_model->addpayList($data['data']);
+       
         echo json_encode($result);
     }
 }

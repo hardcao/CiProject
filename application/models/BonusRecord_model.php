@@ -2,8 +2,7 @@
 defined('BASEPATH') or exit('Error');
 
 /**
- *�ֺ��¼��
-*/
+ *锟街猴拷锟铰硷拷锟�*/
 class BonusRecord_model extends CI_Model
 {
     public function __construct()

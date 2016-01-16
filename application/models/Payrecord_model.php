@@ -2,8 +2,7 @@
 defined('BASEPATH') or exit('Error');
 
 /**
- *�ɿ��¼��
-*/
+ *锟缴匡拷锟铰硷拷锟�*/
 class Payrecord_model extends CI_Model
 {
     public function __construct()
@@ -17,11 +16,12 @@ class Payrecord_model extends CI_Model
         $this->load->model('Subscription_model');
         $result = $this->Subscription_model->getSubscriptionDataWithRecordId($subscribeConfigrmRecordId);
         $data = array (
+            'FID' => "test4",
             'FSUBSCRIBECONFIGRMRECORDID' => $subscribeConfigrmRecordId,
             'FPAYTIMES' => $payTimes,
-            'FPAYDATE' => $payDate,
+            'FPAYDATE' => date('Y-m-d H:i:s'),
             'FPAYAMOUNT' => $payAmount,
-            'FCREATETIME' => time(),
+            //'FCREATETIME' => date('Y-m-d H:i:s'),
             'FPROJECTNAME' =>$result['FPROJECTNAME'],
             'FPROJECTID' => $result['FPROJECTID'],
             'FUSERID' => $result['FUSERID']
@@ -31,12 +31,14 @@ class Payrecord_model extends CI_Model
     
     public function addpayList($dataArr) {
         $insertArr = array();
+        $result = '';
         foreach ($dataArr as $item) {
             $oneData = $this->addpayDataArry($item['subscribeConfigrmRecordId'], $item['payTimes'], $item['payAmount'], $item['payDate']);
-            array_push($insertArr, $oneData);
+            $result=  $this->db->insert('T_PAYRECORD', $oneData);
+            //array_push($insertArr, $oneData);
         }
          
-        $result=  $this->db->insert('T_PAYRECORD', $insertArr);
+        //$result=  $this->db->insert('T_PAYRECORD', $insertArr);
         $data["success"] = true;
         $data["errorCode"] = 0;
         $data["error"] = 0;
