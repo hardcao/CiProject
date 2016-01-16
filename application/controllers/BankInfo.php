@@ -20,7 +20,11 @@ class BankInfo extends CI_Controller
         $result['test'] = $userID;// = $this->BackInfo_model->getPersonBankInfo($userID);
         echo json_encode($result);
     }
-    
+    /*
+     * 参数：uid=123&bankNo=123456&bankName=sadfasf&bankAttribute=sadfsa
+     * 接口：BankInfo/addBankCardRecord
+     * 输出：{"success":true,"errorCode":0,"error":0,"data":"0"}
+     * */
     public function  addBankCardRecord()
     {
          
@@ -29,7 +33,7 @@ class BankInfo extends CI_Controller
         $bankName = $this->input->post('bankName');
         $bankAttribute = $this->input->post('bankAttribute');
     
-        $result = $this->BackInfo_model->addProject($userID,$bankNo,$bankName,$bankAttribute);
+        $result = $this->BankInfo_model->addProject($userID,$bankNo,$bankName,$bankAttribute);
         echo  json_encode($result);
     }
     
@@ -39,7 +43,7 @@ class BankInfo extends CI_Controller
         $userID = $this->input->post('uid');
         $bankNo = $this->input->post('bankNo');
     
-        $result = $this->BackInfo_model->delBankCardRecord($userID,$bankNo);
+        $result = $this->BankInfo_model->delBankCardRecord($userID,$bankNo);
         echo  json_encode($result);
     }
  }
