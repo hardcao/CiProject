@@ -1,4 +1,4 @@
-// 导航下标
+﻿// 导航下标
 var naviInd = "0";
 // 新闻列表内容
 var newsList = [];

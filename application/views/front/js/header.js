@@ -1,4 +1,4 @@
-// 下拉框定时器
+﻿// 下拉框定时器
 var tabTimer1,timerFlag,tabTimer2,timerFlag2;
 var currUser = "1001";
 var currAccountName = "admin";

@@ -1,4 +1,4 @@
-    <div id="header">
+﻿    <div id="header">
         <div class="g-wrap">
             <a id="logo" href="<?php echo site_url();?>"></a>
             <ul id="nav">

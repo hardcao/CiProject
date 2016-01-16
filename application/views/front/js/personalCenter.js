@@ -1,4 +1,4 @@
-// 导航下标
+﻿// 导航下标
 var naviInd = "2";
 // 个人统计信息
 var personalInfoObj = {};

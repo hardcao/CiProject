@@ -29,7 +29,7 @@ class Project_model extends CI_Model
     public function getProjectList($begin,$count,$userID,$subscribeStartDate, $subscribeEndDate, $status){
         $tablename = 'T_PROJECT';
         $where ='';
-        $where = $subscribeStartDate.'< FCREATETIME AND  FCREATETIME < '.$subscribeEndDate;
+        $where = $subscribeStartDate . " < DATE_FORMAT(FCREATETIME,'%Y-%m-%d %H:%i:%s') AND  DATE_FORMAT(FCREATETIMEi,'%Y-%m-%d %H:%i:%s') < " . $subscribeEndDate;
         if($status) {
             $where += 'AND FSTATUS = '.$status;
         }
