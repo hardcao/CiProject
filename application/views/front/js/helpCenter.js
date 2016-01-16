@@ -1,4 +1,4 @@
-var naviInd = "4";
+﻿var naviInd = "4";
 $(function() {
 	initHeaderListeners();
 });

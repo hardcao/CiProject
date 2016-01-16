@@ -1,4 +1,4 @@
-
+﻿
 
 <?php
 /*<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
@@ -182,7 +182,7 @@ function loadContentPage () {
 	<div id="roleLayer"><!-- 当前用户角色：系统管理员 -->您好，欢迎使用旭辉跟投内容管理系统！</div>
 	<div id="leftLayer" class="frameSTY">
 		<div class="leftTitle">
-			<img src="application/views/back/images/menu_0.png" style="vertical-align:middle;" />&nbsp;&nbsp;管理菜单
+			<img src="application/views/back/images/menu_0.png" style="vertical-align:middle;" />&nbsp;&nbsp;管理菜单 
 		</div>
 		<ul class="naviUl">
 			<li val="projectInfo" class="focusOn">项目信息维护</li>

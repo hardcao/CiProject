@@ -1,4 +1,4 @@
-function getReqParam(paras){ 
+﻿function getReqParam(paras){ 
     var url = location.search; 
     var paraString = url.substring(url.indexOf("?")+1,url.length).split("&"); 
     var paraObj = {} 

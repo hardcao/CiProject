@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 <head>
 	<link href="<?php echo base_url('res/css/bootstrap.css');?>" rel="stylesheet">

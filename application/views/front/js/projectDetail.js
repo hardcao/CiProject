@@ -1,4 +1,4 @@
-// 导航下标
+﻿// 导航下标
 var naviInd = "1";
 // 页签下标
 var tabInd = "basic";

@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 class BankInfo extends CI_Controller
 {
 

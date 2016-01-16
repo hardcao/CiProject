@@ -1,4 +1,4 @@
-var dataList = [];
+﻿var dataList = [];
 
 $(function(){
 	initParams();

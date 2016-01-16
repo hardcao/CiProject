@@ -28,10 +28,15 @@ class Project_model extends CI_Model
     
     public function getProjectList($begin,$count,$userID,$subscribeStartDate, $subscribeEndDate, $status){
         $tablename = 'T_PROJECT';
+        //$test = strval($subscribeStartDate);
         $where ='';
-        $where = $subscribeStartDate.'< FCREATETIME AND  FCREATETIME < '.$subscribeEndDate;
+        $startdatetime = new DateTime($subscribeStartDate);
+        $startTime= $startdatetime->format('Y-m-d H:i:s');
+        $endDatetime = new DateTime($subscribeEndDate);
+        $endTime = $endDatetime->format('Y-m-d H:i:s');
+        $where = "'".$startTime."' < DATE_FORMAT(FCREATETIME,'%Y-%m-%d %H:%i:%s') AND DATE_FORMAT(FCREATETIME,'%Y-%m-%d %H:%i:%s') <'".$endTime."'";
         if($status) {
-            $where += 'AND FSTATUS = '.$status;
+            $where = $where.' AND FSTATUS = '.$status;
         }
         $dataArray = $this->getPageData($tablename, $where, $count, $begin, $this->db);
         $data["success"] = true;
@@ -46,7 +51,7 @@ class Project_model extends CI_Model
             $tempItem['HDAmountComplete'] = "test";
             $tempItem['regioAmountComplete'] = "test";// 临时数据，还没有加入照片
             $this->load->model('Picture_model');
-            $tempItem['picList'] = $this->Picture_model->getPictureWithProjectID($item['FID']);
+           // $tempItem['picList'] = $this->Picture_model->getPictureWithProjectID($item['FID']);
             array_push($resultArr,$tempItem);
         }
         $data['data'] =  $resultArr;

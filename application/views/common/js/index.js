@@ -1,4 +1,4 @@
-$(function() {
+﻿$(function() {
     // banner 切换
     (function() {
         var banner = $('#banner'),
