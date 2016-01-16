@@ -1,19 +1,19 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <title>数据维护系统 - 项目管理</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 
-<link rel="stylesheet" type="text/css" href="../plugins/jquery.datetimepicker.css">
-<link rel="stylesheet" type="text/css" href="css/public.css">
-<link rel="stylesheet" type="text/css" href="css/header.css">
-<script type="text/javascript" src="../plugins/jquery-1.8.0.min.js"></script>
+<?php require (dirname(dirname(__FILE__)).'\common\header_include.php'); ?>
+<link rel="stylesheet" type="text/css" href="application/views/plugins/jquery.datetimepicker.css">
+<link rel="stylesheet" type="text/css" href="application/views/back/css/public.css">
+<link rel="stylesheet" type="text/css" href="application/views/back/css/header.css">
+<script type="text/javascript" src="application/views/plugins/jquery-1.8.0.min.js"></script>
 <!-- <script type="text/javascript" src="../plugins/jquery.datetimepicker.js"></script> -->
-<script type="text/javascript" src="../plugins/jquery.json-2.4.js"></script>
-<script type="text/javascript" src="../plugins/dateFormat.js"></script>
-<script type="text/javascript" src="../plugins/util.js"></script>
-<script type="text/javascript" src="../plugins/ajaxfileupload.js"></script>
+<script type="text/javascript" src="application/views/plugins/jquery.json-2.4.js"></script>
+<script type="text/javascript" src="application/views/plugins/dateFormat.js"></script>
+<script type="text/javascript" src="application/views/plugins/util.js"></script>
+<script type="text/javascript" src="application/views/plugins/ajaxfileupload.js"></script>
 
 <style type="text/css">
 .displayNone{display: none;}
@@ -116,7 +116,7 @@ function loadContentPage(){
 
 </head>
 <body>
-<jsp:include page="header.jsp"></jsp:include>
+<?php require (dirname(dirname(__FILE__)).'\common\header.php'); ?>
 <div id="main_content">
 	<div id="navLayer">
 		<div id="navProLayer">当前项目：<span id="pageProName"></span></div>
