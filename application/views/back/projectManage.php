@@ -5,15 +5,20 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 
 <?php require (dirname(dirname(__FILE__)).'\common\header_include.php'); ?>
-<link rel="stylesheet" type="text/css" href="application/views/plugins/jquery.datetimepicker.css">
-<link rel="stylesheet" type="text/css" href="application/views/back/css/public.css">
-<link rel="stylesheet" type="text/css" href="application/views/back/css/header.css">
-<script type="text/javascript" src="application/views/plugins/jquery-1.8.0.min.js"></script>
-<!-- <script type="text/javascript" src="../plugins/jquery.datetimepicker.js"></script> -->
-<script type="text/javascript" src="application/views/plugins/jquery.json-2.4.js"></script>
-<script type="text/javascript" src="application/views/plugins/dateFormat.js"></script>
-<script type="text/javascript" src="application/views/plugins/util.js"></script>
-<script type="text/javascript" src="application/views/plugins/ajaxfileupload.js"></script>
+
+
+
+<?php require (dirname(dirname(__FILE__)).'/common/header_include.php'); ?>
+<link href="<?php echo site_url('application/views/plugins/jquery.datetimepicker.css')?>" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="<?php echo site_url('application/views/front/css/public.css')?>">
+<link rel="stylesheet" type="text/css" href="<?php echo site_url('application/views/front/css/header.css')?>">
+<link rel="stylesheet" type="text/css" href="<?php echo site_url('application/views/plugins/jquery.datetimepicker.css')?>">
+
+
+<script type="text/javascript" src="<?php echo site_url('application/views/plugins/util.js')?>"></script>
+<script type="text/javascript" src="<?php echo site_url('application/views/plugins/dateFormat.js')?>"></script>
+<script type="text/javascript" src="<?php echo site_url('application/views/plugins/jquery.json-2.4.js')?>"></script>
+<script type="text/javascript" src="<?php echo site_url('application/views/plugins/ajaxfileupload.js')?>"></script>
 
 <style type="text/css">
 .displayNone{display: none;}
@@ -120,18 +125,19 @@ function loadContentPage(){
 <div id="main_content">
 	<div id="navLayer">
 		<div id="navProLayer">当前项目：<span id="pageProName"></span></div>
-		<div id="backLayer"><a href="index.jsp"><- 返回项目列表</a></div>
+		<div id="backLayer"><a href="/back"><- 返回项目列表</a></div>
 	</div>	
 	<div id="leftLayer" class="frameSTY">
 		<div class="leftTitle">
-			<img src="images/menu_0.png" style="vertical-align:middle;" />&nbsp;&nbsp;管理菜单
+			<img src="<?php echo site_url().'application/views/back/images/menu_0.png'?>" 
+			style="vertical-align:middle;" />&nbsp;&nbsp;管理菜单
 		</div>
 		<ul class="naviUl">
-			<li val="projectBasicInfo" class="focusOn displayNone">基础信息</li>
-			<li val="projectNewsInfo" class="displayNone">动态新闻</li>
-			<li val="subscribeConfirm" class="displayNone">认购核准</li>
-			<li val="payInConfirm" class="displayNone">缴款确认</li>
-			<li val="projectBonusInfo" class="displayNone">分红明细</li>
+			<li val="projectBasicInfo" class="focusOn ">基础信息</li>
+			<li val="projectNewsInfo" class="">动态新闻</li>
+			<li val="subscribeConfirm" class="">认购核准</li>
+			<li val="payInConfirm" class="">缴款确认</li>
+			<li val="projectBonusInfo" class="">分红明细</li>
 			<!--li val="specialInfo" class="displayNone">特别跟投</li>
 			<!--li val="dimissionInfo" class="displayNone">离职处理</li>
 			<!-- <li val="ognz_info">组织架构设置</li> -->
