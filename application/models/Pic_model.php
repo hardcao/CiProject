@@ -10,14 +10,14 @@ class Pic_model extends CI_Model
         $this->load->database();
     }
 
-    public function getFollower($FID) {
+    public function getPic($FID) {
         $this->db->select("*");
         $this->db->where('FID',$FID);
         $result = $this->db->get('T_PIC')->result_array();
         return $result[0];
     }
 
-    public function  addFollower($dataArry){
+    public function  addPic($dataArry){
         $insertArry = array(
             'FPROJECTID'=>$dataArry['FPROJECTID'],
             'FNAME' =>$dataArry['FNAME'],

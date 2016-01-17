@@ -153,7 +153,6 @@ INSERT INTO T_USER (FNUMBER,
 alter table T_BANKINFO modify FID integer auto_increment;
 INSERT INTO T_BANKINFO (FUSERID,FBANKNO,FNAME,FBANKATTRIBUTE) VALUES (1,'43234234','合肥高新','123');
 					   
-INSERT INTO `T_BANKINFO` VALUES ('123','test1','25bdf639-98e0-44d5-834a-81f0537ce175','招商','临空'),('1234','test2','29892b1d-df69-4594-bb9d-c3a339712ece','eb835024-1c32-4079-8012-a64e604e41a6','qqq'),('12345','test3','b1002','农业银行','上海临空支行');
 					   
 11 create table T_PROJECT_USER (FID integer PRIMARY KEY,
 					   FPROJECTID integer,
