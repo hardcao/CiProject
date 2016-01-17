@@ -52,6 +52,13 @@ class Payrecord_model extends CI_Model
         return $result;
     }
     
+    public function getSubscriptionData($FID) {
+        $this->db->select("*");
+        $this->db->where('FID',$FID);
+        $result = $this->db->get('T_PAYRECORD')->result_array();
+        return $result[0];
+    }
+    
     public function  getPersonPayDetail($begin,$count,$userID,$projectId){
         $tablename = 'T_PAYRECORD';
         $where ='';

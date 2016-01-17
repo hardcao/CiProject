@@ -122,4 +122,11 @@ class BonusRecord_model extends CI_Model
              
             return $data;
         }
+        
+        public function getFollower($FID) {
+            $this->db->select("*");
+            $this->db->where('FID',$FID);
+            $result = $this->db->get('T_PAYRECORD')->result_array();
+            return $result[0];
+        }
 }
