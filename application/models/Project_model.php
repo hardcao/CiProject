@@ -121,8 +121,18 @@ class Project_model extends CI_Model
         
         $query=$this->db->select("*");
         $query=$this->db->where('FID',$projectId);
+        $query=$this->db->get('T_PROJECTDETAILINFO');
+        $result = $query->result_array();
+        return $result[0];
+    }
+    
+    public function  getProjectWithProjectID($projectId) {
+    
+        $query=$this->db->select("*");
+        $query=$this->db->where('FID',$projectId);
         $query=$this->db->get('T_PROJECT');
-        return $query->result_array();
+        $result = $query->result_array();
+        return $result[0];
     }
     
     public function  addProject($userID,$projectNumber,$projectName,$state) {
