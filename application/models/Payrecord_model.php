@@ -16,7 +16,6 @@ class Payrecord_model extends CI_Model
         $this->load->model('Subscription_model');
         $result = $this->Subscription_model->getSubscriptionDataWithRecordId($subscribeConfigrmRecordId);
         $data = array (
-            'FID' => "test4",
             'FSUBSCRIBECONFIGRMRECORDID' => $subscribeConfigrmRecordId,
             'FPAYTIMES' => $payTimes,
             'FPAYDATE' => date('Y-m-d H:i:s'),
