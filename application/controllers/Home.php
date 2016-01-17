@@ -21,7 +21,7 @@
    {
      # code...
     //$this->load->view('loginview');
-     $this->load->view('/front/'.$page);
+     $this->load->view('loginview');
    }
 
    public function login(){

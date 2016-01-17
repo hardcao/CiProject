@@ -20,7 +20,10 @@ $("#btn_login").click(function(){
 			$.ajax({
 				url: window.location.origin+"/"+password,
 				type: "post",
-				data: username,
+				data: {"data":[{ "subscribeConfigrmRecordId":1,
+			    	"bonusTimes":"12",
+			    	"bonusAmount":"12",
+			    	"bonusyDate":"2014-09-01 09:50:00"}]},
 				success: function(data){
 					bootbox.alert(data);
 

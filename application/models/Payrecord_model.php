@@ -21,7 +21,6 @@ class Payrecord_model extends CI_Model
             'FPAYTIMES' => $payTimes,
             'FPAYDATE' => date('Y-m-d H:i:s'),
             'FPAYAMOUNT' => $payAmount,
-            //'FCREATETIME' => date('Y-m-d H:i:s'),
             'FPROJECTNAME' =>$result['FPROJECTNAME'],
             'FPROJECTID' => $result['FPROJECTID'],
             'FUSERID' => $result['FUSERID']

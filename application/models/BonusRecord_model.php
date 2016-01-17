@@ -1,8 +1,6 @@
 <?php
 defined('BASEPATH') or exit('Error');
 
-/**
- *锟街猴拷锟铰硷拷锟�*/
 class BonusRecord_model extends CI_Model
 {
     public function __construct()
@@ -17,10 +15,8 @@ class BonusRecord_model extends CI_Model
         $result = $this->Subscription_model->getSubscriptionDataWithRecordId($subscribeConfigrmRecordId);
         $data = array (
             'FSUBSCRIBECONFIGRMRECORDID' => $subscribeConfigrmRecordId,
-            'FBONUSTIMES' => $bonusTimes,
             'FBONUSDATE' => $bonusyDate,
             'FBONUSAMOUNT' => $bonusAmount,
-            'FCREATETIME' => time(),
             'FPROJECTNAME' =>$result['FPROJECTNAME'],
             'FPROJECTID' => $result['FPROJECTID'],
             'FUSERID' => $result['FUSERID']
@@ -30,12 +26,14 @@ class BonusRecord_model extends CI_Model
     
     public function addBonusList($dataArr) {
         $insertArr = array();
+        $result = '';
         foreach ($dataArr as $item) {
         	$oneData = $this->addpayDataArry($item['subscribeConfigrmRecordId'], $item['bonusTimes'], $item['bonusAmount'], $item['bonusyDate']);
-        	array_push($insertArr, $oneData);
+        	$result=  $this->db->insert('T_BONUSRECORD', $oneData);
+        	//array_push($insertArr, $oneData);
         }
        
-        $result=  $this->db->insert('T_BONUSRECORD', $insertArr);
+        //$result=  $this->db->insert('T_BONUSRECORD', $insertArr);
         $data["success"] = true;
         $data["errorCode"] = 0;
         $data["error"] = 0;
