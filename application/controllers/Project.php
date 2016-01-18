@@ -23,11 +23,11 @@ class Project extends CI_Controller
          
     }
     /*
-     * ÊäÈëÊý¾Ý£º
+     * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ý£ï¿½
      * begin=0&count=2&uid=test1&subscribeStartDate='2014-09-01 09:50:00'&subscribeEndDate='2014-09-01 09:50:00'&status=1
-     * ·ÃÎÊ½Ó¿Ú£ºproject/getProjectList
+     * ï¿½ï¿½ï¿½Ê½Ó¿Ú£ï¿½project/getProjectList
      * 
-     * Êä³öÊý¾Ý£º{"success":true,"errorCode":0,"error":0,"data":[{"projectName":"123","projectId":"123","HDAmount":3,"regioAmount":3,"HDAmountComplete":"test","regioAmountComplete":"test","picList":[]}]
+     * ï¿½ï¿½ï¿½ï¿½ï¿½Ý£ï¿½{"success":true,"errorCode":0,"error":0,"data":[{"projectName":"123","projectId":"123","HDAmount":3,"regioAmount":3,"HDAmountComplete":"test","regioAmountComplete":"test","picList":[]}]
      * 
      * */
 
@@ -47,9 +47,9 @@ class Project extends CI_Controller
      }
      
      /*
-      * ÊäÈë£ºprojectId=123
-      * ½Ó¿Ú£ºproject/getProjectDetail
-      * Êä³ö£º[{"FID":"123","FNAME":"123","FNUMBER":"123","FSTATE":"\u534f\u8bae","FSTATUS":"1","FCREATETIME":"2014-10-01 05:00:00"}]
+      * projectId=1
+      * project/getProjectDetail
+      * {"FID":"1","FPROJECTID":"1","FAREA":"12","FSTRUCTAREA":"113","FRJL":"12","FSALEAREA":"12","FGETDATE":"2014-09-02","FTOTAL":"123","FGETWAY":"test","FPOSITION":"\u5408\u80a5\u9ad8\u65b0KD4-2","FPROPOSITION":"\u653f\u52a1\u533a","FSCHEME":"\u653f\u52a1\u533a","FPRICE":"23","FCYWYSP":"34","FIRR":"21","FPREPROFIT":"12342","FPROFIT":"112","FSTARTDATE":"2014-09-02","FOPENDATE":"2014-09-02","FCASHFLOWBACK":"asdfa","FHANDDATE":"2014-09-04","FCARRYOVERDATE":"2014-09-02","FLIQUIDATE":"2014-09-02","FPROPERTYSCHEME":"safsaf","FPARTNERINFO":"asdfsadf","FCONTRIBUTIVE":"23","FANSWERMAIL":"23","FFOLLOWERMANAGERS":"sadf","FPROJECTINFOMANAGERS":"sadf","PictureList":[{"FID":"1","FPROJECTID":"1","FNAME":"\u5408\u80a5\u9ad8\u65b0","FCONTENT":"123","FISMAINPIC":"1"}],"NEWSList":[{"FID":"124","FPROJECTID":"1","FTITLE":"\u5408\u80a5\u9ad8\u65b0","FCREATORID":"123","FRELEASEDATE":"2016-01-17 08:58:47","FCONTENT":"\u5408\u80a5\u9ad8\u65b0\u9879\u76ee\u5bf9\u8d26\u516c\u793a-1 - \u5185\u5bb9"}],"FollowerList":[{"FID":"124","FPROJECTID":"1","FUSERID":"1","FSEQ":"zdf","FSTATE":"sadfs","FTYPE":"saf","FDUTY":"gaoguan","FTOPLIMIT":"2","FDOWNLIMT":"3","FREMARK":"asff"}],"FollowSchemeList":[{"FID":"1","FPROJECTID":"1","FCREATORID":"1","FNAME":"\u534f\u8bae","FDETAIL":"sadfs","FCREATETIME":"2016-01-17 08:53:51"}]}
       * */
      public function  getProjectDetail()
      {
@@ -60,9 +60,9 @@ class Project extends CI_Controller
          echo  json_encode($result);
      }
      /*
-      * ²ÎÊý£ºuid=test5&projectNumber=34534&projectName=sdfsaxvs&state=1
-      * ½Ó¿Ú£ºProject/addProject
-      * Êä³ö£º{"success":true,"errorCode":0,"error":0,"data":"0"}
+      * ï¿½ï¿½ï¿½ï¿½uid=test5&projectNumber=34534&projectName=sdfsaxvs&state=1
+      * ï¿½Ó¿Ú£ï¿½Project/addProject
+      * ï¿½ï¿½ï¿½ï¿½ï¿½{"success":true,"errorCode":0,"error":0,"data":"0"}
       * */
      public function  addProject()
      {

@@ -50,4 +50,13 @@ class BankInfo_model extends CI_Model
         $data['data'] = $result;
         return  $data;
     }
+    
+    public function  updateBackCard($data) {
+        $where = "author_id = 1 AND status = 'active'";
+        $data["success"] = $this->db->update_string('table_name', $data, $where);
+        $data["errorCode"] = 0;
+        $data["error"] = 0;
+        $data['data'] = '';
+        return  $data;
+    }
 }

@@ -99,5 +99,12 @@ class News_model extends CI_Model
         return $this->db->get('users')->result_array();;
     }
     
+    public function getProjectID($FPROJECTID) {
+        $this->db->select("*");
+        $this->db->where('FPROJECTID',$FPROJECTID);
+        $result = $this->db->get('T_NEWS')->result_array();
+        return $result;
+    }
+    
     
 }
