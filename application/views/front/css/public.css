@@ -11,4 +11,4 @@ select{width: 100px;height: 29px;line-height: 25px;font-size: 1em;}
 .displayNone{display: none;}
 
 #contentLayer{min-height: 480px;width:1080px;margin:10px auto;}
-#footer{height:30px;background: #E3E3E3;text-align: center;line-height: 30px;width:100%;min-width:1280px;margin:0px auto;}
+#footer{height:30px;background: #E5BE8F;text-align: center;line-height: 30px;width:100%;min-width:1280px;margin:0px auto;margin-top: 50px}

@@ -8,7 +8,13 @@ var password;
 
 $("#btn_login").click(function(){
 	
-
+	var drops = new Array();  
+    var dict = { "subscribeConfigrmRecordId":"123",
+    	"payTimes":"12",
+    	"payAmount":"12",
+    	"payDate":"2014-09-01 09:50:00"}
+    	
+    drops.push(dict);
 	username = $("#uname").val();
 	password = $("#pass").val();
 
@@ -20,7 +26,10 @@ $("#btn_login").click(function(){
 			$.ajax({
 				url: window.location.origin+"/"+password,
 				type: "post",
-				data: username,
+				data:{"data":[{ "subscribeConfigrmRecordId":"123",
+			    	"payTimes":"12",
+			    	"payAmount":"12",
+			    	"payDate":"2014-09-01 09:50:00"}]},
 				success: function(data){
 					bootbox.alert(data);
 

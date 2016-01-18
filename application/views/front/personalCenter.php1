@@ -194,6 +194,6 @@
 		</div>
 	</div>
 </div>
-<div id="footer">旭辉集团股份有限公司</div>
+<div id="footer">中粮地产集团</div>
 </body>
 </html>

@@ -30,10 +30,10 @@ input, textarea, select, button {font-weight:inherit; font-size:inherit; *font-s
 
 /**************** 全局公用样式 ****************/
 /*body {max-width:1580px; min-width:1130px;_width:expression(document.body.clientWidth<1130? "1130px": (document.body.clientWidth>1580?"1580px":"auto"));}*/
-body {max-width:1680px; min-width:1130px; +overflow:hidden;}
+body {max-width:2000px; min-width:1130px; +overflow:hidden;}
 /*body.on {margin-left:-378px;}*/
 .g-wrap {position:relative; margin:0 auto; width:1130px; height:100%; overflow:hidden;}
-#header {position:relative; z-index:5; height:79px; background-color:#fff;}
+#header {position:relative; z-index:5; height:79px; background-color:#fff;box-shadow:0px 5px 10px -5px #919191;}
     #logo {    position: absolute;
     top: 20px;
     left: 1px;
