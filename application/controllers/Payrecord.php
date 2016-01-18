@@ -14,9 +14,9 @@ class Payrecord extends CI_Controller
         $this->load->model('Payrecord_model');
     }
 /*
- * ���룺begin=0&count=2&uid=test1&projectId=123
- * �ӿڣ�playRecode/getPersonalDetail
- * �����{"success":true,"errorCode":0,"error":0,"data":[{"FID":"123","FSUBSCRIBECONFIGRMRECORDID":"123","FPAYTIMES":"1","FPAYDATE":"2014-09-01","FPAYAMOUNT":"3","FLEVERAMOUNT":"2014-09-01 09:53:00","FPROJECTNAME":"test","FPROJECTID":"123","FUSERID":"test1"}],"totalPayAmount":3}
+ * begin=0&count=2&uid=test1&projectId=123
+ * playRecode/getPersonalDetail
+ * {"success":true,"errorCode":0,"error":0,"data":[{"FID":"123","FSUBSCRIBECONFIGRMRECORDID":"123","FPAYTIMES":"1","FPAYDATE":"2014-09-01","FPAYAMOUNT":"3","FLEVERAMOUNT":"2014-09-01 09:53:00","FPROJECTNAME":"test","FPROJECTID":"123","FUSERID":"test1"}],"totalPayAmount":3}
  * */
     public function  getPersonPayDetail()
     {

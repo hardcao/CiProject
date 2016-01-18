@@ -77,6 +77,22 @@ class News_model extends CI_Model
         $data['data'] = $result;
         return $data;
     }
+    
+    public function  addFollower($dataArry){
+        $insertArry = array(
+            'FPROJECTID'=>$dataArry['FPROJECTID'],
+            'FTITLE' =>$dataArry['FTITLE'],
+            'FCREATORID' => $dataArry['FCREATORID'],
+            'FCONTENT' => $dataArry['FCONTENT']
+        );
+        $this->db->insert('T_NEWS', $insertArry);
+        $data["success"] = true;
+        $data["errorCode"] = 0;
+        $data["error"] = 0;
+        $data['data'] = '0';
+        return  $data;
+    }
+    
     public function  getDynamicNewsDetailtest() {
         $this->db->select("*");
         $this->db->join('booktest','users.username = booktest.username');

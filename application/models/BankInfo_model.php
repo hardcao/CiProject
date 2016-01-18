@@ -33,7 +33,6 @@ class BankInfo_model extends CI_Model
         $this->FBANKNO = $bankNo;
         $this->FNAME = $bankName;
         $this->FBANKATTRIBUTE = $bankAttribute;
-        $this->FID = '123sd';
         $this->db->insert('T_BANKINFO', $this);
         $data["success"] = true;
         $data["errorCode"] = 0;

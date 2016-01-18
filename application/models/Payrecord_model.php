@@ -16,12 +16,10 @@ class Payrecord_model extends CI_Model
         $this->load->model('Subscription_model');
         $result = $this->Subscription_model->getSubscriptionDataWithRecordId($subscribeConfigrmRecordId);
         $data = array (
-            'FID' => "test4",
             'FSUBSCRIBECONFIGRMRECORDID' => $subscribeConfigrmRecordId,
             'FPAYTIMES' => $payTimes,
             'FPAYDATE' => date('Y-m-d H:i:s'),
             'FPAYAMOUNT' => $payAmount,
-            //'FCREATETIME' => date('Y-m-d H:i:s'),
             'FPROJECTNAME' =>$result['FPROJECTNAME'],
             'FPROJECTID' => $result['FPROJECTID'],
             'FUSERID' => $result['FUSERID']
@@ -50,6 +48,13 @@ class Payrecord_model extends CI_Model
         $this->db->where('FSUBSCRIBECONFIGRMRECORDID',$RecodeID);
         $result = $this->db->get('T_PAYRECORD')->result_array();
         return $result;
+    }
+    
+    public function getSubscriptionData($FID) {
+        $this->db->select("*");
+        $this->db->where('FID',$FID);
+        $result = $this->db->get('T_PAYRECORD')->result_array();
+        return $result[0];
     }
     
     public function  getPersonPayDetail($begin,$count,$userID,$projectId){

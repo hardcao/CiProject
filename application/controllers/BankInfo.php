@@ -11,7 +11,7 @@ class BankInfo extends CI_Controller
     /*
      * 
      * 参数：uid=test1
-     *接口：bankInfo/getPersonBankInfo
+     * 接口：bankInfo/getPersonBankInfo
      * 输出：{"test":"test1"}
      * */
     public function  getPersonBankInfo() {

@@ -12,6 +12,27 @@ class User_model extends CI_Model
         parent::__construct();
         $this->load->database();
     }
+    public function getUser($FID) {
+        $this->db->select("*");
+        $this->db->where('FID',$FID);
+        $result = $this->db->get('T_USER')->result_array();
+        return $result[0];
+    }
+    
+    public function  addUser($dataArry){
+        $insertArry = array(
+            'FNUMBER'=>$dataArry['FNUMBER'],
+            'FNUMBER' =>$dataArry['FNUMBER'],
+            'FORG' => $dataArry['FORG']
+        );
+        $this->db->insert('T_USER', $insertArry);
+        $data["success"] = true;
+        $data["errorCode"] = 0;
+        $data["error"] = 0;
+        $data['data'] = '0';
+        return  $data;
+    }
+    
     public function getPersonalDetail($userID) {
         $this->db->select("*");
         $this->db->where('FID',$userID);
@@ -22,7 +43,7 @@ class User_model extends CI_Model
         $this->load->model('Subscription_model');
         $SubscriptionArray = $this->Subscription_model->getSubscriptionDataWithUserID($userID);
         $bonusAmountTotal = 0;
-        $subscribeAmountTotal = 0;//还未实现
+        $subscribeAmountTotal = 0;
         $payAmountTotal = 0;
         $leverageAmountTotal = 0;
         $subscribeProCount = 0;
@@ -51,7 +72,7 @@ class User_model extends CI_Model
     }
     
     public function  getPersonSubscribeDetail($begin,$count,$userID,$projectId) {
-        //建议在认购数据表中添加一个认购项目名
+       
         $tablename = 'T_SUBSCRIBECONFIRMRECORD';
         $where ='';
         if($projectId){
