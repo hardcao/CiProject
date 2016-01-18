@@ -159,10 +159,17 @@ INSERT INTO T_BANKINFO (FUSERID,FBANKNO,FNAME,FBANKATTRIBUTE) VALUES (1,'4323423
 					   FUSERID integer)ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='项目用户表';
 alter table T_PROJECT_USER modify FID integer auto_increment;	
 INSERT INTO T_PROJECT_USER (FPROJECTID,FUSERID) VALUES (1,1);
+
+
+
+12 create table T_Enclosure (FID integer PRIMARY KEY,
+					   FPROJECTID integer,
+					   EnclosurePath VARCHAR(50))ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='项目用户表';
+alter table T_Enclosure modify FID integer auto_increment;
 					   
 
 
-12 create table T_SUBSCRIBECONFIRMRECORD (FID integer PRIMARY KEY,
+13 create table T_SUBSCRIBECONFIRMRECORD (FID integer PRIMARY KEY,
 					   FPROJECTID integer, 
 					   FUSERID integer, 
 					   FBANKID integer, 
@@ -183,7 +190,7 @@ INSERT INTO T_SUBSCRIBECONFIRMRECORD (FPROJECTID,
 					   FLEVERCONFIRMAMOUNT,
 					   FPROJECTNAME) VALUES (1,1,'123','3','3','2','1','4',"test");
 					   
-13 create table T_PAYRECORD(FID integer PRIMARY KEY,
+14 create table T_PAYRECORD(FID integer PRIMARY KEY,
 			    FSUBSCRIBECONFIGRMRECORDID integer, 
 			    FPAYTIMES INT, 
 			    FPAYDATE DATE, 
@@ -202,7 +209,7 @@ INSERT INTO T_PAYRECORD (FSUBSCRIBECONFIGRMRECORDID,
 			    FPROJECTID,
 			    FUSERID) VALUES (123,1,'2014-09-01 09:53:00','3', '2014-09-01 09:53:00',"test",'123','test1');
 
-14 create table T_BONUSRECORD(FID integer PRIMARY KEY,
+15 create table T_BONUSRECORD(FID integer PRIMARY KEY,
 			    FSUBSCRIBECONFIGRMRECORDID integer, 
 			    FBONUSTIMES INT, 
 			    FBONUSDATE DATE, 
