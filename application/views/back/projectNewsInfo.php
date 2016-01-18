@@ -4,9 +4,11 @@
 <head>
 <title>数据维护系统 - 新闻列表</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="<?php echo site_url('application/views/plugins/jquery.datetimepicker.css')?>">
 
-<script type="text/javascript" src="../plugins/jquery-1.8.0.min.js"></script>
-<script type="text/javascript" src="../plugins/jquery.datetimepicker.js"></script>
+<script type="text/javascript" src="<?php echo site_url('application/views/plugins/dateFormat.js')?>"></script>
+<script type="text/javascript" src="<?php echo site_url('application/views/plugins/jquery-1.8.0.min.js')?>"></script>
+<script type="text/javascript" src="<?php echo site_url('application/views/plugins/jquery.datetimepicker.js')?>"></script>
 
 <style type="text/css">
 body{font-size: 12px;}
@@ -55,7 +57,34 @@ function getNewsData(){
 	var eDate = $("#relEndInp").val();
 
 	newsList = [];
+
+
+	//
+	var ctx="<?php echo site_url();?>";
 	$.ajax({
+		type:'post',//可选get
+		url:ctx+'/news/getDynamicNews',
+		dataType:'Json',//服务器返回的数据类型 可选XML ,Json jsonp script html text等
+		//begin=0&count=2&uid=test&projectId=123
+		data:{begin: 0,
+			count:2,
+		    uid: 'test',
+		    pojectId: '123'},
+		success:function(msg){
+			if(msg.success){
+				newsList=msg.data;
+				loadNewsData();
+			}else{
+				alert(msg.error);
+			}
+		},
+		error: function (XMLHttpRequest, textStatus, errorThrown) {
+	    	// sessionTimeout(XMLHttpRequest, textStatus, errorThrown);
+	    }
+	});
+
+
+	/*$.ajax({
 		type:'post',//可选get
 		url:'../DynamicNewsController/getNewsListByProjectId.action',
 		dataType:'Json',//服务器返回的数据类型 可选XML ,Json jsonp script html text等
@@ -76,24 +105,35 @@ function getNewsData(){
 		error: function (XMLHttpRequest, textStatus, errorThrown) {
 			sessionTimeout(XMLHttpRequest, textStatus, errorThrown);
 		}
-	});
+	});*/
 }
 
 function loadNewsData(){
 	$("#newsTbody").empty();
 	if(newsList && newsList.length > 0){
 		var tempHtml = "";
+
+		//{"FID":"123","FPROJECTID":"123","FTITLE":"\u5408","FCREATORID":"123","FRELEASEDATE":"2014-09-01 09:53:00","FCONTENT":"\u5408\u80a5\u9ad8"}
 		$.each(newsList, function(ind, val){
-			tempHtml += 
-			'<tr><td height="40">'+(ind+1)+'</td>'+
+			var rDate = new Date(val.FRELEASEDATE);
+			/*tempHtml += '<tr><td height="40">'+(ind+1)+'</td>'+
 				'<td>'+val.title+'</td>'+
 				'<td>'+val.projectName+'</td>'+
-				'<td>'+(new Date(val.releaseDate)).format('yyyy-MM-dd')+'</td>'+
+				'<td>'+rDate.format('yyyy-MM-dd')+'</td>'+
 				'<td>'+val.authorName+'</td>'+
 				'<td>'+
 					'<a href="newsEditor.jsp?newsId='+val.newsId+'&proId='+projectId+'">编辑</a> | '+
 					'<a class="delBtn" href="javascript:void(0)" nid="'+val.newsId+'">删除</a>'+
-				'</td></tr>';
+				'</td></tr>';*/
+			tempHtml += '<tr><td height="40">'+(ind+1)+'</td>'+
+				'<td>'+val.FTITLE+'</td>'+
+				'<td>'+'val.projectName'+'</td>'+
+				'<td>'+rDate.format('yyyy-MM-dd')+'</td>'+
+				'<td>'+'val.authorName'+'</td>'+
+				'<td>'+
+					'<a href="newsEditor?newsId='+val.FID+'&proId='+val.FPROJECTID+'">编辑</a> | '+
+					'<a class="delBtn" href="javascript:void(0)" nid="'+val.newsId+'">删除</a>'+
+				'</td></tr>';	
 		});
 		$("#newsTbody").html(tempHtml);
 	}

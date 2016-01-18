@@ -4,13 +4,15 @@
 <title>数据维护系统 - 新闻编辑</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 
-<link rel="stylesheet" type="text/css" href="css/public.css">
-<link rel="stylesheet" type="text/css" href="css/header.css">
-<script type="text/javascript" src="../plugins/jquery-1.8.0.min.js"></script>
-<script type="text/javascript" src="../plugins/ueditor/ueditor.config.js"></script>
-<script type="text/javascript" src="../plugins/ueditor/ueditor.all.min.js"></script>
-<script type="text/javascript" src="../plugins/ueditor/lang/zh-cn/zh-cn.js"></script>
-<script type="text/javascript" src="../plugins/util.js"></script>
+
+<link rel="stylesheet" type="text/css" href="<?php echo site_url('application/views/back/css/public.css')?>">
+<link rel="stylesheet" type="text/css" href="<?php echo site_url('application/views/back/css/header.css')?>">
+
+<script type="text/javascript" src="<?php echo site_url('application/views/plugins/jquery-1.8.0.min.js')?>"></script>
+<script type="text/javascript" src="<?php echo site_url('application/views/plugins/ueditor/ueditor.config.js')?>"></script>
+<script type="text/javascript" src="<?php echo site_url('application/views/plugins/ueditor/ueditor.all.min.js')?>"></script>
+<script type="text/javascript" src="<?php echo site_url('application/views/plugins/ueditor/lang/zh-cn/zh-cn.js')?>"></script>
+<script type="text/javascript" src="<?php echo site_url('application/views/plugins/util.js')?>"></script>
 
 <style type="text/css">
 #rightLayer{font-size: 12px;margin: 0px;}

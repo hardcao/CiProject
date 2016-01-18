@@ -28,7 +28,7 @@
 	<div id="newsTitle"></div>
 	<div id="newsProperty"></div>
 	<div id="liner"></div>
-	<div id="content">
+	<div id="newscontent" style="margin-top: 20px">
 <!-- <pre>合肥高新项目的跟投申报还在开放中，提醒有意向的同事积极跟投。
 公示《跟投方案》中未考虑引入外部资金方对盈利的影响，为了提高自有资金收益率，合肥公司和财务相关部门还在积极落实合作内容，具体内容将在项目过程信息中予以公示。
 若选投包额度有剩余，可向强投包人员开放。
@@ -54,13 +54,13 @@ var projectId = null;
 
 $(function(){
 	initNewsParams();
-	initNewsListeners();
+	//initNewsListeners();
 	initNewsPages();
 });
 
 function initNewsParams (argument) {
 	newsId = getReqParam("newsId");
-	projectId = getReqParam("projectId");
+	//projectId = getReqParam("projectId");
 }
 function initNewsListeners (argument) {
 	initHeaderListeners();
@@ -71,16 +71,17 @@ function initNewsPages (argument) {
 }
 
 function getNewsDetail(){
+	var ctx="<?php echo site_url();?>";
 	$.ajax({
 		type:'post',//可选get
-		url:'../DynamicNewsController/getNewsDetail.action',
+		url:ctx+'news/getDynamicNewsDetail',
 		dataType:'Json',//服务器返回的数据类型 可选XML ,Json jsonp script html text等
 		data:{
 			'newsId':newsId
 		},
 		success:function(msg){
 			if(msg.success){
-				newsInfo = msg.pagerDTO;
+				newsInfo = msg.data[0];
 			}else{
 				alert(msg.error);
 			}
@@ -94,15 +95,24 @@ function getNewsDetail(){
 
 function loadNewsInfo () {
 	if(newsInfo){
-		$("#newsTitle").text(newsInfo.title);
-		$("#newsProperty").html('<span>发布人：'+newsInfo.authorName+'</span><span>'+(new Date(newsInfo.releaseDate)).format('yyyy-MM-dd')+'</span><span>'+(newsInfo.projectName||"")+'</span>');
-		$("#content").html(newsInfo.content);
+		/*
+		FCONTENT: "合肥高新项目对账公示-1 - 内容"
+FCREATORID: "123"
+FID: "124"
+FPROJECTID: "1"
+FRELEASEDATE: "2016-01-17 08:58:47"
+FTITLE: "合肥高新"
+__proto__: Object
+		*/
+		$("#newsTitle").text(newsInfo.FTITLE);
+		$("#newsProperty").html('<span>发布人：'+newsInfo.FCREATORID+'</span><span>'+(new Date(newsInfo.FRELEASEDATE)).format('yyyy-MM-dd')+'</span><span>'+(newsInfo.FPROJECTID||"")+'</span>');
+		$("#newscontent").html(newsInfo.FCONTENT);
 
 		if(newsInfo.projectId){
 			projectId = newsInfo.projectId;
 		}
 	}
-	$("#returnDynList").attr("href","projectDetail.jsp?tabInd=news&proId="+projectId)
+	$("#returnDynList").attr("href","/home/index/newsList/?tabInd=news&proId="+projectId)
 }
 </script>
 
