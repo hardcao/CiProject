@@ -23,11 +23,11 @@ class Project extends CI_Controller
          
     }
     /*
-     * ������ݣ�
-     * begin=0&count=2&uid=test1&subscribeStartDate='2014-09-01 09:50:00'&subscribeEndDate='2014-09-01 09:50:00'&status=1
-     * ���ʽӿڣ�project/getProjectList
      * 
-     * �����ݣ�{"success":true,"errorCode":0,"error":0,"data":[{"projectName":"123","projectId":"123","HDAmount":3,"regioAmount":3,"HDAmountComplete":"test","regioAmountComplete":"test","picList":[]}]
+     * begin=0&count=2&uid=test1&subscribeStartDate='2014-09-01 09:50:00'&subscribeEndDate='2014-09-01 09:50:00'&status=1
+     * project/getProjectList
+     * 
+     * {"success":true,"errorCode":0,"error":0,"data":[{"projectName":"123","projectId":"123","HDAmount":3,"regioAmount":3,"HDAmountComplete":"test","regioAmountComplete":"test","picList":[]}]
      * 
      * */
 
@@ -60,9 +60,9 @@ class Project extends CI_Controller
          echo  json_encode($result);
      }
      /*
-      * ����uid=test5&projectNumber=34534&projectName=sdfsaxvs&state=1
-      * �ӿڣ�Project/addProject
-      * �����{"success":true,"errorCode":0,"error":0,"data":"0"}
+      * uid=test5&projectNumber=34534&projectName=sdfsaxvs&state=1
+      * Project/addProject
+      * {"success":true,"errorCode":0,"error":0,"data":"0"}
       * */
      public function  addProject()
      {
@@ -74,6 +74,18 @@ class Project extends CI_Controller
           
          $result = $this->project_model->addProject($userID,$projectNumber,$projectName,$state);
          echo  json_encode($result);
+     }
+     
+     public function  addEnclosure() {
+         $upFilePath = "../attachment/";
+         $ok=@move_uploaded_file($_FILES['img']['tmp_name'],$upFilePath);
+         $result['file_infor'] = ''; 
+         if($ok === FALSE){
+             $result['file_infor']='上传失败';
+         }else{
+             $result['file_infor']='上传成功';
+         }
+         echo json_encode($result);
      }
      
 

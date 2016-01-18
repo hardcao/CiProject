@@ -78,7 +78,7 @@ class News_model extends CI_Model
         return $data;
     }
     
-    public function  addFollower($dataArry){
+    public function  addNews($dataArry){
         $insertArry = array(
             'FPROJECTID'=>$dataArry['FPROJECTID'],
             'FTITLE' =>$dataArry['FTITLE'],
