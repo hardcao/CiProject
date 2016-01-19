@@ -29,4 +29,13 @@ class BonusRecord extends CI_Controller
         $result = $this->BonusRecord_model->addBonusList($data['data']);
     	echo json_encode($result);
     }
+    
+    public function updateBonusList() {
+        
+        $data = $this->input->input_stream();
+        $tableName = 'T_BONUSRECORD';
+        $this->load->model('Tools');
+        $result = $this->Tools->updateData($data['data'][0],$tableName);
+        echo json_encode($result);
+    }
 }
