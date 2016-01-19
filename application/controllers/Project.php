@@ -88,5 +88,19 @@ class Project extends CI_Controller
          echo json_encode($result);
      }
      
+     public function addeProject() {
+     
+         $data = $this->input->input_stream();
+         $tableName = 'T_PROJECT';
+         $this->load->model('Tools');
+         $result = $this->Tools->addData($data,$tableName);
+         if(result) {
+             $tableName = 'T_PROJECTDETAILINFO';
+             $result = $this->Tools->addData($data,$tableName);
+         }
+         echo json_encode($result);
+     }
+     
+     
 
 }

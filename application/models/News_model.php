@@ -102,6 +102,8 @@ class News_model extends CI_Model
     public function getNewsListWithProjectID($projectID) {
         $this->db->select("*");
         $this->db->where('FPROJECTID',$projectID);
+        $this->db->join('T_PROJECT', 'T_PROJECT.FID=T_NEWS.FPROJECTID');
+        $this->db->join('T_USER', 'T_USER.FID=T_NEWS.FCREATORID');
         $result = $this->db->get('T_NEWS')->result_array();
         $data["success"] = true;
         $data["errorCode"] = 0;

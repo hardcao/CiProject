@@ -51,12 +51,20 @@ class BankInfo extends CI_Controller
         echo  json_encode($result);
     }
     
-    public function updateBonusList() {
+    public function updateBankInfo() {
     
         $data = $this->input->input_stream();
-        $tableName = 'T_BONUSRECORD';
+        $tableName = 'T_BANKINFO';
         $this->load->model('Tools');
-        $result = $this->Tools->updateData($data['data'][0],$tableName);
+        $result = $this->Tools->updateData($data,$tableName);
+        echo json_encode($result);
+    }
+    
+    public function addBankInfo() {
+        $data = $this->input->input_stream();
+        $tableName = 'T_BANKINFO';
+        $this->load->model('Tools');
+        $result = $this->Tools->addData($data,$tableName);
         echo json_encode($result);
     }
  }
