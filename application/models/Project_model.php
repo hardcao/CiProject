@@ -110,6 +110,7 @@ class Project_model extends CI_Model
         if($fields) {
             
         } 
+<<<<<<< HEAD
         /*$this->load->model('Pic_model');
         $result['PictureList'] = $this->Pic_model->getProjectID($projectId);
         $this->load->model('News_model');
@@ -118,6 +119,8 @@ class Project_model extends CI_Model
         $result['FollowerList'] = $this->Follower_model->getProjectID($projectId);
         $this->load->model('FollowScheme_model');
         $result['FollowSchemeList'] = $this->FollowScheme_model->getProjectID($projectId);*/
+=======
+>>>>>>> 6f9012d78d286c839807498b89024c2d4ffaf76a
         $data["success"] = true;
         $data["errorCode"] = 0;
         $data["error"] = 0;
@@ -128,7 +131,8 @@ class Project_model extends CI_Model
     public function  getProjectInfoWithProjectID($projectId) {
         
         $query=$this->db->select("*");
-        $query=$this->db->where('FID',$projectId);
+        $query=$this->db->where('FPROJECTID',$projectId);
+        $this->db->join('T_PROJECT', 'T_PROJECT.FPROJECTID=T_PROJECTDETAILINFO.FPROJECTID');
         $query=$this->db->get('T_PROJECTDETAILINFO');
         $result = $query->result_array();
         return $result[0];
@@ -137,7 +141,7 @@ class Project_model extends CI_Model
     public function  getProjectWithProjectID($projectId) {
     
         $query=$this->db->select("*");
-        $query=$this->db->where('FID',$projectId);
+        $query=$this->db->where('FPROJECTID',$projectId);
         $query=$this->db->get('T_PROJECT');
         $result = $query->result_array();
         return $result[0];
