@@ -16,6 +16,13 @@ class Pic_model extends CI_Model
         $result = $this->db->get('T_PIC')->result_array();
         return $result[0];
     }
+    
+    public function getProjectID($FPROJECTID) {
+        $this->db->select("*");
+        $this->db->where('FPROJECTID',$FPROJECTID);
+        $result = $this->db->get('T_PIC')->result_array();
+        return $result;
+    }
 
     public function  addPic($dataArry){
         $insertArry = array(

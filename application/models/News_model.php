@@ -78,7 +78,7 @@ class News_model extends CI_Model
         return $data;
     }
     
-    public function  addFollower($dataArry){
+    public function  addNews($dataArry){
         $insertArry = array(
             'FPROJECTID'=>$dataArry['FPROJECTID'],
             'FTITLE' =>$dataArry['FTITLE'],
@@ -97,6 +97,13 @@ class News_model extends CI_Model
         $this->db->select("*");
         $this->db->join('booktest','users.username = booktest.username');
         return $this->db->get('users')->result_array();;
+    }
+    
+    public function getProjectID($FPROJECTID) {
+        $this->db->select("*");
+        $this->db->where('FPROJECTID',$FPROJECTID);
+        $result = $this->db->get('T_NEWS')->result_array();
+        return $result;
     }
     
     

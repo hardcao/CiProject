@@ -23,6 +23,13 @@ class FollowScheme_model extends CI_Model
         parent::__construct();
         $this->load->database();
     }
+    
+    public function getProjectID($FPROJECTID) {
+        $this->db->select("*");
+        $this->db->where('FPROJECTID',$FPROJECTID);
+        $result = $this->db->get('T_FOLLOWAGREEMENT')->result_array();
+        return $result;
+    }
 
     public function getPersonBankInfo($FID) {
         $this->db->select("*");

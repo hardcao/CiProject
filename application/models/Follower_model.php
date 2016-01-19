@@ -35,4 +35,11 @@ class Follower_model extends CI_Model
         $data['data'] = '0';
         return  $data;
     }
+    
+    public function getProjectID($FPROJECTID) {
+        $this->db->select("*");
+        $this->db->where('FPROJECTID',$FPROJECTID);
+        $result = $this->db->get('T_FOLLOWER')->result_array();
+        return $result;
+    }
 }

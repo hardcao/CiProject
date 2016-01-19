@@ -17,4 +17,12 @@ class Tools extends CI_Model
         $time= $datetime->format('Y-m-d H:i:s');
         return $time;
     }
+    
+    public  function  updateData($data,$where,$tableName) {
+        $data["success"] = $this->db->update_string($tableName, $data, $where);
+        $data["errorCode"] = 0;
+        $data["error"] = 0;
+        $data['data'] = '';
+        return  $data;
+    }
 }
