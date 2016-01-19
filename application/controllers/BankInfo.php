@@ -50,5 +50,14 @@ class BankInfo extends CI_Controller
         $result = $this->BankInfo_model->deleteBankCardRecord($userID,$bankNo);
         echo  json_encode($result);
     }
+    
+    public function updateBonusList() {
+    
+        $data = $this->input->input_stream();
+        $tableName = 'T_BONUSRECORD';
+        $this->load->model('Tools');
+        $result = $this->Tools->updateData($data['data'][0],$tableName);
+        echo json_encode($result);
+    }
  }
     

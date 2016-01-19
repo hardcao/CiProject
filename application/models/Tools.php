@@ -18,11 +18,31 @@ class Tools extends CI_Model
         return $time;
     }
     
-    public  function  updateData($data,$where,$tableName) {
-        $data["success"] = $this->db->update_string($tableName, $data, $where);
-        $data["errorCode"] = 0;
-        $data["error"] = 0;
-        $data['data'] = '';
-        return  $data;
+    public  function  updateData($data,$tableName) {
+        $where = 'FID = '.$data['FID'];
+        $data_result["success"] = $this->db->update($tableName, $data, $where);
+        $data_result["errorCode"] = 0;
+        $data_result["error"] = 0;
+        $data_result['data'] = '';
+        return  $data_result;
+    }
+    
+    public function addData($data,$tableName) {
+       $result=  $this->db->insert($tableName, $data);
+       $data_result["success"] = $result;
+       $data_result["errorCode"] = 0;
+       $data_result["error"] = 0;
+       $data_result['data'] = '';
+       return  $data_result;
+    }
+    
+    public function deleteData($data,$tableName) {
+        $this->db->where('FID',$data['FID']);
+        $result=  $this->db->delete($tableName);;
+        $data_result["success"] = $result;
+        $data_result["errorCode"] = 0;
+        $data_result["error"] = 0;
+        $data_result['data'] = '';
+        return  $data_result;
     }
 }

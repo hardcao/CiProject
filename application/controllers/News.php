@@ -42,5 +42,12 @@ class News extends CI_Controller
         echo json_encode($result);
     }
      
+    
+    public function  getPicListWithProjectID() {
+    
+        $projectID = $this->input->post('FPROJECTID');
+        $result = $this->news_model->getNewsListWithProjectID($projectID);
+        echo json_encode($result);
+    }
 
 }
