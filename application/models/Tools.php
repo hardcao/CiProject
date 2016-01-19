@@ -20,11 +20,19 @@ class Tools extends CI_Model
     
     public  function  updateData($data,$tableName) {
         $where = 'FID = '.$data['FID'];
-        $this->db->update($tableName, $data, $where);
-        $data["success"] = true;
-        $data["errorCode"] = 0;
-        $data["error"] = 0;
-        $data['data'] = '';
-        return  $data;
+        $data_result["success"] = $this->db->update($tableName, $data, $where);
+        $data_result["errorCode"] = 0;
+        $data_result["error"] = 0;
+        $data_result['data'] = '';
+        return  $data_result;
+    }
+    
+    public function addBonusList($data,$tableName) {
+       $result=  $this->db->insert($tableName, $data);
+       $data_result["success"] = $result;
+       $data_result["errorCode"] = 0;
+       $data_result["error"] = 0;
+       $data_result['data'] = '';
+       return  $data_result;
     }
 }
