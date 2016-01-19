@@ -56,11 +56,22 @@ class FollowScheme_model extends CI_Model
         'FFOLLOWTEAM'=>$dataArry['FFOLLOWTEAM'],
         'FCOLLECTWAY'=>$dataArry['FCOLLECTWAY']
         );
-        $this->db->insert('T_BANKINFO', $insertArry);
+        $this->db->insert('T_FOLLOWSCHEME', $insertArry);
         $data["success"] = true;
         $data["errorCode"] = 0;
         $data["error"] = 0;
         $data['data'] = '0';
         return  $data;
+    }
+    
+    public function getFollowerSchemeListWithProjectID($projectID) {
+        $this->db->select("*");
+        $this->db->where('FPROJECTID',$projectID);
+        $result = $this->db->get('T_FOLLOWSCHEME')->result_array();
+        $data["success"] = true;
+        $data["errorCode"] = 0;
+        $data["error"] = 0;
+        $data['data'] = $result;
+        return  $data; ;
     }
 }
