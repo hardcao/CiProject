@@ -126,8 +126,8 @@ function loadConfirmList (argument) {
 				'<td>'+val.uName+'</td>'+
 				'<td>'+val.service+'</td>'+
 				'<td>'+val.subType+'</td>'+
-				'<td>'+ (val.isRemissionSubscribe == true ? "是" : "否")+'</td>'+
-				'<td'+ (val.dimission == true ? " class=marked>是" : ">否")+'</td>'+
+				'<td>'+ '认购比例'+'</td>'+
+				//'<td'+ (val.dimission == true ? " class=marked>是" : ">否")+'</td>'+
 				'<td>'+formatMillions(val.contributiveAmount)+'</td>'+
 				'<td>'+formatMillions(val.leverageAmount)+'</td>'+
 				'<td class="displayNone"><input id="adjustInp_'+ind+'" value="'+formatMillions(val.adjustamt)+'" /></td>'+
@@ -206,8 +206,8 @@ function keyForceFunc(){
 			<td rowspan="2" width="80">认购人</td>
 			<td rowspan="2" width="90">部门</td>
 			<td rowspan="2" width="80">认购类型</td>
-			<td rowspan="2" width="70">豁免认购</td>
-			<td rowspan="2" width="70">是否离职</td>
+			<!--td rowspan="2" width="70">豁免认购</td-->
+			<td rowspan="2" width="70">认购比例</td>
 			<td colspan="2">认购额度(万元)</td>
 			<td colspan="2" class="displayNone">调整额度(万元)</td>
 			<td colspan="2">平衡额度(万元)</td>

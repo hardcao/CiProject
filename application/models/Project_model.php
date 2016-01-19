@@ -110,7 +110,7 @@ class Project_model extends CI_Model
         if($fields) {
             
         } 
-<<<<<<< HEAD
+
         /*$this->load->model('Pic_model');
         $result['PictureList'] = $this->Pic_model->getProjectID($projectId);
         $this->load->model('News_model');
@@ -119,8 +119,7 @@ class Project_model extends CI_Model
         $result['FollowerList'] = $this->Follower_model->getProjectID($projectId);
         $this->load->model('FollowScheme_model');
         $result['FollowSchemeList'] = $this->FollowScheme_model->getProjectID($projectId);*/
-=======
->>>>>>> 6f9012d78d286c839807498b89024c2d4ffaf76a
+
         $data["success"] = true;
         $data["errorCode"] = 0;
         $data["error"] = 0;

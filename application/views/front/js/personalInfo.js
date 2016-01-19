@@ -69,14 +69,17 @@ function initPages(){
 }
 
 function getData(){
+	var ctx="<?php echo site_url();?>";
 	$.ajax({
 		type:'post',//可选get
-		url:'../BankController/getBankListByUserId.action',
+		url:'/BankInfo/getPersonBankInfo',
 		dataType:'Json',//服务器返回的数据类型 可选XML ,Json jsonp script html text等
-		data:{},
+		data:{
+			uid:"test1"
+		},
 		success:function(msg){
 			if(msg.success){
-				dataList = msg.dataDto;
+				dataList = msg.data;
 				loadData();
 			}else{
 				alert(msg.error);
