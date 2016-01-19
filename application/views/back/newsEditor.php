@@ -87,18 +87,23 @@ function initListeners(){
 }
 
 function getProjectList(){
+	ctx="<?php echo site_url();?>";
+	//var projectName=$("#projectName").val();
 	$.ajax({
 		type:'post',//可选get
-		url:'../UserProjectRelateController/getUserProjectList.action',
+		url:ctx+'Project/getProjectList',
 		dataType:'Json',//服务器返回的数据类型 可选XML ,Json jsonp script html text等
 		data:{
-			"startPage":0,
-			"endPage":100,
-			'projectName':''
+			begin: 0,
+			count: 2,
+			uid: 'test1',
+			subscribeStartDate: '2014-09-01 09:50:00',
+			subscribeEndDate:'2016-09-01 09:50:00',
+			status: 1
 		},
 		success:function(msg){
 			if(msg.success){
-				projectList=msg.dataDto;
+				projectList=msg.data;
 				if(newsId){
 					setTimeout("getNewsInfo();",500);
 				}
@@ -122,7 +127,7 @@ function loadProjectSelector(){
 		var selectedStr = "";
 		$.each(projectList, function(ind, val){
 			selectedStr = "";
-			if((newsId && newsInfo.projectId == val.projectId) 
+			if((newsId && newsInfo.FPROJECTID == val.projectId) 
 				|| val.projectId == currProId) 
 				selectedStr = "selected";
 			tempHtml += '<option value="'+val.projectId+'" '+selectedStr+'>'+val.projectName+'</option>';
@@ -132,16 +137,19 @@ function loadProjectSelector(){
 }
 
 function getNewsInfo(){
+
+	var ctx="<?php echo site_url();?>";
+
 	$.ajax({
 		type:'post',//可选get
-		url:'../DynamicNewsController/getNewsByNewsid.action',
+		url:ctx+'news/getDynamicNewsDetail',
 		dataType:'Json',//服务器返回的数据类型 可选XML ,Json jsonp script html text等
 		data:{
 			'newsId':newsId
 		},
 		success:function(msg){
 			if(msg.success){
-				newsInfo = msg.baseModel;
+				newsInfo = msg.data[0];
 			}else{
 				alert(msg.error);
 			}
@@ -156,8 +164,8 @@ function getNewsInfo(){
 
 function loadNewsInfo(){
 	if(newsInfo){
-		$("#titleInp").val(newsInfo.title);
-		ueObj.execCommand('insertHtml', newsInfo.content);
+		$("#titleInp").val(newsInfo.FTITLE);
+		ueObj.execCommand('insertHtml', newsInfo.FCONTENT);
 	}
 }
 
@@ -228,7 +236,7 @@ function submitInfo(){
 
 function toNewsListPage(){
 	// location.hash = "projectNewsInfo";
-	location.href = "projectManage.jsp?projectId="+currProId+"#projectNewsInfo";
+	location.href = "/back/index/projectManage?projectId="+currProId+"#projectNewsInfo";
 }
 </script>
 </html>

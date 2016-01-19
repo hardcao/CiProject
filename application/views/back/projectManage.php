@@ -4,10 +4,6 @@
 <title>数据维护系统 - 项目管理</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 
-<?php require (dirname(dirname(__FILE__)).'\common\header_include.php'); ?>
-
-
-
 <?php require (dirname(dirname(__FILE__)).'/common/header_include.php'); ?>
 <link href="<?php echo site_url('application/views/plugins/jquery.datetimepicker.css')?>" rel="stylesheet">
 <link rel="stylesheet" type="text/css" href="<?php echo site_url('application/views/front/css/public.css')?>">
@@ -60,8 +56,10 @@ $(function(){
 function initParams(){
 	projectId = getReqParam("projectId");
 	projectName = getReqParam("projectName");
-	naviVal = "projectBasicInfo";
+	var mystring = "#projectBasicInfo";
+	naviVal = mystring.substring(1,mystring.Length);
 	pageHash = location.hash?location.hash:"#projectBasicInfo";
+	loadContentPage();
 }
 
 function initListeners(){

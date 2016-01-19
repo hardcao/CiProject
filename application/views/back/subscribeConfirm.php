@@ -5,8 +5,8 @@
 <title>数据维护系统 - 认购确认</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 
-<script type="text/javascript" src="../plugins/jquery-1.8.0.min.js"></script>
-<script type="text/javascript" src="../plugins/ajaxfileupload.js"></script>
+<script type="text/javascript" src="<?php echo site_url('application/views/plugins/jquery-1.8.0.min.js')?>"></script>
+<script type="text/javascript" src="<?php echo site_url('application/views/plugins/ajaxfileupload.js')?>"></script>
 
 <style type="text/css">
 body{font-size: 12px;}

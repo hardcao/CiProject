@@ -4,11 +4,18 @@
 <title>数据维护系统 - 分红明细列表</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 
-<link rel="stylesheet" type="text/css" href="../plugins/pagination.css" />
+<link rel="stylesheet" type="text/css" href="<?php echo site_url('application/views/plugins/pagination.css')?>">
+<script type="text/javascript" src="<?php echo site_url('application/views/plugins/jquery-1.8.0.min.js')?>"></script>
+<script type="text/javascript" src="<?php echo site_url('application/views/plugins/datetimepicker.js')?>"></script>
+<script type="text/javascript" src="<?php echo site_url('application/views/plugins/jquery.pagination.js')?>"></script>
+<script type="text/javascript" src="<?php echo site_url('application/views/plugins/ajaxfileupload.js')?>"></script>
+
+<!--link rel="stylesheet" type="text/css" href="../plugins/pagination.css" />
 <script type="text/javascript" src="../plugins/jquery-1.8.0.min.js"></script>
 <script type="text/javascript" src="../plugins/jquery.datetimepicker.js"></script>
 <script type="text/javascript" src="../plugins/jquery.pagination.js"></script>
-<script type="text/javascript" src="../plugins/ajaxfileupload.js"></script>
+<script type="text/javascript" src="../plugins/ajaxfileupload.js"></script-->
+
 <style type="text/css">
 body{font-size: 12px;}
 #rightLayer #searchLayer{text-align: right;margin:0px auto 10px;position: relative;}

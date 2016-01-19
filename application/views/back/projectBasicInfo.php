@@ -4,10 +4,15 @@
 <title>数据维护系统</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 
-<!-- <link rel="stylesheet" type="text/css" href="../plugins/jquery.datetimepicker.css"> -->
+<script type="text/javascript" src="<?php echo site_url('application/views/plugins/jquery-1.8.0.min.js')?>"></script>
+<script type="text/javascript" src="<?php echo site_url('application/views/plugins/jquery.datetimepicker.js')?>"></script>
+<script type="text/javascript" src="<?php echo site_url('application/views/plugins/jquery.json-2.4.js')?>"></script>
+<script type="text/javascript" src="<?php echo site_url('application/views/plugins/dateFormat.js')?>"></script>
+
+<!-- <link rel="stylesheet" type="text/css" href="../plugins/jquery.datetimepicker.css">
 <script type="text/javascript" src="application/views/plugins/jquery.datetimepicker.js"></script>
 <script type="text/javascript" src="application/views/plugins/jquery.json-2.4.js"></script>
-<script type="text/javascript" src="application/views/plugins/dateFormat.js"></script>
+<script type="text/javascript" src="application/views/plugins/dateFormat.js"></script> -->
 <style type="text/css">
 
 .displayNone{display: none;}
@@ -106,7 +111,7 @@ $(function(){
 	$("#payStartInp").datetimepicker();
 	$("#payEndInp").datetimepicker();
 	$("#payReleaseDateInp").datetimepicker();
-	var projectId=$("#projectid").val();
+	var projectId= 123;//$("#projectid").val();
 	if(projectId!="" && projectId!=null){
 		//此id是做修改的时候 form表单的id 跟head.jsp里面的projectid 一样
 		$("#newprojectId").val(projectId);
@@ -282,11 +287,11 @@ function deleteSchemeLinkFunc(){
 	})
 }
 function getProjectDetail(){
-	var ctx=$("#ctx").val();
-	var projectId=$("#projectid").val();
+	var ctx="<?php echo site_url();?>";
+	var projectId= '1';//$("#projectid").val();
 	$.ajax({
 		type:'post',//可选get
-		url:ctx+'/ProjectBasicController/getProjectById.action',
+		url:ctx+'/Project/getProjectDetail',
 		dataType:'Json',//服务器返回的数据类型 可选XML ,Json jsonp script html text等
 		data:{'projectId':projectId},
 		success:function(msg){
@@ -294,47 +299,84 @@ function getProjectDetail(){
 				// 为父页面填充导航项目名称
 				// $("#navProLayer #pageProName").text(msg.baseModel.projectName);
 
-				$("#projectName").val(msg.baseModel.projectName);
-				$("#floorArea").val(msg.baseModel.floorArea);
-				$("#structArea").val(msg.baseModel.structArea);
-				$("#plotArea").val(msg.baseModel.plotArea);
-				$("#saleStructArea").val(msg.baseModel.saleStructArea);
-				$("#groundInp").val((new Date(msg.baseModel.groundDate)).format('yyyy-MM-dd hh:mm:ss'));
-				$("#groundAmount").val(msg.baseModel.groundAmount);
-				$("#returndate").val(msg.baseModel.returndate);
-				$("#buildareaprice").val(msg.baseModel.buildareaprice);
-				$("#groundType").val(msg.baseModel.groundType);
-				$("#groundPosition").val(msg.baseModel.groundPosition);
-				// $("#projectarea").val(msg.baseModel.projectarea);
-				$("#groundPositioning").val(msg.baseModel.groundPositioning);
-				$("#groundPlanning").val(msg.baseModel.groundPlanning);
-				$("#planFold").val(msg.baseModel.planFold);
-				$("#planRent").val(msg.baseModel.planRent);
-				$("#planIrr").val(msg.baseModel.planIrr);
-				$("#planGrossMargin").val(msg.baseModel.planGrossMargin);
-				$("#planMoic").val(msg.baseModel.planMoic);
-				$("#stageStartInp").val((new Date(msg.baseModel.planStageStartDate)).format('yyyy-MM-dd hh:mm:ss'));
-				$("#stageOpenInp").val((new Date(msg.baseModel.planStageOpenDate)).format('yyyy-MM-dd hh:mm:ss'));
-				// $("#peakInp").val((new Date(msg.baseModel.planPeakeDate)).format('yyyy-MM-dd hh:mm:ss'));
-				// $("#cashflowReturnInp").val((new Date(msg.baseModel.planCashflowReturnDate)).format('yyyy-MM-dd hh:mm:ss'));
-				$("#deliverInp").val((new Date(msg.baseModel.planDeliverDate)).format('yyyy-MM-dd hh:mm:ss'));
-				$("#carryoverInp").val((new Date(msg.baseModel.planCarryoverDate)).format('yyyy-MM-dd hh:mm:ss'));
-				$("#liquidateInp").val((new Date(msg.baseModel.planLiquidateDate)).format('yyyy-MM-dd hh:mm:ss'));
-				$("#planPropertyScheme").val(msg.baseModel.planPropertyScheme);
-				$("#planFinanceCalculate").val(msg.baseModel.planFinanceCalculate);
-				$("#corpPartnerBackground").val(msg.baseModel.corpPartnerBackground);
-				$("#corpContributiveRatio").val(msg.baseModel.corpContributiveRatio);
-				$("#corpBoardMember").val(msg.baseModel.corpBoardMember);
-				$("#corpVoteRule").val(msg.baseModel.corpVoteRule);
-				$("#restAnswerMail").val(msg.baseModel.restAnswerMail);
-				// $("#restAnswerLink").val(msg.baseModel.restAnswerLink);
-				$("#restProjectManagers").val(msg.baseModel.restProjectManagers);
-				$("#restFollowerManagers").val(msg.baseModel.restFollowerManagers);
-				$("#riskDisclaimerDes").val(msg.baseModel.riskDisclaimerDes);
-				// $("#schemeProtocol").val(msg.baseModel.schemeProtocol);
- 				$("#protocalLinkTd").html(splitSchemeProtocal(msg.baseModel.schemeProtocol));
+				/*
+				FANSWERMAIL: "23"
+				FAREA: "12"
+				FCARRYOVERDATE: "2014-09-02"
+				FCASHFLOWBACK: "asdfa"
+				FCONTRIBUTIVE: "23"
+				FCYWYSP: "34"
+				FFOLLOWERMANAGERS: "sadf"
+				FGETDATE: "2014-09-02"
+				FGETWAY: "test"
+				FHANDDATE: "2014-09-04"
+				FID: "1"
+				FIRR: "21"
+				FLIQUIDATE: "2014-09-02"
+				FOPENDATE: "2014-09-02"
+				FPARTNERINFO: "asdfsadf"
+				FPOSITION: "合肥高新KD4-2"
+				FPREPROFIT: "12342"
+				FPRICE: "23"
+				FPROFIT: "112"
+				FPROJECTID: "1"
+				FPROJECTINFOMANAGERS: "sadf"
+				FPROPERTYSCHEME: "safsaf"
+				FPROPOSITION: "政务区"
+				FRJL: "12"
+				FSALEAREA: "12"
+				FSCHEME: "政务区"
+				FSTARTDATE: "2014-09-02"
+				FSTRUCTAREA: "113"
+				FTOTAL: "123"
+				*/
+
+				$("#projectName").val('msg.baseModel.projectName');
+				$("#floorArea").val(msg.data.FAREA);//占地面积
+				$("#structArea").val(msg.data.FSTRUCTAREA);//计容键面
+				$("#plotArea").val(msg.data.FRJL);//容积率
+				$("#saleStructArea").val(msg.data.FSALEAREA);//可销售计容面积
+				$("#groundInp").val((new Date(msg.data.FGETDATE)).format('yyyy-MM-dd hh:mm:ss'));//获取时间
+				$("#groundAmount").val(msg.data.FTOTAL);//地价总价
+				$("#returndate").val(msg.data.FCASHFLOWBACK); //现金流回正时间 个月
+				//$("#buildareaprice").val(msg.data.FPRICE);//楼面地价
+				$("#groundType").val(msg.data.FGETWAY);//获取方式
+				$("#groundPosition").val(msg.data.FPOSITION);//项目区位
+				// $("#projectarea").val(msg.data.baseModel.projectarea);
+				$("#groundPositioning").val(msg.data.FPROPOSITION);//产品定位
+				$("#groundPlanning").val(msg.data.FSCHEME);//规划方案
+				$("#planFold").val(msg.data.FPRICE);//项目均价
+				$("#planRent").val(msg.data.FCYWYSP);//持有型物业租金水平
+				$("#planIrr").val(msg.data.FIRR);
+				$("#planGrossMargin").val('msg.data.baseModel.planGrossMargin');//预计销售毛利率
+				$("#planMoic").val('msg.data.baseModel.planMoic');
+				//开工时间
+				$("#stageStartInp").val((new Date(msg.data.FSTARTDATE)).format('yyyy-MM-dd hh:mm:ss'));
+				//开盘时间
+				$("#stageOpenInp").val((new Date(msg.data.FOPENDATE)).format('yyyy-MM-dd hh:mm:ss'));
+				// $("#peakInp").val((new Date(msg.data.baseModel.planPeakeDate)).format('yyyy-MM-dd hh:mm:ss'));
+				// $("#cashflowReturnInp").val((new Date(msg.data.baseModel.planCashflowReturnDate)).format('yyyy-MM-dd hh:mm:ss'));
+				//交付时间
+				$("#deliverInp").val((new Date(msg.data.FHANDDATE)).format('yyyy-MM-dd hh:mm:ss'));
+				//结转时间
+				$("#carryoverInp").val((new Date(msg.data.FCARRYOVERDATE)).format('yyyy-MM-dd hh:mm:ss'));
+				//清算时间
+				$("#liquidateInp").val((new Date(msg.data.FLIQUIDATE)).format('yyyy-MM-dd hh:mm:ss'));
+				$("#planPropertyScheme").val(msg.data.FPROPERTYSCHEME);//持有物业处理方案
+				$("#planFinanceCalculate").val('msg.data.baseModel.planFinanceCalculate');//财务测算文件
+				$("#corpPartnerBackground").val(msg.data.FPARTNERINFO);//合作方背景和资质
+				$("#corpContributiveRatio").val(msg.data.FCONTRIBUTIVE);//项目出资比例
+				$("#corpBoardMember").val('msg.data.baseModel.corpBoardMember');//董事会组成
+				$("#corpVoteRule").val('msg.data.baseModel.corpVoteRule');
+				$("#restAnswerMail").val(msg.data.FANSWERMAIL);//答疑邮箱地址
+				// $("#restAnswerLink").val(msg.data.baseModel.restAnswerLink);
+				$("#restProjectManagers").val(msg.data.FPROJECTINFOMANAGERS);//项目信息管理员
+				$("#restFollowerManagers").val(msg.data.FFOLLOWERMANAGERS);
+				$("#riskDisclaimerDes").val('msg.data.baseModel.riskDisclaimerDes');//风险与免责
+				// $("#schemeProtocol").val(msg.data.baseModel.schemeProtocol);
+ 				$("#protocalLinkTd").html('splitSchemeProtocal(msg.data.baseModel.schemeProtocol)');
 			}else{
-				alert(msg.error);
+				alert(msg.data.error);
 			}
 		},
 		error: function (XMLHttpRequest, textStatus, errorThrown) {
@@ -493,7 +535,7 @@ function hideForceDialog(){
 </script>
 </head>
 <body id="rightLayer">
-<div id="basic" class="editTitle"><img src="./images/arrow_down.png" />基础信息</div>
+<div id="basic" class="editTitle"><img src="../../application/views/back/images/arrow_down.png" />基础信息</div>
 <form id="testfrom" method="post" action="${pageContext.request.contextPath}/ProjectBasicController/saveOrUpdate.action">
 <div id="basic_editor" class="editor">
 <input type="hidden" name="projectId" id="newprojectId" />
@@ -518,8 +560,8 @@ function hideForceDialog(){
 	</tr><tr>
 		<td class="tdTitle">获取方式</td>
 		<td><input name="groundType" id="groundType"/></td>
-		<td class="tdTitle">楼面地价</td>
-		<td><input id="buildareaprice" name="buildareaprice" onkeyup="clearNoNum(this)" /> (元/平)</td>
+		<!--td class="tdTitle">楼面地价</td>
+		<td><input id="buildareaprice" name="buildareaprice" onkeyup="clearNoNum(this)" /> (元/平)</td-->
 	</tr><tr>
 		<td class="tdTitle">项目区位</td>
 		<td colspan="3"><textarea name="groundPosition" id="groundPosition"></textarea></td>
@@ -622,7 +664,7 @@ function hideForceDialog(){
 	</tr></table>
 </div>
 </form>
-<div id="scheme" class="editTitle"><img src="./images/arrow_down.png" />跟投计划</div>
+<div id="scheme" class="editTitle"><img src="../../application/views/back/images/arrow_down.png" />跟投计划</div>
 <form id="schemeForm"  method="post" action="${pageContext.request.contextPath}/FollowSchemeController/saveOrUpdate.action">
 <div id="scheme_editor" class="editor displayNone">
 		<input type="hidden" name="projectId" id="schemeProjectid"/>
@@ -696,7 +738,7 @@ function hideForceDialog(){
 	</tr></table>
 </div>
 </form>
-<div id="force" class="editTitle"><img src="./images/arrow_down.png" />强制跟投名单</div>
+<div id="force" class="editTitle"><img src="../../application/views/back/images/arrow_down.png" />强制跟投名单</div>
 <form id="forceForm" method="post" action="${pageContext.request.contextPath}/ForceFollowController/saveOrUpdate.action">
 <input type="hidden" name="projectid" id="forceProjectId"/>
 <div id="force_editor" class="editor displayNone" style="">
@@ -717,7 +759,7 @@ function hideForceDialog(){
 	<div class="btnBox"><button id="addForceRecord" type="button">新增</button><button>保存</button></div>
 </div>
 </form>
-<div id="subscribe" class="editTitle displayNone"><img src="./images/arrow_down.png" />认购信息</div>
+<div id="subscribe" class="editTitle displayNone"><img src="../../application/views/back/images/arrow_down.png" />认购信息</div>
 <form id="subForm" method="post" action="${pageContext.request.contextPath}/subscribe/saveOrUpdate.action">
 <div id="subscribe_editor" class="editor displayNone">
 	<input type="hidden" id="subProjectId" name="projectId"/>
@@ -766,7 +808,7 @@ function hideForceDialog(){
 	</div>
 </div>
 </form>
-<div id="uploadAttach" class="editTitle"><img src="./images/arrow_down.png" />附件上传</div>
+<div id="uploadAttach" class="editTitle"><img src="../../application/views/back/images/arrow_down.png" />附件上传</div>
 <div id="uploadAttach_editor" class="editor displayNone">
 <form id="uploadProtocalForm" method="post" action="../FileUpLoadController/upload.action" enctype="multipart/form-data">
 	<table width="100%"><tr>
