@@ -205,46 +205,66 @@ function getForceFollowByProjectid(){
 	})
 }
 function getSchemeByProjectid(){
-	var ctx=$("#ctx").val();
+	var ctx="<?php echo site_url();?>";
 	var projectId=getReqParam('projectid');
 	$.ajax({
 		type:'post',//可选get
-		url:ctx+'/FollowSchemeController/getSchemeByProjectId.action',
+		url:ctx+'/FollowScheme/getFollowerListWithProjectID',
 		dataType:'Json',//服务器返回的数据类型 可选XML ,Json jsonp script html text等
 		data:{'projectId':projectId},
 		success:function(msg){
 			if(msg.success){
+
+
 				 $("#schemeid").val(msg.baseModel.schemeId);
-				 $("#uploadSchemeId").val(msg.baseModel.schemeId);
-				 $("#subscribeStartInp").val((msg.baseModel.subscribeStartDate?new Date(msg.baseModel.subscribeStartDate):new Date()).format('yyyy-MM-dd hh:mm:ss'));
-				 $("#subscribeEndtInp").val((msg.baseModel.subscribeEndDate?new Date(msg.baseModel.subscribeEndDate):new Date()).format('yyyy-MM-dd hh:mm:ss'));
-				 $("#payStartInp").val((msg.baseModel.payStartDate?new Date(msg.baseModel.payStartDate):new Date()).format('yyyy-MM-dd hh:mm:ss'));
-				 $("#payEndInp").val((msg.baseModel.payEndDate?new Date(msg.baseModel.payEndDate):new Date()).format('yyyy-MM-dd hh:mm:ss'));
-				 $("#payReleaseDateInp").val((msg.baseModel.projectReleaseDate?new Date(msg.baseModel.projectReleaseDate):new Date()).format('yyyy-MM-dd hh:mm:ss'));
-				 $("#personamt").val(msg.baseModel.personamt);
+				 //$("#uploadSchemeId").val(msg.baseModel.schemeId);
+				 //认购开始时间
+				 $("#subscribeStartInp").val((msg.baseModel.FSUBSCRIBESTARTDATE?new Date(msg.baseModel.FSUBSCRIBESTARTDATE):new Date()).format('yyyy-MM-dd hh:mm:ss'));
+				 //认购结束时间
+				 $("#subscribeEndtInp").val((msg.baseModel.FSUBSCRIBEENDDATE?new Date(msg.baseModel.FSUBSCRIBEENDDATE):new Date()).format('yyyy-MM-dd hh:mm:ss'));
+				 //付款开始时间
+				 $("#payStartInp").val((msg.baseModel.FPAYSTARTDATE?new Date(msg.baseModel.FPAYSTARTDATE):new Date()).format('yyyy-MM-dd hh:mm:ss'));
+				 //付款结束时间
+				 $("#payEndInp").val((msg.baseModel.FPAYENDDATE?new Date(msg.baseModel.FPAYENDDATE):new Date()).format('yyyy-MM-dd hh:mm:ss'));
+				 //项目发布时间
+				 //$("#payReleaseDateInp").val((msg.baseModel.projectReleaseDate?new Date(msg.baseModel.projectReleaseDate):new Date()).format('yyyy-MM-dd hh:mm:ss'));
+				 //
+				 //$("#personamt").val(msg.baseModel.personamt);
 				 // $("#yxpersonamt").val(msg.baseModel.yxpersonamt);
 				 // $("#jtpersonamt").val(msg.baseModel.jtpersonamt);
-				 $("#followAmount").val(msg.baseModel.followAmount / 10000);
-				 $("#fundPeake").val(msg.baseModel.fundPeake);
-				 $("#maxamount").val(msg.baseModel.maxamount / 10000);
-				 $("#minamount").val(msg.baseModel.minamount / 10000);
-				 $("#followAmountDesc").val(msg.baseModel.followAmountDesc);
-				 $("#groupForceRatio").val(msg.baseModel.groupForceRatio);
-				 $("#groupForceAmount").val(msg.baseModel.groupForceAmount / 10000);
-				 $("#compForceRatio").val(msg.baseModel.compForceRatio);
-				 $("#compForceAmount").val(msg.baseModel.compForceAmount / 10000);
-				 $("#compChoiceRatio").val(msg.baseModel.compChoiceRatio);
-				 $("#compChoiceAmount").val(msg.baseModel.compChoiceAmount / 10000);
-				 $("#leverageDes").val(msg.baseModel.leverageDes);
-				 $("#subscribeRemind").val(msg.baseModel.subscribeRemind);
+
+				 //$("#followAmount").val(msg.baseModel.followAmount / 10000);
+				 //资金峰值
+				 $("#fundPeake").val(msg.baseModel.FFUNDPEAKE);
+				 //
+				 //$("#maxamount").val(msg.baseModel.maxamount / 10000);
+				 //$("#minamount").val(msg.baseModel.minamount / 10000);
+				 //项目跟投小组
+				 $("#followAmountDesc").val(msg.baseModel.FFOLLOWTEAM);
+				 //总部跟投比例
+				 $("#groupForceRatio").val(msg.baseModel.FHDRATIO);
+				 //总部最大可跟投总额（含杠杆）
+				 $("#groupForceAmount").val(msg.baseModel.FHDAMOUNT / 10000);
+				 //区域跟投比例
+				 $("#compForceRatio").val(msg.baseModel.FREGIONRATIO);
+				 //区域最大可跟投总额（含杠杆）
+				 $("#compForceAmount").val(msg.baseModel.FREGIONAMOUNT / 10000);
+				 //全部跟投比例
+				 $("#compChoiceRatio").val(msg.baseModel.FALLRATION);
+				 //全部最大可跟投总额（含杠杆）
+				 $("#compChoiceAmount").val(msg.baseModel.FALLAMOUNT / 10000);
+				 //杠杆认购说明
+				 $("#leverageDes").val(msg.baseModel.FLEVERAGEDES);
+				 //募集方式
+				 $("#subscribeRemind").val(msg.baseModel.FCOLLECTWAY);
 				 // $("#followChemeLink").val(msg.baseModel.followChemeLink);
-				 $("#schemeLinkTd").html(splitSchemeLink(msg.baseModel.followChemeLink));
+				 //$("#schemeLinkTd").html(splitSchemeLink(msg.baseModel.followChemeLink));
 			}else{
 				alert(msg.error);
 			}
 		},
 		error: function (XMLHttpRequest, textStatus, errorThrown) {
-        	// sessionTimeout(XMLHttpRequest, textStatus, errorThrown);
+        	alert(XMLHttpRequest.responseText);//, textStatus, errorThrown);
         }
 	})
 }

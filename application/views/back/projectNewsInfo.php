@@ -68,8 +68,8 @@ function getNewsData(){
 		//begin=0&count=2&uid=test&projectId=123
 		data:{begin: 0,
 			count:2,
-		    uid: 'test',
-		    pojectId: '123'},
+		    //uid: 'test',
+		    pojectId: getReqParam('projectId')},
 		success:function(msg){
 			if(msg.success){
 				newsList=msg.data;
