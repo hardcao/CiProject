@@ -101,15 +101,9 @@ function UserProjectList(){
 	var projectName=$("#projectName").val();
 	$.ajax({
 		type:'post',//可选get
-		url:ctx+'Project/getProjectList',
+		url:ctx+'Project/getProjectBack',
 		dataType:'Json',//服务器返回的数据类型 可选XML ,Json jsonp script html text等
-		data:{
-			begin: 0,
-			count: 2,
-			uid: 'test1',
-			subscribeStartDate: '2014-09-01 09:50:00',
-			subscribeEndDate:'2016-09-01 09:50:00',
-			status: 1		
+		data:{	
 		},
 		success:function(msg){
 			if(msg.success){
@@ -132,10 +126,10 @@ function loadProjectData () {
 		var tempUrl = "";
 		$.each(projectList, function(ind,val){
 		    perArr = null;//val.permissionFlag.split("");
-			tempUrl = "back/index/projectManage?projectId="+val.projectId+"&projectName="+escape(val.projectName);
+			tempUrl = "back/index/projectManage?projectId="+val.FID+"&projectName="+escape(val.FNAME);
 			tempHtml +=
 			'<tr><td height="40">'+(ind+1)+'</td>'+
-				'<td>'+val.projectName+'</td>'+
+				'<td>'+val.FNAME+'</td>'+
 				'<td><a href="'+tempUrl+'#projectBasicInfo" class="'+(isPermission(perArr,0)?"":"displayNone")+'">基础信息</a>'+
 				'<a href="'+tempUrl+'#projectNewsInfo" class="'+(isPermission(perArr,1)?"":"displayNone")+'">&nbsp;&nbsp;动态新闻</a>'+
 				'<a href="'+tempUrl+'#subscribeConfirm" class="'+(isPermission(perArr,2)?"":"displayNone")+'">&nbsp;&nbsp;认购核准</a>'+
