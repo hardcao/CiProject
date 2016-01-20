@@ -27,6 +27,18 @@ class Project_model extends CI_Model
         return $query->num_rows();
     }
     
+    public function  getProjectBack()
+    {
+        $query=$this->db->select("*");
+        $query=$this->db->get('T_PROJECT');
+        $result = $query->result_array();
+        $data["success"] = true;
+        $data["errorCode"] = 0;
+        $data["error"] = 0;
+        $data['data'] = $result;
+        return  $data;
+    }
+    
     public function getProjectList($begin,$count,$userID,$subscribeStartDate, $subscribeEndDate, $status){
         $tablename = 'T_PROJECT';
         //$test = strval($subscribeStartDate);
