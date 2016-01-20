@@ -27,5 +27,32 @@ class Follower extends CI_Controller
         echo json_encode($result);
     }
      
+    public function updateFollower() {
+    
+        $data = $this->input->input_stream();
+        $tableName = 'T_FOLLOWER';
+        $this->load->model('Tools');
+        foreach ($data as $item) {
+            $result = $this->Tools->updateData($item,$tableName);
+        }
+        echo json_encode($result);
+    }
+    
+    public function deleteFollower() {
+        $data = $this->input->input_stream();
+        $tableName = 'T_FOLLOWER';
+        $this->load->model('Tools');
+        $result = $this->Tools->deleteData($data,$tableName);
+        echo json_encode($result);
+    }
+    
+    public function  addFollower()
+    {
+        $data = $this->input->input_stream();
+        $tableName = 'T_FOLLOWER';
+        $this->load->model('Tools');
+        $result = $this->Tools->addData($data,$tableName);
+        echo json_encode($result);
+    }
 
 }

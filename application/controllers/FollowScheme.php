@@ -27,5 +27,32 @@ class FollowerScheme extends CI_Controller
         echo json_encode($result);
     }
      
+    public function updateFollowerScheme() {
+    
+        $data = $this->input->input_stream();
+        $tableName = 'T_FOLLOWAGREEMENT';
+        $this->load->model('Tools');
+        foreach ($data as $item) {
+            $result = $this->Tools->updateData($item,$tableName);
+        }
+        echo json_encode($result);
+    }
+    
+    public function deleteFollowerScheme() {
+        $data = $this->input->input_stream();
+        $tableName = 'T_FOLLOWAGREEMENT';
+        $this->load->model('Tools');
+        $result = $this->Tools->deleteData($data,$tableName);
+        echo json_encode($result);
+    }
+    
+    public function  addFollowerScheme()
+    {
+        $data = $this->input->input_stream();
+        $tableName = 'T_FOLLOWAGREEMENT';
+        $this->load->model('Tools');
+        $result = $this->Tools->addData($data,$tableName);
+        echo json_encode($result);
+    }
 
 }

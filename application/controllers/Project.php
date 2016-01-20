@@ -51,21 +51,59 @@ class Project extends CI_Controller
     
     public function  updateProjectDetailInfo()
     {
-        $data = $this->input->input_stream();
-        $dataProjectname['FNAME'] =  $data['FNAME'];
-        $dataProjectname['FID'] = $data['FPROJECTID'];
-        foreach ($data as $key=>$value)
-        {
-            if ($key === 'FNAME')
-                unset($data[$key]);
-        }
+       // $data = $this->input->post('floorArea');
+        $insertArr['FPROJECTID'] =  $this->input->post('projectId');
+        $insertArr['FAREA'] = $this->input->post('floorArea');
+        $insertArr['FSTRUCTAREA'] = $this->input->post('structArea');
+        $insertArr['FRJL'] = $this->input->post('plotArea');
+        $insertArr['FSALEAREA'] = $this->input->post('saleStructArea');
+        $startdatetime = new DateTime($this->input->post('groundInp'));
+        $groundInp= $startdatetime->format('Y-m-d H:i:s');
+        $insertArr['FGETDATE'] = $groundInp;
+        $insertArr['FTOTAL'] = $this->input->post('groundAmount');
+        $insertArr['FCASHFLOWBACK'] = $this->input->post('returndate');
+        $insertArr['FGETWAY'] = $this->input->post('groundType');
+        $insertArr['FPOSITION'] = $this->input->post('groundPosition');
+        //$insertArr['FPROPOSITION'] = $this->input->post('groundPosition');
+        $insertArr['FPROPOSITION'] = $this->input->post('groundPositioning');
+        $insertArr['FSCHEME'] = $this->input->post('groundPlanning');
+        $insertArr['FPRICE'] = $this->input->post('planFold');
+        $insertArr['FCYWYSP'] = $this->input->post('planRent');
+        $insertArr['FIRR'] = $this->input->post('planIrr');
+        $insertArr['FPREPROFIT'] = $this->input->post('FPREPROFIT');
+        $insertArr['FPROFIT'] = $this->input->post('FPROFIT');
+        $startdatetime = new DateTime($this->input->post('stageStartInp'));
+        $stageStartInp= $startdatetime->format('Y-m-d H:i:s');
+        $insertArr['FSTARTDATE'] = $stageStartInp;
+        $startdatetime = new DateTime($this->input->post('stageOpenInp'));
+        $stageOpenInp= $startdatetime->format('Y-m-d H:i:s');
+        $insertArr['FOPENDATE'] = $stageOpenInp;
+        $startdatetime = new DateTime($this->input->post('deliverInp'));
+        $deliverInp= $startdatetime->format('Y-m-d H:i:s');
+        $insertArr['FHANDDATE'] = $this->input->post($deliverInp);
+        $startdatetime = new DateTime($this->input->post('carryoverInp'));
+        $carryoverInp= $startdatetime->format('Y-m-d H:i:s');
+        $insertArr['FCARRYOVERDATE'] = $carryoverInp;
+        $startdatetime = new DateTime($this->input->post('liquidateInp'));
+        $liquidateInp= $startdatetime->format('Y-m-d H:i:s');
+        $insertArr['FLIQUIDATE'] = $liquidateInp;
+        $insertArr['FPROPERTYSCHEME'] = $this->input->post('planPropertyScheme');
+        $insertArr['FPARTNERINFO'] = $this->input->post('corpPartnerBackground');
+        $insertArr['FCONTRIBUTIVE'] = $this->input->post('corpContributiveRatio');
+        $insertArr['FANSWERMAIL'] = $this->input->post('restAnswerMail');
+        $insertArr['FPROJECTINFOMANAGERS'] = $this->input->post('restProjectManagers');
+        $insertArr['FFOLLOWERMANAGERS'] = $this->input->post('restFollowerManagers');
+        $dataProjectname['FNAME'] =  $this->input->post('projectName');
+        $dataProjectname['FID'] = $this->input->post('projectId');
+        $where='FID='.$dataProjectname['FID'];
         $tableName = 'T_PROJECT';
         $this->load->model('Tools');
-        $result = $this->Tools->updateData($dataProjectname,$tableName);
-        if($result['data']){
-         $tableName = 'T_PROJECTDETAILINFO';
-         $result = $this->Tools->updateData($data,$tableName);
-        }
+        $result = $this->Tools->updateData($dataProjectname,$tableName,$where);
+       
+            $tableName = 'T_PROJECTDETAILINFO';
+            $where = 'FPROJECTID='.$insertArr['FPROJECTID'];
+            $result = $this->Tools->updateData($insertArr,$tableName,$where);
+        
         echo json_encode($result);
     }
     
@@ -119,6 +157,10 @@ class Project extends CI_Controller
           
          $this->load->model('Tools');
          $result = $this->Tools->addData($data,$tableName);
+         $preject = $this->project_model->getCurrentProject();
+         $projectDetail['FPROJECTID'] = $preject['FID'];
+         $tableName = 'T_PROJECTDETAILINFO';
+         $result = $this->Tools->addData($projectDetail,$tableName);
          echo json_encode($result);
      }
      

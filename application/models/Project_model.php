@@ -19,6 +19,21 @@ class Project_model extends CI_Model
         $this->load->database();
     }
     
+    public function  getCurrentProject()
+    {
+        $ProjectList = $this->getProjectBack();
+        $data=$ProjectList['data'];
+        $result = $data[0];
+        $besti = 0;
+        foreach ($data as $item) {
+            if($item['FID'] > $besti) {
+                $besti = $item['FID'];
+                $result = $item; 
+            }
+        }
+        return $result;
+    }
+    
     public function  getProjectTotalNum()
     {
         $query=$this->db->select('*');

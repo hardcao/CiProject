@@ -42,12 +42,22 @@ class BonusRecord extends CI_Controller
      * ouput:{"success":true,"errorCode":0,"error":0,"data":true}
      * 
      * */
-    public function updateBonusList() {
+    public function updateBonus() {
         
         $data = $this->input->input_stream();
         $tableName = 'T_BONUSRECORD';
         $this->load->model('Tools');
-        $result = $this->Tools->updateData($data['data'][0],$tableName);
+        foreach ($data as $item) {
+            $result = $this->Tools->updateData($item,$tableName);
+        }
+        echo json_encode($result);
+    }
+    
+    public function deleteBonus() {
+        $data = $this->input->input_stream();
+        $tableName = 'T_BONUSRECORD';
+        $this->load->model('Tools');
+        $result = $this->Tools->deleteData($data,$tableName);
         echo json_encode($result);
     }
 }
