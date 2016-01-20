@@ -169,7 +169,7 @@ function loadContentPage () {
 	}else{
 		var ctx="<?php echo site_url();?>";
 		$("#proManageLayer").hide();
-		$("#sysManageLayer").show().load(ctx+'/application/views/back/'+naviVal+".php");
+		$("#sysManageLayer").show().load('/back/index/'+naviVal);
 	}
 }
 </script>

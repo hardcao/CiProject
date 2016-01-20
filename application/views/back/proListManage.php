@@ -16,6 +16,7 @@
 #sysManageLayer #addProject a{color: #21B4F6;}
 #sysManageLayer #addProject a img{vertical-align:middle;border:none;}
 </style>
+<script type="text/javascript" src="<?php echo site_url('application/views/plugins/jquery-1.8.0.min.js')?>"></script>
 <script type="text/javascript">
 var proList = [];
 $(function(){
@@ -23,16 +24,16 @@ $(function(){
 	initListeners();
 });
 function getManageProjectList (argument) {
-	var ctx=$("#ctx").val();
+	var ctx="<?php echo site_url();?>";
 	var projectName=$("#projectNameList").val();
 	$.ajax({
 		type:'post',//可选get
-		url:ctx+'/UserProjectRelateController/getUserManageProjectList.action',
+		url:ctx+'Project/getProjectBack',
 		dataType:'Json',//服务器返回的数据类型 可选XML ,Json jsonp script html text等
-		data:{'projectName':projectName},
+		data:{},
 		success:function(msg){
 			if(msg.success){
-				proList=msg.dataDto;
+				proList=msg.data;
 				loadProData();
 			}else{
 				alert(msg.error);
@@ -56,12 +57,12 @@ function initListeners (argument) {
 }
 function delProject(projectId){
 	if(confirm("是否确认删除?")){
-		var ctx=$("#ctx").val();
+		var ctx="<?php echo site_url();?>";
 		$.ajax({
 			type:'post',//可选get
-			url:ctx+'/UserProjectRelateController/deleteProject.action',
+			url:ctx+'/Project/deleteProjectBack',
 			dataType:'Json',//服务器返回的数据类型 可选XML ,Json jsonp script html text等
-			data:{'projectId':projectId},
+			data:{'FID':projectId},
 			success:function(msg){
 				if(msg.success){
 					$("#projectNameList").val("");
@@ -84,10 +85,10 @@ function loadProData (argument) {
 		$.each(proList, function(ind, val){
 			tempHtml +=
 			'<tr><td height="40">'+(ind+1)+'</td>'+
-				'<td class="nameTd">'+val.projectName+'</td>'+
-				'<td class="areaTd">'+val.projectArea+'</td>'+
+				'<td class="nameTd">'+val.FNAME+'</td>'+
+				'<td class="areaTd">'+val.FSTATE+'</td>'+
 				'<td><a class="updBtn" ind="'+ind+'" href="javascript:void(0);">修改</a>&nbsp;&nbsp;'+
-				'<a href="javascript:delProject(\''+val.projectId+'\')">删除</a>&nbsp;&nbsp;'+
+				'<a href="javascript:delProject(\''+val.FID+'\')">删除</a>&nbsp;&nbsp;'+
 				'<a class="cancelUpdBtn" ind="'+ind+'" href="javascript:void(0);" style="display:none;">取消</a></td></tr>';
 		});
 		$("#proTbody").html(tempHtml);
@@ -115,12 +116,12 @@ function addProject(_ev){
 	}
 }
 function saveAddProject(_nameInpVal,_areaInpVal){
-	var ctx=$("#ctx").val();
+	var ctx="<?php echo site_url();?>";
 	$.ajax({
 		type:'post',//可选get
-		url:ctx+'/UserProjectRelateController/saveUserProject.action',
+		url:ctx+'/Project/addProject',
 		dataType:'Json',//服务器返回的数据类型 可选XML ,Json jsonp script html text等
-		data:{'projectName':_nameInpVal,"projectArea":_areaInpVal},
+		data:{'FNAME':_nameInpVal,"FSTATE":_areaInpVal},
 		success:function(msg){
 			if(msg.success){
 				getManageProjectList();
@@ -137,12 +138,12 @@ function updProject() {
 	var _ind = $(this).attr("ind");
 	$(this).text("保存").removeClass("updBtn").addClass("saveUpdBtn");
 	$(this).next(".cancelUpdBtn").show();
-	$(this).parent().prevAll(".nameTd").html('<input id="nameInp_'+_ind+'" value="'+proList[_ind].projectName+'" />');
-	$(this).parent().prevAll(".areaTd").html('<input id="areaInp_'+_ind+'" value="'+proList[_ind].projectArea+'" />');
+	$(this).parent().prevAll(".nameTd").html('<input id="nameInp_'+_ind+'" value="'+proList[_ind].FNAME+'" />');
+	$(this).parent().prevAll(".areaTd").html('<input id="areaInp_'+_ind+'" value="'+proList[_ind].FSTATE+'" />');
 }
 function saveUpdProject() {
 	var _ind = $(this).attr("ind");
-	var _proid = proList[_ind].projectId;
+	var _proid = proList[_ind].FID;
 	var _name = $("#nameInp_"+_ind).val();
 	var _area = $("#areaInp_"+_ind).val();
 	if($.trim(_name) == ""){
@@ -153,12 +154,12 @@ function saveUpdProject() {
 		return false;
 	}
 
-	var ctx=$("#ctx").val();
+	var ctx="<?php echo site_url();?>";
 	$.ajax({
 		type:'post',//可选get
-		url:ctx+'/ProjectBasicController/update.action',
+		url:ctx+'/Project/updateProjectBack',
 		dataType:'Json',//服务器返回的数据类型 可选XML ,Json jsonp script html text等
-		data:{'projectId':_proid,'projectName':_name,"projectArea":_area},
+		data:{'FID':_proid,'FNAME':_name,"FSTATE":_area},
 		success:function(msg){
 			if(msg.success){
 				getManageProjectList();
@@ -173,8 +174,8 @@ function saveUpdProject() {
 }
 function cancelUpdProject() {
 	var _ind = $(this).attr("ind");
-	$(this).parent().prevAll(".nameTd").html(proList[_ind].projectName);
-	$(this).parent().prevAll(".areaTd").html(proList[_ind].projectArea);
+	$(this).parent().prevAll(".nameTd").html(proList[_ind].FNAME);
+	$(this).parent().prevAll(".areaTd").html(proList[_ind].FSTATE);
 	$(this).prev(".saveUpdBtn").text("修改").removeClass("saveUpdBtn").addClass("updBtn");
 	$(this).hide();
 }
