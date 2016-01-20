@@ -31,7 +31,7 @@ class Tools extends CI_Model
        $data_result["success"] = $result;
        $data_result["errorCode"] = 0;
        $data_result["error"] = 0;
-       $data_result['data'] = '';
+       $data_result['data'] = $this->db->insert_id();
        return  $data_result;
     }
     

@@ -131,7 +131,7 @@ function loadContentPage(){
 
 </head>
 <body>
-<?php require (dirname(dirname(__FILE__)).'\common\header.php'); ?>
+<?php require (dirname(dirname(__FILE__)).'/common/header.php'); ?>
 <div id="main_content">
 	<div id="navLayer">
 		<div id="navProLayer">当前项目：<span id="pageProName"></span></div>

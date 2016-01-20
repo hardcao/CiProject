@@ -17,7 +17,7 @@
 <link rel="stylesheet" type="text/css" href="application/views/back/css/public.css">
 <link rel="stylesheet" type="text/css" href="application/views/back/css/header.css">
 
-<?php require (dirname(dirname(__FILE__)).'\common\header_include.php'); ?>
+<?php require (dirname(dirname(__FILE__)).'/common/header_include.php'); ?>
 <style type="text/css">
 
 .displayNone{display: none;}
@@ -169,7 +169,7 @@ function loadContentPage () {
 </script>
 </head>
 <body>
-<?php require (dirname(dirname(__FILE__)).'\common\header.php'); ?>
+<?php require (dirname(dirname(__FILE__)).'/common/header.php'); ?>
 <div id="contentLayer">
 	<div id="roleLayer"><!-- 当前用户角色：系统管理员 -->您好，欢迎使用旭辉跟投内容管理系统！</div>
 	<div id="leftLayer" class="frameSTY">
