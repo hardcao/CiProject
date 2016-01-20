@@ -156,7 +156,7 @@ function getSubscribeByProjectid(){
 	})
 }
 function getForceFollowByProjectid(){
-	var ctx=$("#ctx").val();
+	var ctx="<?php echo site_url();?>";
 	var projectId=getReqParam('projectid');
 	$.ajax({
 		type:'post',//可选get
@@ -168,7 +168,7 @@ function getForceFollowByProjectid(){
 		},
 		success:function(msg){
 			if(msg.success){
-				i=msg.dataDto.length;
+				i=msg.data.length;
 				var _obj = null;
 				var tempSel = "";
 				for(var m=0;m<msg.dataDto.length;m++){
@@ -586,13 +586,13 @@ function hideForceDialog(){
 	</tr><tr>
 		<td class="tdTitle">项目IRR</td>
 		<td><input name="planIrr" id="planIrr" onkeyup="clearNoNum(this)" /> (%)</td>
-		<td class="tdTitle">预计销售毛利率</td>
-		<td><input name="planGrossMargin" id="planGrossMargin" onkeyup="clearNoNum(this)" /> (%)</td>
-	</tr><tr class="displayNone">
-		<td class="tdTitle">跟投MOIC（税前）</td>
-		<td><input name="planMoic" id="planMoic" onkeyup="clearNoNum(this)" /> (元)</td>
-		<td class="tdTitle"></td>
-		<td></td>
+		<!--td class="tdTitle">预计销售毛利率</td>
+		<td><input name="planGrossMargin" id="planGrossMargin" onkeyup="clearNoNum(this)" /> (%)</td-->
+	</tr><tr class="">
+		<td class="tdTitle">税前销售利润率</td>
+		<td><input name="FPREPROFIT" id="FPREPROFIT" onkeyup="clearNoNum(this)" /> (%)</td>
+		<td class="tdTitle">税后销售净利润率</td>
+		<td><input name="FPROFIT" id="FPROFIT" onkeyup="clearNoNum(this)" /> (%)</td>
 	</tr><tr>
 		<td class="tdTitle">开工时间</td>
 		<td><input id="stageStartInp" name="planStageStartDate"  /></td>
@@ -618,24 +618,24 @@ function hideForceDialog(){
 	</tr> --><tr>
 		<td class="tdTitle">持有物业处理方案</td>
 		<td colspan="3"><textarea name="planPropertyScheme" id="planPropertyScheme"></textarea></td>
-	</tr><tr class="displayNone">
+	</tr><!--tr class="displayNone">
 		<td class="tdTitle">财务测算文件</td>
 		<td><input name="planFinanceCalculate" id="planFinanceCalculate"/></td>
 		<td class="tdTitle"></td>
 		<td></td>
-	</tr><tr>
+	</tr--><tr>
 		<td class="tdTitle">合作方背景和资质</td>
 		<td colspan="3"><textarea name="corpPartnerBackground" id="corpPartnerBackground"></textarea></td>
 	</tr><tr>
 		<td class="tdTitle">项目出资比例</td>
 		<td colspan="3"><textarea name="corpContributiveRatio" id="corpContributiveRatio"></textarea></td>
-	</tr><tr class="displayNone">
+	</tr><!--tr class="displayNone">
 		<td class="tdTitle">董事会组成</td>
 		<td colspan="3"><textarea name="corpBoardMember" id="corpBoardMember"></textarea></td>
 	</tr><tr class="displayNone">
 		<td class="tdTitle">项目公司股东会及<br>董事会表决比例<br>和表决规则</td>
 		<td colspan="3"><textarea name="corpVoteRule" id="corpVoteRule"></textarea></td>
-	</tr><tr>
+	</tr--><tr>
 		<td class="tdTitle">答疑邮箱地址</td>
 		<td><input name="restAnswerMail" id="restAnswerMail"/></td>
 		<td class="tdTitle"></td>
@@ -651,10 +651,10 @@ function hideForceDialog(){
 	</tr><tr>
 		<td class="tdTitle">项目跟投管理员</td>
 		<td colspan="3"><textarea name="restFollowerManagers" id="restFollowerManagers"></textarea></td>
-	</tr><tr>
+	</tr><!--tr>
 		<td class="tdTitle">风险与免责</td>
 		<td colspan="3"><textarea name="riskDisclaimerDes" id="riskDisclaimerDes"></textarea></td>
-	</tr><tr class="displayNone">
+	</tr--><tr class="displayNone">
 		<td class="tdTitle">跟投协议</td>
 		<td><input name="schemeProtocol" id="schemeProtocol"/><button>浏览</button></td>
 		<td class="tdTitle"></td>
@@ -683,12 +683,12 @@ function hideForceDialog(){
 		<td><input id="payStartInp" name="payStartDate"  /></td>
 		<td class="tdTitle">付款结束时间</td>
 		<td><input id="payEndInp" name="payEndDate"  /></td>
-	</tr><tr>
+	</tr><!--tr>
 		<td class="tdTitle">项目发布时间</td>
 		<td><input id="payReleaseDateInp" name="projectReleaseDate"  /></td>
-		<td class="tdTitle"><!-- 员工可投总额 --></td>
-		<td><!-- <input id="personamt" name="personamt"  /> --></td>
-	</tr><!-- <tr>
+		<td class="tdTitle"><-- 员工可投总额 -></td>
+		<td><input id="personamt" name="personamt"  /></td>
+	</tr--><!-- <tr>
 		<td class="tdTitle">一线可跟投总额</td>
 		<td><input id="yxpersonamt"  name="yxpersonamt" /></td>
 		<td class="tdTitle">集团可跟投总额</td>
@@ -696,32 +696,32 @@ function hideForceDialog(){
 	</tr> --><tr>
 		<td class="tdTitle">资金峰值</td>
 		<td><input name="fundPeake" id="fundPeake" onkeyup="clearNoNum(this)" /> (亿元)</td>
-		<td class="tdTitle">跟投总额(含杠杆)</td>
+		<!--td class="tdTitle">跟投总额(含杠杆)</td>
 		<td><input name="followAmount" id="followAmount" onkeyup="clearNoNum(this)" /> (万元)</td>
 	</tr><!-- <tr>
 		<td class="tdTitle">可跟投总额包括</td>
 		<td colspan="3"><textarea name="followAmountDesc" id="followAmountDesc"></textarea></td>
 	</tr> --><tr>
-		<td class="tdTitle">集团强投包比例</td>
+		<td class="tdTitle">总部跟投比例</td>
 		<td><input name="groupForceRatio" id="groupForceRatio" onkeyup="clearNoNum(this)" /> (%)</td>
-		<td class="tdTitle">集团强投包总额</td>
+		<td class="tdTitle">总部最大可跟投总额（含杠杆）</td>
 		<td><input name="groupForceAmount" id="groupForceAmount" onkeyup="clearNoNum(this)" /> (万元)</td>
 	</tr><tr>
-		<td class="tdTitle">城市公司强投包比例</td>
+		<td class="tdTitle">区域跟投比例</td>
 		<td><input name="compForceRatio" id="compForceRatio" onkeyup="clearNoNum(this)" /> (%)</td>
-		<td class="tdTitle">城市公司强投包总额</td>
+		<td class="tdTitle">区域最大可跟投总额（含杠杆）</td>
 		<td><input name="compForceAmount" id="compForceAmount" onkeyup="clearNoNum(this)" /> (万元)</td>
 	</tr><tr>
-		<td class="tdTitle">选投包比例(无杠杆)</td>
+		<td class="tdTitle">全部跟投比例</td>
 		<td><input name="compChoiceRatio" id="compChoiceRatio" onkeyup="clearNoNum(this)" /> (%)</td>
-		<td class="tdTitle">选投包总额(无杠杆)</td>
+		<td class="tdTitle">全部最大可跟投总额（含杠杆）</td>
 		<td><input name="compChoiceAmount" id="compChoiceAmount" onkeyup="clearNoNum(this)" /> (万元)</td>
-	</tr><tr>
+	</tr><!--tr>
 		<td class="tdTitle">选投包认购金额下限</td>
 		<td><input name="minamount" id="minamount" onkeyup="clearNoNum(this)" /> (万元)</td>
 		<td class="tdTitle">选投包认购金额上限</td>
 		<td><input name="maxamount" id="maxamount" onkeyup="clearNoNum(this)" /> (万元)</td>
-	</tr><tr>
+	</tr--><tr>
 		<td class="tdTitle">杠杆认购说明</td>
 		<td colspan="3"><textarea name="leverageDes" id="leverageDes"></textarea></td>
 	</tr><tr>
@@ -742,7 +742,7 @@ function hideForceDialog(){
 	</tr></table>
 </div>
 </form>
-<div id="force" class="editTitle"><img src="../../application/views/back/images/arrow_down.png" />强制跟投名单</div>
+<div id="force" class="editTitle"><img src="../../application/views/back/images/arrow_down.png" />跟投人员名单</div>
 <form id="forceForm" method="post" action="${pageContext.request.contextPath}/ForceFollowController/saveOrUpdate.action">
 <input type="hidden" name="projectid" id="forceProjectId"/>
 <div id="force_editor" class="editor displayNone" style="">
@@ -750,7 +750,7 @@ function hideForceDialog(){
 		<!-- <td rowspan="2" width="4%">序号</td> -->
 		<td rowspan="2" width="12%">姓名</td>
 		<td rowspan="2" width="12%">认购类型</td>  <!-- "所属公司"字段改为：认购类型 -->
-		<td rowspan="2" width="15%">部门</td>
+		<td rowspan="2" width="15%">总部/区域</td>
 		<td rowspan="2" width="11%">职务</td>
 		<td colspan="2" width="30%">个人额度范围</td>
 		<td rowspan="2" width="12%">备注</td>
