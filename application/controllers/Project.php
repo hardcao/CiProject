@@ -29,6 +29,26 @@ class Project extends CI_Controller
         echo  json_encode($result);
     }
     
+    public function updateProjectBack()
+    {
+        
+        $data = $this->input->input_stream();
+        $tableName = 'T_PROJECT';
+        $this->load->model('Tools');
+        $result = $this->Tools->updateData($data,$tableName);
+        echo json_encode($result);
+    }
+    
+    public function deleteProjectBack()
+    {
+    
+        $data = $this->input->input_stream();
+        $tableName = 'T_PROJECT';
+        $this->load->model('Tools');
+        $result = $this->Tools->deleteData($data,$tableName);
+        echo json_encode($result);
+    }
+    
     /*
      * 
      * begin=0&count=2&uid=test1&subscribeStartDate='2014-09-01 09:50:00'&subscribeEndDate='2014-09-01 09:50:00'&status=1
