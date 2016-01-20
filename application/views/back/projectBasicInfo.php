@@ -352,8 +352,8 @@ function getProjectDetail(){
 				$("#planFold").val(data.FPRICE);//项目均价
 				$("#planRent").val(data.FCYWYSP);//持有型物业租金水平
 				$("#planIrr").val(data.FIRR);
-				$("#planGrossMargin").val('data.baseModel.planGrossMargin');//预计销售毛利率
-				$("#planMoic").val('data.baseModel.planMoic');
+				$("#FPREPROFIT").val(data.FPREPROFIT);//税前销售利润率
+				$("#FPROFIT").val(data.FPROFIT);//税后销售净利润率
 				//开工时间
 				$("#stageStartInp").val((new Date(data.FSTARTDATE)).format('yyyy-MM-dd hh:mm:ss'));
 				//开盘时间
@@ -367,18 +367,18 @@ function getProjectDetail(){
 				//清算时间
 				$("#liquidateInp").val((new Date(data.FLIQUIDATE)).format('yyyy-MM-dd hh:mm:ss'));
 				$("#planPropertyScheme").val(data.FPROPERTYSCHEME);//持有物业处理方案
-				$("#planFinanceCalculate").val('data.baseModel.planFinanceCalculate');//财务测算文件
+				//$("#planFinanceCalculate").val('data.baseModel.planFinanceCalculate');//财务测算文件
 				$("#corpPartnerBackground").val(data.FPARTNERINFO);//合作方背景和资质
 				$("#corpContributiveRatio").val(data.FCONTRIBUTIVE);//项目出资比例
-				$("#corpBoardMember").val('data.baseModel.corpBoardMember');//董事会组成
-				$("#corpVoteRule").val('data.baseModel.corpVoteRule');
+				//$("#corpBoardMember").val('data.baseModel.corpBoardMember');//董事会组成
+				//$("#corpVoteRule").val('data.baseModel.corpVoteRule');
 				$("#restAnswerMail").val(data.FANSWERMAIL);//答疑邮箱地址
 				// $("#restAnswerLink").val(data.baseModel.restAnswerLink);
 				$("#restProjectManagers").val(data.FPROJECTINFOMANAGERS);//项目信息管理员
 				$("#restFollowerManagers").val(data.FFOLLOWERMANAGERS);
-				$("#riskDisclaimerDes").val('data.baseModel.riskDisclaimerDes');//风险与免责
+				//$("#riskDisclaimerDes").val('data.baseModel.riskDisclaimerDes');//风险与免责
 				// $("#schemeProtocol").val(data.baseModel.schemeProtocol);
- 				$("#protocalLinkTd").html('splitSchemeProtocal(msg.data.baseModel.schemeProtocol)');
+ 				//$("#protocalLinkTd").html('splitSchemeProtocal(msg.data.baseModel.schemeProtocol)');
 			}else{
 				alert(msg.data.error);
 			}
@@ -540,7 +540,7 @@ function hideForceDialog(){
 </head>
 <body id="rightLayer">
 <div id="basic" class="editTitle"><img src="../../application/views/back/images/arrow_down.png" />基础信息</div>
-<form id="testfrom" method="post" action="${pageContext.request.contextPath}/ProjectBasicController/saveOrUpdate.action">
+<form id="testfrom" method="post" action="/project/updateProjectDetailInfo">
 <div id="basic_editor" class="editor">
 <input type="hidden" name="projectId" id="newprojectId" />
 	<table width="100%"><tr>
