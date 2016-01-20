@@ -143,10 +143,14 @@ class Project_model extends CI_Model
         
         $query=$this->db->select("*");
         $query=$this->db->where('FPROJECTID',$projectId);
-        $this->db->join('T_PROJECT', 'T_PROJECT.FPROJECTID=T_PROJECTDETAILINFO.FPROJECTID');
+        $query=$this->db->join('T_PROJECT', 'T_PROJECT.FID='.$projectId);
         $query=$this->db->get('T_PROJECTDETAILINFO');
         $result = $query->result_array();
-        return $result[0];
+        return $result;
+        if ($result)
+            return $result[0]; 
+        else 
+            return "error";
     }
     
     public function  getProjectWithProjectID($projectId) {
