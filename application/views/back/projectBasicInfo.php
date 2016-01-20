@@ -8,6 +8,7 @@
 <script type="text/javascript" src="<?php echo site_url('application/views/plugins/jquery.datetimepicker.js')?>"></script>
 <script type="text/javascript" src="<?php echo site_url('application/views/plugins/jquery.json-2.4.js')?>"></script>
 <script type="text/javascript" src="<?php echo site_url('application/views/plugins/dateFormat.js')?>"></script>
+<script type="text/javascript" src="<?php echo site_url('application/views/plugins/util.js')?>"></script>
 
 <!-- <link rel="stylesheet" type="text/css" href="../plugins/jquery.datetimepicker.css">
 <script type="text/javascript" src="application/views/plugins/jquery.datetimepicker.js"></script>
@@ -111,7 +112,7 @@ $(function(){
 	$("#payStartInp").datetimepicker();
 	$("#payEndInp").datetimepicker();
 	$("#payReleaseDateInp").datetimepicker();
-	var projectId= 123;//$("#projectid").val();
+	var projectId= getReqParam('projectid');//$("#projectid").val();
 	if(projectId!="" && projectId!=null){
 		//此id是做修改的时候 form表单的id 跟head.jsp里面的projectid 一样
 		$("#newprojectId").val(projectId);
@@ -128,7 +129,7 @@ $(function(){
 });
 function getSubscribeByProjectid(){
 	var ctx=$("#ctx").val();
-	var projectId=$("#projectid").val();
+	var projectId=getReqParam('projectid');;
 	$.ajax({
 		type:'post',//可选get
 		url:ctx+'/subscribe/getSubscribeyProjectId.action',
@@ -156,7 +157,7 @@ function getSubscribeByProjectid(){
 }
 function getForceFollowByProjectid(){
 	var ctx=$("#ctx").val();
-	var projectId=$("#projectid").val();
+	var projectId=getReqParam('projectid');
 	$.ajax({
 		type:'post',//可选get
 		url:ctx+'/ForceFollowController/getForceByProjectId.action',
@@ -205,7 +206,7 @@ function getForceFollowByProjectid(){
 }
 function getSchemeByProjectid(){
 	var ctx=$("#ctx").val();
-	var projectId=$("#projectid").val();
+	var projectId=getReqParam('projectid');
 	$.ajax({
 		type:'post',//可选get
 		url:ctx+'/FollowSchemeController/getSchemeByProjectId.action',
@@ -288,7 +289,7 @@ function deleteSchemeLinkFunc(){
 }
 function getProjectDetail(){
 	var ctx="<?php echo site_url();?>";
-	var projectId= '123';//$("#projectid").val();
+	var projectId =getReqParam('projectid');
 	$.ajax({
 		type:'post',//可选get
 		url:ctx+'/Project/getProjectDetail',
@@ -331,49 +332,52 @@ function getProjectDetail(){
 				FTOTAL: "123"
 				*/
 
-				$("#projectName").val('msg.baseModel.projectName');
-				$("#floorArea").val(msg.data.FAREA);//占地面积
-				$("#structArea").val(msg.data.FSTRUCTAREA);//计容键面
-				$("#plotArea").val(msg.data.FRJL);//容积率
-				$("#saleStructArea").val(msg.data.FSALEAREA);//可销售计容面积
-				$("#groundInp").val((new Date(msg.data.FGETDATE)).format('yyyy-MM-dd hh:mm:ss'));//获取时间
-				$("#groundAmount").val(msg.data.FTOTAL);//地价总价
-				$("#returndate").val(msg.data.FCASHFLOWBACK); //现金流回正时间 个月
-				//$("#buildareaprice").val(msg.data.FPRICE);//楼面地价
-				$("#groundType").val(msg.data.FGETWAY);//获取方式
-				$("#groundPosition").val(msg.data.FPOSITION);//项目区位
-				// $("#projectarea").val(msg.data.baseModel.projectarea);
-				$("#groundPositioning").val(msg.data.FPROPOSITION);//产品定位
-				$("#groundPlanning").val(msg.data.FSCHEME);//规划方案
-				$("#planFold").val(msg.data.FPRICE);//项目均价
-				$("#planRent").val(msg.data.FCYWYSP);//持有型物业租金水平
-				$("#planIrr").val(msg.data.FIRR);
-				$("#planGrossMargin").val('msg.data.baseModel.planGrossMargin');//预计销售毛利率
-				$("#planMoic").val('msg.data.baseModel.planMoic');
+				data = msg.data[0];
+
+
+				$("#projectName").val(data.FNAME);
+				$("#floorArea").val(data.FAREA);//占地面积
+				$("#structArea").val(data.FSTRUCTAREA);//计容键面
+				$("#plotArea").val(data.FRJL);//容积率
+				$("#saleStructArea").val(data.FSALEAREA);//可销售计容面积
+				$("#groundInp").val((new Date(data.FGETDATE)).format('yyyy-MM-dd hh:mm:ss'));//获取时间
+				$("#groundAmount").val(data.FTOTAL);//地价总价
+				$("#returndate").val(data.FCASHFLOWBACK); //现金流回正时间 个月
+				//$("#buildareaprice").val(data.FPRICE);//楼面地价
+				$("#groundType").val(data.FGETWAY);//获取方式
+				$("#groundPosition").val(data.FPOSITION);//项目区位
+				// $("#projectarea").val(data.baseModel.projectarea);
+				$("#groundPositioning").val(data.FPROPOSITION);//产品定位
+				$("#groundPlanning").val(data.FSCHEME);//规划方案
+				$("#planFold").val(data.FPRICE);//项目均价
+				$("#planRent").val(data.FCYWYSP);//持有型物业租金水平
+				$("#planIrr").val(data.FIRR);
+				$("#planGrossMargin").val('data.baseModel.planGrossMargin');//预计销售毛利率
+				$("#planMoic").val('data.baseModel.planMoic');
 				//开工时间
-				$("#stageStartInp").val((new Date(msg.data.FSTARTDATE)).format('yyyy-MM-dd hh:mm:ss'));
+				$("#stageStartInp").val((new Date(data.FSTARTDATE)).format('yyyy-MM-dd hh:mm:ss'));
 				//开盘时间
-				$("#stageOpenInp").val((new Date(msg.data.FOPENDATE)).format('yyyy-MM-dd hh:mm:ss'));
-				// $("#peakInp").val((new Date(msg.data.baseModel.planPeakeDate)).format('yyyy-MM-dd hh:mm:ss'));
-				// $("#cashflowReturnInp").val((new Date(msg.data.baseModel.planCashflowReturnDate)).format('yyyy-MM-dd hh:mm:ss'));
+				$("#stageOpenInp").val((new Date(data.FOPENDATE)).format('yyyy-MM-dd hh:mm:ss'));
+				// $("#peakInp").val((new Date(data.baseModel.planPeakeDate)).format('yyyy-MM-dd hh:mm:ss'));
+				// $("#cashflowReturnInp").val((new Date(data.baseModel.planCashflowReturnDate)).format('yyyy-MM-dd hh:mm:ss'));
 				//交付时间
-				$("#deliverInp").val((new Date(msg.data.FHANDDATE)).format('yyyy-MM-dd hh:mm:ss'));
+				$("#deliverInp").val((new Date(data.FHANDDATE)).format('yyyy-MM-dd hh:mm:ss'));
 				//结转时间
-				$("#carryoverInp").val((new Date(msg.data.FCARRYOVERDATE)).format('yyyy-MM-dd hh:mm:ss'));
+				$("#carryoverInp").val((new Date(data.FCARRYOVERDATE)).format('yyyy-MM-dd hh:mm:ss'));
 				//清算时间
-				$("#liquidateInp").val((new Date(msg.data.FLIQUIDATE)).format('yyyy-MM-dd hh:mm:ss'));
-				$("#planPropertyScheme").val(msg.data.FPROPERTYSCHEME);//持有物业处理方案
-				$("#planFinanceCalculate").val('msg.data.baseModel.planFinanceCalculate');//财务测算文件
-				$("#corpPartnerBackground").val(msg.data.FPARTNERINFO);//合作方背景和资质
-				$("#corpContributiveRatio").val(msg.data.FCONTRIBUTIVE);//项目出资比例
-				$("#corpBoardMember").val('msg.data.baseModel.corpBoardMember');//董事会组成
-				$("#corpVoteRule").val('msg.data.baseModel.corpVoteRule');
-				$("#restAnswerMail").val(msg.data.FANSWERMAIL);//答疑邮箱地址
-				// $("#restAnswerLink").val(msg.data.baseModel.restAnswerLink);
-				$("#restProjectManagers").val(msg.data.FPROJECTINFOMANAGERS);//项目信息管理员
-				$("#restFollowerManagers").val(msg.data.FFOLLOWERMANAGERS);
-				$("#riskDisclaimerDes").val('msg.data.baseModel.riskDisclaimerDes');//风险与免责
-				// $("#schemeProtocol").val(msg.data.baseModel.schemeProtocol);
+				$("#liquidateInp").val((new Date(data.FLIQUIDATE)).format('yyyy-MM-dd hh:mm:ss'));
+				$("#planPropertyScheme").val(data.FPROPERTYSCHEME);//持有物业处理方案
+				$("#planFinanceCalculate").val('data.baseModel.planFinanceCalculate');//财务测算文件
+				$("#corpPartnerBackground").val(data.FPARTNERINFO);//合作方背景和资质
+				$("#corpContributiveRatio").val(data.FCONTRIBUTIVE);//项目出资比例
+				$("#corpBoardMember").val('data.baseModel.corpBoardMember');//董事会组成
+				$("#corpVoteRule").val('data.baseModel.corpVoteRule');
+				$("#restAnswerMail").val(data.FANSWERMAIL);//答疑邮箱地址
+				// $("#restAnswerLink").val(data.baseModel.restAnswerLink);
+				$("#restProjectManagers").val(data.FPROJECTINFOMANAGERS);//项目信息管理员
+				$("#restFollowerManagers").val(data.FFOLLOWERMANAGERS);
+				$("#riskDisclaimerDes").val('data.baseModel.riskDisclaimerDes');//风险与免责
+				// $("#schemeProtocol").val(data.baseModel.schemeProtocol);
  				$("#protocalLinkTd").html('splitSchemeProtocal(msg.data.baseModel.schemeProtocol)');
 			}else{
 				alert(msg.data.error);
@@ -407,7 +411,7 @@ function deleteSchemeProtocalFunc(){
 		url:'../ProjectBasicController/deleteSchemeProtocal.action',
 		dataType:'Json',//服务器返回的数据类型 可选XML ,Json jsonp script html text等
 		data:{
-			'projectId':$("#projectid").val(),
+			'projectId':getReqParam('projectid'),
 			'protocalLink':_linkStr
 		},
 		success:function(msg){
