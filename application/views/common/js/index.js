@@ -19,6 +19,13 @@
             delay  = 5000,
             timeout = -1;
 
+        /*var index_hash = location.hash || 0;
+        idx = parseInt(index_hash.substring(1,index_hash.Length));
+        curr_i = idxs.eq(idx);
+        curr_i.addClass('on');
+        auto();
+        idxs.hover(hover);*/
+
         win.on('load', function() {
             idx_recu(0, 1500/len, function() {
                 setTimeout(function() {
@@ -75,55 +82,55 @@
 
 
     // 二级栏目 下拉
-    // (function() {
-    //     win.on('load', function() {
-    //         var lis = $('#nav li'),
-    //             on  = $(nav_on),
-    //             lis_1 = lis.filter(':not(.more)'),
-    //             lis_2 = lis.filter('.more'),
-    //             subNav = $('#subNav'),
-    //             subitem = subNav.find('.item'),
+    /*(function() {
+        win.on('load', function() {
+            var lis = $('#nav li'),
+                on  = $(nav_on),
+                lis_1 = lis.filter(':not(.more)'),
+                lis_2 = lis.filter('.more'),
+                subNav = $('#subNav'),
+                subitem = subNav.find('.item'),
 
-    //             n  = $(),
-    //             li = n,
-    //             item = n,
-    //             link = n,
+                n  = $(),
+                li = n,
+                item = n,
+                link = n,
 
-    //             teimeout = -1,
-    //             opened = false;
+                teimeout = -1,
+                opened = false;
 
-    //         lis_2.hover(function() {
-    //             link.removeClass('on');
-    //             item.removeClass('on');
-    //             li = $(this);
-    //             link = li.find('a').addClass('on');
-    //             item = subitem.eq(li.index()-1);
-    //             item.addClass('on');
-    //             opened = true;
-    //         }, none);
+            lis_2.hover(function() {
+                link.removeClass('on');
+                item.removeClass('on');
+                li = $(this);
+                link = li.find('a').addClass('on');
+                item = subitem.eq(li.index()-1);
+                item.addClass('on');
+                opened = true;
+            }, none);
 
-    //         subNav.hover(open, close);
-    //         $('#header').hover(none, function() {
-    //             timeout = setTimeout(close, 100);
-    //         });
-    //         lis_1.hover(close, none);
+            subNav.hover(open, close);
+            $('#header').hover(none, function() {
+                timeout = setTimeout(close, 100);
+            });
+            lis_1.hover(close, none);
 
-    //         function open() {
-    //             clearTimeout(timeout);
-    //             if (opened) {
-    //                 on.removeClass('on');
-    //                 link.addClass('on');
-    //             }
-    //         }
-    //         function close() {
-    //             on.addClass('on');
-    //             link.removeClass('on');
-    //             item.removeClass('on');
-    //             opened = false;
-    //         }
-    //         function none() {};
-    //     });
-    // }());
-    // win.on('load', function() {
-    // })
+            function open() {
+                //clearTimeout(timeout);
+                if (opened) {
+                    on.removeClass('on');
+                    link.addClass('on');
+                }
+            }
+            function close() {
+                on.addClass('on');
+                link.removeClass('on');
+                item.removeClass('on');
+                opened = false;
+            }
+            function none() {};
+        });
+    }());
+    win.on('load', function() {
+    })*/
 });

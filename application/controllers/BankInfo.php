@@ -1,4 +1,5 @@
 ﻿<?php
+defined('BASEPATH') or exit('Error!');
 class BankInfo extends CI_Controller
 {
 
@@ -17,7 +18,7 @@ class BankInfo extends CI_Controller
     public function  getPersonBankInfo() {
     
         $userID = $this->input->post('uid');
-        $result['test'] = $userID;// = $this->BackInfo_model->getPersonBankInfo($userID);
+        $result = $this->BankInfo_model->getPersonBankInfo($userID);
         echo json_encode($result);
     }
     /*

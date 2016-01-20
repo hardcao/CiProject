@@ -5,7 +5,7 @@
 class BankInfo_model extends CI_Model
 {
     public $FID;
-   public $FUSERID;
+    public $FUSERID;
     public $FBANKNO;
     public $FNAME;
     public $FBANKATTRIBUTE;

@@ -288,7 +288,7 @@ function deleteSchemeLinkFunc(){
 }
 function getProjectDetail(){
 	var ctx="<?php echo site_url();?>";
-	var projectId= '1';//$("#projectid").val();
+	var projectId= '123';//$("#projectid").val();
 	$.ajax({
 		type:'post',//可选get
 		url:ctx+'/Project/getProjectDetail',

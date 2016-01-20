@@ -56,10 +56,21 @@ $(function(){
 function initParams(){
 	projectId = getReqParam("projectId");
 	projectName = getReqParam("projectName");
-	var mystring = "#projectBasicInfo";
+	var mystring =location.hash;
 	naviVal = mystring.substring(1,mystring.Length);
 	pageHash = location.hash?location.hash:"#projectBasicInfo";
+	cleanFocus();
+	$('#'+naviVal).addClass("focusOn");
 	loadContentPage();
+}
+
+function cleanFocus()
+{
+	$("#projectBasicInfo").removeClass("focusOn");
+	$("#projectNewsInfo").removeClass("focusOn");
+	$("#subscribeConfirm").removeClass("focusOn");
+	$("#payInConfirm").removeClass("focusOn");
+	$("#projectBonusInfo").removeClass("focusOn");
 }
 
 function initListeners(){
@@ -132,11 +143,11 @@ function loadContentPage(){
 			style="vertical-align:middle;" />&nbsp;&nbsp;管理菜单
 		</div>
 		<ul class="naviUl">
-			<li val="projectBasicInfo" class="focusOn ">基础信息</li>
-			<li val="projectNewsInfo" class="">动态新闻</li>
-			<li val="subscribeConfirm" class="">认购核准</li>
-			<li val="payInConfirm" class="">缴款确认</li>
-			<li val="projectBonusInfo" class="">分红明细</li>
+			<li id="projectBasicInfo" val="projectBasicInfo" class="focusOn ">基础信息</li>
+			<li id="projectNewsInfo" val="projectNewsInfo" class="">动态新闻</li>
+			<li id="subscribeConfirm" val="subscribeConfirm" class="">认购核准</li>
+			<li id="payInConfirm" val="payInConfirm" class="">缴款确认</li>
+			<li id="projectBonusInfo" val="projectBonusInfo" class="">分红明细</li>
 			<!--li val="specialInfo" class="displayNone">特别跟投</li>
 			<!--li val="dimissionInfo" class="displayNone">离职处理</li>
 			<!-- <li val="ognz_info">组织架构设置</li> -->
