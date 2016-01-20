@@ -8,6 +8,7 @@
 <script type="text/javascript" src="<?php echo site_url('application/views/plugins/jquery.datetimepicker.js')?>"></script>
 <script type="text/javascript" src="<?php echo site_url('application/views/plugins/jquery.json-2.4.js')?>"></script>
 <script type="text/javascript" src="<?php echo site_url('application/views/plugins/dateFormat.js')?>"></script>
+<script type="text/javascript" src="<?php echo site_url('application/views/plugins/util.js')?>"></script>
 
 <!-- <link rel="stylesheet" type="text/css" href="../plugins/jquery.datetimepicker.css">
 <script type="text/javascript" src="application/views/plugins/jquery.datetimepicker.js"></script>
@@ -111,7 +112,7 @@ $(function(){
 	$("#payStartInp").datetimepicker();
 	$("#payEndInp").datetimepicker();
 	$("#payReleaseDateInp").datetimepicker();
-	var projectId= 123;//$("#projectid").val();
+	var projectId= getReqParam('projectid');//$("#projectid").val();
 	if(projectId!="" && projectId!=null){
 		//此id是做修改的时候 form表单的id 跟head.jsp里面的projectid 一样
 		$("#newprojectId").val(projectId);
@@ -128,7 +129,7 @@ $(function(){
 });
 function getSubscribeByProjectid(){
 	var ctx=$("#ctx").val();
-	var projectId=$("#projectid").val();
+	var projectId=getReqParam('projectid');;
 	$.ajax({
 		type:'post',//可选get
 		url:ctx+'/subscribe/getSubscribeyProjectId.action',
@@ -155,8 +156,8 @@ function getSubscribeByProjectid(){
 	})
 }
 function getForceFollowByProjectid(){
-	var ctx=$("#ctx").val();
-	var projectId=$("#projectid").val();
+	var ctx="<?php echo site_url();?>";
+	var projectId=getReqParam('projectid');
 	$.ajax({
 		type:'post',//可选get
 		url:ctx+'/ForceFollowController/getForceByProjectId.action',
@@ -167,7 +168,7 @@ function getForceFollowByProjectid(){
 		},
 		success:function(msg){
 			if(msg.success){
-				i=msg.dataDto.length;
+				i=msg.data.length;
 				var _obj = null;
 				var tempSel = "";
 				for(var m=0;m<msg.dataDto.length;m++){
@@ -205,7 +206,7 @@ function getForceFollowByProjectid(){
 }
 function getSchemeByProjectid(){
 	var ctx=$("#ctx").val();
-	var projectId=$("#projectid").val();
+	var projectId=getReqParam('projectid');
 	$.ajax({
 		type:'post',//可选get
 		url:ctx+'/FollowSchemeController/getSchemeByProjectId.action',
@@ -288,7 +289,7 @@ function deleteSchemeLinkFunc(){
 }
 function getProjectDetail(){
 	var ctx="<?php echo site_url();?>";
-	var projectId= '123';//$("#projectid").val();
+	var projectId =getReqParam('projectid');
 	$.ajax({
 		type:'post',//可选get
 		url:ctx+'/Project/getProjectDetail',
@@ -331,49 +332,52 @@ function getProjectDetail(){
 				FTOTAL: "123"
 				*/
 
-				$("#projectName").val('msg.baseModel.projectName');
-				$("#floorArea").val(msg.data.FAREA);//占地面积
-				$("#structArea").val(msg.data.FSTRUCTAREA);//计容键面
-				$("#plotArea").val(msg.data.FRJL);//容积率
-				$("#saleStructArea").val(msg.data.FSALEAREA);//可销售计容面积
-				$("#groundInp").val((new Date(msg.data.FGETDATE)).format('yyyy-MM-dd hh:mm:ss'));//获取时间
-				$("#groundAmount").val(msg.data.FTOTAL);//地价总价
-				$("#returndate").val(msg.data.FCASHFLOWBACK); //现金流回正时间 个月
-				//$("#buildareaprice").val(msg.data.FPRICE);//楼面地价
-				$("#groundType").val(msg.data.FGETWAY);//获取方式
-				$("#groundPosition").val(msg.data.FPOSITION);//项目区位
-				// $("#projectarea").val(msg.data.baseModel.projectarea);
-				$("#groundPositioning").val(msg.data.FPROPOSITION);//产品定位
-				$("#groundPlanning").val(msg.data.FSCHEME);//规划方案
-				$("#planFold").val(msg.data.FPRICE);//项目均价
-				$("#planRent").val(msg.data.FCYWYSP);//持有型物业租金水平
-				$("#planIrr").val(msg.data.FIRR);
-				$("#planGrossMargin").val('msg.data.baseModel.planGrossMargin');//预计销售毛利率
-				$("#planMoic").val('msg.data.baseModel.planMoic');
+				data = msg.data[0];
+
+
+				$("#projectName").val(data.FNAME);
+				$("#floorArea").val(data.FAREA);//占地面积
+				$("#structArea").val(data.FSTRUCTAREA);//计容键面
+				$("#plotArea").val(data.FRJL);//容积率
+				$("#saleStructArea").val(data.FSALEAREA);//可销售计容面积
+				$("#groundInp").val((new Date(data.FGETDATE)).format('yyyy-MM-dd hh:mm:ss'));//获取时间
+				$("#groundAmount").val(data.FTOTAL);//地价总价
+				$("#returndate").val(data.FCASHFLOWBACK); //现金流回正时间 个月
+				//$("#buildareaprice").val(data.FPRICE);//楼面地价
+				$("#groundType").val(data.FGETWAY);//获取方式
+				$("#groundPosition").val(data.FPOSITION);//项目区位
+				// $("#projectarea").val(data.baseModel.projectarea);
+				$("#groundPositioning").val(data.FPROPOSITION);//产品定位
+				$("#groundPlanning").val(data.FSCHEME);//规划方案
+				$("#planFold").val(data.FPRICE);//项目均价
+				$("#planRent").val(data.FCYWYSP);//持有型物业租金水平
+				$("#planIrr").val(data.FIRR);
+				$("#planGrossMargin").val('data.baseModel.planGrossMargin');//预计销售毛利率
+				$("#planMoic").val('data.baseModel.planMoic');
 				//开工时间
-				$("#stageStartInp").val((new Date(msg.data.FSTARTDATE)).format('yyyy-MM-dd hh:mm:ss'));
+				$("#stageStartInp").val((new Date(data.FSTARTDATE)).format('yyyy-MM-dd hh:mm:ss'));
 				//开盘时间
-				$("#stageOpenInp").val((new Date(msg.data.FOPENDATE)).format('yyyy-MM-dd hh:mm:ss'));
-				// $("#peakInp").val((new Date(msg.data.baseModel.planPeakeDate)).format('yyyy-MM-dd hh:mm:ss'));
-				// $("#cashflowReturnInp").val((new Date(msg.data.baseModel.planCashflowReturnDate)).format('yyyy-MM-dd hh:mm:ss'));
+				$("#stageOpenInp").val((new Date(data.FOPENDATE)).format('yyyy-MM-dd hh:mm:ss'));
+				// $("#peakInp").val((new Date(data.baseModel.planPeakeDate)).format('yyyy-MM-dd hh:mm:ss'));
+				// $("#cashflowReturnInp").val((new Date(data.baseModel.planCashflowReturnDate)).format('yyyy-MM-dd hh:mm:ss'));
 				//交付时间
-				$("#deliverInp").val((new Date(msg.data.FHANDDATE)).format('yyyy-MM-dd hh:mm:ss'));
+				$("#deliverInp").val((new Date(data.FHANDDATE)).format('yyyy-MM-dd hh:mm:ss'));
 				//结转时间
-				$("#carryoverInp").val((new Date(msg.data.FCARRYOVERDATE)).format('yyyy-MM-dd hh:mm:ss'));
+				$("#carryoverInp").val((new Date(data.FCARRYOVERDATE)).format('yyyy-MM-dd hh:mm:ss'));
 				//清算时间
-				$("#liquidateInp").val((new Date(msg.data.FLIQUIDATE)).format('yyyy-MM-dd hh:mm:ss'));
-				$("#planPropertyScheme").val(msg.data.FPROPERTYSCHEME);//持有物业处理方案
-				$("#planFinanceCalculate").val('msg.data.baseModel.planFinanceCalculate');//财务测算文件
-				$("#corpPartnerBackground").val(msg.data.FPARTNERINFO);//合作方背景和资质
-				$("#corpContributiveRatio").val(msg.data.FCONTRIBUTIVE);//项目出资比例
-				$("#corpBoardMember").val('msg.data.baseModel.corpBoardMember');//董事会组成
-				$("#corpVoteRule").val('msg.data.baseModel.corpVoteRule');
-				$("#restAnswerMail").val(msg.data.FANSWERMAIL);//答疑邮箱地址
-				// $("#restAnswerLink").val(msg.data.baseModel.restAnswerLink);
-				$("#restProjectManagers").val(msg.data.FPROJECTINFOMANAGERS);//项目信息管理员
-				$("#restFollowerManagers").val(msg.data.FFOLLOWERMANAGERS);
-				$("#riskDisclaimerDes").val('msg.data.baseModel.riskDisclaimerDes');//风险与免责
-				// $("#schemeProtocol").val(msg.data.baseModel.schemeProtocol);
+				$("#liquidateInp").val((new Date(data.FLIQUIDATE)).format('yyyy-MM-dd hh:mm:ss'));
+				$("#planPropertyScheme").val(data.FPROPERTYSCHEME);//持有物业处理方案
+				$("#planFinanceCalculate").val('data.baseModel.planFinanceCalculate');//财务测算文件
+				$("#corpPartnerBackground").val(data.FPARTNERINFO);//合作方背景和资质
+				$("#corpContributiveRatio").val(data.FCONTRIBUTIVE);//项目出资比例
+				$("#corpBoardMember").val('data.baseModel.corpBoardMember');//董事会组成
+				$("#corpVoteRule").val('data.baseModel.corpVoteRule');
+				$("#restAnswerMail").val(data.FANSWERMAIL);//答疑邮箱地址
+				// $("#restAnswerLink").val(data.baseModel.restAnswerLink);
+				$("#restProjectManagers").val(data.FPROJECTINFOMANAGERS);//项目信息管理员
+				$("#restFollowerManagers").val(data.FFOLLOWERMANAGERS);
+				$("#riskDisclaimerDes").val('data.baseModel.riskDisclaimerDes');//风险与免责
+				// $("#schemeProtocol").val(data.baseModel.schemeProtocol);
  				$("#protocalLinkTd").html('splitSchemeProtocal(msg.data.baseModel.schemeProtocol)');
 			}else{
 				alert(msg.data.error);
@@ -407,7 +411,7 @@ function deleteSchemeProtocalFunc(){
 		url:'../ProjectBasicController/deleteSchemeProtocal.action',
 		dataType:'Json',//服务器返回的数据类型 可选XML ,Json jsonp script html text等
 		data:{
-			'projectId':$("#projectid").val(),
+			'projectId':getReqParam('projectid'),
 			'protocalLink':_linkStr
 		},
 		success:function(msg){
@@ -582,13 +586,13 @@ function hideForceDialog(){
 	</tr><tr>
 		<td class="tdTitle">项目IRR</td>
 		<td><input name="planIrr" id="planIrr" onkeyup="clearNoNum(this)" /> (%)</td>
-		<td class="tdTitle">预计销售毛利率</td>
-		<td><input name="planGrossMargin" id="planGrossMargin" onkeyup="clearNoNum(this)" /> (%)</td>
-	</tr><tr class="displayNone">
-		<td class="tdTitle">跟投MOIC（税前）</td>
-		<td><input name="planMoic" id="planMoic" onkeyup="clearNoNum(this)" /> (元)</td>
-		<td class="tdTitle"></td>
-		<td></td>
+		<!--td class="tdTitle">预计销售毛利率</td>
+		<td><input name="planGrossMargin" id="planGrossMargin" onkeyup="clearNoNum(this)" /> (%)</td-->
+	</tr><tr class="">
+		<td class="tdTitle">税前销售利润率</td>
+		<td><input name="FPREPROFIT" id="FPREPROFIT" onkeyup="clearNoNum(this)" /> (%)</td>
+		<td class="tdTitle">税后销售净利润率</td>
+		<td><input name="FPROFIT" id="FPROFIT" onkeyup="clearNoNum(this)" /> (%)</td>
 	</tr><tr>
 		<td class="tdTitle">开工时间</td>
 		<td><input id="stageStartInp" name="planStageStartDate"  /></td>
@@ -614,24 +618,24 @@ function hideForceDialog(){
 	</tr> --><tr>
 		<td class="tdTitle">持有物业处理方案</td>
 		<td colspan="3"><textarea name="planPropertyScheme" id="planPropertyScheme"></textarea></td>
-	</tr><tr class="displayNone">
+	</tr><!--tr class="displayNone">
 		<td class="tdTitle">财务测算文件</td>
 		<td><input name="planFinanceCalculate" id="planFinanceCalculate"/></td>
 		<td class="tdTitle"></td>
 		<td></td>
-	</tr><tr>
+	</tr--><tr>
 		<td class="tdTitle">合作方背景和资质</td>
 		<td colspan="3"><textarea name="corpPartnerBackground" id="corpPartnerBackground"></textarea></td>
 	</tr><tr>
 		<td class="tdTitle">项目出资比例</td>
 		<td colspan="3"><textarea name="corpContributiveRatio" id="corpContributiveRatio"></textarea></td>
-	</tr><tr class="displayNone">
+	</tr><!--tr class="displayNone">
 		<td class="tdTitle">董事会组成</td>
 		<td colspan="3"><textarea name="corpBoardMember" id="corpBoardMember"></textarea></td>
 	</tr><tr class="displayNone">
 		<td class="tdTitle">项目公司股东会及<br>董事会表决比例<br>和表决规则</td>
 		<td colspan="3"><textarea name="corpVoteRule" id="corpVoteRule"></textarea></td>
-	</tr><tr>
+	</tr--><tr>
 		<td class="tdTitle">答疑邮箱地址</td>
 		<td><input name="restAnswerMail" id="restAnswerMail"/></td>
 		<td class="tdTitle"></td>
@@ -647,10 +651,10 @@ function hideForceDialog(){
 	</tr><tr>
 		<td class="tdTitle">项目跟投管理员</td>
 		<td colspan="3"><textarea name="restFollowerManagers" id="restFollowerManagers"></textarea></td>
-	</tr><tr>
+	</tr><!--tr>
 		<td class="tdTitle">风险与免责</td>
 		<td colspan="3"><textarea name="riskDisclaimerDes" id="riskDisclaimerDes"></textarea></td>
-	</tr><tr class="displayNone">
+	</tr--><tr class="displayNone">
 		<td class="tdTitle">跟投协议</td>
 		<td><input name="schemeProtocol" id="schemeProtocol"/><button>浏览</button></td>
 		<td class="tdTitle"></td>
@@ -679,12 +683,12 @@ function hideForceDialog(){
 		<td><input id="payStartInp" name="payStartDate"  /></td>
 		<td class="tdTitle">付款结束时间</td>
 		<td><input id="payEndInp" name="payEndDate"  /></td>
-	</tr><tr>
+	</tr><!--tr>
 		<td class="tdTitle">项目发布时间</td>
 		<td><input id="payReleaseDateInp" name="projectReleaseDate"  /></td>
-		<td class="tdTitle"><!-- 员工可投总额 --></td>
-		<td><!-- <input id="personamt" name="personamt"  /> --></td>
-	</tr><!-- <tr>
+		<td class="tdTitle"><-- 员工可投总额 -></td>
+		<td><input id="personamt" name="personamt"  /></td>
+	</tr--><!-- <tr>
 		<td class="tdTitle">一线可跟投总额</td>
 		<td><input id="yxpersonamt"  name="yxpersonamt" /></td>
 		<td class="tdTitle">集团可跟投总额</td>
@@ -692,32 +696,32 @@ function hideForceDialog(){
 	</tr> --><tr>
 		<td class="tdTitle">资金峰值</td>
 		<td><input name="fundPeake" id="fundPeake" onkeyup="clearNoNum(this)" /> (亿元)</td>
-		<td class="tdTitle">跟投总额(含杠杆)</td>
+		<!--td class="tdTitle">跟投总额(含杠杆)</td>
 		<td><input name="followAmount" id="followAmount" onkeyup="clearNoNum(this)" /> (万元)</td>
 	</tr><!-- <tr>
 		<td class="tdTitle">可跟投总额包括</td>
 		<td colspan="3"><textarea name="followAmountDesc" id="followAmountDesc"></textarea></td>
 	</tr> --><tr>
-		<td class="tdTitle">集团强投包比例</td>
+		<td class="tdTitle">总部跟投比例</td>
 		<td><input name="groupForceRatio" id="groupForceRatio" onkeyup="clearNoNum(this)" /> (%)</td>
-		<td class="tdTitle">集团强投包总额</td>
+		<td class="tdTitle">总部最大可跟投总额（含杠杆）</td>
 		<td><input name="groupForceAmount" id="groupForceAmount" onkeyup="clearNoNum(this)" /> (万元)</td>
 	</tr><tr>
-		<td class="tdTitle">城市公司强投包比例</td>
+		<td class="tdTitle">区域跟投比例</td>
 		<td><input name="compForceRatio" id="compForceRatio" onkeyup="clearNoNum(this)" /> (%)</td>
-		<td class="tdTitle">城市公司强投包总额</td>
+		<td class="tdTitle">区域最大可跟投总额（含杠杆）</td>
 		<td><input name="compForceAmount" id="compForceAmount" onkeyup="clearNoNum(this)" /> (万元)</td>
 	</tr><tr>
-		<td class="tdTitle">选投包比例(无杠杆)</td>
+		<td class="tdTitle">全部跟投比例</td>
 		<td><input name="compChoiceRatio" id="compChoiceRatio" onkeyup="clearNoNum(this)" /> (%)</td>
-		<td class="tdTitle">选投包总额(无杠杆)</td>
+		<td class="tdTitle">全部最大可跟投总额（含杠杆）</td>
 		<td><input name="compChoiceAmount" id="compChoiceAmount" onkeyup="clearNoNum(this)" /> (万元)</td>
-	</tr><tr>
+	</tr><!--tr>
 		<td class="tdTitle">选投包认购金额下限</td>
 		<td><input name="minamount" id="minamount" onkeyup="clearNoNum(this)" /> (万元)</td>
 		<td class="tdTitle">选投包认购金额上限</td>
 		<td><input name="maxamount" id="maxamount" onkeyup="clearNoNum(this)" /> (万元)</td>
-	</tr><tr>
+	</tr--><tr>
 		<td class="tdTitle">杠杆认购说明</td>
 		<td colspan="3"><textarea name="leverageDes" id="leverageDes"></textarea></td>
 	</tr><tr>
@@ -738,7 +742,7 @@ function hideForceDialog(){
 	</tr></table>
 </div>
 </form>
-<div id="force" class="editTitle"><img src="../../application/views/back/images/arrow_down.png" />强制跟投名单</div>
+<div id="force" class="editTitle"><img src="../../application/views/back/images/arrow_down.png" />跟投人员名单</div>
 <form id="forceForm" method="post" action="${pageContext.request.contextPath}/ForceFollowController/saveOrUpdate.action">
 <input type="hidden" name="projectid" id="forceProjectId"/>
 <div id="force_editor" class="editor displayNone" style="">
@@ -746,7 +750,7 @@ function hideForceDialog(){
 		<!-- <td rowspan="2" width="4%">序号</td> -->
 		<td rowspan="2" width="12%">姓名</td>
 		<td rowspan="2" width="12%">认购类型</td>  <!-- "所属公司"字段改为：认购类型 -->
-		<td rowspan="2" width="15%">部门</td>
+		<td rowspan="2" width="15%">总部/区域</td>
 		<td rowspan="2" width="11%">职务</td>
 		<td colspan="2" width="30%">个人额度范围</td>
 		<td rowspan="2" width="12%">备注</td>
