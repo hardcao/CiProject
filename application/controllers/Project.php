@@ -60,20 +60,19 @@ class Project extends CI_Controller
          echo  json_encode($result);
      }
      /*
-      * uid=test5&projectNumber=34534&projectName=sdfsaxvs&state=1
+      * {'FNAME':'FNAME','FSTATE':'FSTATE'}
       * Project/addProject
       * {"success":true,"errorCode":0,"error":0,"data":"0"}
       * */
      public function  addProject()
      {
          
-         $userID = $this->input->post('uid');
-         $projectNumber = $this->input->post('projectNumber');
-         $projectName = $this->input->post('projectName');
-         $state = $this->input->post('state');
+         $data = $this->input->input_stream();
+         $tableName = 'T_PROJECT';
           
-         $result = $this->project_model->addProject($userID,$projectNumber,$projectName,$state);
-         echo  json_encode($result);
+         $this->load->model('Tools');
+         $result = $this->Tools->addData($data,$tableName);
+         echo json_encode($result);
      }
      
      public function  addEnclosure() {
@@ -87,20 +86,4 @@ class Project extends CI_Controller
          }
          echo json_encode($result);
      }
-     /*
-      * 
-      * 项目编号暂时没有
-      * */
-     public function addeProject() {
-     
-         $data = $this->input->input_stream();
-         $tableName = 'T_PROJECT';
-         
-         $this->load->model('Tools');
-         $result = $this->Tools->addData($data,$tableName);
-         echo json_encode($result);
-     }
-     
-     
-
 }
