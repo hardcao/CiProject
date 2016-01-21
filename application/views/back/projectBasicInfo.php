@@ -160,39 +160,50 @@ function getForceFollowByProjectid(){
 	var projectId=getReqParam('projectid');
 	$.ajax({
 		type:'post',//可选get
-		url:ctx+'/ForceFollowController/getForceByProjectId.action',
+		url:ctx+'/Follower/getFollowerListWithProjectID',
 		dataType:'Json',//服务器返回的数据类型 可选XML ,Json jsonp script html text等
 		data:{
 			'projectId':projectId,
-			'forceType':"1"
 		},
 		success:function(msg){
 			if(msg.success){
 				indexOfFollower=msg.data.length;
 				var _obj = null;
 				var tempSel = "";
-				for(var m=0;m<msg.dataDto.length;m++){
-					_obj = (msg.dataDto)[m];
+				for(var m=0;m<msg.data.length;m++){
+					_obj = (msg.data)[m];
 					forceObj[_obj.uid] = _obj;
 					if(_obj.company == "集团强投包"){
 						tempSel = '<select name="forceFollList['+m+'].company" ><option value="集团强投包" selected="selected">集团强投包</option><option value="城市强投包">城市强投包</option></select>';
 					}else{
 						tempSel = '<select name="forceFollList['+m+'].company" ><option value="集团强投包">集团强投包</option><option value="城市强投包" selected="selected">城市强投包</option></select>';
 					}
+
+					/*
+									'<input type="hidden" name="forceFollList['+indexOfFollower+'][id]" value="" />'+
+				'<input type="hidden" name="forceFollList['+indexOfFollower+'][userid]" value="'+val.FID+'" />'+
+				'<input value="'+val.FNAME+'" readonly="true" /></td>'+
+				'<td><select name="forceFollList['+indexOfFollower+'][company]" ><option value="集团强投包" selected="selected">集团强投包</option><option value="城市强投包">城市强投包</option></select></td>'+
+				'<td><input name="forceFollList['+indexOfFollower+'][department]" value="'+val.FORG+'"  /></td>'+
+				'<td><input name="forceFollList['+indexOfFollower+'][duty]" value="'+""+'" /></td>'+
+				'<td><input name="forceFollList['+indexOfFollower+'][downlimit]" value="5" type="number" /></td>'+
+				'<td><input name="forceFollList['+indexOfFollower+'][toplimit]" value="20" type="number" /></td>'+
+				'<td><input name="forceFollList['+indexOfFollower+'][remark]" value="'+val.FNUMBER+'" /></td>'+
+					*/
+
 					var tempHtml = 
 					'<tr id="force_row_'+m+'">'+
 						/*'<td>'+(m+1)+'</td>'+*/
-						'<td><input type="hidden" name="forceFollList['+m+'].forceFollowId" value="'+_obj.forceFollowId+'" />'+
-						'<input type="hidden" name="forceFollList['+m+'].forceType" value="'+_obj.forceType+'" />'+
-						'<input type="hidden" name="forceFollList['+m+'].name" value="'+_obj.uid+'" />'+
-						'<input value="'+_obj.name+'" readonly="true" /></td>'+
+						'<td><input type="hidden" name="forceFollList['+m+'].id" value="'+_obj.FID+'" />'+
+						'<input type="hidden" name="forceFollList['+m+'].userid" value="'+_obj.FUSERID+'" />'+
+						'<input value="'+_obj.FNAME+'" readonly="true" /></td>'+
 						'<td>'+tempSel+'</td>'+
-						'<td><input name="forceFollList['+m+'].department" value="'+_obj.department+'" /></td>'+
-						'<td><input name="forceFollList['+m+'].duty" value="'+(_obj.duty||"")+'" /></td>'+
-						'<td><input name="forceFollList['+m+'].downlimit" value="'+formatMillions(_obj.downlimit)+'" type="number" /></td>'+
-						'<td><input name="forceFollList['+m+'].toplimit" value="'+formatMillions(_obj.toplimit)+'" type="number" /></td>'+
-						'<td><input name="forceFollList['+m+'].remark" value="'+_obj.remark+'" readonly="true" /></td>'+
-						'<td><a class="forceDelBtn" ind="'+m+'" uid="'+_obj.uid+'" fid="'+_obj.forceFollowId+'" href="javascript:void(0)" >删除</a></td></tr>';
+						'<td><input name="forceFollList['+m+'].department" value="'+_obj.STATE+'" /></td>'+
+						'<td><input name="forceFollList['+m+'].duty" value="'+(_obj.DUTY||"")+'" /></td>'+
+						'<td><input name="forceFollList['+m+'].downlimit" value="'+formatMillions(_obj.FDOWNLIMIT)+'" type="number" /></td>'+
+						'<td><input name="forceFollList['+m+'].toplimit" value="'+formatMillions(_obj.FTOPLIMIT)+'" type="number" /></td>'+
+						'<td><input name="forceFollList['+m+'].remark" value="'+_obj.FREMARK+'"  /></td>'+
+						'<td><a class="forceDelBtn" ind="'+m+'" uid="'+_obj.FUSERID+'" fid="'+_obj.FID+'" href="javascript:void(0)" >删除</a></td></tr>';
 				 $("#forceTbody").append(tempHtml);
 				}	
 			}else{
@@ -453,10 +464,10 @@ function forceDelFunc(argument) {
 	var _ind = $(this).attr("ind");
 	$.ajax({
 		type:'post',//可选get
-		url:'../ForceFollowController/delete.action',
+		url:'/Follower/deleteFollower',
 		dataType:'Json',//服务器返回的数据类型 可选XML ,Json jsonp script html text等
 		data:{
-			'forceFollowId':_forceFollowId
+			'FID':_forceFollowId
 		},
 		success:function(msg){
 			if(msg.success){
@@ -539,14 +550,15 @@ function addRows(argument) {
 		var tempHtml = '<tr>'+
 				//'<td>'+(indexOfFollower)+'</td>'+
 				'<td>'+
-				'<input type="hidden" name="forceFollList['+indexOfFollower+'][id]" value="'+val.FID+'" />'+
+				'<input type="hidden" name="forceFollList['+indexOfFollower+'][id]" value="" />'+
+				'<input type="hidden" name="forceFollList['+indexOfFollower+'][userid]" value="'+val.FID+'" />'+
 				'<input value="'+val.FNAME+'" readonly="true" /></td>'+
 				'<td><select name="forceFollList['+indexOfFollower+'][company]" ><option value="集团强投包" selected="selected">集团强投包</option><option value="城市强投包">城市强投包</option></select></td>'+
-				'<td><input name="forceFollList['+indexOfFollower+'][department]" value="'+val.FORG+'"  /></td>'+
-				'<td><input name="forceFollList['+indexOfFollower+'][duty]" value="'+""+'" /></td>'+
+				'<td><input name="forceFollList['+indexOfFollower+'][department]" value=""  /></td>'+
+				'<td><input name="forceFollList['+indexOfFollower+'][duty]" value="" /></td>'+
 				'<td><input name="forceFollList['+indexOfFollower+'][downlimit]" value="5" type="number" /></td>'+
 				'<td><input name="forceFollList['+indexOfFollower+'][toplimit]" value="20" type="number" /></td>'+
-				'<td><input name="forceFollList['+indexOfFollower+'][remark]" value="'+val.FNUMBER+'" /></td>'+
+				'<td><input name="forceFollList['+indexOfFollower+'][remark]" value="" /></td>'+
 				'<td></td></tr>';
 		$("#forceTbody").append(tempHtml);
 		//if(!tempForceObj[val.uid]) tempForceObj[val.uid] = val;
