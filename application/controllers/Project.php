@@ -166,18 +166,32 @@ class Project extends CI_Controller
          echo json_encode($result);
      }
      
+     public function  deleteEnclosure(){
+         $FID = $this->input->post('FID');
+         $data = $this->input->input_stream();
+         $tableName = 'T_FOLLOWSCHEME';
+         $this->load->model('Tools');
+         $where='FID='.$FID;
+         $result = $this->Tools->updateData($data,$tableName,$where);
+         echo json_encode($result);
+     }
+     
      public function  addEnclosure() {
-         $projectId = $this->input->post('projectId');
+         $FID = $this->input->post('uploadSchemeId');
          $config['upload_path']      = './fileFolder/';
          $config['allowed_types']    = 'gif|jpg|png|txt|xls|doc';
          $config['max_size']     = 100;
          $config['max_width']        = 1024;
          $config['max_height']       = 768;
-         $name = $_FILES["userfile"]["name"];
+         $name = $_FILES["file"]["name"];
+         $this->load->model('FollowScheme_model');
+         
+         $followScheme = $this->FollowScheme_model->getPersonBankInfo($FID);
+         $followScheme['FLINK'] = $followScheme['FLINK'].';'.$name;
          $config['file_name']  =  iconv("UTF-8","gb2312", $name);
          $this->load->library('upload', $config);
          
-         if ( ! $this->upload->do_upload('userfile'))
+         if ( ! $this->upload->do_upload('file'))
          {
              $error = array('error' => $this->upload->display_errors());
          
@@ -188,12 +202,13 @@ class Project extends CI_Controller
              $data = array('upload_data' => $this->upload->data());
              $filePath =  './fileFolder/'.$data['upload_data']['file_name'];
              $insertdata['EnclosurePath'] = iconv("gb2312","UTF-8", $filePath);
-             $insertdata['FPROJECTID'] = $projectId;
-             $tableName = 'T_Enclosure';
+             $tableName = 'T_FOLLOWSCHEME';
+             $where='FID='.$FID;
              $this->load->model('Tools');
-             $result = $this->Tools->addData($insertdata,$tableName);
-             echo json_encode($data);
+             $result = $this->Tools->updateData($followScheme,$tableName,$where);
+             //echo json_encode($result);
          }
+        
      }
      
      public function  getProjectFollowUserList()
