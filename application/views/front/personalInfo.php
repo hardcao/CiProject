@@ -19,7 +19,7 @@
 <body>
 <?php require (dirname(dirname(__FILE__)).'/common/header.php'); ?>
 <div id="contentLayer">
-	<div id="naviTitle"><a href="index.jsp">首页</a> > 个人信息</div>
+	<div id="naviTitle"><a href="/index">首页</a> > 个人信息</div>
 	<div id="titleLayer">
 		<div class="titleSTY">个人银行账号列表</div>
 		<div class="returnBtn floatR displayNone" id="returnBtn"><a href="javascript:history.back(-1)">返回认购</a></div>

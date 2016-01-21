@@ -30,12 +30,12 @@ class Follower extends CI_Controller
     public function updateFollower() {
     
         $data = $this->input->input_stream();
-        $tableName = 'T_FOLLOWER';
+        /*$tableName = 'T_FOLLOWER';
         $this->load->model('Tools');
         foreach ($data as $item) {
             $result = $this->Tools->updateData($item,$tableName);
-        }
-        echo json_encode($result);
+        }*/
+        echo json_encode($data);
     }
     
     public function deleteFollower() {

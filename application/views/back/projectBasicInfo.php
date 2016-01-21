@@ -539,14 +539,14 @@ function addRows(argument) {
 		var tempHtml = '<tr>'+
 				//'<td>'+(indexOfFollower)+'</td>'+
 				'<td>'+
-				'<input type="hidden" name="forceFollList['+indexOfFollower+'].id" value="'+val.FID+'" />'+
+				'<input type="hidden" name="forceFollList['+indexOfFollower+'][id]" value="'+val.FID+'" />'+
 				'<input value="'+val.FNAME+'" readonly="true" /></td>'+
-				'<td><select name="forceFollList['+indexOfFollower+'].company" ><option value="集团强投包" selected="selected">集团强投包</option><option value="城市强投包">城市强投包</option></select></td>'+
-				'<td><input name="forceFollList['+indexOfFollower+'].department" value="'+val.FORG+'"  /></td>'+
-				'<td><input name="forceFollList['+indexOfFollower+'].duty" value="'+""+'" /></td>'+
-				'<td><input name="forceFollList['+indexOfFollower+'].downlimit" value="5" type="number" /></td>'+
-				'<td><input name="forceFollList['+indexOfFollower+'].toplimit" value="20" type="number" /></td>'+
-				'<td><input name="forceFollList['+indexOfFollower+'].remark" value="'+val.FNUMBER+'" /></td>'+
+				'<td><select name="forceFollList['+indexOfFollower+'][company]" ><option value="集团强投包" selected="selected">集团强投包</option><option value="城市强投包">城市强投包</option></select></td>'+
+				'<td><input name="forceFollList['+indexOfFollower+'][department]" value="'+val.FORG+'"  /></td>'+
+				'<td><input name="forceFollList['+indexOfFollower+'][duty]" value="'+""+'" /></td>'+
+				'<td><input name="forceFollList['+indexOfFollower+'][downlimit]" value="5" type="number" /></td>'+
+				'<td><input name="forceFollList['+indexOfFollower+'][toplimit]" value="20" type="number" /></td>'+
+				'<td><input name="forceFollList['+indexOfFollower+'][remark]" value="'+val.FNUMBER+'" /></td>'+
 				'<td></td></tr>';
 		$("#forceTbody").append(tempHtml);
 		//if(!tempForceObj[val.uid]) tempForceObj[val.uid] = val;

@@ -75,7 +75,7 @@ function getData(){
 		url:'/BankInfo/getPersonBankInfo',
 		dataType:'Json',//服务器返回的数据类型 可选XML ,Json jsonp script html text等
 		data:{
-			uid:"test1"
+			uid:"1"
 		},
 		success:function(msg){
 			if(msg.success){
@@ -98,10 +98,10 @@ function loadData(){
 		$.each(dataList, function(ind, val){
 			tempHtml +=
 			'<tr><td width="95" height="35">'+(ind+1)+'</td>'+
-				'<td width="315">'+val.bankNo+'</td>'+
+				'<td width="315">'+val.FBANKNO+'</td>'+
 				// '<td width="225">'+val.uName+'</td>'+
-				'<td width="225">'+val.bankAttribute+'</td>'+
-				'<td width="225">'+val.bankName+'</td>'+
+				'<td width="225">'+val.FBANKATTRIBUTE+'</td>'+
+				'<td width="225">'+val.FNAME+'</td>'+
 				'<td><a class="editBtn" ind="'+ind+'" href="javascrip:void(0)">编辑</a>&nbsp;&nbsp;&nbsp;&nbsp;'+
 					'<a class="delBtn" ind="'+ind+'" href="javascrip:void(0)">删除</a></td></tr>';
 		});
@@ -112,19 +112,21 @@ function loadData(){
 function addBank(){
 	var bankNo = $.trim($("#bankNoInp").val());
 	var bankName = $.trim($("#bankNameInp").val());
-	var bankAttr = $.trim($("#bankAttrInp").val());
+	var bankAttribute = $.trim($("#bankAttrInp").val());
+
 
 	if(bankNo.length <= 0){
 		alert("银行卡号不能为空!");
 	}else{
 		$.ajax({
 			type:'post',
-			url:'../BankController/insertBank.action',
+			url:'/BankInfo/addBankInfo',
 			dataType:'Json',//服务器返回的数据类型 可选XML ,Json jsonp script html text等
 			data:{
-				"bankNo": bankNo,
-				"bankName": bankName,
-				"bankAttribute": bankAttr
+				"FUSERID": 1,
+				"FBANKNO": bankNo,
+				"FNAME": bankName,
+				"FBANKATTRIBUTE": bankAttribute
 			},
 			success:function(msg){
 				if(msg.success){
@@ -145,20 +147,20 @@ function addBank(){
 function editBank(){
 	var bankNo = $.trim($("#bankNoInp").val());
 	var bankName = $.trim($("#bankNameInp").val());
-	var bankAttr = $.trim($("#bankAttrInp").val());
+	var bankAttribute = $.trim($("#bankAttrInp").val());
 
 	if(bankNo.length <= 0){
 		alert("银行卡号不能为空!");
 	}else{
 		$.ajax({
 			type:'post',
-			url:'../BankController/updateBank.action',
+			url:'/BankInfo/updateBankInfo',
 			dataType:'Json',//服务器返回的数据类型 可选XML ,Json jsonp script html text等
 			data:{
-				"bankId": tempEditObj.bankId,
-				"bankNo": bankNo,
-				"bankName": bankName,
-				"bankAttribute": bankAttr
+				"FID": tempEditObj.FID,
+				"FBANKNO": bankNo,
+				"FNAME": bankName,
+				"FBANKATTRIBUTE": bankAttribute
 			},
 			success:function(msg){
 				if(msg.success){
@@ -179,10 +181,10 @@ function editBank(){
 function delBank(){
 	$.ajax({
 		type:'post',
-		url:'../BankController/deleteBank.action',
+		url:'/BankInfo/deleteBankInfo',
 		dataType:'Json',//服务器返回的数据类型 可选XML ,Json jsonp script html text等
 		data:{
-			"bankId": tempEditObj.bankId
+			"FID": tempEditObj.FID
 		},
 		success:function(msg){
 			if(msg.success){
