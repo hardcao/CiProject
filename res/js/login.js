@@ -26,14 +26,7 @@ $("#btn_login").click(function(){
 			$.ajax({
 				url: window.location.origin+"/Login/login",
 				type: "post",
-<<<<<<< HEAD
-				data:{"data":[{ "subscribeConfigrmRecordId":"123",
-			    	"payTimes":"12",
-			    	"payAmount":"12",
-			    	"payDate":"2014-09-01 09:50:00"}]},
-=======
 				data: "username="+username+"&password="+password,
->>>>>>> 4adee31984ca73bd5e958e0e667fec4cc8d91c77
 				success: function(data){
 					bootbox.alert(data);
 

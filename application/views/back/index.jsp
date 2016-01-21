@@ -159,7 +159,7 @@ function loadContentPage () {
 <body>
 <jsp:include page="header.jsp"></jsp:include>
 <div id="contentLayer">
-	<div id="roleLayer"><!-- 当前用户角色：系统管理员 -->您好，欢迎使用旭辉跟投内容管理系统！</div>
+	<div id="roleLayer"><!-- 当前用户角色：系统管理员 -->您好，欢迎使用中梁地产跟投内容管理系统！</div>
 	<div id="leftLayer" class="frameSTY">
 		<div class="leftTitle">
 			<img src="images/menu_0.png" style="vertical-align:middle;" />&nbsp;&nbsp;管理菜单

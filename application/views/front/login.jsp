@@ -74,7 +74,7 @@ function removeTips() {
 <div id="loginLayer">
 	<table border="0">
 		<tr>
-			<td colspan="2" class="titleTd">旭辉项目跟投平台</td>
+			<td colspan="2" class="titleTd">中梁地产项目跟投平台</td>
 		</tr>
 		<tr>
 			<td width="60">用户名</td>
