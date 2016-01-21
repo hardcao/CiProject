@@ -71,6 +71,7 @@ function cleanFocus()
 	$("#subscribeConfirm").removeClass("focusOn");
 	$("#payInConfirm").removeClass("focusOn");
 	$("#projectBonusInfo").removeClass("focusOn");
+	$("#projectPics").removeClass("focusOn");
 }
 
 function initListeners(){
@@ -148,6 +149,7 @@ function loadContentPage(){
 			<li id="subscribeConfirm" val="subscribeConfirm" class="">认购核准</li>
 			<li id="payInConfirm" val="payInConfirm" class="">缴款确认</li>
 			<li id="projectBonusInfo" val="projectBonusInfo" class="">分红明细</li>
+			<li id="projectPics" val="projectPics" class="">项目图片库</li>
 			<!--li val="specialInfo" class="displayNone">特别跟投</li>
 			<!--li val="dimissionInfo" class="displayNone">离职处理</li>
 			<!-- <li val="ognz_info">组织架构设置</li> -->

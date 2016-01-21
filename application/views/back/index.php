@@ -171,7 +171,7 @@ function loadContentPage () {
 <body>
 <?php require (dirname(dirname(__FILE__)).'/common/header.php'); ?>
 <div id="contentLayer">
-	<div id="roleLayer"><!-- 当前用户角色：系统管理员 -->您好，欢迎使用旭辉跟投内容管理系统！</div>
+	<div id="roleLayer"><!-- 当前用户角色：系统管理员 -->您好，欢迎使用中粱地产跟投内容管理系统！</div>
 	<div id="leftLayer" class="frameSTY">
 		<div class="leftTitle">
 			<img src="application/views/back/images/menu_0.png" style="vertical-align:middle;" />&nbsp;&nbsp;管理菜单 

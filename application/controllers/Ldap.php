@@ -33,7 +33,7 @@ class Ldap extends CI_Controller {
 			
 			$attrs = array("displayname","name","sAMAccountName","userPrincipalName","objectclass"); //鎸囧畾闇�鏌ヨ鐨勭敤鎴疯寖鍥� 
 			$filter = "(objectclass=*)"; //ldap_search ( resource $link_identifier , string $base_dn , string $filter [, array $attributes [, int $attrsonly [, int $sizelimit [, int $timelimit [, int $deref ]]]]] ) 
-			$search = ldap_search($ad, 'ou=旭辉集团股份有限公司,DC=cifi,DC=com,DC=cn', $filter, $attrs,0,0,0) or die ("ldap search failed"); 
+			$search = ldap_search($ad, 'ou=中粱地产集团股份有限公司,DC=cifi,DC=com,DC=cn', $filter, $attrs,0,0,0) or die ("ldap search failed"); 
 			$entries = ldap_get_entries($ad, $search); 
 		//		var_dump($entries);
 
