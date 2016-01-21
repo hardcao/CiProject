@@ -52,6 +52,7 @@ class Project extends CI_Controller
     public function  updateProjectDetailInfo()
     {
        // $data = $this->input->post('floorArea');
+        date_default_timezone_set("Asia/Shanghai");
         $insertArr['FPROJECTID'] =  $this->input->post('projectId');
         $insertArr['FAREA'] = $this->input->post('floorArea');
         $insertArr['FSTRUCTAREA'] = $this->input->post('structArea');
@@ -157,8 +158,7 @@ class Project extends CI_Controller
           
          $this->load->model('Tools');
          $result = $this->Tools->addData($data,$tableName);
-         $preject = $this->project_model->getCurrentProject();
-         $projectDetail['FPROJECTID'] = $preject['FID'];
+         $projectDetail['FPROJECTID'] = $result['data'];
          $tableName = 'T_PROJECTDETAILINFO';
          $result = $this->Tools->addData($projectDetail,$tableName);
          echo json_encode($result);

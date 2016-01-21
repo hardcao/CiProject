@@ -188,7 +188,7 @@ class Project_model extends CI_Model
         $data["success"] = true;
         $data["errorCode"] = 0;
         $data["error"] = 0;
-        $data['data'] = '0';
+        $data['data'] = $this->db->insert_id();
         return  $data;
     }
 }
