@@ -157,7 +157,7 @@ class Project extends CI_Controller
          $tableName = 'T_PROJECT';
          $this->load->model('Tools');
          $result = $this->Tools->addData($data,$tableName);
-         $projectDetail['FPROJECTID'] = intval($result['data'])-1;
+         $projectDetail['FPROJECTID'] = $result['data'];
          $tableName = 'T_PROJECTDETAILINFO';
          $result = $this->Tools->addData($projectDetail,$tableName);
          $tableName = 'T_FOLLOWSCHEME';
