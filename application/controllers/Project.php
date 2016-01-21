@@ -155,11 +155,12 @@ class Project extends CI_Controller
          
          $data = $this->input->input_stream();
          $tableName = 'T_PROJECT';
-          
          $this->load->model('Tools');
          $result = $this->Tools->addData($data,$tableName);
          $projectDetail['FPROJECTID'] = $result['data'];
          $tableName = 'T_PROJECTDETAILINFO';
+         $result = $this->Tools->addData($projectDetail,$tableName);
+         $tableName = 'T_FOLLOWSCHEME';
          $result = $this->Tools->addData($projectDetail,$tableName);
          echo json_encode($result);
      }

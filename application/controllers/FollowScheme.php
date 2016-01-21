@@ -4,7 +4,7 @@ defined('BASEPATH') or exit('Error!');
 /**
  *
 */
-class FollowerScheme extends CI_Controller
+class FollowScheme extends CI_Controller
 {
 
     public function __construct()
@@ -16,11 +16,11 @@ class FollowerScheme extends CI_Controller
 
     /*
      * 
-     * 输入：newsId=123
-     *  接口：news/getDynamicNewsDetail
+     * 输入：FPROJECTID=1
+     *  接口：FollowScheme/getFollowShemeListWithProjectID
      * 输出：{"success":true,"errorCode":0,"error":0,"data":[{"FID":"123","FPROJECTID":"123","FTITLE":"\u5408","FCREATORID":"123","FRELEASEDATE":"2014-09-01 09:53:00","FCONTENT":"\u5408\u80a5\u9ad8"}]}
      * */
-    public function  getFollowerListWithProjectID() {
+    public function  getFollowShemeListWithProjectID() {
         
         $projectID = $this->input->post('FPROJECTID');
         $result = $this->FollowScheme_model->getFollowerSchemeListWithProjectID($projectID);
@@ -32,9 +32,39 @@ class FollowerScheme extends CI_Controller
         $data = $this->input->input_stream();
         $tableName = 'T_FOLLOWAGREEMENT';
         $this->load->model('Tools');
-        foreach ($data as $item) {
-            $result = $this->Tools->updateData($item,$tableName);
-        }
+        date_default_timezone_set("Asia/Shanghai");
+        $FID = $this->input->post('schemeid');
+        $insertArr['FPROJECTID'] =  $this->input->post('projectId');
+        
+        $insertArr['FFUNDPEAKE'] = $this->input->post('fundPeake');
+        $insertArr['FFOLLOWTEAM'] = $this->input->post('followAmountDesc');
+        $insertArr['FHDAMOUNT'] = $this->input->post('groupForceRatio');
+        $insertArr['FREGIONRATIO'] = $this->input->post('compForceRatio');
+        
+        $startdatetime = new DateTime($this->input->post('subscribeStartInp'));
+        $subscribeStartInp= $startdatetime->format('Y-m-d H:i:s');
+        $insertArr['FSUBSCRIBESTARTDATE'] = $subscribeStartInp;
+        
+        $insertArr['FREGIONAMOUNT'] = $this->input->post('compForceAmount');
+        $insertArr['FALLRATION'] = $this->input->post('compChoiceRatio');
+        $insertArr['FALLAMOUNT'] = $this->input->post('compChoiceAmount');
+        $insertArr['FLEVERAGEDES'] = $this->input->post('leverageDes');
+        
+        $insertArr['FCOLLECTWAY'] = $this->input->post('subscribeRemind');
+        
+        $startdatetime = new DateTime($this->input->post('subscribeEndtInp'));
+        $subscribeEndtInp= $startdatetime->format('Y-m-d H:i:s');
+        $insertArr['FSUBSCRIBEENDDATE'] = subscribeEndtInp;
+        
+        $startdatetime = new DateTime($this->input->post('subscribeStartInp'));
+        $subscribeStartInp= $startdatetime->format('Y-m-d H:i:s');
+        $insertArr['FPAYSTARTDATE'] = $subscribeStartInp;
+        
+        $startdatetime = new DateTime($this->input->post('payEndInp'));
+        $payEndInp= $startdatetime->format('Y-m-d H:i:s');
+        $insertArr['FPAYENDDATE'] = $this->input->post($payEndInp);
+        $where='FID='.$FID;
+        $result = $this->Tools->updateData($insertArr,$tableName,$where);
         echo json_encode($result);
     }
     
