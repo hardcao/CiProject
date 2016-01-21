@@ -20,6 +20,12 @@ class User extends CI_Controller
         
     }
     
+    
+    public function  getAllProjectUser() {
+        $projectId = $this->input->post('projectId');
+        $result = $this->User_model->getAllProjectUser($projectId);
+        echo json_encode($result);
+    }
 /*
  * ÊäÈë£ºuid=test1
  * ½Ó¿Ú£ºuser/getPersonalDetail

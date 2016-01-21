@@ -131,4 +131,16 @@ class User_model extends CI_Model
          
         return $data;
     }
+    public function getAllProjectUser($projectID) {
+        $query=$this->db->select("*");
+        $query=$this->db->where('FPROJECTID',$projectID);
+        $query=$this->db->join('T_USER', 'T_USER.FID=T_PROJECT_USER.FUSERID');
+        $query=$this->db->get('T_PROJECT_USER');
+        $result = $query->result_array();
+        $data["success"] = true;
+        $data["errorCode"] = 0;
+        $data["error"] = 0;
+        $data['data'] = $result;
+        return $data;
+    }
 }
