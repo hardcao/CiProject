@@ -15,7 +15,8 @@ class User extends CI_Controller
     }
     
     public function  getAllUsers(){
-        $result = $this->User_model->getAllUsers();
+        $userName = $this->input->post('uname');
+        $result = $this->User_model->getAllUsers($userName);
         echo json_encode($result);
         
     }

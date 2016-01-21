@@ -12,7 +12,10 @@ class User_model extends CI_Model
         parent::__construct();
         $this->load->database();
     }
-    public function  getAllUsers(){
+    public function  getAllUsers($userName){
+        if($userName) {
+            $this->db->where('FNAME',$userName);
+        }
         $this->db->select("*");
         $result = $this->db->get('T_USER')->result_array();
         return $result;
