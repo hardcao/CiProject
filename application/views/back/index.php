@@ -181,8 +181,8 @@ function loadContentPage () {
 			<li val="proListManage">项目列表管理</li>
 			<li val="permissionSet">项目权限分配</li>
 			<!--li val="paramsSetting">系统参数设置</li>
-			<li val="orgzInfo">组织架构维护</li-->
-			<li val="remissionSetting">豁免设置</li>
+			<li val="orgzInfo">组织架构维护</li>
+			<li val="remissionSetting">豁免设置</li-->
 		</ul>
 	</div>
 	<div id="proManageLayer" class="frameSTY" style="display:block">

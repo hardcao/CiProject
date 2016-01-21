@@ -228,7 +228,7 @@ function getSchemeByProjectid(){
 
 				 var data = msg.data[0];
 				 $("#schemeid").val(data.FID);
-				 //$("#uploadSchemeId").val(data.schemeId);
+				 $("#uploadSchemeId").val(data.FID);
 				 //认购开始时间
 				 $("#subscribeStartInp").val((data.FSUBSCRIBESTARTDATE?new Date(data.FSUBSCRIBESTARTDATE):new Date()).format('yyyy-MM-dd hh:mm:ss'));
 				 //认购结束时间
@@ -269,7 +269,7 @@ function getSchemeByProjectid(){
 				 //募集方式
 				 $("#subscribeRemind").val(data.FCOLLECTWAY);
 				 // $("#followChemeLink").val(data.followChemeLink);
-				 //$("#schemeLinkTd").html(splitSchemeLink(msg.baseModel.followChemeLink));
+				 $("#schemeLinkTd").html(splitSchemeLink(data.FLINK));
 			}else{
 				alert(msg.error);
 			}
@@ -280,11 +280,13 @@ function getSchemeByProjectid(){
 	})
 }
 function splitSchemeLink(_str){
+	var ctx="<?php echo site_url();?>";
+	var upload_link = ctx+"fileFolder/";
 	returnStr = "";
 	if(_str && _str.length>0){
 		schemeLinkArr = _str.split(";");
 		$.each(schemeLinkArr, function(ind, val){
-			returnStr += '<div><a href="../front/files/'+val+'">'+(ind+1)+'、'+val+'</a>&nbsp;&nbsp;<a class="delSchemeLink" ind="'+ind+'" href="javascript:void(0);">X</a></div>';
+			returnStr += '<div><a href="'+upload_link+val+'">'+(ind+1)+'、'+val+'</a>&nbsp;&nbsp;<a class="delSchemeLink" ind="'+ind+'" href="javascript:void(0);">X</a></div>';
 		})
 	}
 	return returnStr;
@@ -302,8 +304,8 @@ function deleteSchemeLinkFunc(){
 		url:'../FollowSchemeController/deleteSchemeLink.action',
 		dataType:'Json',//服务器返回的数据类型 可选XML ,Json jsonp script html text等
 		data:{
-			'schemeId':$("#schemeid").val(),
-			'schemeLink':_linkStr
+			'FID':$("#schemeid").val(),
+			'FLINK':_linkStr
 		},
 		success:function(msg){
 			if(msg.success){
@@ -854,7 +856,7 @@ function hideForceDialog(){
 </div>
 </form>
 <div id="uploadAttach" class="editTitle"><img src="../../application/views/back/images/arrow_down.png" />附件上传</div>
-<div id="uploadAttach_editor" class="editor displayNone">
+<!--div id="uploadAttach_editor" class="editor displayNone">
 <form id="uploadProtocalForm" method="post" action="Project/" enctype="multipart/form-data">
 	<table width="100%"><tr>
 		<td class="tdTitle">跟投协议：</td>
@@ -872,8 +874,8 @@ function hideForceDialog(){
 			<span class="tip_STY">*：1、跟投协议附件仅支持.doc和.docx格式  &nbsp;&nbsp;2、需要上传多个协议附件时请依次上传，单次提交只允许上传一个附件</span>
 		</td>
 	</tr></table>
-</form>
-<!--hr style="border: #D3D3D3 1px dotted;margin: 5px 0px;" />
+</form-->
+<hr style="border: #D3D3D3 1px dotted;margin: 5px 0px;" />
 <form id="uploadForm" method="post" action="../FileUpLoadController/uploadScheme.action" enctype="multipart/form-data">
 	<table width="100%"><tr>
 		<td class="tdTitle" valign="top">跟投方案：</td>
@@ -892,7 +894,7 @@ function hideForceDialog(){
 			<span class="tip_STY">*：1、跟投方案附件仅支持.doc和.docx格式  &nbsp;&nbsp;2、需要上传多个方案附件时请依次上传，单次提交只允许上传一个附件</span>
 		</td>
 	</tr></table>
-</form-->
+</form>
 </div>
 </body>
 <div id="forceDialogBgLayer" style="display:none;"></div>
