@@ -876,7 +876,7 @@ function hideForceDialog(){
 	</tr></table>
 </form-->
 <hr style="border: #D3D3D3 1px dotted;margin: 5px 0px;" />
-<form id="uploadForm" method="post" action="../FileUpLoadController/uploadScheme.action" enctype="multipart/form-data">
+<form id="uploadForm" method="post" action="/Project/addEnclosure" enctype="multipart/form-data">
 	<table width="100%"><tr>
 		<td class="tdTitle" valign="top">跟投方案：</td>
 		<td id="schemeLinkTd"></td>
