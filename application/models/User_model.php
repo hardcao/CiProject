@@ -12,6 +12,12 @@ class User_model extends CI_Model
         parent::__construct();
         $this->load->database();
     }
+    public function  getAllUsers(){
+        $this->db->select("*");
+        $result = $this->db->get('T_USER')->result_array();
+        return $result;
+    }
+    
     public function getUser($FID) {
         $this->db->select("*");
         $this->db->where('FID',$FID);

@@ -16,6 +16,13 @@ class ProjectUser_model extends CI_Model
         $result = $this->db->get('T_PROJECT_USER')->result_array();
         return $result[0];
     }
+    
+    public function getFollowerList($projectID) {
+        $this->db->select("*");
+        $this->db->where('FPROJECTID',$projectID);
+        $result = $this->db->get('T_PROJECT_USER')->result_array();
+        return $result;
+    }
 
     public function  addFollower($dataArry){
         $insertArry = array(

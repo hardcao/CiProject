@@ -13,6 +13,13 @@ class User extends CI_Controller
         parent::__construct();
         $this->load->model('User_model');
     }
+    
+    public function  getAllUsers(){
+        $result = $this->User_model->getAllUsers();
+        echo json_encode($result);
+        
+    }
+    
 /*
  * ÊäÈë£ºuid=test1
  * ½Ó¿Ú£ºuser/getPersonalDetail

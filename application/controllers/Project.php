@@ -176,4 +176,12 @@ class Project extends CI_Controller
          }
          echo json_encode($result);
      }
+     
+     public function  getProjectFollowUserList()
+     {
+         $projectID = $this->input->post('projectId');
+         $this->load->model('ProjectUser_model');
+         $result = $this->ProjectUser_model->getFollowerList($projectID);
+         echo json_encode($result);
+     }
 }
