@@ -63,7 +63,7 @@ class FollowScheme extends CI_Controller
         $startdatetime = new DateTime($this->input->post('payEndInp'));
         $payEndInp= $startdatetime->format('Y-m-d H:i:s');
         $insertArr['FPAYENDDATE'] = $this->input->post($payEndInp);
-        $where='FPROJECTID='.$FID;
+        $where='FID='.$FID;
         $result = $this->Tools->updateData($insertArr,$tableName,$where);
         echo json_encode($result);
     }
