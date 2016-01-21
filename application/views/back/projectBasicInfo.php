@@ -301,7 +301,7 @@ function deleteSchemeLinkFunc(){
 	
 	$.ajax({
 		type:'post',//可选get
-		url:'../FollowSchemeController/deleteSchemeLink.action',
+		url:'/Project/deleteEnclosure',
 		dataType:'Json',//服务器返回的数据类型 可选XML ,Json jsonp script html text等
 		data:{
 			'FID':$("#schemeid").val(),
