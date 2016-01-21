@@ -174,9 +174,9 @@ function getForceFollowByProjectid(){
 					_obj = (msg.data)[m];
 					forceObj[_obj.uid] = _obj;
 					if(_obj.company == "集团强投包"){
-						tempSel = '<select name="forceFollList['+m+'].company" ><option value="集团强投包" selected="selected">集团强投包</option><option value="城市强投包">城市强投包</option></select>';
+						tempSel = '<select name="forceFollList['+m+'][company]" ><option value="集团强投包" selected="selected">集团强投包</option><option value="城市强投包">城市强投包</option></select>';
 					}else{
-						tempSel = '<select name="forceFollList['+m+'].company" ><option value="集团强投包">集团强投包</option><option value="城市强投包" selected="selected">城市强投包</option></select>';
+						tempSel = '<select name="forceFollList['+m+'][company]" ><option value="集团强投包">集团强投包</option><option value="城市强投包" selected="selected">城市强投包</option></select>';
 					}
 
 					/*
@@ -194,15 +194,15 @@ function getForceFollowByProjectid(){
 					var tempHtml = 
 					'<tr id="force_row_'+m+'">'+
 						/*'<td>'+(m+1)+'</td>'+*/
-						'<td><input type="hidden" name="forceFollList['+m+'].id" value="'+_obj.FID+'" />'+
-						'<input type="hidden" name="forceFollList['+m+'].userid" value="'+_obj.FUSERID+'" />'+
+						'<td><input type="hidden" name="forceFollList['+m+'][id]" value="'+_obj.FID+'" />'+
+						'<input type="hidden" name="forceFollList['+m+'][userid]" value="'+_obj.FUSERID+'" />'+
 						'<input value="'+_obj.FNAME+'" readonly="true" /></td>'+
 						'<td>'+tempSel+'</td>'+
-						'<td><input name="forceFollList['+m+'].department" value="'+_obj.STATE+'" /></td>'+
-						'<td><input name="forceFollList['+m+'].duty" value="'+(_obj.DUTY||"")+'" /></td>'+
-						'<td><input name="forceFollList['+m+'].downlimit" value="'+formatMillions(_obj.FDOWNLIMIT)+'" type="number" /></td>'+
-						'<td><input name="forceFollList['+m+'].toplimit" value="'+formatMillions(_obj.FTOPLIMIT)+'" type="number" /></td>'+
-						'<td><input name="forceFollList['+m+'].remark" value="'+_obj.FREMARK+'"  /></td>'+
+						'<td><input name="forceFollList['+m+'][department]" value="'+_obj.STATE+'" /></td>'+
+						'<td><input name="forceFollList['+m+'][duty]" value="'+(_obj.DUTY||"")+'" /></td>'+
+						'<td><input name="forceFollList['+m+'][downlimit]" value="'+formatMillions(_obj.FDOWNLIMIT)+'" type="number" /></td>'+
+						'<td><input name="forceFollList['+m+'][toplimit]" value="'+formatMillions(_obj.FTOPLIMIT)+'" type="number" /></td>'+
+						'<td><input name="forceFollList['+m+'][remark]" value="'+_obj.FREMARK+'"  /></td>'+
 						'<td><a class="forceDelBtn" ind="'+m+'" uid="'+_obj.FUSERID+'" fid="'+_obj.FID+'" href="javascript:void(0)" >删除</a></td></tr>';
 				 $("#forceTbody").append(tempHtml);
 				}	
