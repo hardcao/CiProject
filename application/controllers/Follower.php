@@ -22,7 +22,7 @@ class Follower extends CI_Controller
      * */
     public function  getFollowerListWithProjectID() {
         
-        $projectID = $this->input->post('FPROJECTID');
+        $projectID = $this->input->post('projectID');
         $result = $this->Follower_model->getFollowerListWithProjectID($projectID);
         echo json_encode($result);
     }

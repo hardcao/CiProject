@@ -44,9 +44,10 @@ class Follower_model extends CI_Model
     }
     
     public function getFollowerListWithProjectID($projectID) {
-        $this->db->select("*");
-        $this->db->where('FPROJECTID',$projectID);
-        $result = $this->db->get('T_FOLLOWER')->result_array();
+        $query=$this->db->select("*");
+        $query=$this->db->where('FPROJECTID',$projectID);
+        $query=$this->db->get('T_FOLLOWER');
+        $result = $query->result_array();
         $data["success"] = true;
         $data["errorCode"] = 0;
         $data["error"] = 0;
