@@ -52,12 +52,22 @@ class BankInfo extends CI_Controller
         echo  json_encode($result);
     }
     
-    public function updateBankInfo() {
-    
+    public function deleteBankInfo() {
         $data = $this->input->input_stream();
         $tableName = 'T_BANKINFO';
         $this->load->model('Tools');
-        $result = $this->Tools->updateData($data,$tableName);
+        $result = $this->Tools->deleteData($data,$tableName);
+        echo json_encode($result);
+    }
+    
+    public function updateBankInfo() {
+    
+        
+        $data = $this->input->input_stream();
+        $where = 'FID='.$data['FID'];
+        $tableName = 'T_BANKINFO';
+        $this->load->model('Tools');
+        $result = $this->Tools->updateData($data,$tableName,$where);
         echo json_encode($result);
     }
     
