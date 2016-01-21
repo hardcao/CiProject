@@ -30,11 +30,32 @@ class Follower extends CI_Controller
     public function updateFollower() {
     
         $data = $this->input->input_stream();
-        /*$tableName = 'T_FOLLOWER';
+        $tableName = 'T_FOLLOWER';
         $this->load->model('Tools');
-        foreach ($data as $item) {
-            $result = $this->Tools->updateData($item,$tableName);
-        }*/
+        $this->load->model('ProjectUser_model');
+        $tableName= 'T_FOLLOWER';
+        $projectID = $data['projectid'];
+        $userID = "1";
+        foreach ($data['forceFollList'] as $item) {
+            $tmpData['FTOPLIMIT'] = $item['toplimit'];
+            $tmpData['FTOPLIMIT'] = $item['downlimit'];
+            $tmpData['FDUTY'] = $item['duty'];
+            $tmpData['FSTATE'] = $item['department'];
+            $tmpData['FTYPE'] = $item['remark'];
+            if($item['id']) {
+                $tmpData['FPROJECTID'] = $projectID;
+                $tmpData['FUSERID']=$userID;
+                $ProjectUser['FPROJECTID'] = $projectID;
+                $ProjectUser['FUSERID'] = $userID;
+                $result = $this->Tools->addData($tmpData,$tableName);
+                if($result['data']) {
+                    $result = $this->Tools->addData($ProjectUser,'T_PROJECT_USER');
+                }
+            } else {
+                $where ='FID='.$item['id'];
+                $result = $this->Tools->updateData($item,$tableName,$where);
+            }
+        }
         echo json_encode($data);
     }
     

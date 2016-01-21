@@ -13,6 +13,7 @@ class Project extends CI_Controller
     {
         # code...
         parent::__construct();
+        $this->load->helper(array('form', 'url'));
         $this->load->model('project_model');
     }
 
@@ -166,15 +167,33 @@ class Project extends CI_Controller
      }
      
      public function  addEnclosure() {
-         $upFilePath = "../attachment/";
-         $ok=@move_uploaded_file($_FILES['img']['tmp_name'],$upFilePath);
-         $result['file_infor'] = ''; 
-         if($ok === FALSE){
-             $result['file_infor']='上传失败';
-         }else{
-             $result['file_infor']='上传成功';
+         $projectId = $this->input->post('projectId');
+         $config['upload_path']      = './fileFolder/';
+         $config['allowed_types']    = 'gif|jpg|png|txt|xls|doc';
+         $config['max_size']     = 100;
+         $config['max_width']        = 1024;
+         $config['max_height']       = 768;
+         $name = $_FILES["userfile"]["name"];
+         $config['file_name']  =  iconv("UTF-8","gb2312", $name);
+         $this->load->library('upload', $config);
+         
+         if ( ! $this->upload->do_upload('userfile'))
+         {
+             $error = array('error' => $this->upload->display_errors());
+         
+             $this->load->view('upload_form', $error);
          }
-         echo json_encode($result);
+         else
+         {
+             $data = array('upload_data' => $this->upload->data());
+             $filePath =  './fileFolder/'.$data['upload_data']['file_name'];
+             $insertdata['EnclosurePath'] = iconv("gb2312","UTF-8", $filePath);
+             $insertdata['FPROJECTID'] = $projectId;
+             $tableName = 'T_Enclosure';
+             $this->load->model('Tools');
+             $result = $this->Tools->addData($insertdata,$tableName);
+             echo json_encode($data);
+         }
      }
      
      public function  getProjectFollowUserList()

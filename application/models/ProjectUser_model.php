@@ -9,6 +9,14 @@ class ProjectUser_model extends CI_Model
         parent::__construct();
         $this->load->database();
     }
+    
+    public function  countUserInProject($userID,$projectID) {
+        $this->db->select("*");
+        $this->db->where('FPROJECTID',$projectID);
+        $this->db->where('$userID',FUSERID);
+        $result = $this->db->get('T_PROJECT_USER')->count_all_results();
+        return $result;
+    }
 
     public function getFollower($FID) {
         $this->db->select("*");
