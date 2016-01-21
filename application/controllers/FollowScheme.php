@@ -27,7 +27,7 @@ class FollowScheme extends CI_Controller
         echo json_encode($result);
     }
      
-    public function updateFollowerScheme() {
+    public function updateFollowScheme() {
     
         $data = $this->input->input_stream();
         $tableName = 'T_FOLLOWAGREEMENT';
