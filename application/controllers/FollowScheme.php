@@ -29,11 +29,10 @@ class FollowScheme extends CI_Controller
      
     public function updateFollowScheme() {
     
-        $data = $this->input->input_stream();
         $tableName = 'T_FOLLOWSCHEME';
         $this->load->model('Tools');
         date_default_timezone_set("Asia/Shanghai");
-        $FID = $this->input->post('schemeid');
+        $FID = $this->input->post('schemeId');
         $insertArr['FPROJECTID'] =  $this->input->post('projectId');
         
         $insertArr['FFUNDPEAKE'] = $this->input->post('fundPeake');
@@ -62,7 +61,7 @@ class FollowScheme extends CI_Controller
         
         $startdatetime = new DateTime($this->input->post('payEndInp'));
         $payEndInp= $startdatetime->format('Y-m-d H:i:s');
-        $insertArr['FPAYENDDATE'] = $this->input->post($payEndInp);
+        $insertArr['FPAYENDDATE'] =$payEndInp;
         $where='FID='.$FID;
         $result = $this->Tools->updateData($insertArr,$tableName,$where);
         echo json_encode($result);
