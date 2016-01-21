@@ -46,6 +46,7 @@ class Follower_model extends CI_Model
     public function getFollowerListWithProjectID($projectID) {
         $query=$this->db->select("*");
         $query=$this->db->where('FPROJECTID',$projectID);
+        $query=$this->db->join('T_USER','T_USER.FID=T_FOLLOWER.FUSERID');
         $query=$this->db->get('T_FOLLOWER');
         $result = $query->result_array();
         $data["success"] = true;
