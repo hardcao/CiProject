@@ -52,7 +52,7 @@ var allUserList = [];
 var forceObj = {};
 var tempForceObj = {};
 var tempAddForceObj = {};
-var i=0;
+var indexOfFollower= 0;
 var schemeLinkArr = [];
 var protocalArr = [];
 $(function(){
@@ -168,7 +168,7 @@ function getForceFollowByProjectid(){
 		},
 		success:function(msg){
 			if(msg.success){
-				i=msg.data.length;
+				indexOfFollower=msg.data.length;
 				var _obj = null;
 				var tempSel = "";
 				for(var m=0;m<msg.dataDto.length;m++){
@@ -526,22 +526,31 @@ function loadAllUserData (argument) {
 function addRows(argument) {
 	var leng = $("#forceTbody").children().length;
 	$.each(tempAddForceObj, function(ind, val){
+		/*		<td rowspan="2" width="12%">姓名</td>
+		<td rowspan="2" width="12%">认购类型</td>  <!-- "所属公司"字段改为：认购类型 -->
+		<td rowspan="2" width="15%">总部/区域</td>
+		<td rowspan="2" width="11%">职务</td>
+		<td colspan="2" width="30%">个人额度范围</td>
+		<td rowspan="2" width="12%">备注</td>
+		<td rowspan="2">操作</td>
+	</tr><tr class="trTitle">
+		<td>下限(万元)</td>
+		<td>上限(万元)</td>*/
 		var tempHtml = '<tr>'+
-				/*'<td>'+(i+1)+'</td>'+*/
-				'<td><input type="hidden" name="forceFollList['+i+'].forceFollowId"  />'+
-					'<input type="hidden" name="forceFollList['+i+'].forceType" value="1"  />'+
-					'<input type="hidden" name="forceFollList['+i+'].name" value="'+val.uid+'" />'+
-					'<input value="'+val.uname+'" readonly="true" /></td>'+
-				'<td><select name="forceFollList['+i+'].company" ><option value="集团强投包" selected="selected">集团强投包</option><option value="城市强投包">城市强投包</option></select></td>'+
-				'<td><input name="forceFollList['+i+'].department" value="'+val.service+'" readonly="true" /></td>'+
-				'<td><input name="forceFollList['+i+'].duty" value="'+""+'" /></td>'+
-				'<td><input name="forceFollList['+i+'].downlimit" value="5" type="number" /></td>'+
-				'<td><input name="forceFollList['+i+'].toplimit" value="20" type="number" /></td>'+
-				'<td><input name="forceFollList['+i+'].remark" value="'+val.samaccountname+'" /></td>'+
+				//'<td>'+(indexOfFollower)+'</td>'+
+				'<td>'+
+				'<input type="hidden" name="forceFollList['+indexOfFollower+'].id" value="'+val.FID+'" />'+
+				'<input value="'+val.FNAME+'" readonly="true" /></td>'+
+				'<td><select name="forceFollList['+indexOfFollower+'].company" ><option value="集团强投包" selected="selected">集团强投包</option><option value="城市强投包">城市强投包</option></select></td>'+
+				'<td><input name="forceFollList['+indexOfFollower+'].department" value="'+val.FORG+'"  /></td>'+
+				'<td><input name="forceFollList['+indexOfFollower+'].duty" value="'+""+'" /></td>'+
+				'<td><input name="forceFollList['+indexOfFollower+'].downlimit" value="5" type="number" /></td>'+
+				'<td><input name="forceFollList['+indexOfFollower+'].toplimit" value="20" type="number" /></td>'+
+				'<td><input name="forceFollList['+indexOfFollower+'].remark" value="'+val.FNUMBER+'" /></td>'+
 				'<td></td></tr>';
 		$("#forceTbody").append(tempHtml);
-		if(!tempForceObj[val.uid]) tempForceObj[val.uid] = val;
-		i++;
+		//if(!tempForceObj[val.uid]) tempForceObj[val.uid] = val;
+		indexOfFollower++;
 	});
 	tempAddForceObj = {};
 	hideForceDialog();
@@ -799,7 +808,7 @@ function hideForceDialog(){
 		<td width="16%">杠杆认购(元)</td>
 		<td>总额(万元)</td>
 	</tr></thead><tbody id="subTbody">
-		<tr>
+		<!--tr>
 			<td>1<input type="hidden" name="subscribeList[0].subscribeId" id="sub0subscribeId" /></td>
 			<td><input name="subscribeList[0].followNature" id="sub0followNature" value=""></td>
 			<td><input name="subscribeList[0].followStaff" id="sub0followStaff" value=""></td>
@@ -825,7 +834,7 @@ function hideForceDialog(){
 			<td><input name="subscribeList[2].contributiveSubscribe" id="sub2contributiveSubscribe" value="0"></td>
 			<td><input name="subscribeList[2].leverageSubscribe" id="sub2leverageSubscribe" value="0"></td>
 			<td><input name="subscribeList[2].subscribeAmountTotal" id="sub2subscribeAmountTotal" value="0"></td>
-		</tr>
+		</tr-->
 	</tbody></table>
 	<div class="btnBox">
 		<button id="addSubPackage" style="display:none">新增</button><button>保存</button>
@@ -834,7 +843,7 @@ function hideForceDialog(){
 </form>
 <div id="uploadAttach" class="editTitle"><img src="../../application/views/back/images/arrow_down.png" />附件上传</div>
 <div id="uploadAttach_editor" class="editor displayNone">
-<form id="uploadProtocalForm" method="post" action="../FileUpLoadController/upload.action" enctype="multipart/form-data">
+<form id="uploadProtocalForm" method="post" action="Project/" enctype="multipart/form-data">
 	<table width="100%"><tr>
 		<td class="tdTitle">跟投协议：</td>
 		<td id="protocalLinkTd"></td>
