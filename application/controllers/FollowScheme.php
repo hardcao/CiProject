@@ -22,7 +22,7 @@ class FollowScheme extends CI_Controller
      * */
     public function  getFollowShemeListWithProjectID() {
         
-        $projectID = $this->input->post('FPROJECTID');
+        $projectID = $this->input->post('projectId');
         $result = $this->FollowScheme_model->getFollowerSchemeListWithProjectID($projectID);
         echo json_encode($result);
     }
