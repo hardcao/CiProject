@@ -30,7 +30,7 @@ class FollowScheme extends CI_Controller
     public function updateFollowScheme() {
     
         $data = $this->input->input_stream();
-        $tableName = 'T_FOLLOWAGREEMENT';
+        $tableName = 'T_FOLLOWSCHEME';
         $this->load->model('Tools');
         date_default_timezone_set("Asia/Shanghai");
         $FID = $this->input->post('schemeid');
@@ -54,7 +54,7 @@ class FollowScheme extends CI_Controller
         
         $startdatetime = new DateTime($this->input->post('subscribeEndtInp'));
         $subscribeEndtInp= $startdatetime->format('Y-m-d H:i:s');
-        $insertArr['FSUBSCRIBEENDDATE'] = subscribeEndtInp;
+        $insertArr['FSUBSCRIBEENDDATE'] = $subscribeEndtInp;
         
         $startdatetime = new DateTime($this->input->post('subscribeStartInp'));
         $subscribeStartInp= $startdatetime->format('Y-m-d H:i:s');
