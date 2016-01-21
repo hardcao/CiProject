@@ -35,8 +35,9 @@ class Follower extends CI_Controller
         $this->load->model('ProjectUser_model');
         $tableName= 'T_FOLLOWER';
         $projectID = $data['projectid'];
-        $userID = "1";
+        
         foreach ($data['forceFollList'] as $item) {
+            if($item == 'NULL') continue;
             $tmpData['FTOPLIMIT'] = $item['toplimit'];
             $tmpData['FTOPLIMIT'] = $item['downlimit'];
             $tmpData['FDUTY'] = $item['duty'];
