@@ -187,6 +187,11 @@ class Project extends CI_Controller
          $this->load->model('FollowScheme_model');
          
          $followScheme = $this->FollowScheme_model->getPersonBankInfo($FID);
+         $is_exist = is_int(strpos($followScheme['FLINK'],$name));
+         if ($is_exist){
+             echo "update fail";
+             return ;
+         }
          $followScheme['FLINK'] = $followScheme['FLINK'].';'.$name;
          $config['file_name']  =  iconv("UTF-8","gb2312", $name);
          $this->load->library('upload', $config);
