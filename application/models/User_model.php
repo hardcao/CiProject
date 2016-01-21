@@ -18,7 +18,11 @@ class User_model extends CI_Model
         }
         $this->db->select("*");
         $result = $this->db->get('T_USER')->result_array();
-        return $result;
+        $data["success"] = true;
+        $data["errorCode"] = 0;
+        $data["error"] = 0;
+        $data['data'] = $result;
+        return $data;
     }
     
     public function getUser($FID) {
