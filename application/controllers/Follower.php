@@ -42,21 +42,23 @@ class Follower extends CI_Controller
             $tmpData['FDUTY'] = $item['duty'];
             $tmpData['FSTATE'] = $item['department'];
             $tmpData['FTYPE'] = $item['remark'];
-            if($item['id']) {
+            if(!intval($item['id'])) {
                 $tmpData['FPROJECTID'] = $projectID;
-                $tmpData['FUSERID']=$userID;
+                $tmpData['FUSERID']=$item['userid'];
                 $ProjectUser['FPROJECTID'] = $projectID;
                 $ProjectUser['FUSERID'] = $userID;
                 $result = $this->Tools->addData($tmpData,$tableName);
                 if($result['data']) {
                     $result = $this->Tools->addData($ProjectUser,'T_PROJECT_USER');
                 }
+                
             } else {
                 $where ='FID='.$item['id'];
-                $result = $this->Tools->updateData($item,$tableName,$where);
+                $result = $this->Tools->updateData($tmpData,$tableName,$where);
+               
             }
         }
-        echo json_encode($data);
+        echo json_encode($result);
     }
     
     public function deleteFollower() {
