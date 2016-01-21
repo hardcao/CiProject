@@ -476,17 +476,17 @@ function getAllUserData(){
 	var _nameVal = $.trim($("#forceDialogLayer #searUserInp").val());
 	$.ajax({
 		type:'post',//可选get
-		url:'../userController/getUserListByName.action',
+		url:'/User/getAllUsers',
 		dataType:'Json',//服务器返回的数据类型 可选XML ,Json jsonp script html text等
 		data:{
 			'uname':_nameVal,
-			'projectId':projectId,
+			//'projectId':projectId,
 			"startPage":0,
 			"pageSize":6
 		},
 		success:function(msg){
 			if(msg.success){
-				allUserList=msg.dataDto;
+				allUserList=msg.data;
 				loadAllUserData();
 			}else{
 				alert(msg.error);
@@ -504,17 +504,17 @@ function loadAllUserData (argument) {
 		var ckStr = "";
 		$.each(allUserList, function(ind, val){
 			ckStr = "";
-			if(forceObj[val.uid]){
+			/*if(forceObj[val.uid]){
 				 ckStr = 'checked="checked" disabled="true"';
 			}else if(tempForceObj[val.uid]){
 				ckStr = 'checked="checked"';
-			}
+			}*/
 			tempHtml +=
-			'<tr><td><input name="userCk" type="checkbox" class="ckSTY" '+ckStr+' uid="'+val.uid+'" ind="'+ind+'"></td>'+
-			'<td>'+val.uname+'</td>'+
-			'<td>'+val.samaccountname+'</td>'+
+			'<tr><td><input name="userCk" type="checkbox" class="ckSTY" '+ckStr+' uid="'+val.FID+'" ind="'+ind+'"></td>'+
+			'<td>'+val.FNAME+'</td>'+
+			'<td>'+val.FNUMBER+'</td>'+
 			// '<td><input id="subTypeInp_'+ind+'" value="集团强投包" /></td>'+
-			'<td>'+val.service+'</td>'+
+			'<td>'+val.FORG+'</td>'+
 			// '<td>'+""+'</td>'+
 			// '<td><input id="downLimitInp_'+ind+'" type="number" value="'+(val.downlimit||50000)+'" /></td>'+
 			// '<td><input id="topLimitInp_'+ind+'" type="number" value="'+(val.toplimit||200000)+'" /></td>'+
@@ -688,7 +688,7 @@ function hideForceDialog(){
 	</tr></table>
 </div>
 </form>
-<div id="scheme" class="editTitle"><img src="../../application/views/back/images/arrow_down.png" />跟投计划</div>
+<div id="scheme" class="editTitle"><img src="../../application/views/back/images/arrow_down.png" />跟投方案</div>
 <form id="schemeForm"  method="post" action="/FollowScheme/updateFollowScheme">
 <div id="scheme_editor" class="editor displayNone">
 		<input type="hidden" name="projectId" id="schemeProjectid"/>
@@ -763,7 +763,7 @@ function hideForceDialog(){
 </div>
 </form>
 <div id="force" class="editTitle"><img src="../../application/views/back/images/arrow_down.png" />跟投人员名单</div>
-<form id="forceForm" method="post" action="${pageContext.request.contextPath}/ForceFollowController/saveOrUpdate.action">
+<form id="forceForm" method="post" action="/Follower/updateFollower">
 <input type="hidden" name="projectid" id="forceProjectId"/>
 <div id="force_editor" class="editor displayNone" style="">
 	<table id="forceTable" width="100%" border="1"><thead><tr class="trTitle">
@@ -852,7 +852,7 @@ function hideForceDialog(){
 		</td>
 	</tr></table>
 </form>
-<hr style="border: #D3D3D3 1px dotted;margin: 5px 0px;" />
+<!--hr style="border: #D3D3D3 1px dotted;margin: 5px 0px;" />
 <form id="uploadForm" method="post" action="../FileUpLoadController/uploadScheme.action" enctype="multipart/form-data">
 	<table width="100%"><tr>
 		<td class="tdTitle" valign="top">跟投方案：</td>
@@ -871,7 +871,7 @@ function hideForceDialog(){
 			<span class="tip_STY">*：1、跟投方案附件仅支持.doc和.docx格式  &nbsp;&nbsp;2、需要上传多个方案附件时请依次上传，单次提交只允许上传一个附件</span>
 		</td>
 	</tr></table>
-</form>
+</form-->
 </div>
 </body>
 <div id="forceDialogBgLayer" style="display:none;"></div>
@@ -883,10 +883,10 @@ function hideForceDialog(){
 		</div>
 		<div class="contentDiv"><table border="1"><thead><tr>
 			<td rowspan="2" width="25" height="28"></td>
-			<td rowspan="2" width="110">中文名</td>
-			<td rowspan="2" width="120">帐号</td>
+			<td rowspan="2" width="110">帐号</td>
+			<td rowspan="2" width="120">名称</td>
 			<!-- <td rowspan="2" width="150">认购类型</td> -->
-			<td rowspan="2" width="150">部门</td>
+			<td rowspan="2" width="150">组织</td>
 			<!-- <td rowspan="2" width="150">职务</td> -->
 			<!-- <td colspan="2">个人额度范围</td> -->
 			<!-- <td rowspan="2">备注</td> -->
