@@ -31,7 +31,7 @@
 			<div anchor="scheme" class="tabSTY">跟投方案</div>
 			<div anchor="danger" class="tabSTY">风险提示</div>
 			<div anchor="protocal" class="tabSTY">跟投协议</div>
-			<div anchor="force" class="tabSTY">强制跟投人员</div>
+			<div anchor="force" class="tabSTY">跟投人员</div>
 			<div anchor="news" class="tabSTY">项目动态新闻</div>
 		</div>
 		<div id="basic_info" class="info_STY">
@@ -88,8 +88,8 @@
 				<table border="1"><tr>
 					<td class="titleTd">项目IRR</td>
 					<td width="300" id="planIrr"></td>
-					<td class="titleTd">预计销售毛利率</td>
-					<td id="planGrossMargin"></td>
+					<!--td class="titleTd">预计销售毛利率</td>
+					<td id="planGrossMargin"></td-->
 				</tr><tr class="displayNone">
 					<td class="titleTd">跟投MOIC(税前)</td>
 					<td width="300" id="planMoic"></td>
@@ -186,20 +186,20 @@
 				</tr><tr>
 					<td class="titleTd">资金峰值</td>
 					<td id="fundPeake"></td>
-					<td class="titleTd">可跟投总额(含杠杆)</td>
-					<td id="followAmount"></td>
+					<!--td class="titleTd">可跟投总额(含杠杆)</td>
+					<td id="followAmount"></td-->
 				</tr><!-- <tr>
 					<td class="titleTd">可跟投总额包括</td>
 					<td colspan="3" class="richTd" id="followAmountDesc"></td>
 				</tr> --><tr>
-					<td class="titleTd">集团强投包比例</td>
+					<td class="titleTd">总部跟投比例</td>
 					<td id="groupForceRatio"></td>
-					<td class="titleTd">集团强投包总额</td>
+					<td class="titleTd">总部最大可跟投总额（含杠杆）</td>
 					<td id="groupForceAmount"></td>
 				</tr><tr>
-					<td class="titleTd">城市公司强投包比例</td>
+					<td class="titleTd">区域跟投比例</td>
 					<td id="compForceRatio"></td>
-					<td class="titleTd">城市公司强投包总额</td>
+					<td class="titleTd">区域最大可跟投总额（含杠杆）</td>
 					<td id="compForceAmount"></td>
 				</tr><tr>
 					<td class="titleTd">选投包比例(无杠杆)</td>
@@ -207,18 +207,18 @@
 					<td class="titleTd">选投包总额(无杠杆)</td>
 					<td id="compChoiceAmount"></td>
 				</tr><tr>
-					<td class="titleTd">杠杆认购说明</td>
+					<td class="titleTd">全部跟投比例</td>
 					<td colspan="3" class="richTd" id="leverageDes"></td>
 				</tr><tr>
-					<td class="titleTd">项目跟投小组</td>
+					<td class="titleTd">全部最大可跟投总额（含杠杆）</td>
 					<td colspan="3" class="richTd"><textarea id="followAmountDesc" style="height:100%;width:100%;resize:none;border:none;outline:none;" readonly></textarea></td>
 				</tr><tr>
 					<td class="titleTd">募集方式</td><!-- "认购提醒"字段变更为"募集方式" -->
 					<td colspan="3" class="richTd" id="subscribeRemind"></td>
-				</tr><tr>
+				</tr><!--tr>
 					<td class="titleTd">跟投方案</td>
 					<td colspan="3" class="richTd" id="followChemeLink"></td>
-				</tr></table>
+				</tr--></table>
 			</div>
 		</div>
 		<div id="danger_info" class="info_STY" style="display:none;">
@@ -285,5 +285,368 @@
 	</div>
 </div>
 <div id="footer">中粮地产集团</div>
+<script type="text/javascript">
+	// 导航下标
+var naviInd = "1";
+// 页签下标
+var tabInd = "basic";
+var projectId = null;
+var forceList = null;
+var basicInfo = null;
+var schemeInfo = null;
+var newsInfo = null;
+var tabFlag = "";
+
+$(function(){
+	initParams();
+	initListeners();
+	initPages();
+});
+
+function initParams(){
+	projectId = getReqParam("proId");
+	tabFlag = getReqParam("tabInd");
+}
+
+function initListeners(){
+	initHeaderListeners();
+
+	$("#titleTab .tabSTY").click(function(){
+		$("#titleTab .tabSTY").removeClass("focusOn");
+		$(this).addClass("focusOn");
+		$("#"+tabInd+"_info").hide();
+
+		tabInd = $(this).attr("anchor");
+		$("#"+tabInd+"_info").show();
+	});
+
+	$("#basic_info .moduleTitle").click(function(){
+		var _id = $(this).attr("ind")
+		var _display = $("#"+_id).css("display");
+		var url = $('#site_url').text();
+		if("none" == _display){
+			$(this).find("img").attr("src", url+'application/views/front/images/arrow_down.png');
+		}else{
+			$(this).find("img").attr("src",url+'application/views/front/images/arrow_up.png');
+		}
+		$("#"+_id).toggle();
+	});
+}
+
+function initPages () {
+	getProjectInfo();
+	getSchemeInfo();
+	getForceList();
+	getNewsList();
+
+	$("#titleTab .tabSTY[anchor="+tabFlag+"]").click();
+}
+
+function getProjectInfo(){
+	var ctx="<?php echo site_url();?>";
+	var projectId =getReqParam('projectid');
+	$.ajax({
+		type:'post',//可选get
+		url:ctx+'/Project/getProjectDetail',
+		dataType:'Json',//服务器返回的数据类型 可选XML ,Json jsonp script html text等
+		data:{'projectId':projectId},
+		success:function(msg){
+			if(msg.success){
+				data = msg.data[0];
+
+				/*
+				$("#projectName").val(data.FNAME);
+				$("#floorArea").val(data.FAREA);//占地面积
+				$("#structArea").val(data.FSTRUCTAREA);//计容键面
+				$("#plotArea").val(data.FRJL);//容积率
+				$("#saleStructArea").val(data.FSALEAREA);//可销售计容面积
+				$("#groundInp").val((new Date(data.FGETDATE)).format('yyyy-MM-dd hh:mm:ss'));//获取时间
+				$("#groundAmount").val(data.FTOTAL);//地价总价
+				$("#returndate").val(data.FCASHFLOWBACK); //现金流回正时间 个月
+				//$("#buildareaprice").val(data.FPRICE);//楼面地价
+				$("#groundType").val(data.FGETWAY);//获取方式
+				$("#groundPosition").val(data.FPOSITION);//项目区位
+				// $("#projectarea").val(data.baseModel.projectarea);
+				$("#groundPositioning").val(data.FPROPOSITION);//产品定位
+				$("#groundPlanning").val(data.FSCHEME);//规划方案
+				$("#planFold").val(data.FPRICE);//项目均价
+				$("#planRent").val(data.FCYWYSP);//持有型物业租金水平
+				$("#planIrr").val(data.FIRR);
+				$("#FPREPROFIT").val(data.FPREPROFIT);//税前销售利润率
+				$("#FPROFIT").val(data.FPROFIT);//税后销售净利润率
+				//开工时间
+				$("#stageStartInp").val((new Date(data.FSTARTDATE)).format('yyyy-MM-dd hh:mm:ss'));
+				//开盘时间
+				$("#stageOpenInp").val((new Date(data.FOPENDATE)).format('yyyy-MM-dd hh:mm:ss'));
+				// $("#peakInp").val((new Date(data.baseModel.planPeakeDate)).format('yyyy-MM-dd hh:mm:ss'));
+				// $("#cashflowReturnInp").val((new Date(data.baseModel.planCashflowReturnDate)).format('yyyy-MM-dd hh:mm:ss'));
+				//交付时间
+				$("#deliverInp").val((new Date(data.FHANDDATE)).format('yyyy-MM-dd hh:mm:ss'));
+				//结转时间
+				$("#carryoverInp").val((new Date(data.FCARRYOVERDATE)).format('yyyy-MM-dd hh:mm:ss'));
+				//清算时间
+				$("#liquidateInp").val((new Date(data.FLIQUIDATE)).format('yyyy-MM-dd hh:mm:ss'));
+				$("#planPropertyScheme").val(data.FPROPERTYSCHEME);//持有物业处理方案
+				//$("#planFinanceCalculate").val('data.baseModel.planFinanceCalculate');//财务测算文件
+				$("#corpPartnerBackground").val(data.FPARTNERINFO);//合作方背景和资质
+				$("#corpContributiveRatio").val(data.FCONTRIBUTIVE);//项目出资比例
+				//$("#corpBoardMember").val('data.baseModel.corpBoardMember');//董事会组成
+				//$("#corpVoteRule").val('data.baseModel.corpVoteRule');
+				$("#restAnswerMail").val(data.FANSWERMAIL);//答疑邮箱地址
+				// $("#restAnswerLink").val(data.baseModel.restAnswerLink);
+				$("#restProjectManagers").val(data.FPROJECTINFOMANAGERS);//项目信息管理员
+				$("#restFollowerManagers").val(data.FFOLLOWERMANAGERS);
+				//$("#riskDisclaimerDes").val('data.baseModel.riskDisclaimerDes');//风险与免责
+				// $("#schemeProtocol").val(data.baseModel.schemeProtocol);
+ 				//$("#protocalLinkTd").html('splitSchemeProtocal(msg.data.baseModel.schemeProtocol)');
+				*/
+
+
+				$("#naviProName").text(data.FNAME);
+				$("#floorArea").text(data.FAREA+" 平方米");
+				$("#structArea").text(data.FSTRUCTAREA+" 平方米");
+				$("#plotArea").text(data.FRJL);
+				$("#saleStructArea").text(data.FSALEAREA+" 平方米");
+				$("#groundInp").text((new Date(data.FGETDATE)).format('yyyy-MM-dd'));
+				$("#groundAmount").text(data.FTOTAL+" 亿元");
+				$("#groundType").text(data.FGETWAY);
+				$("#buildareaprice").text(data.FPRICE +" 元/平方米");
+				$("#groundPosition").text(data.FPOSITION);
+				$("#groundPositioning").text(data.FPROPOSITION);
+				$("#groundPlanning").text(data.FSCHEME);
+				$("#planFold").text(data.FPRICE+" 元/平方米");
+				$("#planRent").text(data.FCYWYSP);
+				$("#planIrr").text(data.FIRR+" %");
+				//$("#planGrossMargin").text(data.planGrossMargin+" %");
+				$("#FPREPROFIT").text(data.FPREPROFIT+" %");
+				//$("#planMoic").text(data.planMoic);
+				$("#FPROFIT").text(data.FPROFIT);
+
+				$("#stageStartInp").text((new Date(data.FSTARTDATE)).format('yyyy-MM-dd'));
+				$("#stageOpenInp").text((new Date(data.FOPENDATE)).format('yyyy-MM-dd'));
+				// $("#peakInp").text((new Date(data.planPeakeDate)).format('yyyy-MM-dd'));
+				// $("#cashflowReturnInp").text((new Date(data.planCashflowReturnDate)).format('yyyy-MM-dd'));
+				//$("#returnDateInp").text(data.returndate+" 个月");				
+				$("#deliverInp").text((new Date(data.FHANDDATE)).format('yyyy-MM-dd'));
+				$("#carryoverInp").text((new Date(data.FCARRYOVERDATE)).format('yyyy-MM-dd'));
+				$("#liquidateInp").text((new Date(data.FLIQUIDATE)).format('yyyy-MM-dd'));
+				$("#planPropertyScheme").text(data.FPROPERTYSCHEME);
+				//$("#planFinanceCalculate").text(data.planFinanceCalculate);
+				$("#corpPartnerBackground").text(data.FPARTNERINFO);
+				$("#corpContributiveRatio").text(data.FCONTRIBUTIVE);
+				//$("#corpBoardMember").text(data.corpBoardMember);
+				//$("#corpVoteRule").text(data.corpVoteRule);
+				$("#restAnswerMail").text(data.FANSWERMAIL);
+				// $("#restAnswerLink").text(data.restAnswerLink);
+				$("#restProjectManagers").text(data.FPROJECTINFOMANAGERS);
+				$("#restFollowerManagers").text(data.FFOLLOWERMANAGERS);
+				// $("#riskDisclaimerDes").val(data.riskDisclaimerDes);
+				// $("#schemeProtocol").val(data.schemeProtocol);
+				/*if(msg.baseModel.schemeProtocol){
+					var _temp = '<div style="color:red;">温馨提示：请在汇款后下载以上跟投协议，并填写个人信息部分，交至事业部/城市公司财务处核对，由人力统一盖章；或按《募集信息》要求执行。</div>';
+ 					$("#protocal_info").html(structSchemeLink(msg.baseModel.schemeProtocol)+_temp);
+				}else{
+					$("#protocal_info").html("");
+				}*/
+			}else{
+				alert(msg.error);
+			}
+		},
+		error: function (XMLHttpRequest, textStatus, errorThrown) {
+			sessionTimeout(XMLHttpRequest, textStatus, errorThrown);
+		}
+	})
+}
+
+function getSchemeInfo(){
+	var ctx="<?php echo site_url();?>";
+	var projectId=getReqParam('projectid');
+	$.ajax({
+		type:'post',//可选get
+		url:ctx+'/FollowScheme/getFollowShemeListWithProjectID',
+		dataType:'Json',//服务器返回的数据类型 可选XML ,Json jsonp script html text等
+		data:{'projectId':projectId},
+		success:function(msg){
+			if(msg.success){
+
+				/*
+									 var data = msg.data[0];
+				 $("#schemeid").val(data.FID);
+				 $("#uploadSchemeId").val(data.FID);
+				 //认购开始时间
+				 $("#subscribeStartInp").val((data.FSUBSCRIBESTARTDATE?new Date(data.FSUBSCRIBESTARTDATE):new Date()).format('yyyy-MM-dd hh:mm:ss'));
+				 //认购结束时间
+				 $("#subscribeEndtInp").val((data.FSUBSCRIBEENDDATE?new Date(data.FSUBSCRIBEENDDATE):new Date()).format('yyyy-MM-dd hh:mm:ss'));
+				 //付款开始时间
+				 $("#payStartInp").val((data.FPAYSTARTDATE?new Date(data.FPAYSTARTDATE):new Date()).format('yyyy-MM-dd hh:mm:ss'));
+				 //付款结束时间
+				 $("#payEndInp").val((data.FPAYENDDATE?new Date(data.FPAYENDDATE):new Date()).format('yyyy-MM-dd hh:mm:ss'));
+				 //项目发布时间
+				 //$("#payReleaseDateInp").val((data.projectReleaseDate?new Date(data.projectReleaseDate):new Date()).format('yyyy-MM-dd hh:mm:ss'));
+				 //
+				 //$("#personamt").val(data.personamt);
+				 // $("#yxpersonamt").val(data.yxpersonamt);
+				 // $("#jtpersonamt").val(data.jtpersonamt);
+
+				 //$("#followAmount").val(data.followAmount / 10000);
+				 //资金峰值
+				 $("#fundPeake").val(data.FFUNDPEAKE);
+				 //
+				 //$("#maxamount").val(data.maxamount / 10000);
+				 //$("#minamount").val(data.minamount / 10000);
+				 //项目跟投小组
+				 $("#followAmountDesc").val(data.FFOLLOWTEAM);
+				 //总部跟投比例
+				 $("#groupForceRatio").val(data.FHDRATIO);
+				 //总部最大可跟投总额（含杠杆）
+				 $("#groupForceAmount").val(data.FHDAMOUNT / 10000);
+				 //区域跟投比例
+				 $("#compForceRatio").val(data.FREGIONRATIO);
+				 //区域最大可跟投总额（含杠杆）
+				 $("#compForceAmount").val(data.FREGIONAMOUNT / 10000);
+				 //全部跟投比例
+				 $("#compChoiceRatio").val(data.FALLRATION);
+				 //全部最大可跟投总额（含杠杆）
+				 $("#compChoiceAmount").val(data.FALLAMOUNT / 10000);
+				 //杠杆认购说明
+				 $("#leverageDes").val(data.FLEVERAGEDES);
+				 //募集方式
+				 $("#subscribeRemind").val(data.FCOLLECTWAY);
+				 // $("#followChemeLink").val(data.followChemeLink);
+				 $("#schemeLinkTd").html(splitSchemeLink(data.FLINK));
+
+				*/
+				data = msg.data[0];
+				 // $("#schemeid").text(msg.baseModel.schemeId);
+				 $("#subscribeStartInp").text((new Date(data.FSUBSCRIBESTARTDATE)).format('yyyy-MM-dd'));
+				 $("#subscribeEndtInp").text((new Date(data.FSUBSCRIBEENDDATE)).format('yyyy-MM-dd'));
+				 $("#payStartInp").text((new Date(data.FPAYSTARTDATE)).format('yyyy-MM-dd'));
+				 $("#payEndInp").text((new Date(data.FPAYENDDATE)).format('yyyy-MM-dd'));
+				 //$("#payReleaseDateInp").text((new Date(data.projectReleaseDate)).format('yyyy-MM-dd'));
+				 // $("#personamt").text(data.personamt);
+				 // $("#yxpersonamt").text(data.yxpersonamt);
+				 // $("#jtpersonamt").text(data.jtpersonamt);
+				 $("#fundPeake").text((data.FFUNDPEAKE)+" 亿元");
+				 //$("#followAmount").text(formatMillions(data.followAmount)+" 万元");
+				 $("#followAmountDesc").val(data.FFOLLOWTEAM);
+				 $("#groupForceRatio").text((data.FHDRATIO)+" %");
+				 $("#groupForceAmount").text(formatMillions(data.FHDAMOUNT)+" 万元");
+				 $("#compForceRatio").text((data.FREGIONRATIO)+" %");
+				 $("#compForceAmount").text(formatMillions(data.FREGIONAMOUNT)+" 万元");
+				 $("#compChoiceRatio").text((data.FALLRATION)+" %");
+				 $("#compChoiceAmount").text(formatMillions(data.FALLAMOUNT)+" 万元");
+				 $("#leverageDes").text(data.FLEVERAGEDES);
+				 $("#subscribeRemind").text(data.FCOLLECTWAY);
+				 //$("#followChemeLink").html(structSchemeLink(data.FLINK));
+				 //$("#followChemeLink").html(msg.baseModel.followChemeLink?'<a href="files/数据表.doc">跟投方案下载链接</a>':"");
+				 if(data.FLINK){
+					var _temp = '<div style="color:red;">温馨提示：请在汇款后下载以上跟投协议，并填写个人信息部分，交至事业部/城市公司财务处核对，由人力统一盖章；或按《募集信息》要求执行。</div>';
+ 					$("#protocal_info").html(structSchemeLink(data.FLINK)+_temp);
+				}else{
+					$("#protocal_info").html("");
+				}
+
+
+
+			}else{
+				alert(msg.error);
+			}
+		},
+		error: function (XMLHttpRequest, textStatus, errorThrown) {
+        	// sessionTimeout(XMLHttpRequest, textStatus, errorThrown);
+        }
+	})
+}
+function structSchemeLink(_str){
+	var _linkArr = [];
+	var _htmlStr = "";
+	if(_str && _str.length>0){
+		_linkArr = _str.split(";");
+		$.each(_linkArr, function(ind, val){
+			_htmlStr += '<div><a href="files/'+val+'">'+(ind+1)+'、'+val+'</a></div>';
+		});
+	}
+	return _htmlStr;
+}
+
+function getForceList(){
+	$.ajax({
+		type:'post',//可选get
+		url:'../ForceFollowController/getForceByProjectId.action',
+		dataType:'Json',//服务器返回的数据类型 可选XML ,Json jsonp script html text等
+		data:{
+			'projectId':projectId,
+			'forceType':"1"
+		},
+		success:function(msg){
+			if(msg.success){
+				$("#forceTbody").empty();
+				if(msg.dataDto && msg.dataDto.length > 0){
+					$.each(msg.dataDto, function(ind, val){
+						var tempHtml = 
+							'<tr><td height="30">'+(ind+1)+'</td>'+
+								'<td>'+val.name+'</td>'+
+								'<td>'+(val.company||"")+'</td>'+
+								'<td>'+(val.department||"")+'</td>'+
+								'<td>'+(val.duty||"")+'</td>'+
+								'<td>'+formatMillions(val.downlimit)+'</td>'+
+								'<td>'+formatMillions(val.toplimit)+'</td>'+
+								// '<td>'+(val.remark||"")+'</td></tr>';
+								'<td></td></tr>';
+						 $("#forceTbody").append(tempHtml);
+					});
+				}
+			
+			}else{
+				alert(msg.error);
+			}
+		},
+		error: function (XMLHttpRequest, textStatus, errorThrown) {
+			// sessionTimeout(XMLHttpRequest, textStatus, errorThrown);
+		}
+	});
+}
+
+function getNewsList(){
+	$.ajax({
+		type:'post',//可选get
+		url:'../DynamicNewsController/getNewsListByProjectId.action',
+		dataType:'Json',//服务器返回的数据类型 可选XML ,Json jsonp script html text等
+		data:{
+			'projectId':projectId,
+			'title':"",
+			'releaseBegin':"",
+			'releaseEnd':""
+		},
+		success:function(msg){
+			if(msg.success){
+				newsInfo = msg.dataDto;
+			}else{
+				alert(msg.error);
+			}
+			loadNewsList();
+		},
+		error: function (XMLHttpRequest, textStatus, errorThrown) {
+			// sessionTimeout(XMLHttpRequest, textStatus, errorThrown);
+		}
+	});
+}
+
+function loadNewsList(){
+	$("#newsTbody").empty();
+	if(newsInfo && newsInfo.length > 0){
+		var tempHtml = "";
+		$.each(newsInfo, function(ind, val){
+			tempHtml +=
+			'<tr><td height="30">'+(ind+1)+'</td>'+
+				'<td><a href="newsDetail.jsp?projectId='+projectId+'&newsId='+val.newsId+'">'+val.title+'</a></td>'+
+				'<td>'+(new Date(val.releaseDate)).format('yyyy-MM-dd')+'</td>'+
+				'<td>'+val.authorName+'</td></tr>';
+		});
+		$("#newsTbody").html(tempHtml);
+	}
+}
+
+</script>
 </body>
 </html>
