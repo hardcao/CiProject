@@ -49,6 +49,18 @@ class News extends CI_Controller
         $result = $this->news_model->getNewsListWithProjectID($projectID);
         echo json_encode($result);
     }
+    
+    
+    /*
+     *
+     *
+     * input:data:{
+            FID:125
+        }
+     *
+     * API:news/deleteNews
+     *
+     * */
 
     public function deleteNews() {
         $data = $this->input->input_stream();
@@ -58,6 +70,20 @@ class News extends CI_Controller
         echo json_encode($result);
     }
     
+    /*
+     *
+     *
+     * input:data:{
+            FID:125
+            FCREATORID: 1,
+            FPROJECTID: 1,
+            FCONTENT: 'tes1111t'
+     },
+     *
+     * API:news/updateNews
+     *
+     * */
+    
     public function updateNews() {
         $data = $this->input->input_stream();
         $where = 'FID='.$data['FID'];
@@ -66,6 +92,19 @@ class News extends CI_Controller
         $result = $this->Tools->updateData($data,$tableName,$where);
         echo json_encode($result);
     }
+    
+    /*
+     * 
+     * 
+     * input:data:{
+					FCREATORID: 1,
+					FPROJECTID: 1,
+					FCONTENT: 'tes1111t'		
+				},
+     * 
+     * API:news/addNews
+     * 
+     * */
     
     public function addNews() {
         $data = $this->input->input_stream();
