@@ -50,4 +50,28 @@ class News extends CI_Controller
         echo json_encode($result);
     }
 
+    public function deleteNews() {
+        $data = $this->input->input_stream();
+        $tableName = 'T_NEWS';
+        $this->load->model('Tools');
+        $result = $this->Tools->deleteData($data,$tableName);
+        echo json_encode($result);
+    }
+    
+    public function updateNews() {
+        $data = $this->input->input_stream();
+        $where = 'FID='.$data['FID'];
+        $tableName = 'T_NEWS';
+        $this->load->model('Tools');
+        $result = $this->Tools->updateData($data,$tableName,$where);
+        echo json_encode($result);
+    }
+    
+    public function addNews() {
+        $data = $this->input->input_stream();
+        $tableName = 'T_NEWS';
+        $this->load->model('Tools');
+        $result = $this->Tools->addData($data,$tableName);
+        echo json_encode($result);
+    }
 }
