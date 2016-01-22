@@ -14,16 +14,23 @@ function initParams(){
 	if(isPerson) $("#isPerson").val("yes");
 }
 function searchProject(){
-	var ctx=$("#ctx").val();
+	var ctx="<?php echo site_url();?>";
 	$.ajax({
 		type:'post',//可选get
-		url:ctx+'/ProjectBasicController/getProjectList.action',
+		url:ctx+'Project/getProjectList',
 		contentType: "application/json; charset=utf-8", 
 		dataType:'Json',//服务器返回的数据类型 可选XML ,Json jsonp script html text等
-		data:$.toJSON($("#listform").serializeArray()),
+		data:{
+			begin: 0,
+			count: 2,
+			uid: 'test1',
+			subscribeStartDate: '2014-09-01 09:50:00',
+			subscribeEndDate:'2016-09-01 09:50:00',
+			status: 1		
+		},
 		success:function(msg){
 			if(msg.success){
-				dataList=msg.dataDto;
+				dataList=msg.data;
 				loadData(dataList);
 			}else{
 				alert(msg.error);
@@ -33,6 +40,7 @@ function searchProject(){
         	sessionTimeout(XMLHttpRequest, textStatus, errorThrown);
         }
 	})
+
 	$("#contentList").empty();
 }
 

@@ -46,6 +46,20 @@
 #forceDialogLayer .dialogSTY .btnDiv{width: 96%;text-align: right;margin: 0px auto;}
 #forceDialogLayer .ckSTY{width: 15px;height: 15px;padding: 0px;margin: 3px;}
 #forceDialogLayer button{width: 50px;height: 25px;margin: 0px 5px;}
+
+#ul-pics li {
+    width: 32%;
+    float: left;
+    /* height: 300px; */
+    margin-right: 1%;
+    border: 1px solid #CCCCCC;
+    margin-top: 1%;
+}
+
+input#item_pic {
+	width: 200px;
+}
+
 </style>
 <script type="text/javascript">
 var allUserList = [];
@@ -208,353 +222,24 @@ function getForceFollowByProjectid(){
 </script>
 </head>
 <body id="rightLayer">
-<div id="basic" class="editTitle"><img src="../../application/views/back/images/arrow_down.png" />基础信息</div>
-<form id="testfrom" method="post" action="/project/updateProjectDetailInfo">
-<div id="basic_editor" class="editor">
-<input type="hidden" name="projectId" id="newprojectId" />
-	<table width="100%"><tr>
-		<td class="tdTitle">项目名称</td>
-		<td colspan="3"><input name="projectName" id="projectName"/></td>
-	</tr><tr>
-		<td class="tdTitle">占地面积</td>
-		<td><input name="floorArea" id="floorArea" onkeyup="clearNoNum(this)" /> (平方米)</td>
-		<td class="tdTitle">计容建面</td>
-		<td><input name="structArea" id="structArea" onkeyup="clearNoNum(this)" /> (平方米)</td>
-	</tr><tr>
-		<td class="tdTitle">容积率</td>
-		<td><input name="plotArea" id="plotArea"/></td>
-		<td class="tdTitle">可销售计容建面</td>
-		<td><input name="saleStructArea" id="saleStructArea" onkeyup="clearNoNum(this)" /> (平方米)</td>
-	</tr><tr>
-		<td class="tdTitle">土地获取时间</td>
-		<td><input id="groundInp"  name="groundDate"/></td>
-		<td class="tdTitle">地价总额</td>
-		<td><input name="groundAmount" id="groundAmount" onkeyup="clearNoNum(this)" /> (亿元)</td>
-	</tr><tr>
-		<td class="tdTitle">获取方式</td>
-		<td><input name="groundType" id="groundType"/></td>
-		<!--td class="tdTitle">楼面地价</td>
-		<td><input id="buildareaprice" name="buildareaprice" onkeyup="clearNoNum(this)" /> (元/平)</td-->
-	</tr><tr>
-		<td class="tdTitle">项目区位</td>
-		<td colspan="3"><textarea name="groundPosition" id="groundPosition"></textarea></td>
-	</tr><tr class="displayNone">
-		<td class="tdTitle">项目区域</td>
-		<td colspan="3"><textarea name="projectarea" id="projectarea"></textarea></td>
-	</tr><tr>
-		<td class="tdTitle">产品定位</td>
-		<td colspan="3"><textarea name="groundPositioning" id="groundPositioning"></textarea></td>
-	</tr><tr>
-		<td class="tdTitle">规划方案</td>
-		<td colspan="3"><textarea name="groundPlanning" id="groundPlanning"></textarea></td>
-	</tr><tr>
-		<td class="tdTitle">项目均价</td>
-		<td><input name="planFold" id="planFold" onkeyup="clearNoNum(this)" /> (元/平方米)</td>
-		<td class="tdTitle">持有型物业租金水平</td>
-		<td><input name="planRent" id="planRent" /></td>
-	</tr><tr>
-		<td class="tdTitle">项目IRR</td>
-		<td><input name="planIrr" id="planIrr" onkeyup="clearNoNum(this)" /> (%)</td>
-		<!--td class="tdTitle">预计销售毛利率</td>
-		<td><input name="planGrossMargin" id="planGrossMargin" onkeyup="clearNoNum(this)" /> (%)</td-->
-	</tr><tr class="">
-		<td class="tdTitle">税前销售利润率</td>
-		<td><input name="FPREPROFIT" id="FPREPROFIT" onkeyup="clearNoNum(this)" /> (%)</td>
-		<td class="tdTitle">税后销售净利润率</td>
-		<td><input name="FPROFIT" id="FPROFIT" onkeyup="clearNoNum(this)" /> (%)</td>
-	</tr><tr>
-		<td class="tdTitle">开工时间</td>
-		<td><input id="stageStartInp" name="planStageStartDate"  /></td>
-		<td class="tdTitle">开盘时间</td>
-		<td><input id="stageOpenInp" name="planStageOpenDate"  /></td>
-	</tr><tr>
-		<!-- <td class="tdTitle">资金峰值时间</td>
-		<td><input id="peakInp" name="planPeakeDate"  /></td> -->
-		<!-- <td class="tdTitle">现金流回正时间</td>
-		<td><input id="cashflowReturnInp" name="planCashflowReturnDate" /></td> -->
-		<td class="tdTitle">现金流回正时间</td>
-		<td><input id="returndate" name="returndate" /> (个月)</td>
-		<td class="tdTitle">交付时间</td>
-		<td><input id="deliverInp" name="planDeliverDate" /></td>
-	</tr><tr>
-		<td class="tdTitle">结转时间</td>
-		<td><input id="carryoverInp" name="planCarryoverDate" /></td>
-		<td class="tdTitle">清算时间</td>
-		<td><input id="liquidateInp" name="planLiquidateDate" /></td>
-	</tr><!-- <tr>
-		<td class="tdTitle"></td>
-		<td></td>
-	</tr> --><tr>
-		<td class="tdTitle">持有物业处理方案</td>
-		<td colspan="3"><textarea name="planPropertyScheme" id="planPropertyScheme"></textarea></td>
-	</tr><!--tr class="displayNone">
-		<td class="tdTitle">财务测算文件</td>
-		<td><input name="planFinanceCalculate" id="planFinanceCalculate"/></td>
-		<td class="tdTitle"></td>
-		<td></td>
-	</tr--><tr>
-		<td class="tdTitle">合作方背景和资质</td>
-		<td colspan="3"><textarea name="corpPartnerBackground" id="corpPartnerBackground"></textarea></td>
-	</tr><tr>
-		<td class="tdTitle">项目出资比例</td>
-		<td colspan="3"><textarea name="corpContributiveRatio" id="corpContributiveRatio"></textarea></td>
-	</tr><!--tr class="displayNone">
-		<td class="tdTitle">董事会组成</td>
-		<td colspan="3"><textarea name="corpBoardMember" id="corpBoardMember"></textarea></td>
-	</tr><tr class="displayNone">
-		<td class="tdTitle">项目公司股东会及<br>董事会表决比例<br>和表决规则</td>
-		<td colspan="3"><textarea name="corpVoteRule" id="corpVoteRule"></textarea></td>
-	</tr--><tr>
-		<td class="tdTitle">答疑邮箱地址</td>
-		<td><input name="restAnswerMail" id="restAnswerMail"/></td>
-		<td class="tdTitle"></td>
-		<td></td>
-	</tr><!-- <tr>
-		<td class="tdTitle">答疑讨论区链接</td>
-		<td><input name="restAnswerLink" id="restAnswerLink" /></td>
-		<td class="tdTitle"></td>
-		<td></td>
-	</tr> --><tr>
-		<td class="tdTitle">项目信息管理员</td>
-		<td colspan="3"><textarea name="restProjectManagers" id="restProjectManagers"></textarea></td>
-	</tr><tr>
-		<td class="tdTitle">项目跟投管理员</td>
-		<td colspan="3"><textarea name="restFollowerManagers" id="restFollowerManagers"></textarea></td>
-	</tr><!--tr>
-		<td class="tdTitle">风险与免责</td>
-		<td colspan="3"><textarea name="riskDisclaimerDes" id="riskDisclaimerDes"></textarea></td>
-	</tr--><tr class="displayNone">
-		<td class="tdTitle">跟投协议</td>
-		<td><input name="schemeProtocol" id="schemeProtocol"/><button>浏览</button></td>
-		<td class="tdTitle"></td>
-		<td></td>
-	</tr>
-	<tr height="40">
-		<td></td>
-		<td align="left"><button>保&nbsp;&nbsp;存</button></td>
-		<td></td>
-		<td></td>
-	</tr></table>
-</div>
-</form>
-<div id="scheme" class="editTitle"><img src="../../application/views/back/images/arrow_down.png" />跟投计划</div>
-<form id="schemeForm"  method="post" action="${pageContext.request.contextPath}/FollowSchemeController/saveOrUpdate.action">
-<div id="scheme_editor" class="editor displayNone">
-		<input type="hidden" name="projectId" id="schemeProjectid"/>
-		<input type="hidden" name="schemeId" id="schemeid"/>
-	<table width="100%"><tr>
-		<td class="tdTitle">认购开始时间</td>
-		<td><input id="subscribeStartInp" name="subscribeStartDate"  /></td>
-		<td class="tdTitle">认购结束时间</td>
-		<td><input id="subscribeEndtInp" name="subscribeEndDate"  /></td>
-	</tr><tr>
-		<td class="tdTitle">付款开始时间</td>
-		<td><input id="payStartInp" name="payStartDate"  /></td>
-		<td class="tdTitle">付款结束时间</td>
-		<td><input id="payEndInp" name="payEndDate"  /></td>
-	</tr><!--tr>
-		<td class="tdTitle">项目发布时间</td>
-		<td><input id="payReleaseDateInp" name="projectReleaseDate"  /></td>
-		<td class="tdTitle"><-- 员工可投总额 -></td>
-		<td><input id="personamt" name="personamt"  /></td>
-	</tr--><!-- <tr>
-		<td class="tdTitle">一线可跟投总额</td>
-		<td><input id="yxpersonamt"  name="yxpersonamt" /></td>
-		<td class="tdTitle">集团可跟投总额</td>
-		<td><input id="jtpersonamt" name="jtpersonamt"  /></td>
-	</tr> --><tr>
-		<td class="tdTitle">资金峰值</td>
-		<td><input name="fundPeake" id="fundPeake" onkeyup="clearNoNum(this)" /> (亿元)</td>
-		<!--td class="tdTitle">跟投总额(含杠杆)</td>
-		<td><input name="followAmount" id="followAmount" onkeyup="clearNoNum(this)" /> (万元)</td>
-	</tr><!-- <tr>
-		<td class="tdTitle">可跟投总额包括</td>
-		<td colspan="3"><textarea name="followAmountDesc" id="followAmountDesc"></textarea></td>
-	</tr> --><tr>
-		<td class="tdTitle">总部跟投比例</td>
-		<td><input name="groupForceRatio" id="groupForceRatio" onkeyup="clearNoNum(this)" /> (%)</td>
-		<td class="tdTitle">总部最大可跟投总额（含杠杆）</td>
-		<td><input name="groupForceAmount" id="groupForceAmount" onkeyup="clearNoNum(this)" /> (万元)</td>
-	</tr><tr>
-		<td class="tdTitle">区域跟投比例</td>
-		<td><input name="compForceRatio" id="compForceRatio" onkeyup="clearNoNum(this)" /> (%)</td>
-		<td class="tdTitle">区域最大可跟投总额（含杠杆）</td>
-		<td><input name="compForceAmount" id="compForceAmount" onkeyup="clearNoNum(this)" /> (万元)</td>
-	</tr><tr>
-		<td class="tdTitle">全部跟投比例</td>
-		<td><input name="compChoiceRatio" id="compChoiceRatio" onkeyup="clearNoNum(this)" /> (%)</td>
-		<td class="tdTitle">全部最大可跟投总额（含杠杆）</td>
-		<td><input name="compChoiceAmount" id="compChoiceAmount" onkeyup="clearNoNum(this)" /> (万元)</td>
-	</tr><!--tr>
-		<td class="tdTitle">选投包认购金额下限</td>
-		<td><input name="minamount" id="minamount" onkeyup="clearNoNum(this)" /> (万元)</td>
-		<td class="tdTitle">选投包认购金额上限</td>
-		<td><input name="maxamount" id="maxamount" onkeyup="clearNoNum(this)" /> (万元)</td>
-	</tr--><tr>
-		<td class="tdTitle">杠杆认购说明</td>
-		<td colspan="3"><textarea name="leverageDes" id="leverageDes"></textarea></td>
-	</tr><tr>
-		<td class="tdTitle">项目跟投小组</td>
-		<td colspan="3"><textarea name="followAmountDesc" id="followAmountDesc"></textarea></td>
-	</tr><tr>
-		<td class="tdTitle">募集方式</td><!-- "认购提醒"字段变更为"募集方式" -->
-		<td colspan="3"><textarea name="subscribeRemind" id="subscribeRemind"></textarea></td>
-	</tr><tr class="displayNone">
-		<td class="tdTitle">跟投方案下载链接</td>
-		<td colspan="3"><textarea name="followChemeLink" id="followChemeLink"></textarea></td>
-	</tr>
-	<tr height="40">
-		<td></td>
-		<td align="left"><button>保&nbsp;&nbsp;存</button></td>
-		<td></td>
-		<td></td>
-	</tr></table>
-</div>
-</form>
-<div id="force" class="editTitle"><img src="../../application/views/back/images/arrow_down.png" />跟投人员名单</div>
-<form id="forceForm" method="post" action="${pageContext.request.contextPath}/ForceFollowController/saveOrUpdate.action">
-<input type="hidden" name="projectid" id="forceProjectId"/>
-<div id="force_editor" class="editor displayNone" style="">
-	<table id="forceTable" width="100%" border="1"><thead><tr class="trTitle">
-		<!-- <td rowspan="2" width="4%">序号</td> -->
-		<td rowspan="2" width="12%">姓名</td>
-		<td rowspan="2" width="12%">认购类型</td>  <!-- "所属公司"字段改为：认购类型 -->
-		<td rowspan="2" width="15%">总部/区域</td>
-		<td rowspan="2" width="11%">职务</td>
-		<td colspan="2" width="30%">个人额度范围</td>
-		<td rowspan="2" width="12%">备注</td>
-		<td rowspan="2">操作</td>
-	</tr><tr class="trTitle">
-		<td>下限(万元)</td>
-		<td>上限(万元)</td>
-	</tr></thead><tbody id="forceTbody">
-	</tbody></table>
-	<div class="btnBox"><button id="addForceRecord" type="button">新增</button><button>保存</button></div>
-</div>
-</form>
-<div id="subscribe" class="editTitle displayNone"><img src="../../application/views/back/images/arrow_down.png" />认购信息</div>
-<form id="subForm" method="post" action="${pageContext.request.contextPath}/subscribe/saveOrUpdate.action">
-<div id="subscribe_editor" class="editor displayNone">
-	<input type="hidden" id="subProjectId" name="projectId"/>
-	<table id="subTable" width="100%" border="1"><thead><tr class="trTitle">
-		<td rowspan="2" width="4%">序号</td>
-		<td colspan="3" height="25">跟投额度</td>
-		<td colspan="3">跟投情况</td>
-	</tr><tr class="trTitle">
-		<td width="16%" height="25">跟投性质</td>
-		<td width="16%">跟投员工</td>
-		<td width="16%">总额指导上限(元)</td>
-		<td width="16%">出资认购(元)</td>
-		<td width="16%">杠杆认购(元)</td>
-		<td>总额(万元)</td>
-	</tr></thead><tbody id="subTbody">
-		<tr>
-			<td>1<input type="hidden" name="subscribeList[0].subscribeId" id="sub0subscribeId" /></td>
-			<td><input name="subscribeList[0].followNature" id="sub0followNature" value=""></td>
-			<td><input name="subscribeList[0].followStaff" id="sub0followStaff" value=""></td>
-			<td><input name="subscribeList[0].amountToplimit" id="sub0amountToplimit" value="0"></td>
-			<td><input name="subscribeList[0].contributiveSubscribe" id="sub0contributiveSubscribe" value="0"></td>
-			<td><input name="subscribeList[0].leverageSubscribe" id="sub0leverageSubscribe" value="0"></td>
-			<td><input name="subscribeList[0].subscribeAmountTotal" id="sub0subscribeAmountTotal" value="0"></td>
-		</tr>
-		<tr>
-			<td>2<input type="hidden" name="subscribeList[1].subscribeId"  id="sub1subscribeId"/></td>
-			<td><input name="subscribeList[1].followNature" id="sub1followNature" value=""></td>
-			<td><input name="subscribeList[1].followStaff" id="sub1followStaff" value=""></td>
-			<td><input name="subscribeList[1].amountToplimit" id="sub1amountToplimit" value="0"></td>
-			<td><input name="subscribeList[1].contributiveSubscribe" id="sub1contributiveSubscribe" value="0"></td>
-			<td><input name="subscribeList[1].leverageSubscribe" id="sub1leverageSubscribe" value="0"></td>
-			<td><input name="subscribeList[1].subscribeAmountTotal" id="sub1subscribeAmountTotal" value="0"></td>
-		</tr>
-		<tr>
-			<td>3<input type="hidden" name="subscribeList[2].subscribeId"  id="sub2subscribeId"/></td>
-			<td><input name="subscribeList[2].followNature" id="sub2followNature" value=""></td>
-			<td><input name="subscribeList[2].followStaff" id="sub2followStaff" value=""></td>
-			<td><input name="subscribeList[2].amountToplimit" id="sub2amountToplimit" value="0"></td>
-			<td><input name="subscribeList[2].contributiveSubscribe" id="sub2contributiveSubscribe" value="0"></td>
-			<td><input name="subscribeList[2].leverageSubscribe" id="sub2leverageSubscribe" value="0"></td>
-			<td><input name="subscribeList[2].subscribeAmountTotal" id="sub2subscribeAmountTotal" value="0"></td>
-		</tr>
-	</tbody></table>
-	<div class="btnBox">
-		<button id="addSubPackage" style="display:none">新增</button><button>保存</button>
-	</div>
-</div>
-</form>
-<div id="uploadAttach" class="editTitle"><img src="../../application/views/back/images/arrow_down.png" />附件上传</div>
-<div id="uploadAttach_editor" class="editor displayNone">
-<form id="uploadProtocalForm" method="post" action="../FileUpLoadController/upload.action" enctype="multipart/form-data">
-	<table width="100%"><tr>
-		<td class="tdTitle">跟投协议：</td>
-		<td id="protocalLinkTd"></td>
-	</tr><tr>
-		<td></td>
-		<td>
-			<input type="file" name="file" value="浏览"/>
-			<input type="hidden" name="uploadProId" id="uploadProId" value="065c1c88-f98e-4b29-a6d2-fed41d6fd4f6"/>
-		</td>
-	</tr><tr>
-		<td></td>
-		<td>
-			<button id="listbtn" type="submit" style="margin-left:5px;">提交</button>
-			<span class="tip_STY">*：1、跟投协议附件仅支持.doc和.docx格式  &nbsp;&nbsp;2、需要上传多个协议附件时请依次上传，单次提交只允许上传一个附件</span>
-		</td>
-	</tr></table>
-</form>
-<hr style="border: #D3D3D3 1px dotted;margin: 5px 0px;" />
-<form id="uploadForm" method="post" action="../FileUpLoadController/uploadScheme.action" enctype="multipart/form-data">
-	<table width="100%"><tr>
-		<td class="tdTitle" valign="top">跟投方案：</td>
-		<td id="schemeLinkTd"></td>
-	</tr><tr>
-		<td></td>
-		<td>
-			<input type="file" name="file" value="浏览"/>
-			<input type="hidden" name="uploadProId_1" id="uploadProId_1" value="065c1c88-f98e-4b29-a6d2-fed41d6fd4f6"/>
-			<input type="hidden" name="uploadSchemeId" id="uploadSchemeId" value="">
-		</td>
-	</tr><tr>
-		<td></td>
-		<td>
-			<button id="listbtn" type="submit" style="margin-left:5px;">提交</button>
-			<span class="tip_STY">*：1、跟投方案附件仅支持.doc和.docx格式  &nbsp;&nbsp;2、需要上传多个方案附件时请依次上传，单次提交只允许上传一个附件</span>
-		</td>
-	</tr></table>
-</form>
-</div>
-</body>
-<div id="forceDialogBgLayer" style="display:none;"></div>
-<div id="forceDialogLayer" style="display:none;">
-	<div class="dialogSTY">
-		<div class="searDiv">
-			<div class="tipTitle">勾选员工后，请单击"确定"添加到列表</div>
-			<input id="searUserInp" placeholder="请输入用户名" type="search" /><button id="searUserBtn">搜索</button>
-		</div>
-		<div class="contentDiv"><table border="1"><thead><tr>
-			<td rowspan="2" width="25" height="28"></td>
-			<td rowspan="2" width="110">中文名</td>
-			<td rowspan="2" width="120">帐号</td>
-			<!-- <td rowspan="2" width="150">认购类型</td> -->
-			<td rowspan="2" width="150">部门</td>
-			<!-- <td rowspan="2" width="150">职务</td> -->
-			<!-- <td colspan="2">个人额度范围</td> -->
-			<!-- <td rowspan="2">备注</td> -->
-		</tr><!-- <tr>
-			<td>下限(元)</td>
-			<td>上限(元)</td>
-		</tr> --></thead>
-		<tbody id="allUserTbody">
-			<tr><td><input name="userCk" type="checkbox" class="ckSTY"></td>
-			<td>张三</td>
-			<td>zhangsan</td>
-			<!-- <td><input value="集团强投包" /></td> -->
-			<td>人力资源部</td>
-			<!-- <td>集团总裁</td> -->
-			<!-- <td><input type="number" value="50000" /></td>
-			<td><input type="number" value="200000" /></td> -->
-			</tr>
-		</tbody></table></div>
-		<div class="btnDiv"><button id="okBtn">确定</button><button id="cancelBtn">关闭</button></div>
-	</div>
-</div>
+<div id="basic" class="editTitle"><img src="../../application/views/back/images/arrow_down.png" />项目封面图</div>
+		<div><img src="http://localhost/application/views/front/img/title.jpg" width="600px"></div>
+		<div><p>删除</p></div>
+		<div><input class="file" type="file" value="更改封面图片"accept="image/png,image/gif,image/jpeg" id="item_pic" placeholder="上传封面图片"></div>
+<div id="basic" class="editTitle"><img src="../../application/views/back/images/arrow_down.png" />项目图库</div>
+<ul id="ul-pics">
+	<li>
+		<div><img src="http://localhost/application/views/front/img/title.jpg" width="100%"></div>
+		<div><p>删除</p></div>
+	</li>
+	<li>
+		<div><img src="http://localhost/application/views/front/img/title.jpg" width="100%"></div>
+		<div><p>删除</p></div>
+	</li>
+	<li>
+		<div><img src="http://localhost/application/views/front/img/title.jpg" width="100%"></div>
+		<div><p>删除</p></div>
+	</li>
+</ul>
+<div><input class="file" type="file" value="更改封面图片" id="item_pic" placeholder="上传封面图片"></div>
 </html>

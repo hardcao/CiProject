@@ -8,6 +8,7 @@
 
 <script type="text/javascript" src="<?php echo site_url('application/views/plugins/dateFormat.js')?>"></script>
 <script type="text/javascript" src="<?php echo site_url('application/views/plugins/jquery-1.8.0.min.js')?>"></script>
+<script type="text/javascript" src="<?php echo site_url('application/views/plugins/util.js')?>"></script>
 <script type="text/javascript" src="<?php echo site_url('application/views/plugins/jquery.datetimepicker.js')?>"></script>
 
 <style type="text/css">
@@ -46,7 +47,8 @@ function initNewsListeners(){
 	});
 	$("#addNewsBtn").click(function(){
 		// location.hash = "";
-		location.href = "newsEditor.jsp?proId="+projectId;
+		var ctx="<?php echo site_url();?>";
+		location.href = "/back/index/newsEditor?projectId="+getReqParam('projectId');
 	});
 	$("#newsTbody .delBtn").live("click",delNews);
 }
@@ -132,7 +134,7 @@ function loadNewsData(){
 				'<td>'+'val.authorName'+'</td>'+
 				'<td>'+
 					'<a href="newsEditor?newsId='+val.FID+'&proId='+val.FPROJECTID+'">编辑</a> | '+
-					'<a class="delBtn" href="javascript:void(0)" nid="'+val.newsId+'">删除</a>'+
+					'<a class="delBtn" href="javascript:void(0)" nid="'+val.FID+'">删除</a>'+
 				'</td></tr>';	
 		});
 		$("#newsTbody").html(tempHtml);
@@ -143,12 +145,13 @@ function delNews(_ev){
 	if(!confirm("确定要删除这条新闻吗？")) return false;
 	var _newsId = $(this).attr("nid");
 	
+	var ctx="<?php echo site_url();?>";
 	$.ajax({
 		type:'post',//可选get
-		url:'../DynamicNewsController/delete.action',
+		url:ctx+'/news/deleteNews',
 		dataType:'Json',//服务器返回的数据类型 可选XML ,Json jsonp script html text等
 		data:{
-			'newsId':_newsId
+			'FID':_newsId
 		},
 		success:function(msg){
 			if(msg.success){
