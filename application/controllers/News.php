@@ -21,11 +21,8 @@ class News extends CI_Controller
  * */
     public function  getDynamicNews()
     {
-        $begin = $this->input->post('begin');
-        $count = $this->input->post('count');
-        $userID = $this->input->post('uid');
         $projectId = $this->input->post('projectId');
-        $result = $this->news_model->getDynamicNews($begin,$count,$userID,$projectId);
+        $result = $this->news_model->getDynamicNews($projectId);
         echo json_encode($result);
         
     }

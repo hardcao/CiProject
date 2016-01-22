@@ -13,21 +13,21 @@ class News_model extends CI_Model
         $this->load->database();
     }
     
-    public function  getDynamicNews($begin,$count,$userID,$projectId)
+    public function  getDynamicNews($projectId)
     {
-        $tablename = 'T_NEWS';
-        $where = '';//FPROJECTID='.$projectId;
-        if($userID) {
-          //  $where +=' AND FCREATORID ='.$userID;
-        }
+        
+        $query=$this->db->select("*");
+        $query=$this->db->where('FPROJECTID',$projectId);
+        $query=$this->db->join('T_USER', 'T_USER.FID=T_NEWS.FCREATORID','inner');
+        $query=$this->db->get('T_NEWS');
+        $result = $query->result_array();
         $data["success"] = true;
         $data["errorCode"] = 0;
         $data["error"] = 0;
-        $result = $this->getPageData($tablename, $where, $count, $begin, $this->db);
         $data['data'] = $result;
         return $data;
     }
-    public function getPageData($tablename, $where, $limit, $offset, $db)
+    public function getPageData($tablename, $where, $limit, $offset, $db,$joinTable,$joinWhere)
     {
         if(empty($tablename))
         {
