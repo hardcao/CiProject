@@ -174,16 +174,12 @@ function initListeners(){
 	});
 
 	$("#subMoneyInp").blur(function(){
-		/*if(isForcePerson()){
-			if($("#leverSel").val() == "4"){
-				$("#levMoneyInp").val($(this).val()*4);
-			}else{
-				$("#levMoneyInp").val("0");
-			}
-		}*/
+
+		$("#levMoneyInp").val($(this).val()*$("#leverSel").val());
+
 	});
 	$("#leverSel").change(function(){
-		if($(this).val() == "0"){
+		/*if($(this).val() == "0"){
 			$("#levMoneyInp").val("0");
 			topLimitVal = topLimitVal*5;
 			downLimitVal = downLimitVal*5;
@@ -191,7 +187,10 @@ function initListeners(){
 			$("#levMoneyInp").val($("#subMoneyInp").val()*4);
 			topLimitVal = topLimitVal/5;
 			downLimitVal = downLimitVal/5;
-		}
+		}*/
+
+		$("#levMoneyInp").val($("#subMoneyInp").val()*$("#leverSel").val());
+
 		//$("#upLimitInp").text(formatMillions(topLimitVal));
 		//$("#downLimitInp").text(formatMillions(downLimitVal));
 	});
@@ -270,16 +269,19 @@ function initPages(){
 }
 
 function getProDetai(){
+	var ctx="<?php echo site_url();?>";
+	var projectId =getReqParam('projectid');
 	$.ajax({
 		type:'post',//可选get
-		url:'../ProjectBasicController/getProjectById.action?time=' + new Date().getTime(),
+		url: ctx+'/Project/getProjectDetail?time=' + new Date().getTime(),
 		dataType:'Json',//服务器返回的数据类型 可选XML ,Json jsonp script html text等
 		cache:false,
-		data:{'projectId':proId},
+		data:{'projectId':projectId},
 		success:function(msg){
 			if(msg.success){
-				if(msg.baseModel){
-					currProDetail = msg.baseModel;
+				if(msg.data){
+					currProDetail = msg.data[0];
+					$("#proNameTd").text(currProDetail.FNAME);
 				}
 			}else{
 				alert(msg.error);
@@ -337,7 +339,7 @@ function getForceData(){
 }
 
 function loadLimitData(){
-	$("#proNameTd").text(currProDetail.projectName);
+	$("#proNameTd").text(currProDetail.FNAME);
 	// $("#proCompayTd").val(currProDetail);
 	if(isForcePerson()){
 		topLimitVal = parseInt(forceObj.toplimit);
@@ -421,8 +423,8 @@ function submitFunc (isRemissionSubscribe) {
 			return false;
 		}
 	}else{
-		if(isForcePerson()){
-			/*if($("#leverSel").val() == "4"){
+		/*if(isForcePerson()){
+			if($("#leverSel").val() == "4"){
 				if(_subMoney > topLimitVal){
 					alert("总认购金额超过上限!");
 					return false;
@@ -461,7 +463,6 @@ function submitFunc (isRemissionSubscribe) {
 	$.ajax({
 		type:'get',
 		url:'../subscribe/subscribeReq.action',
-		contentType: "application/json; charset=utf-8", 
 		dataType:'Json',//服务器返回的数据类型 可选XML ,Json jsonp script html text等
 		cache:false,
 		data:{
@@ -470,7 +471,7 @@ function submitFunc (isRemissionSubscribe) {
 			"contributiveAmount":_subMoney,
 			"leverageAmount":(_levMoney||0),
 			"bankNo":_bankNo,
-			"isRemissionSubscribe":isRemissionSubscribe
+			//"isRemissionSubscribe":isRemissionSubscribe
 		},
 		success:function(msg){
 			alert("认购成功！");
