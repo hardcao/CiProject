@@ -20,7 +20,11 @@ $("#btn_login").click(function(){
 			$.ajax({
 				url: window.location.origin+"/"+password,
 				type: "post",
-				data:username,
+				data:{
+					projectId: 27,
+					begin: 0,
+					count:2		
+				},
 				success: function(data){
 					bootbox.alert(data);
 
