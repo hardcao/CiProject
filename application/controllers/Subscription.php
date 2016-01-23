@@ -43,6 +43,7 @@ class Subscription extends CI_Controller
     public function getSubscribeList()
     {
          $projectId = $this->input->post('projectId');
+        
           $result = $this->Subscription_model->getSubscribeList($projectId);
         echo  json_encode($result);
     }
@@ -60,10 +61,12 @@ class Subscription extends CI_Controller
      
     public function addSubscribe()
     {
-         $data = $this->input->input_stream();
+        $data = $this->input->input_stream();
         $tableName = 'T_SUBSCRIBECONFIRMRECORD';
         $this->load->model('Tools');
         $result = $this->Tools->addData($data,$tableName);
         echo json_encode($result);
     }
+
+
 }
