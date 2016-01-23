@@ -20,11 +20,15 @@ class User extends CI_Controller
         echo json_encode($result);
         
     }
-
+    /*
+     
+    
+    */
     public function getAllUsersWithProjectID()
     {
         $projectId = $this->input->post('projectId');
-        $result = $this->User_model->getAllUsersWithProjectID($projectId);
+        $userName = $this->input->post('uname');
+        $result = $this->User_model->getAllUsersWithProjectID($projectId,$userName);
         echo json_encode($result);
     }
     

@@ -152,9 +152,9 @@ class User_model extends CI_Model
         return $data;
     }
 
-    public function getAllUsersWithProjectID($projectId) {
+    public function getAllUsersWithProjectID($projectId,$userName) {
         $followerList = $this->getFollorUserIDList($projectId);
-        $allUser = $this->getUserList();
+        $allUser = $this->getUserList($userName);
         foreach ($allUser as $userKey=>$userValue)
         {
             foreach ($followerList as $fkey => $fvalue) {
@@ -178,8 +178,10 @@ class User_model extends CI_Model
         return $result;
     }
 
-    public function getUserList() {
+    public function getUserList($userName) {
         $this->db->select("*");
+        if($userName)
+            $this->db->like('FNAME',$userName);
         $result = $this->db->get('T_USER')->result_array();
         return $result;
     }
