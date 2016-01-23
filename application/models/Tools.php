@@ -44,4 +44,12 @@ class Tools extends CI_Model
         $data_result['data'] = '';
         return  $data_result;
     }
+
+    public function AssembleData($result, $success) {
+        $data_result["success"] = $success;
+        $data_result["errorCode"] = 0;
+        $data_result["error"] = 0;
+        $data_result['data'] = $result;
+        return $data_result;
+    }
 }

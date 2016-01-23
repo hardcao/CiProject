@@ -150,4 +150,8 @@ class User_model extends CI_Model
         $data['data'] = $result;
         return $data;
     }
+
+    public function getAllUsersWithProjectID($projectId) {
+        
+    }
 }

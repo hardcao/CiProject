@@ -39,10 +39,10 @@ class Follower extends CI_Controller
         foreach ($data['forceFollList'] as $item) {
             if($item == 'NULL') continue;
             $tmpData['FTOPLIMIT'] = $item['toplimit'];
-            $tmpData['FTOPLIMIT'] = $item['downlimit'];
+            $tmpData['FDOWNLIMIT'] = $item['downlimit'];
             $tmpData['FDUTY'] = $item['duty'];
-            $tmpData['FSTATE'] = $item['department'];
-            $tmpData['FTYPE'] = $item['remark'];
+            $tmpData['FSTATE'] = $item['company'];
+            $tmpData['FREMARK'] = $item['remark'];
             if(!intval($item['id'])) {
                 $tmpData['FPROJECTID'] = $projectID;
                 $tmpData['FUSERID']=$item['userid'];

@@ -54,7 +54,7 @@ class Project_model extends CI_Model
         return  $data;
     }
     
-    public function getProjectList($begin,$count,$userID,$subscribeStartDate, $subscribeEndDate, $status){
+    public function getProjectList($begin,$count,$userID,$subscribeStartDate, $subscribeEndDate, $status,$projectName){
         $tablename = 'T_PROJECT';
         //$test = strval($subscribeStartDate);
         $where ='';
@@ -66,13 +66,16 @@ class Project_model extends CI_Model
         if($status) {
             $where = $where.' AND FSTATUS = '.$status;
         }
+        if($projectName) {
+            $this->db->like('FPROJECTNAME', $projectName); 
+        }
         $dataArray = $this->getPageData($tablename, $where, $count, $begin, $this->db);
         $data["success"] = true;
         $data["errorCode"] = 0;
         $data["error"] = 0;
         $resultArr = array();
         foreach($dataArray as $item) {
-            $tempItem['projectName'] = $item['FNAME'];
+            $tempItem['projectName'] = $item['FPROJECTNAME'];
             $tempItem['projectId'] = $item['FID'];
             $tempItem['HDAmount'] = 3;
             $tempItem['regioAmount'] = 3;

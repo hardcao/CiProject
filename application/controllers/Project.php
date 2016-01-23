@@ -128,8 +128,8 @@ class Project extends CI_Controller
          $subscribeStartDate = $this->input->post('subscribeStartDate');
          $subscribeEndDate = $this->input->post('subscribeEndDate');
          $status = $this->input->post('status');
-         
-         $result = $this->project_model->getProjectList($begin,$count,$userID,$subscribeStartDate, $subscribeEndDate, $status);
+         $projectName = $this->input->post('searchname');
+         $result = $this->project_model->getProjectList($begin,$count,$userID,$subscribeStartDate, $subscribeEndDate, $status,$projectName);
          echo  json_encode($result);
      }
      
