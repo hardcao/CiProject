@@ -133,6 +133,11 @@ class Project extends CI_Controller
          echo  json_encode($result);
      }
 
+
+     /*
+
+        获得所有可以跟投的项目名单
+     */
      public function getAllFollowProject()
      {
          $userID = $this->input->post('uid');
