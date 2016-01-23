@@ -165,8 +165,9 @@ class User_model extends CI_Model
                     break;
                 }
             }
+            array_push($insertArry, $userValue);
         }
-        $insertArry = $allUser;
+       
         $data["success"] = true;
         $data["errorCode"] = 0;
         $data["error"] = 0;
