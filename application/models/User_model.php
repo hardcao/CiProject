@@ -155,6 +155,7 @@ class User_model extends CI_Model
     public function getAllUsersWithProjectID($projectId,$userName) {
         $followerList = $this->getFollorUserIDList($projectId);
         $allUser = $this->getUserList($userName);
+        $insertArry = array();
         foreach ($allUser as $userKey=>$userValue)
         {
             foreach ($followerList as $fkey => $fvalue) {
@@ -165,10 +166,11 @@ class User_model extends CI_Model
                 }
             }
         }
+        $insertArry = $allUser;
         $data["success"] = true;
         $data["errorCode"] = 0;
         $data["error"] = 0;
-        $data['data'] = $allUser;
+        $data['data'] = $insertArry;
         return $data;
     }
     public function getFollorUserIDList($projectId){
