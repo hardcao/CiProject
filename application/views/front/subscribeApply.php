@@ -418,8 +418,8 @@ function isForcePerson(){
 }
 
 function submitFunc (isRemissionSubscribe) {
-	var FAMOUNT = parseInt($("#subMoneyInp").val())*10000;
-	var FLEVERAMOUNT = parseInt($("#levMoneyInp").val())*10000;
+	var FAMOUNT = parseInt($("#subMoneyInp").val());
+	var FLEVERAMOUNT = parseInt($("#levMoneyInp").val());
 	var FBANKID = $("#bonusIdInp").val();
 	var FLEVERRATIO = $("#leverSel").val() ;
 	//var _bankNo = $("#bonusIdInp").val();
@@ -459,7 +459,7 @@ function submitFunc (isRemissionSubscribe) {
 			alert("请选择银行帐号!");
 			return false;	
 		}
-		if(FAMOUNT%50000 != 0){
+		if(FAMOUNT%5 != 0){
 			alert("认购金额只能输入5万的倍数!");
 			return false;
 		}
@@ -467,13 +467,13 @@ function submitFunc (isRemissionSubscribe) {
 	var ctx="<?php echo site_url();?>";
 	var projectId =getReqParam('projectid');
 	$.ajax({
-		type:'get',
+		type:'post',
 		url:ctx+'Subscription/addSubscribe',
 		dataType:'Json',//服务器返回的数据类型 可选XML ,Json jsonp script html text等
 		cache:false,
 		data:{
 			"FUSERID":1,
-			"FPROJECTID":getReqParam('proejctId'),//"024ec88b-188b-4ada-a807-1f79454eeea3",
+			"FPROJECTID":getReqParam('projectId'),//"024ec88b-188b-4ada-a807-1f79454eeea3",
 			"FAMOUNT":FAMOUNT,
 			"FLEVERAMOUNT":(FAMOUNT*FLEVERRATIO||0),
 			"FBANKID":FBANKID,
