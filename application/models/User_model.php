@@ -158,14 +158,17 @@ class User_model extends CI_Model
         $insertArry = array();
         foreach ($allUser as $userKey=>$userValue)
         {
+            $flag = 1;
             foreach ($followerList as $fkey => $fvalue) {
                 if($fvalue['userID'] == $userValue['FID'])
                 {
                     unset($allUser[$userKey]);
+                    $flag = 0;
                     break;
                 }
             }
-            array_push($insertArry, $userValue);
+            if($flag)
+                array_push($insertArry, $userValue);
         }
        
         $data["success"] = true;
