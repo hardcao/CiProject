@@ -128,7 +128,7 @@ $(function(){
 	}
 });
 function getSubscribeByProjectid(){
-	var ctx=$("#ctx").val();
+	/*var ctx=$("#ctx").val();
 	var projectId=getReqParam('projectid');;
 	$.ajax({
 		type:'post',//可选get
@@ -153,7 +153,7 @@ function getSubscribeByProjectid(){
 		error: function (XMLHttpRequest, textStatus, errorThrown) {
         	// sessionTimeout(XMLHttpRequest, textStatus, errorThrown);
         }
-	})
+	})*/
 }
 function getForceFollowByProjectid(){
 	var ctx="<?php echo site_url();?>";
@@ -172,11 +172,13 @@ function getForceFollowByProjectid(){
 				var tempSel = "";
 				for(var m=0;m<msg.data.length;m++){
 					_obj = (msg.data)[m];
-					forceObj[_obj.uid] = _obj;
-					if(_obj.company == "集团强投包"){
-						tempSel = '<select name="forceFollList['+m+'][company]" ><option value="集团强投包" selected="selected">集团强投包</option><option value="城市强投包">城市强投包</option></select>';
+					//forceObj[_obj.uid] = _obj;
+					if(_obj.STATE == "总部"){
+						tempSel = '<select name="forceFollList['+m+'][company]" ><option value="总部" selected="selected">总部</option>'
+						+'<option value="区域">区域</option></select>';
 					}else{
-						tempSel = '<select name="forceFollList['+m+'][company]" ><option value="集团强投包">集团强投包</option><option value="城市强投包" selected="selected">城市强投包</option></select>';
+						tempSel = '<select name="forceFollList['+m+'][company]" ><option value="总部">总部</option>'
+						+'<option value="区域" selected="selected">区域</option></select>';
 					}
 
 					/*
@@ -198,7 +200,7 @@ function getForceFollowByProjectid(){
 						'<input type="hidden" name="forceFollList['+m+'][userid]" value="'+_obj.FUSERID+'" />'+
 						'<input value="'+_obj.FNAME+'" readonly="true" /></td>'+
 						'<td>'+tempSel+'</td>'+
-						'<td><input name="forceFollList['+m+'][department]" value="'+_obj.STATE+'" /></td>'+
+						//'<td><input name="forceFollList['+m+'][department]" value="'+_obj.STATE+'" /></td>'+
 						'<td><input name="forceFollList['+m+'][duty]" value="'+(_obj.DUTY||"")+'" /></td>'+
 						'<td><input name="forceFollList['+m+'][downlimit]" value="'+formatMillions(_obj.FDOWNLIMIT)+'" type="number" /></td>'+
 						'<td><input name="forceFollList['+m+'][toplimit]" value="'+formatMillions(_obj.FTOPLIMIT)+'" type="number" /></td>'+
@@ -555,10 +557,11 @@ function addRows(argument) {
 				'<input type="hidden" name="forceFollList['+indexOfFollower+'][id]" value="" />'+
 				'<input type="hidden" name="forceFollList['+indexOfFollower+'][userid]" value="'+val.FID+'" />'+
 				'<input value="'+val.FNAME+'" readonly="true" /></td>'+
-				'<td><select name="forceFollList['+indexOfFollower+'][company]" ><option value="集团强投包" selected="selected">集团强投包</option><option value="城市强投包">城市强投包</option></select></td>'+
-				'<td><input name="forceFollList['+indexOfFollower+'][department]" value=""  /></td>'+
+				'<td><select name="forceFollList['+indexOfFollower+'][company]" >'
+				   +'<option value="总部" selected="selected">总部</option><option value="区域">区域</option></select></td>'+
+				//'<td><input name="forceFollList['+indexOfFollower+'][department]" value=""  /></td>'+
 				'<td><input name="forceFollList['+indexOfFollower+'][duty]" value="" /></td>'+
-				'<td><input name="forceFollList['+indexOfFollower+'][downlimit]" value="5" type="number" /></td>'+
+				'<td><input name="forceFollList['+indexOfFollower+'][downlimit]" value="20" type="number" /></td>'+
 				'<td><input name="forceFollList['+indexOfFollower+'][toplimit]" value="20" type="number" /></td>'+
 				'<td><input name="forceFollList['+indexOfFollower+'][remark]" value="" /></td>'+
 				'<td></td></tr>';
@@ -792,8 +795,8 @@ function hideForceDialog(){
 	<table id="forceTable" width="100%" border="1"><thead><tr class="trTitle">
 		<!-- <td rowspan="2" width="4%">序号</td> -->
 		<td rowspan="2" width="12%">姓名</td>
-		<td rowspan="2" width="12%">认购类型</td>  <!-- "所属公司"字段改为：认购类型 -->
-		<td rowspan="2" width="15%">总部/区域</td>
+		<td rowspan="2" width="12%">总部/区域</td>  <!-- "所属公司"字段改为：认购类型 -->
+		<!--td rowspan="2" width="15%">总部/区域</td-->
 		<td rowspan="2" width="11%">职务</td>
 		<td colspan="2" width="30%">个人额度范围</td>
 		<td rowspan="2" width="12%">备注</td>
