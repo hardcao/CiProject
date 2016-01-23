@@ -11,6 +11,7 @@ class User_model extends CI_Model
         # code...
         parent::__construct();
         $this->load->database();
+        $this->load->model('Tools');
     }
     public function  getAllUsers($userName){
         if($userName) {
@@ -152,6 +153,34 @@ class User_model extends CI_Model
     }
 
     public function getAllUsersWithProjectID($projectId) {
-        
+        $followerList = $this->getFollorUserIDList($projectId);
+        $allUser = $this->getUserList();
+        foreach ($allUser as $userKey=>$userValue)
+        {
+            foreach ($followerList as $fkey => $fvalue) {
+                if($fvalue['userID'] == $userValue['FID'])
+                {
+                    unset($allUser[$userKey]);
+                    break;
+                }
+            }
+        }
+        $data["success"] = true;
+        $data["errorCode"] = 0;
+        $data["error"] = 0;
+        $data['data'] = $allUser;
+        return $data;
+    }
+    public function getFollorUserIDList($projectId){
+        $this->db->select("T_FOLLOWER.FUSERID as userID");
+        $this->db->where('FPROJECTID',$projectId);
+        $result = $this->db->get('T_FOLLOWER')->result_array();
+        return $result;
+    }
+
+    public function getUserList() {
+        $this->db->select("*");
+        $result = $this->db->get('T_USER')->result_array();
+        return $result;
     }
 }
