@@ -12,6 +12,21 @@ class Subscription_model extends CI_Model
         parent::__construct();
         $this->load->database();
     }
+
+    public function getSubscribeList($projectId)
+    {
+        $selectData = "T_USER.FNAME as FNAME, T_USER.FORG as FORG,T_FOLLOWER.FSTATE as FSTATE,T_SUBSCRIBECONFIRMRECORD.FAMOUNT as FAMOUNT,T_SUBSCRIBECONFIRMRECORD.FLEVERAMOUNT as FLEVERAMOUNT,T_SUBSCRIBECONFIRMRECORD.FCONFIRMAMOUNT as FCONFIRMAMOUNT,T_SUBSCRIBECONFIRMRECORD.FLEVERCONFIRMAMOUNT as FLEVERCONFIRMAMOUNT";
+         $this->db->select($selectData);
+         $this->db->join('T_USER','T_USER.FID=T_SUBSCRIBECONFIRMRECORD.FUSERID');
+         $this->db->join('T_FOLLOWER','T_FOLLOWER.FUSERID=T_SUBSCRIBECONFIRMRECORD.FUSERID');
+        $this->db->where('T_SUBSCRIBECONFIRMRECORD.FPROJECTID',$projectId);
+        $result = $this->db->get('T_SUBSCRIBECONFIRMRECORD')->result_array();
+        $data["success"] = true;
+        $data["errorCode"] = 0;
+        $data["error"] = 0;
+        $data['data'] = $result;
+        return  $data;
+    }
     
     public function getSubscriptionDataWithRecordId($RecordId) {
         $this->db->select("*");

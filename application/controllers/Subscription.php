@@ -39,6 +39,13 @@ class Subscription extends CI_Controller
         $result = $this->project_model->getProjectDetailInfo($projectId,$fields);
         echo  json_encode($result);
     }
+
+    public function getSubscribeList()
+    {
+         $projectId = $this->input->post('projectId');
+          $result = $this->Subscription_model->getSubscribeList($projectId);
+        echo  json_encode($result);
+    }
     
     public function  applySubscribe()
     {
