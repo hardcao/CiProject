@@ -120,4 +120,26 @@ class Payrecord_model extends CI_Model
          
         return $data;
     }
+
+    public function getAllPayRecod($projectId)
+    {
+        $selectData = "T_USER.FID as FUSERID, T_USER.FNAME as FNAME, T_USER.FORG as FORG,T_FOLLOWER.FSTATE as FSTATE,T_SUBSCRIBECONFIRMRECORD.FCONFIRMAMOUNT as FCONFIRMAMOUNT";
+        $this->db->select($selectData);
+        $this->db->join('T_USER','T_USER.FID=T_SUBSCRIBECONFIRMRECORD.FUSERID');
+        $this->db->join('T_FOLLOWER','T_FOLLOWER.FUSERID=T_SUBSCRIBECONFIRMRECORD.FUSERID');
+        $this->db->where('T_SUBSCRIBECONFIRMRECORD.FPROJECTID',$projectId);
+        $result = $this->db->get('T_SUBSCRIBECONFIRMRECORD')->result_array();
+        return $result;
+    }
+
+    public function getAllPayRecodFilds($projectId)
+    {
+        $selectData = "T_USER.FID as FUSERID ,T_USER.FNAME as FNAME, T_USER.FORG as FORG,T_FOLLOWER.FSTATE as FSTATE,T_SUBSCRIBECONFIRMRECORD.FCONFIRMAMOUNT as FCONFIRMAMOUNT";
+        $this->db->select($selectData);
+        $this->db->join('T_USER','T_USER.FID=T_SUBSCRIBECONFIRMRECORD.FUSERID');
+        $this->db->join('T_FOLLOWER','T_FOLLOWER.FUSERID=T_SUBSCRIBECONFIRMRECORD.FUSERID');
+        $this->db->where('T_SUBSCRIBECONFIRMRECORD.FPROJECTID',$projectId);
+        $result = $this->db->get('T_SUBSCRIBECONFIRMRECORD')->list_fields();
+        return $result;
+    }
 }
