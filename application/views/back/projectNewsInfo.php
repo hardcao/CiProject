@@ -65,13 +65,13 @@ function getNewsData(){
 	var ctx="<?php echo site_url();?>";
 	$.ajax({
 		type:'post',//可选get
-		url:ctx+'/news/getDynamicNews',
+		url:ctx+'news/getDynamicNews',
 		dataType:'Json',//服务器返回的数据类型 可选XML ,Json jsonp script html text等
 		//begin=0&count=2&uid=test&projectId=123
-		data:{begin: 0,
-			count:2,
+		data:{//begin: 0,
+			//count:2,
 		    //uid: 'test',
-		    pojectId: getReqParam('projectId')},
+		    projectId: '27'}, //getReqParam('projectId')},
 		success:function(msg){
 			if(msg.success){
 				newsList=msg.data;
@@ -129,9 +129,9 @@ function loadNewsData(){
 				'</td></tr>';*/
 			tempHtml += '<tr><td height="40">'+(ind+1)+'</td>'+
 				'<td>'+val.FTITLE+'</td>'+
-				'<td>'+'val.projectName'+'</td>'+
+				'<td>'+val.FPROJECTNAME+'</td>'+
 				'<td>'+rDate.format('yyyy-MM-dd')+'</td>'+
-				'<td>'+'val.authorName'+'</td>'+
+				'<td>'+val.FUSERNAME+'</td>'+
 				'<td>'+
 					'<a href="newsEditor?newsId='+val.FID+'&proId='+val.FPROJECTID+'">编辑</a> | '+
 					'<a class="delBtn" href="javascript:void(0)" nid="'+val.FID+'">删除</a>'+

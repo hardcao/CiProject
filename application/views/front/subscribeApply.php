@@ -248,10 +248,11 @@ function generatePage(protocalList){
 
 function generateProtocalList(protocalList){
 	var result = "";
-	if(protocalList && protocalList.length > 0){
-		for(var i = 0; i < protocalList.length; i++){
+	protocalArr = protocalList.split(";");
+	if(protocalArr && protocalArr.length > 0){
+		for(var i = 0; i < protocalArr.length; i++){
 			result = result + "<li>" + 
-								"<a href='files/" + protocalList[i] + "'>" + (i + 1 + "、 ") + protocalList[i] + "</a>" +
+								"<a href='files/" + protocalArr[i] + "'>" + (i + 1 + "、 ") + protocalArr[i] + "</a>" +
 						"</li>";
 		}
 	}else{
