@@ -1,42 +1,63 @@
 ﻿<?php
 
-class upload extends CI_Controller {
-
-    public function __construct()
+class Upload extends CI_Controller {
+    function __construct()
     {
-        parent::__construct();
-        $this->load->helper(array('form', 'url'));
+         parent::__construct();
+
+        $this->load->library('phpexcel');
+        $this->load->library('PHPExcel/iofactory');
+    }
+    public function createXls()
+    {
+       $this->load->database();
+       $query = $this->db->query("select * from T_USER");
+       if(!$query)
+            return false;
+
+        $objPHPExcel = new PHPExcel();
+        $objPHPExcel->getProperties()->setTitle("title")->setDescription("description");
+        $objPHPExcel->setActiveSheetIndex(0);
+        // Field names in the first row
+        $fields = $query->list_fields();
+        $col = 0;
+        foreach ($fields as $field)
+        {
+            $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow($col, 1, $field);
+            $col++;
+        }
+
+        $row = 2;
+        foreach($query->result() as $data)
+        {
+             $col = 0;
+            foreach ($fields as $field)
+            {
+                $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow($col, $row, $data->$field);
+                $col++;
+            }
+            $row++;
+        }
+        // Assign cell values
+       // $objPHPExcel->setActiveSheetIndex(0);
+       // $objPHPExcel->getActiveSheet()->setCellValue('A1', 'cell value here');
+        //$objPHPExcel->getActiveSheet()->setCellValue('A2', 'cell value here');
+        // Save it as an excel 2003 file
+        $objWriter = IOFactory::createWriter($objPHPExcel, 'Excel5');
+        $objWriter->save("nameoffile_2.xls");
     }
 
-    public function index()
+    public function insertXls()
     {
-        $this->load->view('upload_success', array('error' => ' ' ));
-    }
-
-    public function addEnclosure()
-    {
-        
-        $config['upload_path']      = './fileFolder/';
-        $config['allowed_types']    = 'gif|jpg|png|txt|xls|doc';
-        $config['max_size']     = 100;
-        $config['max_width']        = 1024;
-        $config['max_height']       = 768;
-
-        $this->load->library('upload', $config);
-        
-        if ( ! $this->upload->do_upload('userfile'))
-        {
-            $error = array('error' => $this->upload->display_errors());
-
-            $this->load->view('upload_form', $error);
-        }
-        else
-        {
-            $data = array('upload_data' => $this->upload->data());
-           echo $data['upload_data']['file_name'];
-           
-                    
-        }
+        $inputFileType = 'Excel5';
+        $inputFileName = 'nameoffile_2.xls';
+        /**  Create a new Reader of the type defined in $inputFileType  **/
+        $objReader = IOFactory::createReader($inputFileType);
+            
+        $objReader->setReadDataOnly(true);
+        /**  Load $inputFileName to a PHPExcel Object  **/
+        $objPHPExcel = $objReader->load($inputFileName);
+        $sheetData =$objPHPExcel->getActiveSheet()->toArray(null,true,true,true);
+        echo json_encode($sheetData);
     }
 }
-?>
