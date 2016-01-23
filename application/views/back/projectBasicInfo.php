@@ -203,7 +203,7 @@ function getForceFollowByProjectid(){
 						//formatMillions(_obj.FDOWNLIMIT)
 						//'<td><input name="forceFollList['+m+'][department]" value="'+_obj.STATE+'" /></td>'+
 						'<td><input name="forceFollList['+m+'][duty]" value="'+(_obj.FDUTY||"")+'" /></td>'+
-						'<td><input name="forceFollList['+m+'][downlimit]" value="'+(_obj.FDOWNLIMIT||0)+'" type="number" /></td>'+
+						'<td><input name="forceFollList['+m+'][downlimit]" value="'+(/*_obj.FDOWNLIMIT||*/0)+'"readonly="true" type="number" /></td>'+
 						'<td><input name="forceFollList['+m+'][toplimit]" value="'+(_obj.FTOPLIMIT||0)+'" type="number" /></td>'+
 						'<td><input name="forceFollList['+m+'][remark]" value="'+(_obj.FREMARK||"")+'"  /></td>'+
 						'<td><a class="forceDelBtn" ind="'+m+'" uid="'+_obj.FUSERID+'" fid="'+_obj.FID+'" href="javascript:void(0)" >删除</a></td></tr>';
@@ -562,7 +562,7 @@ function addRows(argument) {
 				   +'<option value="总部" selected="selected">总部</option><option value="区域">区域</option></select></td>'+
 				//'<td><input name="forceFollList['+indexOfFollower+'][department]" value=""  /></td>'+
 				'<td><input name="forceFollList['+indexOfFollower+'][duty]" value="" /></td>'+
-				'<td><input name="forceFollList['+indexOfFollower+'][downlimit]" value="20" type="number" /></td>'+
+				'<td><input name="forceFollList['+indexOfFollower+'][downlimit]" value="0" type="number" readonly="true" /></td>'+
 				'<td><input name="forceFollList['+indexOfFollower+'][toplimit]" value="20" type="number" /></td>'+
 				'<td><input name="forceFollList['+indexOfFollower+'][remark]" value="" /></td>'+
 				'<td></td></tr>';
@@ -804,7 +804,7 @@ function hideForceDialog(){
 		<td rowspan="2">操作</td>
 	</tr><tr class="trTitle">
 		<td>下限(万元)</td>
-		<td>上限(万元)</td>
+		<td>个人额度(万元)</td>
 	</tr></thead><tbody id="forceTbody">
 	</tbody></table>
 	<div class="btnBox"><button id="addForceRecord" type="button">新增</button><button>保存</button></div>
