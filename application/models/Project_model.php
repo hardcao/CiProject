@@ -53,6 +53,34 @@ class Project_model extends CI_Model
         $data['data'] = $result;
         return  $data;
     }
+
+    public function getAllFollowProject($userID,$subscribeStartDate, $subscribeEndDate,$projectName) {
+        $tablename = 'T_PROJECT';
+        $where ='';
+        $startdatetime = new DateTime($subscribeStartDate);
+        $startTime= $startdatetime->format('Y-m-d H:i:s');
+        $endDatetime = new DateTime($subscribeEndDate);
+        $endTime = $endDatetime->format('Y-m-d H:i:s');
+        $where = "'".$startTime."' < DATE_FORMAT(FCREATETIME,'%Y-%m-%d %H:%i:%s') AND DATE_FORMAT(FCREATETIME,'%Y-%m-%d %H:%i:%s') <'".$endTime."'";
+        $projectIDList = $this->getFollowProjectListWithUserID($userID);
+        $resultArr = array();
+        foreach ($projectIDList as $item) {
+            if($item['FPROJECTID']) {
+                $where = $where.' AND FPROJECTID='.$item['FPROJECTID'];
+            }
+            $tempItem = $this->getProjectListWithID($where,$item['FPROJECTID'],$projectName);
+            $tempItem['HDAmount'] = 3;
+            $tempItem['regioAmount'] = 3;
+            $tempItem['HDAmountComplete'] = "test";
+            $tempItem['regioAmountComplete'] = "test";// 临时数据，还没有加入照片
+            array_push($resultArr, $tempItem);
+        }
+        $data["success"] = true;
+        $data["errorCode"] = 0;
+        $data["error"] = 0;
+        $data['data'] =  $resultArr;
+        return $data;
+    }
     
     public function getProjectList($begin,$count,$userID,$subscribeStartDate, $subscribeEndDate, $status,$projectName){
         $tablename = 'T_PROJECT';
@@ -88,6 +116,26 @@ class Project_model extends CI_Model
         $data['data'] =  $resultArr;
      
         return $data;
+    }
+
+    public function getFollowProjectListWithUserID($userID)
+    {
+        $this->db->select("FPROJECTID");
+        $this->db->where('FUSERID',$userID);
+        $result = $this->db->get('T_FOLLOWER')->result_array();
+        return $result;
+    }
+
+    public function getProjectListWithID($where,$projectId,$projectName)
+    {
+        $selectData = "T_PROJECT.FNAME as FNAME,T_FOLLOWSCHEME.FSUBSCRIBESTARTDATE as FSUBSCRIBESTARTDATE, T_FOLLOWSCHEME.FSUBSCRIBEENDDATE as FSUBSCRIBEENDDATE,T_FOLLOWSCHEME.FPAYSTARTDATE as FPAYSTARTDATE,T_FOLLOWSCHEME.FPAYENDDATE as FPAYENDDATE";
+        $this->db->select($selectData);
+        $this->db->where($where);
+        if($projectName)
+            $this->db->like('FNAME', $projectName); 
+        $this->db->join('T_FOLLOWSCHEME','T_FOLLOWSCHEME.FPROJECTID='.$projectId);
+        $result = $this->db->get('T_PROJECT')->result_array();
+        return $result;
     }
     
     /* 鑾峰彇鍒嗛〉鏁版嵁鍙婃�绘潯鏁�

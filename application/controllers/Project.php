@@ -132,6 +132,16 @@ class Project extends CI_Controller
          $result = $this->project_model->getProjectList($begin,$count,$userID,$subscribeStartDate, $subscribeEndDate, $status,$projectName);
          echo  json_encode($result);
      }
+
+     public function getAllFollowProject()
+     {
+         $userID = $this->input->post('uid');
+         $subscribeStartDate = $this->input->post('subscribeStartDate');
+         $subscribeEndDate = $this->input->post('subscribeEndDate');
+         $projectName = $this->input->post('searchname');
+         $result = $this->project_model->getAllFollowProject($userID,$subscribeStartDate, $subscribeEndDate,$projectName);
+         echo  json_encode($result);
+     }
      
      /*
       * projectId=1

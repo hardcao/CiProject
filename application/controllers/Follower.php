@@ -78,5 +78,4 @@ class Follower extends CI_Controller
         $result = $this->Tools->addData($data,$tableName);
         echo json_encode($result);
     }
-
 }
