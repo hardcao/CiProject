@@ -7,9 +7,9 @@
 
 <?php echo $error;?>
 
-<?php echo form_open_multipart('project/addEnclosure');?>
+<?php echo form_open_multipart('Payrecord/inputXLS');?>
 <form>
-<input type="file" name="userfile" size="20" enctype="multipart/form-data" />
+<input type="file" name="file" size="20" enctype="multipart/form-data" />
 
 <br /><br />
 

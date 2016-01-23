@@ -21,16 +21,14 @@ $("#btn_login").click(function(){
 				url: window.location.origin+"/"+password,
 				type: "post",
 				data:{
-					projectId: 27,
-					begin: 0,
-					count:2		
+					projectId:27,
 				},
 				success: function(data){
-					bootbox.alert(data);
+					//bootbox.alert(data);
 
 				},
 				error: function (XMLHttpRequest, textStatus, errorThrown) {
-					bootbox.alert(XMLHttpRequest.responseText);
+					//bootbox.alert(XMLHttpRequest.responseText);
 		        }
 
 			});

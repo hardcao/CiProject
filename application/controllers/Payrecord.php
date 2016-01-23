@@ -72,7 +72,7 @@ class Payrecord extends CI_Controller
         $fields = $this->Payrecord_model->getAllPayRecodFilds($projectId);;
         $col = 0;
        
-            $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow($col, 1, '用户');
+            $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow($col, 1, '缴款ID');
             $col++;
             $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow($col, 1, '跟投人');
             $col++;
@@ -95,7 +95,7 @@ class Payrecord extends CI_Controller
         foreach($result as $data)
         {
             $col = 0;  
-            $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow($col, $row, $data['FUSERID']);
+            $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow($col, $row, $data['FID']);
             $col++;
             $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow($col, $row, $data['FNAME']);
             $col++;
@@ -112,7 +112,7 @@ class Payrecord extends CI_Controller
             $col++;
             $row++;
         }
-        $fileName ="缴款明细-".date('y-m-d h:i:s',time()).".xlsx";
+        $fileName ="缴款明细-".date('y-m-dh:i:s',time()).".xlsx";
         $baseURL = site_url();
         $objWriter = IOFactory::createWriter($objPHPExcel, 'Excel5');
         $objWriter->save("fileFolder/".$fileName);
@@ -132,12 +132,7 @@ class Payrecord extends CI_Controller
          $config['max_width']        = 1024;
          $config['max_height']       = 768;
          $name = $_FILES["file"]["name"];
-        
-         $is_exist = is_int(strpos($followScheme['FLINK'],$name));
-         if ($is_exist){
-             echo "update fail";
-             return ;
-         }
+    
          $config['file_name']  =  iconv("UTF-8","gb2312", $name);
          $this->load->library('upload', $config);
          if ( ! $this->upload->do_upload('file'))
@@ -162,7 +157,28 @@ class Payrecord extends CI_Controller
            /**  Load $inputFileName to a PHPExcel Object  **/
            $objPHPExcel = $objReader->load($inputFileName);
            $sheetData =$objPHPExcel->getActiveSheet()->toArray(null,true,true,true);
-           echo json_encode($sheetData);
+           $row = 0;
+           foreach ($sheetData as $key => $value) {
+                if($row == 0)
+                {
+                    $row ++;
+                    continue;
+                }
+                $insertArr = array();
+                $insertArr['FSUBSCRIBECONFIGRMRECORDID'] = $value['A'];
+                $insertArr['FPAYTIMES'] = $value['F'];
+                $insertArr['FPAYDATE'] = $value['G'];
+                $insertArr['FPAYAMOUNT'] = $value['H'];
+                $count = $this->Payrecord_model->getPayCountWithTime($value['A'],$value['F']);
+                $tableName = 'T_PAYRECORD';
+                $this->load->model('Tools');
+                if(intval($count)>0){
+                    $where = 'FSUBSCRIBECONFIGRMRECORDID='. $value['A'].' AND FPAYTIMES='. $value['F'];
+                    $result = $this->Tools->updateData( $insertArr,$tableName,$where);
+                } else {
+                     $result = $this->Tools->addData( $insertArr,$tableName);
+                } 
+           }
          }
        
     }

@@ -56,6 +56,15 @@ class Payrecord_model extends CI_Model
         $result = $this->db->get('T_PAYRECORD')->result_array();
         return $result[0];
     }
+
+    public function getPayCountWithTime($FID,$time)
+    {
+        $this->db->select("*");
+        $this->db->where('FSUBSCRIBECONFIGRMRECORDID',$FID);
+        $this->db->where('FPAYTIMES',$time);
+        $result = $this->db->count_all('T_PAYRECORD');
+        return $result;
+    }
     
     public function  getPersonPayDetail($begin,$count,$userID,$projectId){
         $tablename = 'T_PAYRECORD';
@@ -123,7 +132,7 @@ class Payrecord_model extends CI_Model
 
     public function getAllPayRecod($projectId)
     {
-        $selectData = "T_USER.FID as FUSERID, T_USER.FNAME as FNAME, T_USER.FORG as FORG,T_FOLLOWER.FSTATE as FSTATE,T_SUBSCRIBECONFIRMRECORD.FCONFIRMAMOUNT as FCONFIRMAMOUNT";
+        $selectData = "T_SUBSCRIBECONFIRMRECORD.FID as FID, T_USER.FNAME as FNAME, T_USER.FORG as FORG,T_FOLLOWER.FSTATE as FSTATE,T_SUBSCRIBECONFIRMRECORD.FCONFIRMAMOUNT as FCONFIRMAMOUNT";
         $this->db->select($selectData);
         $this->db->join('T_USER','T_USER.FID=T_SUBSCRIBECONFIRMRECORD.FUSERID');
         $this->db->join('T_FOLLOWER','T_FOLLOWER.FUSERID=T_SUBSCRIBECONFIRMRECORD.FUSERID');
@@ -134,7 +143,7 @@ class Payrecord_model extends CI_Model
 
     public function getAllPayRecodFilds($projectId)
     {
-        $selectData = "T_USER.FID as FUSERID ,T_USER.FNAME as FNAME, T_USER.FORG as FORG,T_FOLLOWER.FSTATE as FSTATE,T_SUBSCRIBECONFIRMRECORD.FCONFIRMAMOUNT as FCONFIRMAMOUNT";
+        $selectData = "T_SUBSCRIBECONFIRMRECORD.FID as FID,T_USER.FNAME as FNAME, T_USER.FORG as FORG,T_FOLLOWER.FSTATE as FSTATE,T_SUBSCRIBECONFIRMRECORD.FCONFIRMAMOUNT as FCONFIRMAMOUNT";
         $this->db->select($selectData);
         $this->db->join('T_USER','T_USER.FID=T_SUBSCRIBECONFIRMRECORD.FUSERID');
         $this->db->join('T_FOLLOWER','T_FOLLOWER.FUSERID=T_SUBSCRIBECONFIRMRECORD.FUSERID');
