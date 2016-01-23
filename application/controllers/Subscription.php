@@ -51,5 +51,12 @@ class Subscription extends CI_Controller
         echo  json_encode($result);
     }
      
-
+    public function addSubscribe()
+    {
+         $data = $this->input->input_stream();
+        $tableName = 'T_SUBSCRIBECONFIRMRECORD';
+        $this->load->model('Tools');
+        $result = $this->Tools->addData($data,$tableName);
+        echo json_encode($result);
+    }
 }
