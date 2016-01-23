@@ -44,9 +44,9 @@ class Follower extends CI_Controller
             $tmpData['FSTATE'] = $item['company'];
             $tmpData['FREMARK'] = $item['remark'];
             if(!intval($item['id'])) {
-                $tmpData['FPROJECTID'] = $projectId;
+                $tmpData['FPROJECTID'] = $projectID;
                 $tmpData['FUSERID']=$item['userid'];
-                $ProjectUser['FPROJECTID'] = $projectId;
+                $ProjectUser['FPROJECTID'] = $projectID;
                 $ProjectUser['FUSERID'] = $userId;
                 $result = $this->Tools->addData($tmpData,$tableName);
                 if($result['data']) {
