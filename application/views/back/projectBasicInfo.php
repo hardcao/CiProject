@@ -492,11 +492,11 @@ function getAllUserData(){
 	var _nameVal = $.trim($("#forceDialogLayer #searUserInp").val());
 	$.ajax({
 		type:'post',//可选get
-		url:'/User/getAllUsers',
+		url:'/User/getAllUsersWithProjectID',
 		dataType:'Json',//服务器返回的数据类型 可选XML ,Json jsonp script html text等
 		data:{
 			'uname':_nameVal,
-			//'projectId':projectId,
+			'projectId': getReqParam('projectId'),
 			"startPage":0,
 			"pageSize":6
 		},

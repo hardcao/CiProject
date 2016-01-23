@@ -1,9 +1,8 @@
-﻿<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <title>认购申请</title>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
 
 <?php require (dirname(dirname(__FILE__)).'/common/header_include.php'); ?>
 <link href="<?php echo site_url('application/views/plugins/jquery.datetimepicker.css')?>" rel="stylesheet">
@@ -295,16 +294,16 @@ function getProDetai(){
 }
 
 function getProScheme(){
-	$.ajax({
+	/*$.ajax({
 		type:'post',//可选get
 		url:'../FollowSchemeController/getSchemeByProjectId.action?time=' + new Date().getTime(),
 		dataType:'Json',//服务器返回的数据类型 可选XML ,Json jsonp script html text等
 		cache:false,
 		data:{'projectId':proId},
 		success:function(msg){
-			getForceData();
+			getForceData();*/
 			getBankData();
-			if(msg.success){
+			/*if(msg.success){
 				if(msg.baseModel){
 					currscheDetail = msg.baseModel;
 				}
@@ -315,7 +314,7 @@ function getProScheme(){
 		error: function (XMLHttpRequest, textStatus, errorThrown) {
         	// sessionTimeout(XMLHttpRequest, textStatus, errorThrown);
         }
-	});
+	});*/
 }
 
 function getForceData(){
@@ -358,18 +357,22 @@ function loadLimitData(){
 }
 
 function getBankData(argument) {
+	var ctx="<?php echo site_url();?>";
+	var projectId =getReqParam('projectid');
 	$.ajax({
 		type:'post',//可选get
-		url:'../BankController/getBankListByUserId.action?time=' + new Date().getTime(),
+		url:ctx+'bankInfo/getPersonBankInfo?time=' + new Date().getTime(),
 		dataType:'Json',//服务器返回的数据类型 可选XML ,Json jsonp script html text等
 		cache:false,
-		data:{},
+		data:{
+			uid:'1',
+		},
 		success:function(msg){
 			if(msg.success){
-				bankList = msg.dataDto;
+				bankList = msg.data;
 				loadBankData();
-				userInfo = msg.baseModel;
-				loadRemissionInfo(msg.baseModel);
+				//userInfo = msg.baseModel;
+				//loadRemissionInfo(msg.baseModel);
 			}else{
 				alert(msg.error);
 			}
@@ -394,7 +397,7 @@ function loadBankData(){
 		$("#bonusIdInp").empty();
 		$.each(bankList, function(ind, val){
 			tempHtml +=
-				'<option value="'+val.bankId+'">'+val.bankNo+'</option>';
+				'<option value="'+val.FID+'">'+val.FBANKNO+'</option>';
 		});
 		$("#bonusIdInp").html(tempHtml);
 	}else{
@@ -415,16 +418,17 @@ function isForcePerson(){
 }
 
 function submitFunc (isRemissionSubscribe) {
-	var _subMoney = parseInt($("#subMoneyInp").val())*10000;
-	var _levMoney = parseInt($("#levMoneyInp").val())*10000;
-	var _bonusId = $("#bonusIdInp").val();
-	var _bankNo = $("#bonusIdInp").val();
-	if(isRemissionSubscribe){
+	var FAMOUNT = parseInt($("#subMoneyInp").val())*10000;
+	var FLEVERAMOUNT = parseInt($("#levMoneyInp").val())*10000;
+	var FBANKID = $("#bonusIdInp").val();
+	var FLEVERRATIO = $("#leverSel").val() ;
+	//var _bankNo = $("#bonusIdInp").val();
+	/*if(isRemissionSubscribe){
 		if(!window.confirm("您的总的可用豁免次数为：" + (userInfo.remissionCount - userInfo.usedRemissionCount) +"，您确认使用吗？")){
 			return false;
 		}
 	}else{
-		/*if(isForcePerson()){
+		if(isForcePerson()){
 			if($("#leverSel").val() == "4"){
 				if(_subMoney > topLimitVal){
 					alert("总认购金额超过上限!");
@@ -451,27 +455,29 @@ function submitFunc (isRemissionSubscribe) {
 				return false;			
 			}
 		}*/
-		if(!_bankNo){
+		if(!FBANKID){
 			alert("请选择银行帐号!");
 			return false;	
 		}
-		if(_subMoney%50000 != 0){
+		if(FAMOUNT%50000 != 0){
 			alert("认购金额只能输入5万的倍数!");
 			return false;
 		}
-	}
-
+	//}
+	var ctx="<?php echo site_url();?>";
+	var projectId =getReqParam('projectid');
 	$.ajax({
 		type:'get',
-		url:'../subscribe/subscribeReq.action',
+		url:ctx+'Subscription/addSubscribe',
 		dataType:'Json',//服务器返回的数据类型 可选XML ,Json jsonp script html text等
 		cache:false,
 		data:{
-			"uid":currUser,
-			"projectId":proId,//"024ec88b-188b-4ada-a807-1f79454eeea3",
-			"contributiveAmount":_subMoney,
-			"leverageAmount":(_levMoney||0),
-			"bankNo":_bankNo,
+			"FUSERID":1,
+			"FPROJECTID":getReqParam('proejctId'),//"024ec88b-188b-4ada-a807-1f79454eeea3",
+			"FAMOUNT":FAMOUNT,
+			"FLEVERAMOUNT":(FAMOUNT*FLEVERRATIO||0),
+			"FBANKID":FBANKID,
+			"FLEVERRATIO":FLEVERRATIO
 			//"isRemissionSubscribe":isRemissionSubscribe
 		},
 		success:function(msg){
