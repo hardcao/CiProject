@@ -200,11 +200,12 @@ function getForceFollowByProjectid(){
 						'<input type="hidden" name="forceFollList['+m+'][userid]" value="'+_obj.FUSERID+'" />'+
 						'<input value="'+_obj.FNAME+'" readonly="true" /></td>'+
 						'<td>'+tempSel+'</td>'+
+						//formatMillions(_obj.FDOWNLIMIT)
 						//'<td><input name="forceFollList['+m+'][department]" value="'+_obj.STATE+'" /></td>'+
-						'<td><input name="forceFollList['+m+'][duty]" value="'+(_obj.DUTY||"")+'" /></td>'+
-						'<td><input name="forceFollList['+m+'][downlimit]" value="'+formatMillions(_obj.FDOWNLIMIT)+'" type="number" /></td>'+
-						'<td><input name="forceFollList['+m+'][toplimit]" value="'+formatMillions(_obj.FTOPLIMIT)+'" type="number" /></td>'+
-						'<td><input name="forceFollList['+m+'][remark]" value="'+_obj.FREMARK+'"  /></td>'+
+						'<td><input name="forceFollList['+m+'][duty]" value="'+(_obj.FDUTY||"")+'" /></td>'+
+						'<td><input name="forceFollList['+m+'][downlimit]" value="'+(_obj.FDOWNLIMIT||0)+'" type="number" /></td>'+
+						'<td><input name="forceFollList['+m+'][toplimit]" value="'+(_obj.FTOPLIMIT||0)+'" type="number" /></td>'+
+						'<td><input name="forceFollList['+m+'][remark]" value="'+(_obj.FREMARK||"")+'"  /></td>'+
 						'<td><a class="forceDelBtn" ind="'+m+'" uid="'+_obj.FUSERID+'" fid="'+_obj.FID+'" href="javascript:void(0)" >删除</a></td></tr>';
 				 $("#forceTbody").append(tempHtml);
 				}	
