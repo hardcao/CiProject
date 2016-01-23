@@ -47,7 +47,7 @@ class Follower extends CI_Controller
                 $tmpData['FPROJECTID'] = $projectID;
                 $tmpData['FUSERID']=$item['userid'];
                 $ProjectUser['FPROJECTID'] = $projectID;
-                $ProjectUser['FUSERID'] = $userId;
+                $ProjectUser['FUSERID'] = $item['userid'];
                 $result = $this->Tools->addData($tmpData,$tableName);
                 if($result['data']) {
                     $result = $this->Tools->addData($ProjectUser,'T_PROJECT_USER');
