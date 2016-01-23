@@ -69,6 +69,7 @@ class Project_model extends CI_Model
                 $where = $where.' AND FPROJECTID='.$item['FPROJECTID'];
             }
             $tempItem = $this->getProjectListWithID($where,$item['FPROJECTID'],$projectName);
+            $tempItem['FID'] = $item['FPROJECTID'];
             $tempItem['HDAmount'] = 3;
             $tempItem['regioAmount'] = 3;
             $tempItem['HDAmountComplete'] = "test";
