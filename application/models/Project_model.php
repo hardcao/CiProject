@@ -135,7 +135,7 @@ class Project_model extends CI_Model
             $this->db->like('FNAME', $projectName); 
         $this->db->join('T_FOLLOWSCHEME','T_FOLLOWSCHEME.FPROJECTID='.$projectId);
         $result = $this->db->get('T_PROJECT')->result_array();
-        return $result;
+        return $result[0];
     }
     
     /* 鑾峰彇鍒嗛〉鏁版嵁鍙婃�绘潯鏁�
