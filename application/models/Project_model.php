@@ -75,7 +75,7 @@ class Project_model extends CI_Model
         $data["error"] = 0;
         $resultArr = array();
         foreach($dataArray as $item) {
-            $tempItem['projectName'] = $item['FPROJECTNAME'];
+            $tempItem['projectName'] = $item['FNAME'];
             $tempItem['projectId'] = $item['FID'];
             $tempItem['HDAmount'] = 3;
             $tempItem['regioAmount'] = 3;
