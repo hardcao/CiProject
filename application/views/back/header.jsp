@@ -13,7 +13,7 @@
 <script type="text/javascript">
 $(function(){
 	$("#header #logo").click(function(){
-		location.href="index.jsp";
+		location.href="<?php echo site_url()?>";
 	});
 	$("#resetLogin").click(loginOut);
 });
@@ -43,7 +43,7 @@ function loginOut(){
 		<div id="logo"></div>
 		<div id="loginer">
 			<a href="javascript:void(0);">当前登录:${loginName}</a>
-			| <a href="../front/index.jsp">返回前台</a>
+			| <a href="../front/<?php echo site_url()?>">返回前台</a>
 			| <a id="resetLogin" href="javascript:void(0);">退出登录</a>
 		</div>
 	</div>

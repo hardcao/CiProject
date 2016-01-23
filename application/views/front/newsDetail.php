@@ -21,7 +21,7 @@
 <?php require (dirname(dirname(__FILE__)).'/common/header.php'); ?>
 <div id="contentLayer">
 	<div id="naviTitle">
-		<a href="index.jsp">首页</a> 
+		<a href="<?php echo site_url()?>">首页</a> 
 		> <a id="returnDynList" href="">动态新闻列表</a> 
 		> 项目动态新闻
 	</div>

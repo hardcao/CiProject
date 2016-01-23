@@ -49,7 +49,7 @@
 	</div>
 </div> -->
 <div id="contentLayer">
-	<div id="naviTitle"><a href="index.jsp">首页</a> > 个人中心</div>
+	<div id="naviTitle"><a href="<?php echo site_url()?>">首页</a> > 个人中心</div>
 	<div id="personalInfo">
 		<table class="infoTable" border="0" cellpadding="0" cellspacing="0"><tr>
 			<td width="200">个人跟投总额(万元)</td>

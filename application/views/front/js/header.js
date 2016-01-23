@@ -110,7 +110,7 @@ function initHeaderListeners(){
 	});
 
 	$("#header #logo").click(function(){
-		location.href="index.jsp";
+		location.href="<?php echo site_url()?>";
 	});
 }
 
@@ -150,7 +150,7 @@ function loginBackFunc(ev){
 		data:{"projectId":""},
 		success:function(msg){
 			if(currUser == "1001" || (msg.success && msg.dataDto.length > 0)){
-				location.href = "../back/index.jsp";
+				location.href = "../back/<?php echo site_url()?>";
 			}else{
 				alert("当前登录用户没有权限!");
 			}
@@ -161,7 +161,7 @@ function loginBackFunc(ev){
 	});
 
 	// if(currUser && currUser == "1001"){
-	// 	location.href = "../back/index.jsp";
+	// 	location.href = "../back/<?php echo site_url()?>";
 	// }
 	// else{
 	// 	ev.stopPropagation();

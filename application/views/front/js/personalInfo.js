@@ -63,7 +63,7 @@ function initListeners(){
 
 function initPages(){
 	if(tempProId){
-		$("#returnBtn").removeClass("displayNone").find("a").attr("href","subscribeApply.jsp?proId="+tempProId);
+		$("#returnBtn").removeClass("displayNone").find("a").attr("href","subscribeApply?projectId="+tempProId);
 	}
 	getData();
 }

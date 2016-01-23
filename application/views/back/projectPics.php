@@ -225,7 +225,14 @@ function getForceFollowByProjectid(){
 <div id="basic" class="editTitle"><img src="../../application/views/back/images/arrow_down.png" />项目封面图</div>
 		<div><img src="http://localhost/application/views/front/img/title.jpg" width="600px"></div>
 		<div><p>删除</p></div>
-		<div><input class="file" type="file" value="更改封面图片"accept="image/png,image/gif,image/jpeg" id="item_pic" placeholder="上传封面图片"></div>
+		<form method="post" action="<?=site_url()?>files/img/" enctype="multipart/form-data" />
+		    <div style="margin:0 0 0.5em 0em;">
+		        <input type="file" name="userfile" size="20" class="button" />
+		        <input type="submit" value=" 上传 " class="button" />
+		    </div>
+		</form>
+
+
 <div id="basic" class="editTitle"><img src="../../application/views/back/images/arrow_down.png" />项目图库</div>
 <ul id="ul-pics">
 	<li>

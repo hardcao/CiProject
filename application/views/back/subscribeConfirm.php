@@ -7,7 +7,7 @@
 
 <script type="text/javascript" src="<?php echo site_url('application/views/plugins/jquery-1.8.0.min.js')?>"></script>
 <script type="text/javascript" src="<?php echo site_url('application/views/plugins/ajaxfileupload.js')?>"></script>
-
+<script type="text/javascript" src="<?php echo site_url('application/views/plugins/util.js')?>"></script>
 <style type="text/css">
 body{font-size: 12px;}
 #rightLayer #searchLayer #importSubscribeBtn, #rightLayer #searchLayer #exportSubscribeBtn{float: left;margin-right:10px;}
@@ -28,8 +28,30 @@ $(function(){
 		$("#subFileUp").click();
 	});
 	$("#subFileUp").live("change", importSubFunc);
+
 	$("#exportSubscribeBtn").click(function(){
-		location.href = "../subscribe/callSubscribeExport.action?projectId="+projectId+"&subscribeIds=";
+		ctx = "<?php echo site_url();?>"
+		$.ajax({
+				type:'post',//可选get
+				url:'../subscribe/deleteByPrimaryKey.action',
+				// contentType:"application/json",
+				dataType:'json',//服务器返回的数据类型 可选XML ,Json jsonp script html text等
+				data:{
+					projectId:getReqParam('ProjectId')
+					},
+				success:function(msg){
+					if(msg.success){
+						//alert("删除成功！");
+						//getConfirmData();
+						location.href=ctx+'filesFolder/'+msg.data;
+					}else{
+						alert(msg.error);
+					}
+				},
+				error: function (XMLHttpRequest, textStatus, errorThrown) {
+		        	sessionTimeout(XMLHttpRequest, textStatus, errorThrown);
+		        }
+			})
 	});
 	$("#keyForce").click(keyForceFunc);
 
@@ -93,19 +115,20 @@ $(function(){
 });
 function getConfirmData (argument) {
 	confirmList = [];
+	var ctx="<?php echo site_url();?>";
 	$.ajax({
 		type:'post',//可选get
-		url:'../subscribe/queryAllUnComplete.action',
+		url:ctx+'Subscription/getSubscribeList',
 		dataType:'Json',//服务器返回的数据类型 可选XML ,Json jsonp script html text等
 		data:{
-			"projectId":projectId,
-			"startPage":0,
-			"endPage":9999,
+			"projectId":getReqParam('projectId'),
+			//"startPage":0,
+			//"endPage":9999,
 			"random": Math.random() //随机参数，防止IE缓存ajax请求
 		},
 		success:function(msg){
 			if(msg.success){
-				confirmList=msg.dataDto;
+				confirmList=msg.data;
 				loadConfirmList();
 			}else{
 				alert(msg.error);
@@ -117,25 +140,35 @@ function getConfirmData (argument) {
 	})
 }
 function loadConfirmList (argument) {
+	/*
+	FAMOUNT: "200000"
+FBANKNO: "43234234"
+FCONFIRMAMOUNT: null
+FLEVERAMOUNT: "200000"
+FLEVERCONFIRMAMOUNT: null
+FNAME: "123"
+FORG: "test"
+FSTATE: "区域"
+	*/
 	$("#confirmTbody").empty();
 	if(confirmList && confirmList.length > 0){
 		var tempHtml = "";
 		$.each(confirmList, function(ind,val){
 			tempHtml += 
 			'<tr><td>'+(ind+1)+'</td>'+
-				'<td>'+val.uName+'</td>'+
-				'<td>'+val.service+'</td>'+
-				'<td>'+val.subType+'</td>'+
-				'<td>'+ '认购比例'+'</td>'+
+				'<td>'+val.FNAME+'</td>'+
+				'<td>'+val.FORG+'</td>'+
+				'<td>'+val.FSTATE+'</td>'+
+				'<td>'+ val.FLEVERRATIO+'</td>'+
 				//'<td'+ (val.dimission == true ? " class=marked>是" : ">否")+'</td>'+
-				'<td>'+formatMillions(val.contributiveAmount)+'</td>'+
-				'<td>'+formatMillions(val.leverageAmount)+'</td>'+
-				'<td class="displayNone"><input id="adjustInp_'+ind+'" value="'+formatMillions(val.adjustamt)+'" /></td>'+
-				'<td class="displayNone"><input id="adjustLevInp_'+ind+'" value="'+formatMillions(val.adjustLeverageAmt)+'" /></td>'+
-				'<td><input id="confirmInp_'+ind+'" value="'+formatMillions(val.contributiveConfirmAmount)+'" /></td>'+
-				'<td><input id="confirmLevInp_'+ind+'" value="'+formatMillions(val.confirmLeverageAmt)+'" /></td>'+
-				'<td>'+val.bankNo+'</td>'+
-				'<td><a class="saveBtn" ind="'+ind+'" href="javascript:void(0)">保存</a>'+
+				'<td>'+val.FAMOUNT+'</td>'+
+				'<td>'+val.FLEVERAMOUNT+'</td>'+
+				//'<td class="displayNone"><input id="adjustInp_'+ind+'" value="0" /></td>'+
+				//'<td class="displayNone"><input id="adjustLevInp_'+ind+'" value="0" /></td>'+
+				'<td>'+(val.FCONFIRMAMOUNT||0)+'</td>'+
+				'<td>'+(val.FLEVERCONFIRMAMOUNT||0)+'</td>'+
+				'<td>'+val.FBANKNO+'</td>'+
+				//'<td><a class="saveBtn" ind="'+ind+'" href="javascript:void(0)">保存</a>'+
 				// '&nbsp;&nbsp;<a class="delBtn" ind="'+ind+'" href="javascript:void(0)">删除</a></td></tr>';
 				'</td></tr>';
 		});
@@ -193,7 +226,7 @@ function keyForceFunc(){
 </head>
 <body id="rightLayer">
 <div id="searchLayer">
-	<button id="exportSubscribeBtn">导出认购核准模板</button>
+	<!--button id="exportSubscribeBtn">导出认购核准模板</button>
 	<input type="file" id="subFileUp" name="subFileUp" style="left:12em;top:0px;width:80px;">
 	<button id="importSubscribeBtn">导入核准数据</button>
 	<button id="keyForce">一键强制跟投</button>
@@ -205,20 +238,20 @@ function keyForceFunc(){
 			<td rowspan="2" height="34" width="40">序号</td>
 			<td rowspan="2" width="80">认购人</td>
 			<td rowspan="2" width="90">部门</td>
-			<td rowspan="2" width="80">认购类型</td>
+			<td rowspan="2" width="80">区域/总部</td>
 			<!--td rowspan="2" width="70">豁免认购</td-->
-			<td rowspan="2" width="70">认购比例</td>
+			<td rowspan="2" width="70">杠杆比例</td>
 			<td colspan="2">认购额度(万元)</td>
-			<td colspan="2" class="displayNone">调整额度(万元)</td>
+			<!--td colspan="2" class="displayNone">调整额度(万元)</td-->
 			<td colspan="2">平衡额度(万元)</td>
 			<td rowspan="2">分红账号</td>
-			<td rowspan="2" width="60">操作</td>
+			<!--td rowspan="2" width="60">操作</td-->
 		</tr>
 	<tr>
 		<td width="85">出资金额</td>
 		<td width="85">杠杆金额</td>
-		<td width="95" class="displayNone">出资金额</td>
-		<td width="95" class="displayNone">杠杆金额</td>
+		<!--td width="95" class="displayNone">出资金额</td>
+		<td width="95" class="displayNone">杠杆金额</td-->
 		<td width="85">出资金额</td>
 		<td width="85">杠杆金额</td>
 	</tr>

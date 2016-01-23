@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+<!--<%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%
 	String loginId = (String)request.getSession().getAttribute("loginId");
@@ -18,7 +18,7 @@
 <input id="unameInp" type="hidden" value="${loginName}">
 <input id="accountnameInp" type="hidden" value="${accountName}">
 <input type="hidden" name="userid" id="userid" value="张三id">
-<input type="hidden" name="isPerson" id="isPerson" value="">  <!-- 个人中心查询标识 -->
+<input type="hidden" name="isPerson" id="isPerson" value="">  <!-- 个人中心查询标识
 
 	<div id="header">
 	<div id="topLayer">
@@ -50,4 +50,4 @@
 </ul>
 </div>
 </body>
-</html>
+</html> -->

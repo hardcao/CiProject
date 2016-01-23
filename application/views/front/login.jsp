@@ -55,7 +55,7 @@ function checkSubmit(){
 			dataType:'json',//服务器返回的数据类型 可选XML ,Json jsonp script html text等
 			data:data,
 			success:function(msg){
-				if(msg.success) location.href = "index.jsp";
+				if(msg.success) location.href = "<?php echo site_url()?>";
 				else $(".tipsTd").text("用户与密码不匹配!");
 			},
 			error: function (XMLHttpRequest, textStatus, errorThrown) {

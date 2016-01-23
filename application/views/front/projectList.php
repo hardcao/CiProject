@@ -24,7 +24,7 @@
 <div id="contentLayer">
 
 	<input type="hidden" name="type" value="1">
-	<div id="naviTitle"><a href="index.jsp">首页</a> > 认购项目列表</div>
+	<div id="naviTitle"><a href="<?php echo site_url()?>">首页</a> > 认购项目列表</div>
 	<div id="searchLayer">
 		<div class="searSTY">
 			项目认购开始时间:&nbsp;<input id="releaseSDate" name="releaseStartDate" readonly class="dateSTY" />至<input id="releaseEDate" name="releaseEndDate" readonly class="dateSTY" />
@@ -204,7 +204,7 @@ regioAmountComplete: "test"
 					'</tr></table>'+
 				'</div>'+
 				'<div class="buttonLayer">';
-					//+'<div class="forumBtn"><a target="_blank" href="http://ekp.cifi.com.cn/moduleindex.jsp?nav=/km/forum/tree.jsp&main=/km/forum/km_forum_cate/kmForumCategory.do?method=main">答疑讨论区</a></div>';
+					//+'<div class="forumBtn"><a target="_blank" href="http://ekp.cifi.com.cn/module<?php echo site_url()?>?nav=/km/forum/tree.jsp&main=/km/forum/km_forum_cate/kmForumCategory.do?method=main">答疑讨论区</a></div>';
 				//if((tempObj.isPurchase=="" || tempObj.isPurchase==null || tempObj.isPurchase=="null") && new Date(tempObj.subscribeStartDate)<new Date() && new Date(tempObj.subscribeEndDate)>new Date()){
 					tempHtml+='<div class="subscribeBtn"><a href="./subscribeApply?projectId='+tempObj.FID+'">我要认购</a></div>';
 				//}

@@ -112,15 +112,16 @@ class Payrecord extends CI_Controller
             $col++;
             $row++;
         }
-        $fileName ="缴款明细-".date('y-m-dh:i:s',time()).".xlsx";
+        $fileName ="jiao".date('y-m-d-h-i-s',time()).".xlsx";
+
         $baseURL = site_url();
         $objWriter = IOFactory::createWriter($objPHPExcel, 'Excel5');
         $objWriter->save("fileFolder/".$fileName);
-        $data["success"] = true;
-        $data["errorCode"] = 0;
-        $data["error"] = 0;
-        $data['data'] = $fileName;
-        echo json_encode($data);
+        $dataR["success"] = true;
+        $dataR["errorCode"] = 0;
+        $dataR["error"] = 0;
+        $dataR['data'] = $fileName;
+        echo json_encode($dataR);
     }
 
     public function inputXLS()

@@ -1,15 +1,16 @@
-<!DOCTYPE html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <title>数据维护系统 - 缴款确认列表</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 
-<link rel="stylesheet" type="text/css" href="../plugins/pagination.css" />
-<script type="text/javascript" src="../plugins/jquery-1.8.0.min.js"></script>
-<script type="text/javascript" src="../plugins/jquery.datetimepicker.js"></script>
-<script type="text/javascript" src="../plugins/jquery.pagination.js"></script>
-<script type="text/javascript" src="../plugins/ajaxfileupload.js"></script>
 
+<link rel="stylesheet" type="text/css" href="<?php echo site_url('application/views/plugins/pagination.css')?>">
+<script type="text/javascript" src="<?php echo site_url('application/views/plugins/jquery-1.8.0.min.js')?>"></script>
+<script type="text/javascript" src="<?php echo site_url('application/views/plugins/jquery.datetimepicker.js')?>"></script>
+<script type="text/javascript" src="<?php echo site_url('application/views/plugins/jquery.pagination.js')?>"></script>
+<script type="text/javascript" src="<?php echo site_url('application/views/plugins/ajaxfileupload.js')?>"></script>
+<script type="text/javascript" src="<?php echo site_url('application/views/plugins/util.js')?>"></script>
 <style type="text/css">
 body{font-size: 12px;}
 #rightLayer #searchLayer{text-align: right;margin:0px auto 10px;position: relative;}
@@ -38,7 +39,29 @@ function initPayInListeners(){
 
 	// 导出缴款模板
 	$("#rightLayer #exportSubBtn").click(function(){
-		location.href = "../subscribe/callSubscribeRecordByPI.action?projectId="+projectId;
+		//location.href = "../subscribe/callSubscribeRecordByPI.action?projectId="+projectId;
+		ctx = "<?php echo site_url();?>"
+		$.ajax({
+				type:'post',//可选get
+				url:ctx+'Payrecord/outputXls',
+				// contentType:"application/json",
+				dataType:'json',//服务器返回的数据类型 可选XML ,Json jsonp script html text等
+				data:{
+					projectId:getReqParam('ProjectId')
+					},
+				success:function(msg){
+					if(msg.success){
+						//alert("删除成功！");
+						//getConfirmData();
+						location.href=ctx+'fileFolder/'+msg.data;
+					}else{
+						alert(msg.error);
+					}
+				},
+				error: function (XMLHttpRequest, textStatus, errorThrown) {
+		        	sessionTimeout(XMLHttpRequest, textStatus, errorThrown);
+		        }
+			})
 	});
 	// 导入缴款数据
 	$("#rightLayer #importBtn").click(function(){
@@ -60,7 +83,7 @@ function getPayInList(){
 	var _sDate = $("#sDateInp").val();
 	var _eDate = $("#eDateInp").val();
 	var _searText = $("#searTextInp").val();
-	var _obj = '{"projectId":"'+projectId+'",'+
+	var _obj = '{"projectId":"'+getReqParam("projectId")+'",'+
 			// '"projectName":"'+_searText+'",'+
 			// '"startDate":'+_sDate+','+
 			// '"endDate":'+_eDate+','+
@@ -178,8 +201,9 @@ function delPayInFunc(){
 <table id="payInTable" border="1" width="100%"><thead><tr>
 	<td height="34" width="40">序号</td>
 	<td width="110">跟投人</td>
-	<td width="110">部门</td>
-	<td width="100">认购类型</td>
+	<td width="110">部门
+	</td>
+	<td width="100">区域/总部</td>
 	<td width="120">平衡额度<br>(不含杠杆)(万元)</td>
 	<td width="120">缴款批次</td>
 	<td width="150">缴款日期</td>

@@ -15,7 +15,7 @@
 <body>
 <?php require (dirname(dirname(__FILE__)).'/common/header.php'); ?>
 <div id="contentLayer">
-	<div id="naviTitle"><a href="index.jsp">首页</a> > 跟投制度说明</div>
+	<div id="naviTitle"><a href="<?php echo site_url()?>">首页</a> > 跟投制度说明</div>
 	<div id="contentFrame">
 		<div id="titleTab">
 			<div anchor="scheme" class="tabSTY focusOn">跟投方案提报要求</div>
