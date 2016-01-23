@@ -112,8 +112,11 @@ class Payrecord extends CI_Controller
             $col++;
             $row++;
         }
+        $fileName ='test.xls';
+        $baseURL = site_url();
         $objWriter = IOFactory::createWriter($objPHPExcel, 'Excel5');
-        $objWriter->save("nameoffile_6.xls");
+        $objWriter->save("fileFolder/".$fileName);
+        echo $fileName;
     }
 
 
