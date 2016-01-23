@@ -40,7 +40,7 @@
 </div> -->
 <jsp:include page="header.jsp"></jsp:include>
 <div id="contentLayer">
-	<div id="naviTitle"><a href="index.jsp">首页</a> > 认购申请</div>
+	<div id="naviTitle"><a href="<?php echo site_url()?>">首页</a> > 认购申请</div>
 	<div id="protocalView">协议内容请下载附件查看。</div>
 	<div id="protocalOperate">
 		<input id="agreeCK" type="checkbox" />
@@ -152,7 +152,7 @@ function initListeners(){
 			success:function(msg){
 				if(msg.success){
 					if(msg.dataDto){
-						showProtocalList(msg.dataDto);
+						showProtocalList(msg.data);
 					}
 				}else{
 					alert(msg.error);
@@ -195,7 +195,7 @@ function initListeners(){
 	});
 
 	$("#addBonusBtn").click(function(){
-		$(this).attr("href","personalInfo.jsp?projectId="+proId);
+		$(this).attr("href","<?php echo site_url(); ?>home/index/personalInfo?projectId="+getReqParam('projectId'));
 	})
 }
 

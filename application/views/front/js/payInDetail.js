@@ -89,7 +89,7 @@ function loadData(){
 }
 
 function setDimission(){
-	$.ajax({
+	/*$.ajax({
 		type:'post',//可选get
 		url:'../subscribe/updateDimissionByUid.action',
 		// contentType: "application/json; charset=utf-8",
@@ -108,5 +108,5 @@ function setDimission(){
 		error: function (XMLHttpRequest, textStatus, errorThrown) {
         	sessionTimeout(XMLHttpRequest, textStatus, errorThrown);
         }
-	})
+	})*/
 }

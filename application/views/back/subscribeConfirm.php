@@ -37,8 +37,8 @@ $(function(){
 				// contentType:"application/json",
 				dataType:'json',//服务器返回的数据类型 可选XML ,Json jsonp script html text等
 				data:{
-					projectId:getReqParam('ProjectId');
-					}
+					projectId:getReqParam('ProjectId')
+					},
 				success:function(msg){
 					if(msg.success){
 						//alert("删除成功！");

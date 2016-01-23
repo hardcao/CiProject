@@ -23,7 +23,7 @@
 	<p style="display:none" id="site_url"><?php echo site_url();?></p>
 <div id="contentLayer">
 	<div id="naviTitle">
-		<a href="index.jsp">首页</a> ><a href="projectList.jsp">项目信息查看 </a> > <a id="naviProName" href="#">合肥高新项目</a>
+		<a href="<?php echo site_url()?>">首页</a> ><a href="projectList.jsp">项目信息查看 </a> > <a id="naviProName" href="#">合肥高新项目</a>
 	</div>
 	<div id="contentFrame">
 		<div id="titleTab">

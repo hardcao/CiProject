@@ -18,7 +18,7 @@
 <body>
 <?php require (dirname(dirname(__FILE__)).'/common/header.php'); ?>
 <div id="contentLayer">
-	<div id="naviTitle"><a href="index.jsp">首页</a> > 缴款确认</div>
+	<div id="naviTitle"><a href="<?php echo site_url();?>home/index">首页</a> > 缴款确认</div>
 	<div id="searchLayer">
 		<div class="searSTY dimissionSTY displayNone">
 			<button id="dimissionBtn">离职退款</button>

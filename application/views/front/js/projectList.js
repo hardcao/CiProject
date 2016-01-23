@@ -141,7 +141,7 @@ function loadData(dataList){
 					'</tr></table>'+
 				'</div>'+
 				'<div class="buttonLayer">'+
-					'<div class="forumBtn"><a target="_blank" href="http://ekp.cifi.com.cn/moduleindex.jsp?nav=/km/forum/tree.jsp&main=/km/forum/km_forum_cate/kmForumCategory.do?method=main">答疑讨论区</a></div>';
+					'<div class="forumBtn"><a target="_blank" href="http://ekp.cifi.com.cn/module<?php echo site_url()?>?nav=/km/forum/tree.jsp&main=/km/forum/km_forum_cate/kmForumCategory.do?method=main">答疑讨论区</a></div>';
 				if((tempObj.isPurchase=="" || tempObj.isPurchase==null || tempObj.isPurchase=="null") && new Date(tempObj.subscribeStartDate)<new Date() && new Date(tempObj.subscribeEndDate)>new Date()){
 					tempHtml+='<div class="subscribeBtn"><a href="subscribeApply.jsp?proId='+tempObj.projectId+'">我要认购</a></div>';
 				}

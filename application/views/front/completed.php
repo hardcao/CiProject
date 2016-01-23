@@ -17,7 +17,7 @@
 <body>
 <?php require (dirname(dirname(__FILE__)).'/common/header.php'); ?>
 <div id="contentLayer">
-	<div id="naviTitle"><a href="index.jsp">首页</a> > 已完成认购</div>
+	<div id="naviTitle"><a href="<?php echo site_url()?>">首页</a> > 已完成认购</div>
 	<div id="searchLayer">
 		<div class="searSTY floatR">
 			<input id="searchText" placeholder="请输入项目名" value="" />&nbsp;
