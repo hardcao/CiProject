@@ -159,6 +159,7 @@ class Payrecord extends CI_Controller
            $objPHPExcel = $objReader->load($inputFileName);
            $sheetData =$objPHPExcel->getActiveSheet()->toArray(null,true,true,true);
            $row = 0;
+           $result = "";
            foreach ($sheetData as $key => $value) {
                 if($row == 0)
                 {
@@ -166,20 +167,23 @@ class Payrecord extends CI_Controller
                     continue;
                 }
                 $insertArr = array();
-                $insertArr['FSUBSCRIBECONFIGRMRECORDID'] = $value['A'];
-                $insertArr['FPAYTIMES'] = $value['F'];
                 $insertArr['FPAYDATE'] = $value['G'];
                 $insertArr['FPAYAMOUNT'] = $value['H'];
                 $count = $this->Payrecord_model->getPayCountWithTime($value['A'],$value['F']);
                 $tableName = 'T_PAYRECORD';
                 $this->load->model('Tools');
+                echo json_encode($result);
                 if(intval($count)>0){
                     $where = 'FSUBSCRIBECONFIGRMRECORDID='. $value['A'].' AND FPAYTIMES='. $value['F'];
                     $result = $this->Tools->updateData( $insertArr,$tableName,$where);
                 } else {
+                     $insertArr['FSUBSCRIBECONFIGRMRECORDID'] = $value['A'];
+                     $insertArr['FPAYTIMES'] = $value['F'];
                      $result = $this->Tools->addData( $insertArr,$tableName);
                 } 
            }
+           if($result)
+                echo json_decode($result);
          }
        
     }

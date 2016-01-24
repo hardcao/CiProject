@@ -60,9 +60,10 @@ class Payrecord_model extends CI_Model
     public function getPayCountWithTime($FID,$time)
     {
         $this->db->select("*");
-        $this->db->where('FSUBSCRIBECONFIGRMRECORDID',$FID);
-        $this->db->where('FPAYTIMES',$time);
-        $result = $this->db->count_all('T_PAYRECORD');
+        $where = 'FSUBSCRIBECONFIGRMRECORDID='.$FID." AND FPAYTIMES = ".$time;
+        $this->db->where($where);
+        $this->db->from('T_PAYRECORD');
+        $result = $this->db->count_all_results();
         return $result;
     }
     
