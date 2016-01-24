@@ -154,9 +154,9 @@ class Payrecord_model extends CI_Model
     }
 
     
-    public function getPayRecordListByName($subscribeStartDate, $subscribeEndDate,$userName) {
+    public function getPayRecordListByName($subscribeStartDate, $subscribeEndDate,$userName,$projectId) {
         $tablename = 'T_PROJECT';
-       
+        
         if($subscribeStartDate || $subscribeEndDate){
         $startdatetime = new DateTime($subscribeStartDate);
         $startTime= $startdatetime->format('Y-m-d H:i:s');

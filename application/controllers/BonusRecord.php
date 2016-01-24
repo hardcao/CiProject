@@ -67,9 +67,10 @@ class BonusRecord extends CI_Controller
     public function outputXls()
     {
        $projectId = $this->input->post('projectId');
+       
        $result = $this->BonusRecord_model->getAllPayRecod($projectId);
       
-     
+        
         $objPHPExcel = new PHPExcel();
         $objPHPExcel->getProperties()->setTitle("title")->setDescription("description");
         $objPHPExcel->setActiveSheetIndex(0);

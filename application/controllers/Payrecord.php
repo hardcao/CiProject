@@ -196,16 +196,22 @@ class Payrecord extends CI_Controller
     //Payrecord/getPayRecoListByName
 
     public function getPayRecordListByName(){
+         $projectId =  $this->input->post('projectId');
          $subscribeStartDate = $this->input->post('startDate');
          $subscribeEndDate = $this->input->post('endDate');
          $userName = $this->input->post('uname');
-         $result = $this->Payrecord_model->getPayRecordListByName($subscribeStartDate, $subscribeEndDate,$userName);
+         $result = $this->Payrecord_model->getPayRecordListByName($subscribeStartDate, $subscribeEndDate,$userName,$projectId);
          echo json_encode($result);
     }
     
     // Payrecord/exportPayRecordXls
     public function exportPayRecordXls()
     {
+
+        $projectId =  $this->input->post('projectId');
+        $subscribeStartDate = $this->input->post('startDate');
+        $subscribeEndDate = $this->input->post('endDate');
+        $userName = $this->input->post('uname');
         
        $result = $this->Payrecord_model->exportPayRecordXls();
        

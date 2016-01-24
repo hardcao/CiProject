@@ -14,7 +14,7 @@ class Subscription_model extends CI_Model
     }
 
     /*
-        status : -1 默认状态，0 已经认购，1 未完成认购
+        status : 0 默认状态，1 已经认购，2 未完成认购
     */
 
     public function getSubscription($userId,$status){
@@ -48,13 +48,13 @@ class Subscription_model extends CI_Model
     public function isSubscriptionProject($userID,$projecID,$status)
     {
         $flag = intval($status);
-        if($flag == -1) return true;
+        if($flag == 0) return true;
         $this->db->select("*");
         $where = 'FUSERID='.$userID." AND FPROJECTID = ".$projecID;
         $this->db->where($where);
         $this->db->from('T_SUBSCRIBECONFIRMRECORD');
         $result = $this->db->count_all_results();
-        if(($flag == 0&& $result > 0) ||($flag == 1 && $result ==0))  return true;
+        if(($flag == 1&& $result > 0) ||($flag == 2 && $result ==0))  return true;
         return false;
     }
 
