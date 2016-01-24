@@ -25,7 +25,7 @@
                     <a href="<?php echo site_url().'home/index/newsList#1';?>">动态新闻<span></a>
                 </div>
                 <div class="item news">
-                    <a href="<?php echo site_url().'home/index/projectList?query=1';?>">我要认购<span></a>
+                    <a href="<?php echo site_url().'home/index/projectList?query=0';?>">我要认购<span></a>
                     <a href="<?php echo site_url().'home/index/projectList?query=2';?>">未完成认购<span></a>
                     <a href="<?php echo site_url().'home/index/completed#2';?>">已完成认购<span></a>
                     <a href="<?php echo site_url().'home/index/payInDetail#2';?>">缴款确认<span></a>
