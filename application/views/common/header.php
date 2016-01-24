@@ -11,7 +11,7 @@
             </ul>
 
             <div id="shop">
-                <a class="btn-lang tmp-unselect" href="javascript:void(0);">登录</a>
+                <a class="btn-lang tmp-unselect" onclick="check_login()" id="login">登录</a>
                 <!--a href="javascript:void(0);" class="btn-search"></a-->
             </div>
         </div>

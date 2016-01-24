@@ -36,7 +36,7 @@
 </div> -->
 <div id="contentLayer">
 	<div id="naviTitle"><a href="<?php echo site_url()?>">首页</a> > 帮助中心</div>
-	<div id="forumLink"><a target="_blank" href="http://ekp.cifi.com.cn/module<?php echo site_url()?>?nav=/km/forum/tree.jsp&main=/km/forum/km_forum_cate/kmForumCategory.do?method=main">答疑讨论区</a></div>
+
 	<div id="listLayer">
 		<div class="listSTY">
 			<table width="95%"><tr>

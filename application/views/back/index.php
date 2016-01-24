@@ -153,7 +153,7 @@ function isPermission(_arr,_ind){
 }
 function projectRedirect(projectId){
 	//javascript:projectRedirect('+val.projectId+')
-	location.href="projectManage.jsp?projectId="+projectId;
+	location.href="<?php echo site_url();?>back/projectManage?projectId="+projectId;
 }
 function loadContentPage () {
 	if(naviVal == "projectInfo"){

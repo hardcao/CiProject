@@ -62,7 +62,7 @@ function loadData(){
 		$.each(dataList, function(ind, val){
 			tempHtml +=
 			'<tr><td height="35">'+(ind+1)+'</td>'+
-				'<td><a href="projectDetail.jsp?proId='+val.projectId+'">'+val.projectName+'</a></td>'+
+				'<td><a href="<?php echo site_url();?>back/projectDetail?projectId='+val.projectId+'">'+val.projectName+'</a></td>'+
 				'<td>'+val.subscribeType+'</td>'+
 				'<td>'+formatMillions(val.subscribeAmount)+'</td>'+
 				'<td>'+val.bonusTimes+'</td>'+
