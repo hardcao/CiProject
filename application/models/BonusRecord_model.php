@@ -160,7 +160,7 @@ class BonusRecord_model extends CI_Model
         }
 
     
-        public function getBonusRecordListByName($subscribeStartDate, $subscribeEndDate,$userName) {
+        public function getBonusRecordListByName($subscribeStartDate, $subscribeEndDate,$userName,$projectId) {
            
             if($subscribeStartDate || $subscribeEndDate){
                 $startdatetime = new DateTime($subscribeStartDate);
@@ -174,7 +174,7 @@ class BonusRecord_model extends CI_Model
             $selectData = "T_BONUSRECORD.FID as FID, T_USER.FNAME as FNAME, T_USER.FORG as FORG,T_FOLLOWER.FSTATE as FSTATE,T_SUBSCRIBECONFIRMRECORD.FCONFIRMAMOUNT as FCONFIRMAMOUNT,T_BONUSRECORD.FBONUSTIMES as FBONUSTIMES,T_BONUSRECORD.FBONUSDATE as FBONUSDATE,T_BONUSRECORD.FBONUSAMOUNT as FBONUSAMOUNT,T_BANKINFO.FBANKNO as FBANKNO";
             $this->db->select($selectData);
             $this->db->join('T_USER','T_USER.FID=T_SUBSCRIBECONFIRMRECORD.FUSERID');
-            $this->db->join('T_FOLLOWER','T_FOLLOWER.FUSERID=T_SUBSCRIBECONFIRMRECORD.FUSERID');
+           $this->db->join('T_FOLLOWER','T_FOLLOWER.FUSERID=T_SUBSCRIBECONFIRMRECORD.FUSERID AND T_FOLLOWER.FPROJECTID=T_SUBSCRIBECONFIRMRECORD.FPROJECTID');
             $this->db->join('T_BANKINFO','T_BANKINFO.FID=T_SUBSCRIBECONFIRMRECORD.FBANKID');
             $this->db->join('T_BONUSRECORD','T_BONUSRECORD.FSUBSCRIBECONFIGRMRECORDID=T_SUBSCRIBECONFIRMRECORD.FID');
             if($userName)

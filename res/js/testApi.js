@@ -22,13 +22,18 @@ $("#btn_login").click(function(){
 				type: "post",
 				data:{
 					projectId:27,
+					startDate:'2013-09-01 09:50:00',
+					endDate:'2016-09-01 09:50:00',
+					uname:'',
+					userId:1,
+
 				},
 				success: function(data){
-					//bootbox.alert(data);
+					bootbox.alert(data);
 
 				},
 				error: function (XMLHttpRequest, textStatus, errorThrown) {
-					//bootbox.alert(XMLHttpRequest.responseText);
+					bootbox.alert(XMLHttpRequest.responseText);
 		        }
 
 			});
