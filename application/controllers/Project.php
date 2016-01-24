@@ -144,7 +144,8 @@ class Project extends CI_Controller
          $subscribeStartDate = $this->input->post('subscribeStartDate');
          $subscribeEndDate = $this->input->post('subscribeEndDate');
          $projectName = $this->input->post('searchname');
-         $result = $this->project_model->getAllFollowProject($userID,$subscribeStartDate, $subscribeEndDate,$projectName);
+         $queryType = $this->input->post('queryType');
+         $result = $this->project_model->getAllFollowProject($userID,$subscribeStartDate, $subscribeEndDate,$projectName,$queryType);
          echo  json_encode($result);
      }
      

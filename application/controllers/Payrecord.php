@@ -212,8 +212,12 @@ class Payrecord extends CI_Controller
         $subscribeStartDate = $this->input->post('startDate');
         $subscribeEndDate = $this->input->post('endDate');
         $userName = $this->input->post('uname');
-        
-       $result = $this->Payrecord_model->exportPayRecordXls($subscribeStartDate, $subscribeEndDate,$userName,$projectId);
+        $tmp['projectId'] = $projectId;
+        $tmp['subscribeStartDate'] = $subscribeStartDate;
+        $tmp['subscribeEndDate'] = $subscribeEndDate;
+        $tmp['userName'] = $userName;
+        echo json_encode($tmp);
+       /*$result = $this->Payrecord_model->exportPayRecordXls($subscribeStartDate, $subscribeEndDate,$userName,$projectId);
        
         $objPHPExcel = new PHPExcel();
         $objPHPExcel->getProperties()->setTitle("title")->setDescription("description");
@@ -272,6 +276,6 @@ class Payrecord extends CI_Controller
         $dataR["errorCode"] = 0;
         $dataR["error"] = 0;
         $dataR['data'] = $fileName;
-        echo json_encode($dataR);
+        echo json_encode($dataR);*/
     }
 }

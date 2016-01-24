@@ -54,7 +54,7 @@ class Project_model extends CI_Model
         return  $data;
     }
 
-    public function getAllFollowProject($userID,$subscribeStartDate, $subscribeEndDate,$projectName) {
+    public function getAllFollowProject($userID,$subscribeStartDate, $subscribeEndDate,$projectName,$queryType) {
         $tablename = 'T_PROJECT';
         $where ='';
         $startdatetime = new DateTime($subscribeStartDate);
@@ -65,6 +65,7 @@ class Project_model extends CI_Model
         $projectIDList = $this->getFollowProjectListWithUserID($userID);
         $resultArr = array();
         foreach ($projectIDList as $item) {
+            if(!isSubscriptionProject($userId,$item['FPROJECTID'],$queryType)) continue;
             if($item['FPROJECTID']) {
                 $where = $where.' AND FPROJECTID='.$item['FPROJECTID'];
             }
@@ -81,6 +82,19 @@ class Project_model extends CI_Model
         $data["error"] = 0;
         $data['data'] =  $resultArr;
         return $data;
+    }
+
+     public function isSubscriptionProject($userID,$projecID,$queryType)
+    {
+        $flag = intval($queryType);
+        if($flag == 0) return true;
+        $this->db->select("*");
+        $where = 'FUSERID='.$userID." AND FPROJECTID = ".$projecID;
+        $this->db->where($where);
+        $this->db->from('T_SUBSCRIBECONFIRMRECORD');
+        $result = $this->db->count_all_results();
+        if(($flag == 1&& $result > 0) ||($flag == 2 && $result ==0))  return true;
+        return false;
     }
     
     public function getProjectList($begin,$count,$userID,$subscribeStartDate, $subscribeEndDate, $status,$projectName){
