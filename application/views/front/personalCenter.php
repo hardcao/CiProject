@@ -68,7 +68,8 @@
 	<div id="projectInfo">
 		<div id="projectList">
 			<div class="proTitle">
-				<span class="titleSTY">未完成跟投项目</span><a class="moreSTY" href="projectList.jsp?isPerson=yes">更多 》</a>
+				<span class="titleSTY">未完成跟投项目</span>
+				<a class="moreSTY" href="<?php echo site_url(); ?>home/index/projectList?query=2&isPerson=yes">更多 》</a>
 			</div>
 			<div class="proList">
 				<!-- <div class="listSTY">
@@ -104,7 +105,8 @@
 	</div>
 	<div id="completedInfo">
 		<div class="compTitle">
-			<span class="titleSTY">已完成认购</span><a class="moreSTY" href="completed.jsp">更多 》</a>
+			<span class="titleSTY">已完成认购</span>
+			<a class="moreSTY" href="<?php echo site_url() ?>home/index/completed">更多 》</a>
 		</div>
 		<div class="compList">
 			<table width="100%" border="1" cellpadding="0" cellspacing="0"><thead><tr>
@@ -139,7 +141,8 @@
 	</div>
 	<div id="payInInfo">
 		<div class="payInTitle">
-			<span class="titleSTY">缴款确认</span><a class="moreSTY" href="payInDetail.jsp">更多 》</a>
+			<span class="titleSTY">缴款确认</span>
+			<a class="moreSTY" href="<?php echo site_url() ?>home/index/payInDetail">更多 》</a>
 		</div>
 		<div class="payInList">
 			<table width="100%" border="1" cellpadding="0" cellspacing="0"><thead><tr>
@@ -167,7 +170,8 @@
 	</div>
 	<div id="bonusInfo">
 		<div class="bonusTitle">
-			<span class="titleSTY">分红明细</span><a class="moreSTY" href="bonusDetail.jsp">更多 》</a>
+			<span class="titleSTY">分红明细</span>
+			<a class="moreSTY" href="<?php echo site_url() ?>home/index/bonusDetail">更多 》</a>
 		</div>
 		<div class="bonusList">
 			<table width="100%" border="1" cellpadding="0" cellspacing="0"><thead><tr>

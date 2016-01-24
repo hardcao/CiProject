@@ -24,13 +24,13 @@
 <div id="contentLayer">
 	<div id="naviTitle"><a href="<?php echo site_url()?>">首页</a> > 分红明细</div>
 	<div id="searchLayer">
-		<div class="searSTY">
+		<!--div class="searSTY">
 			分红日期：<input id="sDateInp" readonly />&nbsp;&nbsp;至&nbsp;&nbsp;<input id="eDateInp" readonly />
 		</div>
 		<div class="searSTY floatR">
 			<input id="searTextInp" type="search" placeholder="请输入项目名" value="" />&nbsp;
 			<button id="searchBtn">搜索</button>
-		</div>
+		</div-->
 	</div>
 	<div id="listLayer">
 		<table width="100%" border="1"><thead><tr>

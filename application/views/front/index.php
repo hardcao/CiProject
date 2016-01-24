@@ -37,7 +37,7 @@
 
 h2
 {
-	font-size:20px;
+	font-size:16px;
 	font-weight: 600;
 }
 
@@ -196,15 +196,16 @@ function getProjectData(){
 	var ctx="<?php echo site_url();?>";
 	$.ajax({
 		type:'post',//可选get
-		url:ctx+'Project/getProjectList',
+		url:ctx+'project/getAllFollowProject',
 		dataType:'Json',//服务器返回的数据类型 可选XML ,Json jsonp script html text等
 		data:{
 			begin: 0,
 			count: 2,
-			uid: 'test1',
-			subscribeStartDate: '2014-09-01 09:50:00',
-			subscribeEndDate:'2016-09-01 09:50:00',
-			status: 1		
+			uid: '1',
+			searchname: "",
+			subscribeStartDate: "",
+			subscribeEndDate:"",
+			queryType: 0,	
 		},
 		success:function(msg){
 			if(msg.success){
@@ -320,7 +321,7 @@ function loadProjectData(){
 	        </tr-->
 	*/
 		tempHtml += '<tr class="row"><td class="left_td"><img src="' + tempImg + '" width="200px" height="150px"></td>';
-		tempHtml += '<td class="right_td"><a href="home/index/projectDetail/?proId='+val.projectId+'"><h2 style="color:red">项目名称'+val.projectName +'</a></h2><br>';
+		tempHtml += '<td class="right_td"><a href="home/index/projectDetail/?projectId='+val.FID+'"><h2 style="color:red">项目名称:  '+val.FNAME +'</a></h2><br>';
 		tempHtml += '<h4>总部最大可跟投总额（含杠杆）:'+val.HDAmount +'</a></h4><h4>区域最大可跟投总额（含杠杆）:'+val.regioAmount +'</a></h4><br></td></tr>';
 		/*tempHtml += 
 			'<div class="listSTY">'+
