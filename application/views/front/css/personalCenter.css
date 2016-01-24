@@ -4,7 +4,7 @@
 #contentLayer #personalInfo .infoTable td{padding:0px 15px;border-right: 1px solid #e8e8e8;}
 #contentLayer #personalInfo .infoTable .valSTY{font-size: 1.2em;color: #FF2608;text-align: right;}
 
-#contentLayer .titleSTY{font-size: 1.4em;}
+#contentLayer .titleSTY{font-size: 14px;}
 #contentLayer .moreSTY{float: right;}
 #contentLayer #projectInfo{overflow: hidden;}
 #contentLayer #projectList{float: left;height: 285px;width: 1077px;border: 1px solid #e8e8e8;border-radius: 3px;

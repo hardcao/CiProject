@@ -30,7 +30,7 @@
 #rightLayer #forceTable .trTitle, #rightLayer #subTable .trTitle{background: url(application/views/back/images/thead_bg.png);color: #727070;}
 #rightLayer #forceTable td, #rightLayer #subTable td{text-align: center;border:1px solid #C0BEBE;}
 #rightLayer #forceTable tbody td, #rightLayer #subTable tbody td{height: 30px;border:1px solid #C0BEBE;}
-#rightLayer #forceTable tbody input, #rightLayer #subTable tbody input{padding: 0px 3px;width: 70%;text-align: center;font-size: 1.1em;}
+#rightLayer #forceTable tbody input, #rightLayer #subTable tbody input{padding: 0px 3px;width: 70%;text-align: center;font-size: 14px;}
 
 #forceDialogBgLayer{position: fixed;width: 100%;height: 100%;background: #000;opacity: 0.7;top: 0;left: 0;}
 #forceDialogLayer{position: fixed;width: 100%;height: 100%;top: 0;left: 0;}

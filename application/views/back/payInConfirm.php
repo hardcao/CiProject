@@ -40,7 +40,7 @@ function initPayInListeners(){
 	// 导出缴款模板
 	$("#rightLayer #exportSubBtn").click(function(){
 		//location.href = "../subscribe/callSubscribeRecordByPI.action?projectId="+projectId;
-		ctx = "<?php echo site_url();?>"
+		ctx = "<?php echo site_url();?>";
 		$.ajax({
 				type:'post',//可选get
 				url:ctx+'Payrecord/outputXls',
@@ -83,25 +83,25 @@ function getPayInList(){
 	var _sDate = $("#sDateInp").val();
 	var _eDate = $("#eDateInp").val();
 	var _searText = $("#searTextInp").val();
-	var _obj = '{"projectId":"'+getReqParam("projectId")+'",'+
+	var _obj = {projectId: getReqParam("projectId"),
 			// '"projectName":"'+_searText+'",'+
-			// '"startDate":'+_sDate+','+
-			// '"endDate":'+_eDate+','+
+			startDate:_sDate,
+			endDate:_eDate,
 			// '"piId":"",'+
 			// '"piTimes":0,'+
 			// '"subscribeAmt":0,'+
 			// '"piDate":"",'+
 			// '"piAmt":0,'+
 			// '"numberCode":"",'+
-			'"uname":"'+_searText+'",'+
+			uname:_searText,
 			// '"userId":""'+
-			'"startPage":"'+0+'",'+
-			'"endPage":"'+999+'"'+
-			'}';
+			startPage:0,
+			endPage:999
+			};
+	ctx = "<?php echo site_url();?>";
 	$.ajax({
 		type:'post',//可选get
-		url:'../PayInDetailController/selectListByDetail.action',
-		contentType: "application/json; charset=utf-8",
+		url:ctx+'Payrecord/',
 		dataType:'json',//服务器返回的数据类型 可选XML ,Json jsonp script html text等
 		data:_obj,
 		success:function(msg){
