@@ -86,6 +86,8 @@ class Subscription extends CI_Controller
         echo  json_encode($result);
     }
 
+
+// 更新认购表信息
     public function updateSubscribe() {
         $data = $this->input->input_stream();
         $where = 'FID='.$data['FID'];

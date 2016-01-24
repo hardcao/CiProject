@@ -156,20 +156,31 @@ class Subscription_model extends CI_Model
     }
 
     public function getHasSubscribe($userID){
-        $selectData = 'T_SUBSCRIBECONFIRMRECORD.FID as FID,sum(T_BONUSRECORD.FBONUSAMOUNT) as TOTALFBONUSAMOUNT,sum(T_PAYRECORD.FPAYAMOUNT) as TOTALFPAYAMOUNT,
-        T_SUBSCRIBECONFIRMRECORD.FAMOUNT as FAMOUNT,T_SUBSCRIBECONFIRMRECORD.FCONFIRMAMOUNT as FCONFIRMAMOUNT,T_SUBSCRIBECONFIRMRECORD.FLEVERCONFIRMAMOUNT as FLEVERCONFIRMAMOUNT,T_SUBSCRIBECONFIRMRECORD.FCREATETIME as FCREATETIME,T_SUBSCRIBECONFIRMRECORD.FLEVERAMOUNT as FLEVERAMOUNT,T_BANKINFO.FBANKNO as FBANKNO,T_PROJECT.FNAME as FNAME';
+        $selectData = 'T_SUBSCRIBECONFIRMRECORD.FID as FID ,T_SUBSCRIBECONFIRMRECORD.FAMOUNT as FAMOUNT,T_SUBSCRIBECONFIRMRECORD.FCONFIRMAMOUNT as FCONFIRMAMOUNT,T_SUBSCRIBECONFIRMRECORD.FLEVERCONFIRMAMOUNT as FLEVERCONFIRMAMOUNT,T_SUBSCRIBECONFIRMRECORD.FCREATETIME as FCREATETIME,T_SUBSCRIBECONFIRMRECORD.FLEVERAMOUNT as FLEVERAMOUNT,T_BANKINFO.FBANKNO as FBANKNO,T_PROJECT.FNAME as FNAME';
         $this->db->select($selectData);
         $this->db->where('T_SUBSCRIBECONFIRMRECORD.FUSERID',$userID);
-        $this->db->join('T_BONUSRECORD','T_BONUSRECORD.FSUBSCRIBECONFIGRMRECORDID = T_SUBSCRIBECONFIRMRECORD.FID');
-        $this->db->join('T_PAYRECORD','T_PAYRECORD.FSUBSCRIBECONFIGRMRECORDID = T_SUBSCRIBECONFIRMRECORD.FID');
         $this->db->join('T_PROJECT','T_PROJECT.FID = T_SUBSCRIBECONFIRMRECORD.FPROJECTID');
         $this->db->join('T_BANKINFO','T_BANKINFO.FID = T_SUBSCRIBECONFIRMRECORD.FBANKID');
         $this->db->group_by("T_SUBSCRIBECONFIRMRECORD.FID"); 
         $result = $this->db->get('T_SUBSCRIBECONFIRMRECORD')->result_array();
+        $insertArr =  array();
+        foreach ($result as $item) {
+            $item['TOTALFBONUSAMOUNT'] = 0;//$this->getRecordInfo($item['FID'],'T_BONUSRECORD','FBONUSAMOUNT');
+            $item['TOTALFPAYAMOUNT'] = 0;// $this->getRecordInfo($item['FID'],'T_PAYRECORD','FPAYAMOUNT');
+            array_push($insertArr,  $item);
+        }
         $data["success"] = true;
         $data["errorCode"] = 0;
         $data["error"] = 0;
-        $data['data'] = $result;
+        $data['data'] =  $insertArr;
         return  $data;
+    }
+
+     public function getRecordInfo($T_SUBSCRIBECONFIRMRECORDID,$table,$sumItem) {
+        $this->db->select('*');
+       // $this->db->select('sum('.$sumItem.') as TOTAL'.$sumItem);
+        $this->db->where('FSUBSCRIBECONFIGRMRECORDID', $T_SUBSCRIBECONFIRMRECORDID);
+        $result = $this->db->get($table)->result_array();
+        return $result[0];
     }
 }
