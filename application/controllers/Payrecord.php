@@ -112,7 +112,7 @@ class Payrecord extends CI_Controller
             $col++;
             $row++;
         }
-        $fileName ="缴款记录-".date('y-m-d-h-i-s',time()).".xlsx";
+        $fileName ="JiaoKuanMuBan-".date('y-m-d-h-i-s',time()).".xlsx";
 
         $baseURL = site_url();
         $objWriter = IOFactory::createWriter($objPHPExcel, 'Excel5');
@@ -252,7 +252,7 @@ class Payrecord extends CI_Controller
             $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow($col, $row, $data['FPAYAMOUNT']);
             $row++;
         }
-        $fileName ="缴款记录-".date('y-m-d-h-i-s',time()).".xlsx";
+        $fileName ="JiaoKuanJiLu-".date('y-m-d-h-i-s',time()).".xlsx";
 
         $baseURL = site_url();
         $objWriter = IOFactory::createWriter($objPHPExcel, 'Excel5');
