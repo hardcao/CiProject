@@ -71,7 +71,9 @@ function initPayInListeners(){
 	// 导出缴款数据
 	$("#rightLayer #exportBonusBtn").click(function(){
 		//location.href = "../PayInDetailController/callPayInExport.action?projectId="+projectId+"&piIds=";
-
+		var _sDate = $("#sDateInp").val();
+		var _eDate = $("#eDateInp").val();
+		var _searText = $("#searTextInp").val();
 		var ctx = "<?php echo site_url();?>";
 		var _obj = {projectId: getReqParam("projectId"),
 					startDate:_sDate,
