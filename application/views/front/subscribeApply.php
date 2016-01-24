@@ -38,10 +38,9 @@
 		</ul>
 	</div>
 </div> -->
-<jsp:include page="header.jsp"></jsp:include>
 <div id="contentLayer">
 	<div id="naviTitle"><a href="<?php echo site_url()?>">首页</a> > 认购申请</div>
-	<div id="protocalView">协议内容请下载附件查看。</div>
+	<div id="protocalView">跟投详细信息和跟投协议相关内容请下载附件查看。</div>
 	<div id="protocalOperate">
 		<input id="agreeCK" type="checkbox" />
 		<label for="agreeCK">同意协议</label>
@@ -92,7 +91,7 @@
 		<tr>
 			<td></td>
 			<td height="30" valign="top">
-				<span style="font-size:0.9em;">请<a id="addBonusBtn" href="javascript:void(0)" style="font-size:0.9em;">点击这里</a>添加分红帐号</span>
+				<span style="font-size:0.9em;"><a id="addBonusBtn" href="javascript:void(0)" style="font-size:0.9em; color:grey">添加分红帐号</a></span>
 			</td>
 		</tr>
 		<tr>
