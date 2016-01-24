@@ -190,11 +190,11 @@ class Payrecord extends CI_Controller
 
     //Payrecord/getPayRecoListByName
 
-    public function getPayRecoListByName(){
+    public function getPayRecordListByName(){
          $subscribeStartDate = $this->input->post('startDate');
          $subscribeEndDate = $this->input->post('endDate');
          $userName = $this->input->post('uname');
-         $result = $this->Payrecord_model->getPayRecoListByName($subscribeStartDate, $subscribeEndDate,$userName);
+         $result = $this->Payrecord_model->getPayRecordListByName($subscribeStartDate, $subscribeEndDate,$userName);
          echo json_encode($result);
     }
     
