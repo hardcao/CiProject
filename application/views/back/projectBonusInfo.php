@@ -82,7 +82,7 @@ function initBonusListeners(){
 			url: ctx+'BonusRecord/outputXls', //用于文件上传的服务器端请求地址
 			dataType: 'JSON', //返回值类型 一般设置为json
 			data:{
-				// "filePath":"d://BonusDetail.xlsx"
+				projectId: getReqParam("projectId")
 			},
 			success: function (msg){  //服务器成功响应处理函数			
 				if(msg.success == true){
@@ -471,48 +471,4 @@ function getPath(obj,fileQuery){
 		<td><a href="javascript:void(0)">删除</a></td></tr> -->
 </tbody></table>
 </body>
-<div id="dialogBgLayer" style="display:none;"></div>
-<div id="dialogLayer" style="display:none;">
-	<div class="dialogSTY">
-		<div class="tipTitle">
-			<input type="file" id="bonusFileUp" name="bonusFileUp" onchange="importBonusFunc();" style="width: 0px;height: 0px;padding: 0px;margin: 0px;">
-			<button id="importBtn">批量导入分红</button> &nbsp;&nbsp;
-			<button id="exportSubBtn">导出认购记录</button> &nbsp;&nbsp; 
-		</div>
-		<div class="searDiv">
-			<input id="searUserInp" placeholder="请输入项目名或认购人" />
-			<button id="searUserBtn">搜索</button>
-		</div>
-		<div class="contentDiv"><table border="1"><thead><tr>
-			<td width="30">序号</td>
-			<td width="110">认购人</td>
-			<td width="210">跟投项目</td>
-			<td width="120">认购总额<br>(含杠杆)(万元)</td>
-			<td width="120">认购类型</td>
-			<td width="80">分红批次</td>
-			<td width="100">分红金额(万元)</td>
-			<td>操作</td>
-		</tr></thead>
-		<tbody id="subscribeTbody">
-			<!-- <tr><td height="35">
-				1
-			</td><td>
-				张三
-			</td><td>
-				合肥高新
-			</td><td>
-				23
-			</td><td>
-				<select><option>集团强投包</option><option>集团选投包</option></select>
-			</td><td>
-				<input value="1" />
-			</td><td>
-				<input value="5" />
-			</td><td>
-				<a href="javascript:void(0)">保存</a>
-			</td></tr> -->
-		</tbody></table></div>
-		<div id="bonusPagination"></div>
-		<div class="btnDiv"><button id="okBonusBtn">确定</button><button id="cancelBonusBtn" style="display:none;">取消</button></div>
-	</div>
 </html>

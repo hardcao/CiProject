@@ -73,12 +73,17 @@ function initPayInListeners(){
 		//location.href = "../PayInDetailController/callPayInExport.action?projectId="+projectId+"&piIds=";
 
 		var ctx = "<?php echo site_url();?>";
+		var _obj = {projectId: getReqParam("projectId"),
+					startDate:_sDate,
+					endDate:_eDate,
+					uname:_searText,
+					startPage:0,
+					endPage:999
+		};
 		$.ajax({
 			url: ctx+'/Payrecord/exportPayRecordXls', //用于文件上传的服务器端请求地址
 			dataType: 'JSON', //返回值类型 一般设置为json
-			data:{
-				// "filePath":"d://BonusDetail.xlsx"
-			},
+			data:_obj,
 			success: function (msg){  //服务器成功响应处理函数			
 				if(msg.success == true){
 					//alert("导入成功!");
@@ -228,7 +233,7 @@ function delPayInFunc(){
 	<button id="exportSubBtn" class="btnSTY">导出缴款模板</button>
 	<button id="importBtn" class="btnSTY">导入缴款</button>
 	<button id="exportBonusBtn" class="btnSTY">导出缴款</button>
-	<!-- 缴款日期：<input id="sDateInp" readonly class="dateSTY" />至<input id="eDateInp" readonly class="dateSTY" style="margin-right: 40px;" /> -->
+	缴款日期：<input id="sDateInp" readonly class="dateSTY" />至<input id="eDateInp" readonly class="dateSTY" style="margin-right: 40px;" />
 	<input id="searTextInp" placeholder="请输入认购人查询" type="search"/><button id="searTextBtn">搜索</button>
 </div>
 <table id="payInTable" border="1" width="100%"><thead><tr>
