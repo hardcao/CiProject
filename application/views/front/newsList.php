@@ -61,7 +61,7 @@ h2
 <body>
 <?php require (dirname(dirname(__FILE__)).'/common/header.php'); ?>
 <div id="contentLayer">
-	<div id="naviTitle"><a href="\index">首页</a> > 动态新闻列表</div>
+	<div id="naviTitle"><a href="<?php echo site_url();?>">首页</a> > 动态新闻列表</div>
 	<!--div id="searchLayer">
 		<div class="searSTY floatR">
 			<input id="searchText" placeholder="请输入标题或项目进行搜索" type="search" />&nbsp;

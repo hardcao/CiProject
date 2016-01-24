@@ -9,7 +9,7 @@
 #listLayer table{margin: 0px auto;border-spacing: 1px;border-collapse: collapse;border: 1px solid #e8e8e8;}
 #listLayer table thead{background: url(./../images/thead_bg.png);font-size: 1em;}
 #listLayer table tbody{background: #FCFCFC;font-size: 0.8em;}
-#listLayer table td{font-size:1.1em;text-align: center;border: 1px solid #e8e8e8;}
+#listLayer table td{font-size:14px;text-align: center;border: 1px solid #e8e8e8;}
 
 #dialogBg{position: fixed;width: 100%;height: 100%;left: 0px;top: 0px;background: #000;opacity: 0.4;filter: progid:DXImageTransform.Microsoft.Alpha(opacity=40);}
 #dialogLayer{position: fixed;width: 450px;min-height: 256px;border: 1px solid #e8e8e8;left: 31%;top: 15%;
