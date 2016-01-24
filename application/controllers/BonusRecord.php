@@ -204,7 +204,7 @@ class BonusRecord extends CI_Controller
          echo json_encode($result);
     }
     
-    // BonusRecord/exportPayRecordXls
+    // BonusRecord/exportBonusRecordXls
     public function exportBonusRecordXls()
     {
         

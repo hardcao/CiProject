@@ -13,6 +13,15 @@ class Subscription_model extends CI_Model
         $this->load->database();
     }
 
+    public function getCanSubscription($userId){
+        $this->load->model('Follower_model');
+         $this->load->model('Project_model');
+        $FollowerList = $this->Follower_model->getProjectWithUserID($userId);
+        foreach ($$FollowerList as $item) {
+            
+        }
+    }
+
     public function getSubscribeList($projectId)
     {
         $selectData = "T_USER.FNAME as FNAME, T_USER.FORG as FORG,T_FOLLOWER.FSTATE as FSTATE,T_SUBSCRIBECONFIRMRECORD.FAMOUNT as FAMOUNT,T_SUBSCRIBECONFIRMRECORD.FLEVERAMOUNT as FLEVERAMOUNT,T_SUBSCRIBECONFIRMRECORD.FCONFIRMAMOUNT as FCONFIRMAMOUNT,T_SUBSCRIBECONFIRMRECORD.FLEVERCONFIRMAMOUNT as FLEVERCONFIRMAMOUNT,T_SUBSCRIBECONFIRMRECORD.FLEVERRATIO as FLEVERRATIO,T_BANKINFO.FBANKNO as FBANKNO";

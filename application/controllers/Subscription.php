@@ -20,6 +20,14 @@ class Subscription extends CI_Controller
         $this->load->view('Subscription_model');
          
     }
+
+    public function getCanSubscription()
+    {
+        $userId = $this->input->post('userId');
+        $result = $this->Subscription_model->getCanSubscription($userId);
+        echo  json_encode($result);
+    }
+
 /*
  * 
  * 
@@ -43,7 +51,7 @@ class Subscription extends CI_Controller
     public function getSubscribeList()
     {
          $projectId = $this->input->post('projectId');
-        
+
           $result = $this->Subscription_model->getSubscribeList($projectId);
         echo  json_encode($result);
     }
