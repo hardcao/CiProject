@@ -58,11 +58,14 @@ class Project_model extends CI_Model
 
         $tablename = 'T_PROJECT';
         $where ='';
-        $startdatetime = new DateTime($subscribeStartDate);
-        $startTime= $startdatetime->format('Y-m-d H:i:s');
-        $endDatetime = new DateTime($subscribeEndDate);
-        $endTime = $endDatetime->format('Y-m-d H:i:s');
-        $where = "'".$startTime."' < DATE_FORMAT(T_FOLLOWSCHEME.FSUBSCRIBESTARTDATE,'%Y-%m-%d %H:%i:%s') AND DATE_FORMAT(T_FOLLOWSCHEME.FSUBSCRIBESTARTDATE,'%Y-%m-%d %H:%i:%s') <'".$endTime."'";
+         if($subscribeStartDate && $subscribeEndDate){
+            $startdatetime = new DateTime($subscribeStartDate);
+            $startTime= $startdatetime->format('Y-m-d H:i:s');
+            $endDatetime = new DateTime($subscribeEndDate);
+            $endTime = $endDatetime->format('Y-m-d H:i:s');
+            $where = "'".$startTime."' < DATE_FORMAT(T_FOLLOWSCHEME.FSUBSCRIBESTARTDATE,'%Y-%m-%d %H:%i:%s') AND DATE_FORMAT(T_FOLLOWSCHEME.FSUBSCRIBESTARTDATE,'%Y-%m-%d %H:%i:%s') <'".$endTime."'";
+        }
+       
         $projectIDList = $this->getFollowProjectListWithUserID($userID);
         
         $resultArr = array();
@@ -148,9 +151,12 @@ class Project_model extends CI_Model
     {
         $selectData = "T_PROJECT.FID as FID,T_PROJECT.FNAME as FNAME,T_FOLLOWSCHEME.FSUBSCRIBESTARTDATE as FSUBSCRIBESTARTDATE, T_FOLLOWSCHEME.FSUBSCRIBEENDDATE as FSUBSCRIBEENDDATE,T_FOLLOWSCHEME.FPAYSTARTDATE as FPAYSTARTDATE,T_FOLLOWSCHEME.FPAYENDDATE as FPAYENDDATE,T_FOLLOWSCHEME.FSUBSCRIBESTARTDATE as FSUBSCRIBESTARTDATE";
         $this->db->select($selectData);
-        $this->db->where($where);
-        if($projectName)
+        if($where){
+            $this->db->where($where);
+        }
+        if($projectName){
             $this->db->like('FNAME', $projectName); 
+        }
         $this->db->join('T_FOLLOWSCHEME','T_FOLLOWSCHEME.FPROJECTID='.$projectId);
         $result = $this->db->get('T_PROJECT')->result_array();
         if($result) return $result[0];
