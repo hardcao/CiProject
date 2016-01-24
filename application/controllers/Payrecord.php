@@ -12,7 +12,7 @@ class Payrecord extends CI_Controller
         # code...
         parent::__construct();
         $this->load->model('Payrecord_model');
-          $this->load->library('phpexcel');
+        $this->load->library('phpexcel');
         $this->load->library('PHPExcel/iofactory');
     }
 /*
