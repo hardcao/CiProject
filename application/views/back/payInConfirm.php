@@ -6,6 +6,7 @@
 
 
 <link rel="stylesheet" type="text/css" href="<?php echo site_url('application/views/plugins/pagination.css')?>">
+<script type="text/javascript" src="<?php echo site_url('application/views/plugins/dateFormat.js')?>"></script>
 <script type="text/javascript" src="<?php echo site_url('application/views/plugins/jquery-1.8.0.min.js')?>"></script>
 <script type="text/javascript" src="<?php echo site_url('application/views/plugins/jquery.datetimepicker.js')?>"></script>
 <script type="text/javascript" src="<?php echo site_url('application/views/plugins/jquery.pagination.js')?>"></script>
@@ -69,7 +70,29 @@ function initPayInListeners(){
 	});
 	// 导出缴款数据
 	$("#rightLayer #exportBonusBtn").click(function(){
-		location.href = "../PayInDetailController/callPayInExport.action?projectId="+projectId+"&piIds=";
+		//location.href = "../PayInDetailController/callPayInExport.action?projectId="+projectId+"&piIds=";
+
+		var ctx = "<?php echo site_url();?>";
+		$.ajax({
+			url: ctx+'/Payrecord/exportPayRecordXls', //用于文件上传的服务器端请求地址
+			dataType: 'JSON', //返回值类型 一般设置为json
+			data:{
+				// "filePath":"d://BonusDetail.xlsx"
+			},
+			success: function (msg){  //服务器成功响应处理函数			
+				if(msg.success == true){
+					//alert("导入成功!");
+					//getPayInList();
+					//$("#file").prop("outerHTML", $("#piFileUp").prop("outerHTML"));
+					location.href=ctx+'fileFolder/'+msg.data;
+				}else{
+					alert("1:"+msg.error);
+				}
+			},
+			error: function (data, status, e){//服务器响应失败处理函数		
+				alert("2:"+e);
+			}
+		})
 	});
 	// 删除单条数据
 	$("#payInTbody .delBtn").live("click", delPayInFunc);
@@ -101,12 +124,12 @@ function getPayInList(){
 	ctx = "<?php echo site_url();?>";
 	$.ajax({
 		type:'post',//可选get
-		url:ctx+'Payrecord/',
+		url:ctx+'Payrecord/getPayRecordListByName',
 		dataType:'json',//服务器返回的数据类型 可选XML ,Json jsonp script html text等
 		data:_obj,
 		success:function(msg){
 			if(msg.success){
-				payInList = msg.dataDto;
+				payInList = msg.data;
 				loadPayInList();
 			}else{
 				alert(msg.error);
@@ -119,17 +142,26 @@ function getPayInList(){
 }
 function loadPayInList(){
 	$("#payInTbody").empty();
+	/*
+	FCONFIRMAMOUNT: "1"
+	FID: "14"
+	FNAME: "123"
+	FORG: "test"
+	FPAYAMOUNT: "212"
+	FPAYDATE: "2016-01-23"
+	FPAYTIMES: "1"
+	FSTATE: "区域"*/
 	if(payInList){
 		var tempHtml = "";
 		$.each(payInList, function(ind,val){
 			tempHtml += '<tr><td height="35">'+(ind+1)+'</td>'+
-				'<td>'+val.uname+'</td>'+
-				'<td>'+(val.service||"")+'</td>'+
-				'<td>'+val.subType+'</td>'+
-				'<td>'+formatMillions(val.subscribeAmt)+'</td>'+
-				'<td>'+val.piTimes+'</td>'+
-				'<td>'+(new Date(val.piDate)).format('yyyy-MM-dd')+'</td>'+
-				'<td>'+formatMillions(val.piAmt)+'</td>'+
+				'<td>'+val.FNAME+'</td>'+
+				'<td>'+(val.FORG||"")+'</td>'+
+				'<td>'+val.FSTATE+'</td>'+
+				'<td>'+(val.FCONFIRMAMOUNT)+'</td>'+
+				'<td>'+val.FPAYTIMES+'</td>'+
+				'<td>'+(new Date(val.FPAYDATE)).format('yyyy-MM-dd')+'</td>'+
+				'<td>'+(val.FPAYAMOUNT)+'</td>'+
 				'<td><a class="delBtn" ind="'+ind+'" href="javascript:void(0)">删除</a></td></tr>';
 		});
 		$("#payInTbody").html(tempHtml);
@@ -170,10 +202,10 @@ function delPayInFunc(){
 
 	$.ajax({
 		type:'post',//可选get
-		url:'../PayInDetailController/delete.action',
+		url:ctx+'/Payrecord/deletePayrecord',
 		dataType:'Json',//服务器返回的数据类型 可选XML ,Json jsonp script html text等
 		data:{
-			"piId": _dataObj.piId
+			"FID": _dataObj.FID
 		},
 		success:function(msg){
 			if(msg.success){
@@ -192,7 +224,7 @@ function delPayInFunc(){
 </head>
 <body id="rightLayer">
 <div id="searchLayer">
-	<input type="file" id="file" name="file">
+	<input type="file" id="file" name="file" class="displayNone">
 	<button id="exportSubBtn" class="btnSTY">导出缴款模板</button>
 	<button id="importBtn" class="btnSTY">导入缴款</button>
 	<button id="exportBonusBtn" class="btnSTY">导出缴款</button>

@@ -173,7 +173,7 @@ function getForceFollowByProjectid(){
 				for(var m=0;m<msg.data.length;m++){
 					_obj = (msg.data)[m];
 					//forceObj[_obj.uid] = _obj;
-					if(_obj.STATE == "总部"){
+					if(_obj.FSTATE == "总部"){
 						tempSel = '<select name="forceFollList['+m+'][company]" ><option value="总部" selected="selected">总部</option>'
 						+'<option value="区域">区域</option></select>';
 					}else{

@@ -15,7 +15,9 @@ body{font-size: 12px;}
 #rightLayer #searchLayer input{width: 200px;height: 25px;padding:0px 5px;}
 #rightLayer #confirmTable{border: 1px solid #e8e8e8;border-spacing: 1px;border-collapse: collapse;font-size: 1em;}
 #rightLayer #confirmTable thead{background: url(images/thead_bg.png);}
-#rightLayer #confirmTable td{text-align: center;border: 1px solid #e8e8e8;}
+#rightLayer #confirmTable td{text-align: center;border: 1px solid #e8e8e8;
+    font-size: 14px;
+    padding: 5px;}
 #rightLayer #confirmTable input{width: 60px;height: 25px;}
 </style>
 
