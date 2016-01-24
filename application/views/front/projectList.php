@@ -68,6 +68,7 @@ function searchProject(){
 	var _sDate = $("#releaseSDate").val();
 	var _eDate = $("#releaseEDate").val();
 	var _searText = $("#searchText").val();
+	var _queryType = getReqParam('query');
 	$.ajax({
 		type:'post',//可选get
 		url:ctx+'project/getAllFollowProject',
@@ -79,7 +80,7 @@ function searchProject(){
 			searchname: _searText,
 			subscribeStartDate: _sDate,
 			subscribeEndDate:_eDate,
-			queryType: getReqParam('query'),	
+			queryType: _queryType,	
 		},
 		success:function(msg){
 			if(msg.success){
