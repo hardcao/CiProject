@@ -55,7 +55,14 @@ class Payrecord extends CI_Controller
        
         echo json_encode($result);
     }
-
+    
+     public function deletePayrecord() {
+        $data = $this->input->input_stream();
+        $tableName = 'T_PAYRECORD';
+        $this->load->model('Tools');
+        $result = $this->Tools->deleteData($data,$tableName);
+        echo json_encode($result);
+    }
 
     public function outputXls()
     {
