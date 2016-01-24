@@ -151,8 +151,7 @@ class BonusRecord_model extends CI_Model
 
     
         public function getBonusRecordListByName($subscribeStartDate, $subscribeEndDate,$userName) {
-            $tablename = 'T_PROJECT';
-       
+           
             if($subscribeStartDate || $subscribeEndDate){
                 $startdatetime = new DateTime($subscribeStartDate);
                 $startTime= $startdatetime->format('Y-m-d H:i:s');
@@ -168,8 +167,8 @@ class BonusRecord_model extends CI_Model
             $this->db->join('T_FOLLOWER','T_FOLLOWER.FUSERID=T_SUBSCRIBECONFIRMRECORD.FUSERID');
             $this->db->join('T_BANKINFO','T_BANKINFO.FID=T_SUBSCRIBECONFIRMRECORD.FBANKID');
             $this->db->join('T_BONUSRECORD','T_BONUSRECORD.FSUBSCRIBECONFIGRMRECORDID=T_SUBSCRIBECONFIRMRECORD.FID');
-            if($userName)
-                $this->db->like('FNAME',$userName);
+           // if($userName)
+               // $this->db->like('T_USER.FNAME',$userName);
             $result = $this->db->get('T_SUBSCRIBECONFIRMRECORD')->result_array();
             $data["success"] = true;
             $data["errorCode"] = 0;
