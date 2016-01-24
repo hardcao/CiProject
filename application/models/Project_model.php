@@ -65,15 +65,14 @@ class Project_model extends CI_Model
             $endTime = $endDatetime->format('Y-m-d H:i:s');
             $where = "'".$startTime."' < DATE_FORMAT(T_FOLLOWSCHEME.FSUBSCRIBESTARTDATE,'%Y-%m-%d %H:%i:%s') AND DATE_FORMAT(T_FOLLOWSCHEME.FSUBSCRIBESTARTDATE,'%Y-%m-%d %H:%i:%s') <'".$endTime."'";
         }
-       
+       // 获得用户的所有跟投项目
         $projectIDList = $this->getFollowProjectListWithUserID($userID);
         
         $resultArr = array();
         foreach ($projectIDList as $item) {
+            //检查当前projectID是否合法
             if(!$this->isSubscriptionProject($userID,$item['FPROJECTID'],$queryType)) continue;
-            if($item['FPROJECTID']) {
-                $where = $where.' AND FPROJECTID='.$item['FPROJECTID'];
-            }
+
             $tempItem = $this->getProjectListWithID($where,$item['FPROJECTID'],$projectName);
             if($tempItem == NULL) continue;
             $tempItem['FID'] = $item['FPROJECTID'];
