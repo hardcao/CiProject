@@ -50,9 +50,7 @@ class Payrecord extends CI_Controller
      * */
     public function  addpayList() {
         $data = $this->input->input_stream();
-       
         $result = $this->Payrecord_model->addpayList($data['data']);
-       
         echo json_encode($result);
     }
     

@@ -205,10 +205,10 @@ class BonusRecord extends CI_Controller
     }
     
     // BonusRecord/exportPayRecordXls
-    public function exportPayRecordXls()
+    public function exportBonusRecordXls()
     {
         
-       $result = $this->BonusRecord_model->exportPayRecordXls();
+       $result = $this->BonusRecord_model->exportBonusRecordXls();
        
         $objPHPExcel = new PHPExcel();
         $objPHPExcel->getProperties()->setTitle("title")->setDescription("description");
