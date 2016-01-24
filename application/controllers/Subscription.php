@@ -78,4 +78,18 @@ class Subscription extends CI_Controller
     }
 
 
+// Subscription/getHasSubscribe
+    public function getHasSubscribe()
+    {
+        $userID = $this->input->post('uid');
+        $result = $this->Subscription_model->getHasSubscribe($userID);
+        echo  json_encode($result);
+    }
+
+    public function updateBankNoSubscribe()
+    {
+
+    }
+
+
 }
