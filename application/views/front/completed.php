@@ -19,10 +19,10 @@
 <div id="contentLayer">
 	<div id="naviTitle"><a href="<?php echo site_url()?>">首页</a> > 已完成认购</div>
 	<div id="searchLayer">
-		<div class="searSTY floatR">
+		<!--div class="searSTY floatR">
 			<input id="searchText" placeholder="请输入项目名" value="" />&nbsp;
 			<button id="searchBtn">搜索</button>
-		</div>
+		</div-->
 	</div>
 	<div id="listLayer">
 		<table width="100%" border="1">
@@ -30,7 +30,6 @@
 				<tr>
 					<td rowspan="2" width="50" height="30">序号</td>
 					<td rowspan="2" width="150">跟投项目</td>
-					<td rowspan="2" width="100">是否豁免认购</td>
 					<td rowspan="2" width="80">认购时间</td>
 					<td colspan="2">认购额度</td>
 					<td colspan="2" class="displayNone">调整额度</td>
