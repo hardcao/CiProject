@@ -189,16 +189,16 @@ regioAmountComplete: "test"
 						'<td>'+amm1+' 万元</td>'+*/
 					'</tr><tr>'+
 						'<td class="titleTd">强投包总额(含杠杆):</td>'+
-						'<td class=""><span>'+'formatMillions(tempObj.groupForceAmount+tempObj.compForceAmount)'+'</span> 万元</td>'+
+						'<td class=""><span>'+'(tempObj.groupForceAmount+tempObj.compForceAmount)'+'</span> 万元</td>'+
 						'<td class="titleTd">选投包总额(无杠杆):</td>'+
-						'<td class=""><span>'+'formatMillions(tempObj.compChoiceAmount)'+'</span> 万元</td>'+
+						'<td class=""><span>'+'(tempObj.compChoiceAmount)'+'</span> 万元</td>'+
 						/*'<td class="titleTd">已认购总额(含杠杆):</td>'+
 						'<td>'+0+' 万元</td>'+*/
 					'</tr><tr>'+
 						'<td class="titleTd">可跟投总额(含杠杆):</td>'+/*强投包比例(含杠杆)*/
-						'<td id="groupForceAmount"><span>'+'formatMillions(tempObj.followAmount)'+'</span> 万元</td>'+
+						'<td id="groupForceAmount"><span>'+'(tempObj.followAmount)'+'</span> 万元</td>'+
 						'<td class="titleTd">已认购总额(含杠杆):</td>'+/*强投包总额*/
-						'<td id="compForceAmount"><span>'+'formatMillions(tempObj.subscribeAmt)'+'</span> 万元</td>'+
+						'<td id="compForceAmount"><span>'+'(tempObj.subscribeAmt)'+'</span> 万元</td>'+
 						/*'<td class="titleTd">选投包比例(无杠杆):</td>'+
 						'<td id="compChoiceAmount">'+amm4+' %</td>'+*/
 					'</tr></table>'+

@@ -112,7 +112,9 @@ function initBonusListeners(){
 	// 导出分红
 	$("#rightLayer #exportBonusBtn").click(function(){
 		//location.href = "../BonusDetailController/callBonusExport.action?projectId="+projectId+"&bonusIds=";
-	
+	var _sDate = $("#sDateInp").val();
+	var _eDate = $("#eDateInp").val();
+	var _searText = $("#searTextInp").val();
 	var _obj = {projectId: getReqParam("projectId"),
 				startDate:_sDate,
 				endDate:_eDate,
@@ -329,13 +331,14 @@ function addBonusFunc(){
 function delBonusFunc(){
 	var _ind = $(this).attr("ind");
 	var _dataObj = bonusList[_ind];
-
+	var ctx = "<?php echo site_url();?>";
+	var fid_r = _dataObj.FID;
 	$.ajax({
 		type:'post',//可选get
-		url:'../BonusDetailController/delete.action',
-		dataType:'Json',//服务器返回的数据类型 可选XML ,Json jsonp script html text等
+		url:ctx+'BonusRecord/deleteBonus',
+		dataType:'JSON',//服务器返回的数据类型 可选XML ,Json jsonp script html text等
 		data:{
-			"bonusId": _dataObj.bonusId
+			FID:fid_r,
 		},
 		success:function(msg){
 			if(msg.success){
