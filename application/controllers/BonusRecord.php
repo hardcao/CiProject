@@ -54,7 +54,7 @@ class BonusRecord extends CI_Controller
         }
         echo json_encode($result);
     }
-    
+    // BonusRecord/deleteBonus
     public function deleteBonus() {
         $data = $this->input->input_stream();
         $tableName = 'T_BONUSRECORD';
@@ -213,7 +213,7 @@ class BonusRecord extends CI_Controller
         $subscribeStartDate = $this->input->post('startDate');
         $subscribeEndDate = $this->input->post('endDate');
         $userName = $this->input->post('uname');
-        $result = $this->BonusRecord_model->exportBonusRecordXls();
+        $result = $this->BonusRecord_model->exportBonusRecordXls($subscribeStartDate, $subscribeEndDate,$userName,$projectId);
        
         $objPHPExcel = new PHPExcel();
         $objPHPExcel->getProperties()->setTitle("title")->setDescription("description");

@@ -213,7 +213,7 @@ class Payrecord extends CI_Controller
         $subscribeEndDate = $this->input->post('endDate');
         $userName = $this->input->post('uname');
         
-       $result = $this->Payrecord_model->exportPayRecordXls();
+       $result = $this->Payrecord_model->exportPayRecordXls($subscribeStartDate, $subscribeEndDate,$userName,$projectId);
        
         $objPHPExcel = new PHPExcel();
         $objPHPExcel->getProperties()->setTitle("title")->setDescription("description");

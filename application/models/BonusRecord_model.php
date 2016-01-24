@@ -162,15 +162,15 @@ class BonusRecord_model extends CI_Model
     
         public function getBonusRecordListByName($subscribeStartDate, $subscribeEndDate,$userName,$projectId) {
            
+            $where = 'T_SUBSCRIBECONFIRMRECORD.FPROJECTID='.$projectId;
             if($subscribeStartDate || $subscribeEndDate){
                 $startdatetime = new DateTime($subscribeStartDate);
                 $startTime= $startdatetime->format('Y-m-d H:i:s');
                 $endDatetime = new DateTime($subscribeEndDate);
                 $endTime = $endDatetime->format('Y-m-d H:i:s');
-                $where = "'".$startTime."' < DATE_FORMAT(T_BONUSRECORD.FBONUSDATE,'%Y-%m-%d %H:%i:%s') AND DATE_FORMAT(T_BONUSRECORD.FBONUSDATE,'%Y-%m-%d %H:%i:%s') <'".$endTime."'";
-                $this->db->where($where);
+                $where = $where." AND '".$startTime."' < DATE_FORMAT(T_BONUSRECORD.FBONUSDATE,'%Y-%m-%d %H:%i:%s') AND DATE_FORMAT(T_BONUSRECORD.FBONUSDATE,'%Y-%m-%d %H:%i:%s') <'".$endTime."'";
             }
-       
+             $this->db->where($where);
             $selectData = "T_BONUSRECORD.FID as FID, T_USER.FNAME as FNAME, T_USER.FORG as FORG,T_FOLLOWER.FSTATE as FSTATE,T_SUBSCRIBECONFIRMRECORD.FCONFIRMAMOUNT as FCONFIRMAMOUNT,T_BONUSRECORD.FBONUSTIMES as FBONUSTIMES,T_BONUSRECORD.FBONUSDATE as FBONUSDATE,T_BONUSRECORD.FBONUSAMOUNT as FBONUSAMOUNT,T_BANKINFO.FBANKNO as FBANKNO";
             $this->db->select($selectData);
             $this->db->join('T_USER','T_USER.FID=T_SUBSCRIBECONFIRMRECORD.FUSERID');
@@ -187,12 +187,24 @@ class BonusRecord_model extends CI_Model
             return $data;
         }
 
-        public function exportBonusRecordXls() {
+        public function exportBonusRecordXls($subscribeStartDate, $subscribeEndDate,$userName,$projectId) {
+
+            $where = 'T_SUBSCRIBECONFIRMRECORD.FPROJECTID='.$projectId;
+            if($subscribeStartDate || $subscribeEndDate){
+                $startdatetime = new DateTime($subscribeStartDate);
+                $startTime= $startdatetime->format('Y-m-d H:i:s');
+                $endDatetime = new DateTime($subscribeEndDate);
+                $endTime = $endDatetime->format('Y-m-d H:i:s');
+                $where = $where." AND '".$startTime."' < DATE_FORMAT(T_BONUSRECORD.FBONUSDATE,'%Y-%m-%d %H:%i:%s') AND DATE_FORMAT(T_BONUSRECORD.FBONUSDATE,'%Y-%m-%d %H:%i:%s') <'".$endTime."'";
+            }
+            $this->db->where($where);
             $selectData = "T_SUBSCRIBECONFIRMRECORD.FID as FID, T_USER.FNAME as FNAME, T_USER.FORG as FORG,T_FOLLOWER.FSTATE as FSTATE,T_SUBSCRIBECONFIRMRECORD.FCONFIRMAMOUNT as FCONFIRMAMOUNT,T_BONUSRECORD.FBONUSTIMES as FBONUSTIMES,T_BONUSRECORD.FBONUSDATE as FBONUSDATE,T_BONUSRECORD.FBONUSAMOUNT as FBONUSAMOUNT";
             $this->db->select($selectData);
             $this->db->join('T_USER','T_USER.FID=T_SUBSCRIBECONFIRMRECORD.FUSERID');
              $this->db->join('T_FOLLOWER','T_FOLLOWER.FUSERID=T_SUBSCRIBECONFIRMRECORD.FUSERID AND T_FOLLOWER.FPROJECTID=T_SUBSCRIBECONFIRMRECORD.FPROJECTID');
             $this->db->join('T_BONUSRECORD','T_BONUSRECORD.FSUBSCRIBECONFIGRMRECORDID=T_SUBSCRIBECONFIRMRECORD.FID');
+            if($userName)
+                $this->db->like('T_USER.FNAME',$userName);
             $result = $this->db->get('T_SUBSCRIBECONFIRMRECORD')->result_array();
             return $result;
     }
