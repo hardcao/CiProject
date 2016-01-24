@@ -164,7 +164,7 @@ class BonusRecord extends CI_Controller
             $objReader->setReadDataOnly(true);
            /**  Load $inputFileName to a PHPExcel Object  **/
            $objPHPExcel = $objReader->load($inputFileName);
-           $sheetData =$objPHPExcel->getActiveSheet()->toArray(null,true,true,true);
+           $sheetData =   $objPHPExcel->getActiveSheet()->toArray(null,true,true,true);
            $row = 0;
            $result = "";
            foreach ($sheetData as $key => $value) {
@@ -198,19 +198,22 @@ class BonusRecord extends CI_Controller
     //BonusRecord/getBonusRecordListByName
 
     public function getBonusRecordListByName(){
-        // $projectId =  $this->input->post('projectId');
+         $projectId =  $this->input->post('projectId');
          $subscribeStartDate = $this->input->post('startDate');
          $subscribeEndDate = $this->input->post('endDate');
          $userName = $this->input->post('uname');
-         $result = $this->BonusRecord_model->getBonusRecordListByName($subscribeStartDate, $subscribeEndDate,$userName);
+         $result = $this->BonusRecord_model->getBonusRecordListByName($subscribeStartDate, $subscribeEndDate,$userName,$projectId);
          echo json_encode($result);
     }
     
     // BonusRecord/exportBonusRecordXls
     public function exportBonusRecordXls()
     {
-        
-       $result = $this->BonusRecord_model->exportBonusRecordXls();
+        $projectId =  $this->input->post('projectId');
+        $subscribeStartDate = $this->input->post('startDate');
+        $subscribeEndDate = $this->input->post('endDate');
+        $userName = $this->input->post('uname');
+        $result = $this->BonusRecord_model->exportBonusRecordXls();
        
         $objPHPExcel = new PHPExcel();
         $objPHPExcel->getProperties()->setTitle("title")->setDescription("description");

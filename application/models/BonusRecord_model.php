@@ -27,9 +27,9 @@ class BonusRecord_model extends CI_Model
      public function getBonusCountWithTime($FID,$time)
     {
         $this->db->select("*");
-        $where = 'FSUBSCRIBECONFIGRMRECORDID='.$FID." AND FPAYTIMES = ".$time;
+        $where = 'FSUBSCRIBECONFIGRMRECORDID='.$FID." AND FBONUSTIMES = ".$time;
         $this->db->where($where);
-        $this->db->from('T_PAYRECORD');
+        $this->db->from('T_BONUSRECORD');
         $result = $this->db->count_all_results();
         return $result;
     }
@@ -191,7 +191,7 @@ class BonusRecord_model extends CI_Model
             $selectData = "T_SUBSCRIBECONFIRMRECORD.FID as FID, T_USER.FNAME as FNAME, T_USER.FORG as FORG,T_FOLLOWER.FSTATE as FSTATE,T_SUBSCRIBECONFIRMRECORD.FCONFIRMAMOUNT as FCONFIRMAMOUNT,T_BONUSRECORD.FBONUSTIMES as FBONUSTIMES,T_BONUSRECORD.FBONUSDATE as FBONUSDATE,T_BONUSRECORD.FBONUSAMOUNT as FBONUSAMOUNT";
             $this->db->select($selectData);
             $this->db->join('T_USER','T_USER.FID=T_SUBSCRIBECONFIRMRECORD.FUSERID');
-            $this->db->join('T_FOLLOWER','T_FOLLOWER.FUSERID=T_SUBSCRIBECONFIRMRECORD.FUSERID');
+             $this->db->join('T_FOLLOWER','T_FOLLOWER.FUSERID=T_SUBSCRIBECONFIRMRECORD.FUSERID AND T_FOLLOWER.FPROJECTID=T_SUBSCRIBECONFIRMRECORD.FPROJECTID');
             $this->db->join('T_BONUSRECORD','T_BONUSRECORD.FSUBSCRIBECONFIGRMRECORDID=T_SUBSCRIBECONFIRMRECORD.FID');
             $result = $this->db->get('T_SUBSCRIBECONFIRMRECORD')->result_array();
             return $result;
