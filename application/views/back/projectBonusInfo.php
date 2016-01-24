@@ -475,13 +475,13 @@ function getPath(obj,fileQuery){
 <div id="dialogLayer" style="display:none;">
 	<div class="dialogSTY">
 		<div class="tipTitle">
-			<!-- <input type="file" id="bonusFileUp" name="bonusFileUp" onchange="importBonusFunc();" style="width: 0px;height: 0px;padding: 0px;margin: 0px;"> -->
-			<!-- <button id="importBtn">批量导入分红</button> &nbsp;&nbsp;
-			<button id="exportSubBtn">导出认购记录</button> &nbsp;&nbsp; -->
+			<input type="file" id="bonusFileUp" name="bonusFileUp" onchange="importBonusFunc();" style="width: 0px;height: 0px;padding: 0px;margin: 0px;">
+			<button id="importBtn">批量导入分红</button> &nbsp;&nbsp;
+			<button id="exportSubBtn">导出认购记录</button> &nbsp;&nbsp; 
 		</div>
 		<div class="searDiv">
-			<!-- <input id="searUserInp" placeholder="请输入项目名或认购人" />
-			<button id="searUserBtn">搜索</button> -->
+			<input id="searUserInp" placeholder="请输入项目名或认购人" />
+			<button id="searUserBtn">搜索</button>
 		</div>
 		<div class="contentDiv"><table border="1"><thead><tr>
 			<td width="30">序号</td>
