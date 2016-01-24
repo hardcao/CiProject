@@ -56,15 +56,18 @@ class Project_model extends CI_Model
 
     public function getAllFollowProject($userID,$subscribeStartDate, $subscribeEndDate,$projectName,$queryType) {
 
-        $tablename = 'T_PROJECT';
+        $whereflag = 1;
+        $Startwhere = 'T_PROJECT';
         $where ='';
          if($subscribeStartDate && $subscribeEndDate){
             $startdatetime = new DateTime($subscribeStartDate);
             $startTime= $startdatetime->format('Y-m-d H:i:s');
             $endDatetime = new DateTime($subscribeEndDate);
             $endTime = $endDatetime->format('Y-m-d H:i:s');
-            $where = "'".$startTime."' < DATE_FORMAT(T_FOLLOWSCHEME.FSUBSCRIBESTARTDATE,'%Y-%m-%d %H:%i:%s') AND DATE_FORMAT(T_FOLLOWSCHEME.FSUBSCRIBESTARTDATE,'%Y-%m-%d %H:%i:%s') <'".$endTime."'";
+            $Startwhere = "'".$startTime."' < DATE_FORMAT(T_FOLLOWSCHEME.FSUBSCRIBESTARTDATE,'%Y-%m-%d %H:%i:%s') AND DATE_FORMAT(T_FOLLOWSCHEME.FSUBSCRIBESTARTDATE,'%Y-%m-%d %H:%i:%s') <'".$endTime."'";
+            $whereflag = 0;
         }
+
        // 获得用户的所有跟投项目
         $projectIDList = $this->getFollowProjectListWithUserID($userID);
         
@@ -72,7 +75,11 @@ class Project_model extends CI_Model
         foreach ($projectIDList as $item) {
             //检查当前projectID是否合法
             if(!$this->isSubscriptionProject($userID,$item['FPROJECTID'],$queryType)) continue;
-
+            if(!$whereflag)  {
+                $where = $Startwhere.'  AND T_PROJECT.FID ='.$item['FPROJECTID']; 
+            } else {
+                $where = 'T_PROJECT.FID ='.$item['FPROJECTID']; 
+            }
             $tempItem = $this->getProjectListWithID($where,$item['FPROJECTID'],$projectName);
             if($tempItem == NULL) continue;
             $tempItem['FID'] = $item['FPROJECTID'];
@@ -156,7 +163,7 @@ class Project_model extends CI_Model
         if($projectName){
             $this->db->like('FNAME', $projectName); 
         }
-        $this->db->join('T_FOLLOWSCHEME','T_FOLLOWSCHEME.FPROJECTID='.$projectId);
+        $this->db->join('T_FOLLOWSCHEME','T_FOLLOWSCHEME.FPROJECTID=T_PROJECT.FID');
         $result = $this->db->get('T_PROJECT')->result_array();
         if($result) return $result[0];
         return NULL;
