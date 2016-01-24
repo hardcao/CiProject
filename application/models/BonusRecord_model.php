@@ -163,7 +163,7 @@ class BonusRecord_model extends CI_Model
         public function getBonusRecordListByName($subscribeStartDate, $subscribeEndDate,$userName,$projectId) {
            
             $where = 'T_SUBSCRIBECONFIRMRECORD.FPROJECTID='.$projectId;
-            if($subscribeStartDate || $subscribeEndDate){
+            if($subscribeStartDate && $subscribeEndDate){
                 $startdatetime = new DateTime($subscribeStartDate);
                 $startTime= $startdatetime->format('Y-m-d H:i:s');
                 $endDatetime = new DateTime($subscribeEndDate);
@@ -190,7 +190,7 @@ class BonusRecord_model extends CI_Model
         public function exportBonusRecordXls($subscribeStartDate, $subscribeEndDate,$userName,$projectId) {
 
             $where = 'T_SUBSCRIBECONFIRMRECORD.FPROJECTID='.$projectId;
-            if($subscribeStartDate || $subscribeEndDate){
+            if($subscribeStartDate && $subscribeEndDate){
                 $startdatetime = new DateTime($subscribeStartDate);
                 $startTime= $startdatetime->format('Y-m-d H:i:s');
                 $endDatetime = new DateTime($subscribeEndDate);

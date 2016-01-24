@@ -25,7 +25,7 @@ $("#btn_login").click(function(){
 					projectId:27,
 					startDate:'2013-09-01 09:50:00',
 					endDate:'2016-09-01 09:50:00',
-					uname:'',
+					uname:'1',
 					userId:1,
 
 				},
