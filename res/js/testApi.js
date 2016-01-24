@@ -25,9 +25,12 @@ $("#btn_login").click(function(){
 					projectId:27,
 					startDate:'2013-09-01 09:50:00',
 					endDate:'2016-09-01 09:50:00',
+					subscribeStartDate:'2013-09-01 09:50:00',
+					subscribeEndDate:'2016-09-01 09:50:00',
 					uname:'1',
-					userId:1,
-
+					uid:1,
+					searchname:'',
+					queryType:0,
 				},
 				success: function(data){
 					bootbox.alert(data);

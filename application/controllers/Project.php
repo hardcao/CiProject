@@ -137,6 +137,8 @@ class Project extends CI_Controller
      /*
 
         获得所有可以跟投的项目名单
+
+        project/getAllFollowProject
      */
      public function getAllFollowProject()
      {
