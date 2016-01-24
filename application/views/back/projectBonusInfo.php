@@ -6,10 +6,11 @@
 
 <link rel="stylesheet" type="text/css" href="<?php echo site_url('application/views/plugins/pagination.css')?>">
 <script type="text/javascript" src="<?php echo site_url('application/views/plugins/jquery-1.8.0.min.js')?>"></script>
-<script type="text/javascript" src="<?php echo site_url('application/views/plugins/datetimepicker.js')?>"></script>
+<script type="text/javascript" src="<?php echo site_url('application/views/plugins/jquery.datetimepicker.js')?>"></script>
 <script type="text/javascript" src="<?php echo site_url('application/views/plugins/jquery.pagination.js')?>"></script>
 <script type="text/javascript" src="<?php echo site_url('application/views/plugins/ajaxfileupload.js')?>"></script>
-
+<script type="text/javascript" src="<?php echo site_url('application/views/plugins/util.js')?>"></script>
+<script type="text/javascript" src="<?php echo site_url('application/views/plugins/dateFormat.js')?>"></script>
 <!--link rel="stylesheet" type="text/css" href="../plugins/pagination.css" />
 <script type="text/javascript" src="../plugins/jquery-1.8.0.min.js"></script>
 <script type="text/javascript" src="../plugins/jquery.datetimepicker.js"></script>
@@ -76,7 +77,27 @@ function initBonusListeners(){
 	});
 	// 导出分红模板
 	$("#rightLayer #exportSubBtn").click(function(){
-		location.href = "../subscribe/callSubscribeRecordExport.action?projectId="+projectId;
+		var ctx = "<?php echo site_url();?>";
+		$.ajax({
+			url: ctx+'BonusRecord/outputXls', //用于文件上传的服务器端请求地址
+			dataType: 'JSON', //返回值类型 一般设置为json
+			data:{
+				// "filePath":"d://BonusDetail.xlsx"
+			},
+			success: function (msg){  //服务器成功响应处理函数			
+				if(msg.success == true){
+					//alert("导入成功!");
+					//getPayInList();
+					//$("#file").prop("outerHTML", $("#piFileUp").prop("outerHTML"));
+					location.href=ctx+'fileFolder/'+msg.data;
+				}else{
+					alert("1:"+msg.error);
+				}
+			},
+			error: function (data, status, e){//服务器响应失败处理函数		
+				alert("2:"+e);
+			}
+		})
 	});
 	// 导入分红
 	$("#rightLayer #importBtn").click(function(){
@@ -84,7 +105,29 @@ function initBonusListeners(){
 	});
 	// 导出分红
 	$("#rightLayer #exportBonusBtn").click(function(){
-		location.href = "../BonusDetailController/callBonusExport.action?projectId="+projectId+"&bonusIds=";
+		//location.href = "../BonusDetailController/callBonusExport.action?projectId="+projectId+"&bonusIds=";
+	var ctx = "<?php echo site_url();?>";
+		$.ajax({
+			url: ctx+'BonusRecord/exportBonusRecordXls', //用于文件上传的服务器端请求地址
+			dataType: 'JSON', //返回值类型 一般设置为json
+			data:{
+				// "filePath":"d://BonusDetail.xlsx"
+			},
+			success: function (msg){  //服务器成功响应处理函数			
+				if(msg.success == true){
+					//alert("导入成功!");
+					//getPayInList();
+					//$("#file").prop("outerHTML", $("#piFileUp").prop("outerHTML"));
+					location.href=ctx+'fileFolder/'+msg.data;
+				}else{
+					alert("1:"+msg.error);
+				}
+			},
+			error: function (data, status, e){//服务器响应失败处理函数		
+				alert("2:"+e);
+			}
+		})
+
 	});
 	$("#bonusFileUp").live("change", importBonusFunc);
 }
@@ -93,23 +136,30 @@ function getBonusList(){
 	var _sDate = $("#sDateInp").val();
 	var _eDate = $("#eDateInp").val();
 	var _searText = $("#searTextInp").val();
-
+	var ctx="<?php echo site_url();?>";
+	var _obj = {projectId: getReqParam("projectId"),
+		// '"projectName":"'+_searText+'",'+
+		startDate:_sDate,
+		endDate:_eDate,
+		// '"piId":"",'+
+		// '"piTimes":0,'+
+		// '"subscribeAmt":0,'+
+		// '"piDate":"",'+
+		// '"piAmt":0,'+
+		// '"numberCode":"",'+
+		uname:_searText,
+		// '"userId":""'+
+		startPage:0,
+		endPage:999
+		};
 	$.ajax({
 		type:'post',//可选get
-		url:'../BonusDetailController/getBonusDetailList.action',
+		url:ctx+'BonusRecord/getBonusRecordListByName',
 		dataType:'Json',//服务器返回的数据类型 可选XML ,Json jsonp script html text等
-		data:{
-			"projectId":projectId,
-			"startPage":0,
-			"endPage":999,
-			"startDate":_sDate,
-			"endDate":_eDate,
-			"projectName":_searText,
-			"userid":""
-		},
+		data:_obj,
 		success:function(msg){
 			if(msg.success){
-				bonusList = msg.dataDto;
+				bonusList = msg.data;
 				loadBonusList();
 			}else{
 				alert(msg.error);
@@ -122,20 +172,32 @@ function getBonusList(){
 }
 function loadBonusList(){
 	$("#bonusTbody").empty();
+	/*
+		<td height="34" width="40">序号</td>
+	<td width="100">跟投人</td>
+	<td width="100">部门</td>
+	<td width="110">跟投类型</td>
+	<td width="100">平衡额度<br>(不含杠杆)(万元)</td>
+	<td width="70">分红批次</td>
+	<td width="100">分红日期</td>
+	<td width="80">分红金额<br>(万元)</td>
+	<td width="150">分红帐号</td>
+	<td width="70">备注</td>
+	*/
 	if(bonusList && bonusList.length > 0){
 		var tempHtml = "";
 		$.each(bonusList, function(ind, val){
 			tempHtml +=
 			'<tr><td height="35">'+(ind+1)+'</td>'+
-			'<td>'+val.uname+'</td>'+
-			'<td>'+(val.service||"")+'</td>'+
-			'<td>'+val.subscribeType+'</td>'+
-			'<td>'+formatMillions(val.subscribeAmount)+'</td>'+
-			'<td>'+val.bonusTimes+'</td>'+
-			'<td>'+(new Date(val.bonusDate)).format('yyyy-MM-dd')+'</td>'+
-			'<td>'+formatMillions(val.bonusAmount)+'</td>'+
-			'<td>'+(val.subscribePackageName||"")+'</td>'+
-			'<td>'+(val.completeSubscribeRecord||"")+'</td>'+
+			'<td>'+val.FNAME+'</td>'+
+			'<td>'+(val.FORG||"")+'</td>'+
+			'<td>'+val.FSTATE+'</td>'+
+			'<td>'+(val.FCONFIRMAMOUNT)+'</td>'+
+			'<td>'+val.FBONUSTIMES+'</td>'+
+			'<td>'+(new Date(val.FBONUSDATE)).format('yyyy-MM-dd')+'</td>'+
+			'<td>'+(val.FBONUSAMOUNT)+'</td>'+
+			'<td>'+(val.FBANKNO||"")+'</td>'+
+			//'<td>'+(val.completeSubscribeRecord||"")+'</td>'+
 			'<td><a class="delBtn" ind="'+ind+'" href="javascript:void(0)">删除</a></td></tr>';
 		});
 		$("#bonusTbody").html(tempHtml);
@@ -276,7 +338,7 @@ function delBonusFunc(){
 	})
 }
 function importBonusFunc(){
-	$.ajaxFileUpload({
+	/*$.ajaxFileUpload({
 		url: '../BonusDetailController/callBonusImport.action', //用于文件上传的服务器端请求地址
 		secureuri: false, //是否需要安全协议，一般设置为false
 		fileElementId: 'bonusFileUp', //文件上传域的ID
@@ -295,6 +357,29 @@ function importBonusFunc(){
 		},
 		error: function (data, status, e){//服务器响应失败处理函数		
 			alert(e);
+		}
+	})*/
+
+	var ctx = "<?php echo site_url();?>";
+	$.ajaxFileUpload({
+		url: ctx+'/BonusRecord/inputXLS', //用于文件上传的服务器端请求地址
+		secureuri: false, //是否需要安全协议，一般设置为false
+		fileElementId: 'file', //文件上传域的ID
+		dataType: 'JSON', //返回值类型 一般设置为json
+		data:{
+			// "filePath":"d://BonusDetail.xlsx"
+		},
+		success: function (data, status){  //服务器成功响应处理函数			
+			if(status == "success"){
+				alert("导入成功!");
+				getPayInList();
+				//$("#file").prop("outerHTML", $("#piFileUp").prop("outerHTML"));
+			}else{
+				alert("1:"+data.error);
+			}
+		},
+		error: function (data, status, e){//服务器响应失败处理函数		
+			alert("2:"+e);
 		}
 	})
 
@@ -355,7 +440,7 @@ function getPath(obj,fileQuery){
 	<button id="exportSubBtn" class="btnSTY">导出分红模板</button>
 	<button id="importBtn" class="btnSTY">导入分红</button>
 	<button id="exportBonusBtn" class="btnSTY">导出分红</button>
-	<input type="file" id="bonusFileUp" name="bonusFileUp" style="left:90px;" class="displayNone">
+	<input type="file" id="file" name="file" style="left:90px;" class="displayNone">
 	分红日期：<input id="sDateInp" readonly class="dateSTY" />至<input id="eDateInp" readonly class="dateSTY" style="margin-right: 40px;" />
 	<input id="searTextInp" placeholder="请输入项目名或认购人" />
 	<button id="searTextBtn">搜索</button>
@@ -371,7 +456,7 @@ function getPath(obj,fileQuery){
 	<td width="100">分红日期</td>
 	<td width="80">分红金额<br>(万元)</td>
 	<td width="150">分红帐号</td>
-	<td width="70">备注</td>
+	<!--td width="70">备注</td-->
 	<td>操作</td>
 </tr></thead>
 <tbody id="bonusTbody">
