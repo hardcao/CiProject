@@ -13,13 +13,49 @@ class Subscription_model extends CI_Model
         $this->load->database();
     }
 
-    public function getCanSubscription($userId){
+    /*
+        status : -1 默认状态，0 已经认购，1 未完成认购
+    */
+
+    public function getSubscription($userId,$status){
+        
         $this->load->model('Follower_model');
-         $this->load->model('Project_model');
+        $this->load->model('Project_model');
         $FollowerList = $this->Follower_model->getProjectWithUserID($userId);
-        foreach ($$FollowerList as $item) {
-            
+        $resultArr = array();
+        foreach ($FollowerList as $item) {
+            if($item['FPROJECTID']) {
+                $where = ' FPROJECTID='.$item['FPROJECTID'];
+            }
+            if(!isSubscriptionProject($userId,$item['FPROJECTID'],$status)) continue;
+            $projectName = null;
+            $tempItem = $$this->Project_model->getProjectListWithID($where,$item['FPROJECTID'],$projectName);
+            $tempItem['FID'] = $item['FPROJECTID'];
+            $tempItem['HDAmount'] = 3;
+            $tempItem['regioAmount'] = 3;
+            $tempItem['HDAmountComplete'] = "test";
+            $tempItem['regioAmountComplete'] = "test";// 临时数据，还没有加入照片
+            array_push($resultArr, $tempItem);
         }
+        $data["success"] = true;
+        $data["errorCode"] = 0;
+        $data["error"] = 0;
+        $data['data'] =  $resultArr;
+        return $data;
+       
+    }
+
+    public function isSubscriptionProject($userID,$projecID,$status)
+    {
+        $flag = intval($status);
+        if($flag == -1) return true;
+        $this->db->select("*");
+        $where = 'FUSERID='.$userID." AND FPROJECTID = ".$projecID;
+        $this->db->where($where);
+        $this->db->from('T_SUBSCRIBECONFIRMRECORD');
+        $result = $this->db->count_all_results();
+        if(($flag == 0&& $result > 0) ||($flag == 1 && $result ==0))  return true;
+        return false;
     }
 
     public function getSubscribeList($projectId)

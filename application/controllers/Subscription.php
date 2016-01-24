@@ -20,11 +20,12 @@ class Subscription extends CI_Controller
         $this->load->view('Subscription_model');
          
     }
-
-    public function getCanSubscription()
+// Subscription/getSubscription
+    public function getSubscription()
     {
         $userId = $this->input->post('userId');
-        $result = $this->Subscription_model->getCanSubscription($userId);
+        $status = $this->input->post('status');
+        $result = $this->Subscription_model->getSubscription($userId,$status);
         echo  json_encode($result);
     }
 
