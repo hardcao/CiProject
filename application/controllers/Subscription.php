@@ -86,9 +86,13 @@ class Subscription extends CI_Controller
         echo  json_encode($result);
     }
 
-    public function updateBankNoSubscribe()
-    {
-
+    public function updateSubscribe() {
+        $data = $this->input->input_stream();
+        $where = 'FID='.$data['FID'];
+        $tableName = 'T_SUBSCRIBECONFIRMRECORD';
+        $this->load->model('Tools');
+        $result = $this->Tools->updateData($data,$tableName,$where);
+        echo json_encode($result);
     }
 
 
