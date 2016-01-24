@@ -65,7 +65,7 @@ function initPayInListeners(){
 	});
 	// 导入缴款数据
 	$("#rightLayer #importBtn").click(function(){
-		$("#piFileUp").click();
+		$("#file").click();
 	});
 	// 导出缴款数据
 	$("#rightLayer #exportBonusBtn").click(function(){
@@ -74,7 +74,7 @@ function initPayInListeners(){
 	// 删除单条数据
 	$("#payInTbody .delBtn").live("click", delPayInFunc);
 
-	$("#piFileUp").live("change", importPIFunc); 
+	$("#file").live("change", importPIFunc); 
 }
 function initPayInPages() {
 	getPayInList();
@@ -137,13 +137,14 @@ function loadPayInList(){
 }
 
 function importPIFunc(){
-	if($("#piFileUp").val() == ""){
+	if($("#file").val() == ""){
 		return false;
 	}
+	var ctx = "<?php echo site_url();?>";
 	$.ajaxFileUpload({
-		url: '../PayInDetailController/callPayInImport.action', //用于文件上传的服务器端请求地址
+		url: ctx+'/Payrecord/inputXLS', //用于文件上传的服务器端请求地址
 		secureuri: false, //是否需要安全协议，一般设置为false
-		fileElementId: 'piFileUp', //文件上传域的ID
+		fileElementId: 'file', //文件上传域的ID
 		dataType: 'JSON', //返回值类型 一般设置为json
 		data:{
 			// "filePath":"d://BonusDetail.xlsx"
@@ -152,7 +153,7 @@ function importPIFunc(){
 			if(status == "success"){
 				alert("导入成功!");
 				getPayInList();
-				//$("#piFileUp").prop("outerHTML", $("#piFileUp").prop("outerHTML"));
+				//$("#file").prop("outerHTML", $("#piFileUp").prop("outerHTML"));
 			}else{
 				alert("1:"+data.error);
 			}
@@ -191,7 +192,7 @@ function delPayInFunc(){
 </head>
 <body id="rightLayer">
 <div id="searchLayer">
-	<input type="file" id="piFileUp" name="piFileUp">
+	<input type="file" id="file" name="file">
 	<button id="exportSubBtn" class="btnSTY">导出缴款模板</button>
 	<button id="importBtn" class="btnSTY">导入缴款</button>
 	<button id="exportBonusBtn" class="btnSTY">导出缴款</button>
