@@ -198,6 +198,7 @@ class BonusRecord extends CI_Controller
     //BonusRecord/getBonusRecordListByName
 
     public function getBonusRecordListByName(){
+        // $projectId =  $this->input->post('projectId');
          $subscribeStartDate = $this->input->post('startDate');
          $subscribeEndDate = $this->input->post('endDate');
          $userName = $this->input->post('uname');

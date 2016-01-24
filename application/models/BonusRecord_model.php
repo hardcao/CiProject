@@ -142,7 +142,7 @@ class BonusRecord_model extends CI_Model
             $selectData = "T_SUBSCRIBECONFIRMRECORD.FID as FID, T_USER.FNAME as FNAME, T_USER.FORG as FORG,T_FOLLOWER.FSTATE as FSTATE,T_SUBSCRIBECONFIRMRECORD.FCONFIRMAMOUNT as FCONFIRMAMOUNT,T_BANKINFO.FBANKNO as FBANKNO";
             $this->db->select($selectData);
             $this->db->join('T_USER','T_USER.FID=T_SUBSCRIBECONFIRMRECORD.FUSERID');
-            $this->db->join('T_FOLLOWER','T_FOLLOWER.FUSERID=T_SUBSCRIBECONFIRMRECORD.FUSERID');
+            $this->db->join('T_FOLLOWER','T_FOLLOWER.FUSERID=T_SUBSCRIBECONFIRMRECORD.FUSERID AND T_FOLLOWER.FPROJECTID=T_SUBSCRIBECONFIRMRECORD.FPROJECTID');
             $this->db->join('T_BANKINFO','T_BANKINFO.FID=T_SUBSCRIBECONFIRMRECORD.FBANKID');
             $this->db->where('T_SUBSCRIBECONFIRMRECORD.FPROJECTID',$projectId);
             $result = $this->db->get('T_SUBSCRIBECONFIRMRECORD')->result_array();
@@ -153,7 +153,7 @@ class BonusRecord_model extends CI_Model
             $selectData = "T_SUBSCRIBECONFIRMRECORD.FID as FID,T_USER.FNAME as FNAME, T_USER.FORG as FORG,T_FOLLOWER.FSTATE as FSTATE,T_SUBSCRIBECONFIRMRECORD.FCONFIRMAMOUNT as FCONFIRMAMOUNT";
             $this->db->select($selectData);
             $this->db->join('T_USER','T_USER.FID=T_SUBSCRIBECONFIRMRECORD.FUSERID');
-            $this->db->join('T_FOLLOWER','T_FOLLOWER.FUSERID=T_SUBSCRIBECONFIRMRECORD.FUSERID');
+            $this->db->join('T_FOLLOWER','T_FOLLOWER.FUSERID=T_SUBSCRIBECONFIRMRECORD.FUSERID AND T_FOLLOWER.FPROJECTID=T_SUBSCRIBECONFIRMRECORD.FPROJECTID');
             $this->db->where('T_SUBSCRIBECONFIRMRECORD.FPROJECTID',$projectId);
             $result = $this->db->get('T_SUBSCRIBECONFIRMRECORD')->list_fields();
             return $result;
@@ -177,8 +177,8 @@ class BonusRecord_model extends CI_Model
             $this->db->join('T_FOLLOWER','T_FOLLOWER.FUSERID=T_SUBSCRIBECONFIRMRECORD.FUSERID');
             $this->db->join('T_BANKINFO','T_BANKINFO.FID=T_SUBSCRIBECONFIRMRECORD.FBANKID');
             $this->db->join('T_BONUSRECORD','T_BONUSRECORD.FSUBSCRIBECONFIGRMRECORDID=T_SUBSCRIBECONFIRMRECORD.FID');
-           // if($userName)
-               // $this->db->like('T_USER.FNAME',$userName);
+            if($userName)
+                $this->db->like('T_USER.FNAME',$userName);
             $result = $this->db->get('T_SUBSCRIBECONFIRMRECORD')->result_array();
             $data["success"] = true;
             $data["errorCode"] = 0;
