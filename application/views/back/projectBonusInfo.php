@@ -79,6 +79,7 @@ function initBonusListeners(){
 	$("#rightLayer #exportSubBtn").click(function(){
 		var ctx = "<?php echo site_url();?>";
 		$.ajax({
+			type:'post',//可选get
 			url: ctx+'BonusRecord/outputXls', //用于文件上传的服务器端请求地址
 			dataType: 'JSON', //返回值类型 一般设置为json
 			data:{
@@ -101,18 +102,25 @@ function initBonusListeners(){
 	});
 	// 导入分红
 	$("#rightLayer #importBtn").click(function(){
-		$("#bonusFileUp").click();
+		$("#file").click();
 	});
 	// 导出分红
 	$("#rightLayer #exportBonusBtn").click(function(){
 		//location.href = "../BonusDetailController/callBonusExport.action?projectId="+projectId+"&bonusIds=";
+	
+	var _obj = {projectId: getReqParam("projectId"),
+				startDate:_sDate,
+				endDate:_eDate,
+				uname:_searText,
+				startPage:0,
+				endPage:999
+	};
 	var ctx = "<?php echo site_url();?>";
 		$.ajax({
+			type:'post',//可选get
 			url: ctx+'BonusRecord/exportBonusRecordXls', //用于文件上传的服务器端请求地址
 			dataType: 'JSON', //返回值类型 一般设置为json
-			data:{
-				// "filePath":"d://BonusDetail.xlsx"
-			},
+			data:_obj,
 			success: function (msg){  //服务器成功响应处理函数			
 				if(msg.success == true){
 					//alert("导入成功!");
@@ -129,7 +137,7 @@ function initBonusListeners(){
 		})
 
 	});
-	$("#bonusFileUp").live("change", importBonusFunc);
+	$("#file").live("change", importBonusFunc);
 }
 
 function getBonusList(){
@@ -362,6 +370,7 @@ function importBonusFunc(){
 
 	var ctx = "<?php echo site_url();?>";
 	$.ajaxFileUpload({
+		type:'post',//可选get
 		url: ctx+'/BonusRecord/inputXLS', //用于文件上传的服务器端请求地址
 		secureuri: false, //是否需要安全协议，一般设置为false
 		fileElementId: 'file', //文件上传域的ID
@@ -372,7 +381,7 @@ function importBonusFunc(){
 		success: function (data, status){  //服务器成功响应处理函数			
 			if(status == "success"){
 				alert("导入成功!");
-				getPayInList();
+				getBonusList();
 				//$("#file").prop("outerHTML", $("#piFileUp").prop("outerHTML"));
 			}else{
 				alert("1:"+data.error);
