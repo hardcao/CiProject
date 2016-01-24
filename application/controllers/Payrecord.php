@@ -72,7 +72,7 @@ class Payrecord extends CI_Controller
         $fields = $this->Payrecord_model->getAllPayRecodFilds($projectId);;
         $col = 0;
        
-            $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow($col, 1, '缴款ID');
+            $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow($col, 1, '缴款人唯一标示(勿动)');
             $col++;
             $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow($col, 1, '跟投人');
             $col++;
@@ -112,7 +112,7 @@ class Payrecord extends CI_Controller
             $col++;
             $row++;
         }
-        $fileName ="jiao".date('y-m-d-h-i-s',time()).".xlsx";
+        $fileName ="缴款记录-".date('y-m-d-h-i-s',time()).".xlsx";
 
         $baseURL = site_url();
         $objWriter = IOFactory::createWriter($objPHPExcel, 'Excel5');
@@ -196,5 +196,71 @@ class Payrecord extends CI_Controller
          $userName = $this->input->post('uname');
          $result = $this->Payrecord_model->getPayRecoListByName($subscribeStartDate, $subscribeEndDate,$userName);
          echo json_encode($result);
+    }
+    
+    // Payrecord/exportPayRecordXls
+    public function exportPayRecordXls()
+    {
+        
+       $result = $this->Payrecord_model->exportPayRecordXls();
+       
+        $objPHPExcel = new PHPExcel();
+        $objPHPExcel->getProperties()->setTitle("title")->setDescription("description");
+        $objPHPExcel->setActiveSheetIndex(0);
+        // Field names in the first row
+       
+        $col = 0;
+       
+            $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow($col, 1, '缴款人唯一标示(勿动)');
+            $col++;
+            $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow($col, 1, '跟投人');
+            $col++;
+            $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow($col, 1, '部门');
+            $col++;
+            $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow($col, 1, '总部/区域');
+            $col++;
+            $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow($col, 1, '平衡金额');
+            $col++;
+             $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow($col, 1, '缴款批次');
+            $col++;
+             $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow($col, 1, '缴款日期');
+            $col++;
+             $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow($col, 1, '缴款金额');
+            $col++;
+        
+
+        $row = 2;
+       // echo json_encode($result);
+        foreach($result as $data)
+        {
+            $col = 0;  
+            $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow($col, $row, $data['FID']);
+            $col++;
+            $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow($col, $row, $data['FNAME']);
+            $col++;
+            $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow($col, $row, $data['FORG']);
+            $col++;
+            $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow($col, $row, $data['FSTATE']);
+            $col++;
+            $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow($col, $row, $data['FCONFIRMAMOUNT']);
+            
+            $col++;
+            $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow($col, $row, $data['FPAYTIMES']);
+            $col++;
+            $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow($col, $row, $data['FPAYDATE']);
+            $col++;
+            $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow($col, $row, $data['FPAYAMOUNT']);
+            $row++;
+        }
+        $fileName ="缴款记录-".date('y-m-d-h-i-s',time()).".xlsx";
+
+        $baseURL = site_url();
+        $objWriter = IOFactory::createWriter($objPHPExcel, 'Excel5');
+        $objWriter->save("fileFolder/".$fileName);
+        $dataR["success"] = true;
+        $dataR["errorCode"] = 0;
+        $dataR["error"] = 0;
+        $dataR['data'] = $fileName;
+        echo json_encode($dataR);
     }
 }
