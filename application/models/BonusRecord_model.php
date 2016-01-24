@@ -127,4 +127,63 @@ class BonusRecord_model extends CI_Model
             $result = $this->db->get('T_PAYRECORD')->result_array();
             return $result[0];
         }
+
+         public function getAllPayRecod($projectId) {
+            $selectData = "T_SUBSCRIBECONFIRMRECORD.FID as FID, T_USER.FNAME as FNAME, T_USER.FORG as FORG,T_FOLLOWER.FSTATE as FSTATE,T_SUBSCRIBECONFIRMRECORD.FCONFIRMAMOUNT as FCONFIRMAMOUNT,T_BANKINFO.FBANKNO as FBANKNO";
+            $this->db->select($selectData);
+            $this->db->join('T_USER','T_USER.FID=T_SUBSCRIBECONFIRMRECORD.FUSERID');
+            $this->db->join('T_FOLLOWER','T_FOLLOWER.FUSERID=T_SUBSCRIBECONFIRMRECORD.FUSERID');
+            $this->db->join('T_BANKINFO','T_BANKINFO.FID=T_SUBSCRIBECONFIRMRECORD.FBANKID');
+            $this->db->where('T_SUBSCRIBECONFIRMRECORD.FPROJECTID',$projectId);
+            $result = $this->db->get('T_SUBSCRIBECONFIRMRECORD')->result_array();
+            return $result;
+        }
+
+        public function getAllPayRecodFilds($projectId) {
+            $selectData = "T_SUBSCRIBECONFIRMRECORD.FID as FID,T_USER.FNAME as FNAME, T_USER.FORG as FORG,T_FOLLOWER.FSTATE as FSTATE,T_SUBSCRIBECONFIRMRECORD.FCONFIRMAMOUNT as FCONFIRMAMOUNT";
+            $this->db->select($selectData);
+            $this->db->join('T_USER','T_USER.FID=T_SUBSCRIBECONFIRMRECORD.FUSERID');
+            $this->db->join('T_FOLLOWER','T_FOLLOWER.FUSERID=T_SUBSCRIBECONFIRMRECORD.FUSERID');
+            $this->db->where('T_SUBSCRIBECONFIRMRECORD.FPROJECTID',$projectId);
+            $result = $this->db->get('T_SUBSCRIBECONFIRMRECORD')->list_fields();
+            return $result;
+        }
+
+    
+        public function getPayRecordListByName($subscribeStartDate, $subscribeEndDate,$userName) {
+            $tablename = 'T_PROJECT';
+       
+            if($subscribeStartDate || $subscribeEndDate){
+                $startdatetime = new DateTime($subscribeStartDate);
+                $startTime= $startdatetime->format('Y-m-d H:i:s');
+                $endDatetime = new DateTime($subscribeEndDate);
+                $endTime = $endDatetime->format('Y-m-d H:i:s');
+                $where = "'".$startTime."' < DATE_FORMAT(T_PAYRECORD.FPAYDATE,'%Y-%m-%d %H:%i:%s') AND DATE_FORMAT(T_PAYRECORD.FPAYDATE,'%Y-%m-%d %H:%i:%s') <'".$endTime."'";
+                $this->db->where($where);
+            }
+       
+            $selectData = "T_PAYRECORD.FID as FID, T_USER.FNAME as FNAME, T_USER.FORG as FORG,T_FOLLOWER.FSTATE as FSTATE,T_SUBSCRIBECONFIRMRECORD.FCONFIRMAMOUNT as FCONFIRMAMOUNT,T_PAYRECORD.FPAYTIMES as FPAYTIMES,T_PAYRECORD.FPAYDATE as FPAYDATE,T_PAYRECORD.FPAYAMOUNT as FPAYAMOUNT";
+            $this->db->select($selectData);
+            $this->db->join('T_USER','T_USER.FID=T_SUBSCRIBECONFIRMRECORD.FUSERID');
+            $this->db->join('T_FOLLOWER','T_FOLLOWER.FUSERID=T_SUBSCRIBECONFIRMRECORD.FUSERID');
+            $this->db->join('T_PAYRECORD','T_PAYRECORD.FSUBSCRIBECONFIGRMRECORDID=T_SUBSCRIBECONFIRMRECORD.FID');
+            if($userName)
+                $this->db->like('FNAME',$userName);
+            $result = $this->db->get('T_SUBSCRIBECONFIRMRECORD')->result_array();
+            $data["success"] = true;
+            $data["errorCode"] = 0;
+            $data["error"] = 0;
+            $data['data'] =  $result;
+            return $data;
+        }
+
+        public function exportPayRecordXls() {
+            $selectData = "T_SUBSCRIBECONFIRMRECORD.FID as FID, T_USER.FNAME as FNAME, T_USER.FORG as FORG,T_FOLLOWER.FSTATE as FSTATE,T_SUBSCRIBECONFIRMRECORD.FCONFIRMAMOUNT as FCONFIRMAMOUNT,T_PAYRECORD.FPAYTIMES as FPAYTIMES,T_PAYRECORD.FPAYDATE as FPAYDATE,T_PAYRECORD.FPAYAMOUNT as FPAYAMOUNT";
+            $this->db->select($selectData);
+            $this->db->join('T_USER','T_USER.FID=T_SUBSCRIBECONFIRMRECORD.FUSERID');
+            $this->db->join('T_FOLLOWER','T_FOLLOWER.FUSERID=T_SUBSCRIBECONFIRMRECORD.FUSERID');
+            $this->db->join('T_PAYRECORD','T_PAYRECORD.FSUBSCRIBECONFIGRMRECORDID=T_SUBSCRIBECONFIRMRECORD.FID');
+            $result = $this->db->get('T_SUBSCRIBECONFIRMRECORD')->result_array();
+            return $result;
+    }
 }
