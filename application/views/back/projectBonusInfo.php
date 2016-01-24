@@ -355,7 +355,7 @@ function getPath(obj,fileQuery){
 	<button id="exportSubBtn" class="btnSTY">导出分红模板</button>
 	<button id="importBtn" class="btnSTY">导入分红</button>
 	<button id="exportBonusBtn" class="btnSTY">导出分红</button>
-	<input type="file" id="bonusFileUp" name="bonusFileUp" style="left:90px;">
+	<input type="file" id="bonusFileUp" name="bonusFileUp" style="left:90px;" class="displayNone">
 	分红日期：<input id="sDateInp" readonly class="dateSTY" />至<input id="eDateInp" readonly class="dateSTY" style="margin-right: 40px;" />
 	<input id="searTextInp" placeholder="请输入项目名或认购人" />
 	<button id="searTextBtn">搜索</button>

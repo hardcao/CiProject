@@ -33,6 +33,7 @@
 			<div anchor="protocal" class="tabSTY">跟投协议</div>
 			<div anchor="force" class="tabSTY">跟投人员</div>
 			<div anchor="news" class="tabSTY">项目动态新闻</div>
+			<div anchor="pics" class="tabSTY">项目图片库</div>
 		</div>
 		<div id="basic_info" class="info_STY">
 			<div class="moduleTitle" ind="0_0">
@@ -172,7 +173,7 @@
 		</div>
 		<div id="scheme_info" class="info_STY" style="display:none;">
 			<div class="content">
-				<div class="titleSTY" class="displayNone">跟投计划安排</div>
+				<!--div class="titleSTY" class="displayNone">跟投计划安排</div-->
 				<table border="1"><tr>
 					<td class="titleTd">认购开始时间</td>
 					<td width="300" id="subscribeStartInp"></td>
@@ -240,11 +241,11 @@
 			<div>协议下载地址：<a id="protocalDown" href="javascript:void(0)">合肥高新项目跟投协议内容.docx</a></div>
 		</div>
 		<div id="force_info" class="info_STY" style="display:none;">
-			<br><div class="titleSTY">强制跟投人员名单</div>
+			<br><!--div class="titleSTY">强制跟投人员名单</div-->
 			<table border="1"><thead><tr>
 				<td rowspan="2" width="50">序号</td>
 				<td rowspan="2" width="90">姓名</td>
-				<td rowspan="2" width="150">认购类型</td> <!-- "所属公司"字段名改为：认购类型 -->
+				<td rowspan="2" width="150">区域/总部</td> <!-- "所属公司"字段名改为：认购类型 -->
 				<td rowspan="2" width="150">部门</td>
 				<td rowspan="2" width="150">职务</td>
 				<td colspan="2" height="17">个人额度范围</td>
@@ -282,8 +283,23 @@
 				</tr> -->
 			</tbody></table>
 		</div>
+		<div id="pics_info" class="info_STY" style="display:none;">
+			<div>
+				<p>项目封面</p>
+				<img id="cover" src=""/>
+			</div>
+			<div>
+				<p>项目图片</p>
+				<ul id="pics">
+					
+				</ul>
+			</div>
+		</div>
 	</div>
 </div>
+
+
+
 <div id="footer">中粮地产集团</div>
 <script type="text/javascript">
 	// 导航下标
@@ -530,11 +546,11 @@ function getSchemeInfo(){
 				 //$("#followAmount").text(formatMillions(data.followAmount)+" 万元");
 				 $("#followAmountDesc").val(data.FFOLLOWTEAM);
 				 $("#groupForceRatio").text((data.FHDRATIO)+" %");
-				 $("#groupForceAmount").text(formatMillions(data.FHDAMOUNT)+" 万元");
+				 $("#groupForceAmount").text((data.FHDAMOUNT)+" 万元");
 				 $("#compForceRatio").text((data.FREGIONRATIO)+" %");
-				 $("#compForceAmount").text(formatMillions(data.FREGIONAMOUNT)+" 万元");
+				 $("#compForceAmount").text((data.FREGIONAMOUNT)+" 万元");
 				 $("#compChoiceRatio").text((data.FALLRATION)+" %");
-				 $("#compChoiceAmount").text(formatMillions(data.FALLAMOUNT)+" 万元");
+				 $("#compChoiceAmount").text((data.FALLAMOUNT)+" 万元");
 				 $("#leverageDes").text(data.FLEVERAGEDES);
 				 $("#subscribeRemind").text(data.FCOLLECTWAY);
 				 //$("#followChemeLink").html(structSchemeLink(data.FLINK));
@@ -570,27 +586,28 @@ function structSchemeLink(_str){
 }
 
 function getForceList(){
+	var ctx="<?php echo site_url();?>";
+	var projectId=getReqParam('projectid');
 	$.ajax({
 		type:'post',//可选get
-		url:'../ForceFollowController/getForceByProjectId.action',
+		url:ctx+'/Follower/getFollowerListWithProjectID',
 		dataType:'Json',//服务器返回的数据类型 可选XML ,Json jsonp script html text等
 		data:{
 			'projectId':projectId,
-			'forceType':"1"
 		},
 		success:function(msg){
 			if(msg.success){
 				$("#forceTbody").empty();
-				if(msg.dataDto && msg.dataDto.length > 0){
-					$.each(msg.dataDto, function(ind, val){
+				if(msg.data && msg.data.length > 0){
+					$.each(msg.data, function(ind, val){
 						var tempHtml = 
 							'<tr><td height="30">'+(ind+1)+'</td>'+
-								'<td>'+val.name+'</td>'+
-								'<td>'+(val.company||"")+'</td>'+
-								'<td>'+(val.department||"")+'</td>'+
-								'<td>'+(val.duty||"")+'</td>'+
-								'<td>'+formatMillions(val.downlimit)+'</td>'+
-								'<td>'+formatMillions(val.toplimit)+'</td>'+
+								'<td>'+val.FNAME+'</td>'+
+								'<td>'+(val.FSTATE||"")+'</td>'+
+								'<td>'+(val.FORG||"")+'</td>'+
+								'<td>'+(val.FDUTY||"")+'</td>'+
+								'<td>'+val.FTOPLIMIT+'</td>'+
+								'<td>'+val.FDOWNLIMIT+'</td>'+
 								// '<td>'+(val.remark||"")+'</td></tr>';
 								'<td></td></tr>';
 						 $("#forceTbody").append(tempHtml);

@@ -60,193 +60,114 @@ input#item_pic {
 	width: 200px;
 }
 
+.deletePic
+{
+	text-align: right;
+	color: grey;
+	font-size: 12px;
+	margin-right: 10px
+}
+
 </style>
 <script type="text/javascript">
-var allUserList = [];
-var forceObj = {};
-var tempForceObj = {};
-var tempAddForceObj = {};
-var i=0;
-var schemeLinkArr = [];
-var protocalArr = [];
-$(function(){
-	$("#uploadProtocalForm .delProtocalLink").live("click", deleteSchemeProtocalFunc);
-	$("#uploadForm .delSchemeLink").live("click", deleteSchemeLinkFunc);
-	$("#rightLayer .editTitle").click(function(){
-		var _editor = $("#"+$(this).attr("id")+"_editor");
-		var isDis = _editor.hasClass("displayNone");
-		if(isDis) _editor.removeClass("displayNone");
-		else _editor.addClass("displayNone");
-	})
-	$("#addForceRecord").click(function(ev){
-		callForceDialog();
-	});
-	$("#forceDialogLayer #allUserTbody input[name=userCk]").live("click",function(){
-		var _cked = $(this).attr("checked");
-		var _uid = $(this).attr("uid");
-		var _ind = $(this).attr("ind");
-		if(_cked){
-			$(this).attr("checked","checked");
-			if(!tempAddForceObj[_uid]){
-				tempAddForceObj[_uid] = allUserList[_ind];
-			}
-		}else{
-			$(this).removeAttr("checked");
-			if(tempAddForceObj[_uid]){
-				delete tempAddForceObj[_uid];
-			}
-		}
-	});
-	$("#forceDialogLayer #searUserBtn").click(getAllUserData);
-	$("#forceDialogLayer #okBtn").click(addRows);
-	$("#forceDialogLayer #cancelBtn").click(hideForceDialog);
 
-	$("#addSubPackage").click(function(ev){
-		var leng = $("#subTbody").children().length;
-		var tempHtml = '<tr><td>'+(leng+1)+'</td>'+
-				'<td><input /></td>'+
-				'<td><input /></td>'+
-				'<td><input /></td>'+
-				'<td><input /></td>'+
-				'<td><input /></td>'+
-				'<td><input /></td></tr>';
-		$("#subTbody").append(tempHtml);
+		// 导入缴款数据
+	$("#importBtn").click(function(){
+		$("#file").click();
 	});
-	$("#forceTbody .forceDelBtn").live("click",forceDelFunc);
-	$("#groundInp").datetimepicker(/*{format:'Y-m-d',timepicker: false}*/);
-	$("#stageStartInp").datetimepicker();
-	$("#stageOpenInp").datetimepicker();
-	// $("#peakInp").datetimepicker();
-	// $("#cashflowReturnInp").datetimepicker();
-	$("#deliverInp").datetimepicker();
-	$("#carryoverInp").datetimepicker();
-	$("#liquidateInp").datetimepicker();
-	$("#subscribeStartInp").datetimepicker();
-	$("#subscribeEndtInp").datetimepicker();
-	$("#payStartInp").datetimepicker();
-	$("#payEndInp").datetimepicker();
-	$("#payReleaseDateInp").datetimepicker();
-	var projectId= getReqParam('projectid');//$("#projectid").val();
-	if(projectId!="" && projectId!=null){
-		//此id是做修改的时候 form表单的id 跟head.jsp里面的projectid 一样
-		$("#newprojectId").val(projectId);
-		$("#schemeProjectid").val(projectId);
-		$("#forceProjectId").val(projectId);
-		$("#subProjectId").val(projectId);
-		$("#uploadProId").val(projectId);
-		$("#uploadProId_1").val(projectId);
-		getProjectDetail();
-		getSchemeByProjectid();
-		getForceFollowByProjectid();
-		getSubscribeByProjectid();
-	}
-});
-function getSubscribeByProjectid(){
-	var ctx=$("#ctx").val();
-	var projectId=getReqParam('projectid');;
-	$.ajax({
-		type:'post',//可选get
-		url:ctx+'/subscribe/getSubscribeyProjectId.action',
-		dataType:'Json',//服务器返回的数据类型 可选XML ,Json jsonp script html text等
-		data:{'projectId':projectId},
-		success:function(msg){
-			if(msg.success){
-				for(var m=0;m<msg.dataDto.length;m++){
-					 $("#sub"+m+"subscribeId").val((msg.dataDto)[m].subscribeId);
-					 $("#sub"+m+"followNature").val((msg.dataDto)[m].followNature);
-					 $("#sub"+m+"followStaff").val((msg.dataDto)[m].followStaff);
-					 $("#sub"+m+"amountToplimit").val((msg.dataDto)[m].amountToplimit);
-					 $("#sub"+m+"contributiveSubscribe").val((msg.dataDto)[m].contributiveSubscribe);
-					 $("#sub"+m+"leverageSubscribe").val((msg.dataDto)[m].leverageSubscribe);
-					 $("#sub"+m+"subscribeAmountTotal").val((msg.dataDto)[m].subscribeAmountTotal);
+
+	$("#file").live("change", importPIFunc); 
+
+	function importPIFunc(){
+		if($("#file").val() == ""){
+			return false;
+		}
+		var ctx = "<?php echo site_url();?>";
+		$.ajaxFileUpload({
+			url: ctx+'/Pics/uploadCover', //用于文件上传的服务器端请求地址
+			secureuri: false, //是否需要安全协议，一般设置为false
+			fileElementId: 'file', //文件上传域的ID
+			dataType: 'JSON', //返回值类型 一般设置为json
+			data:{
+				// "filePath":"d://BonusDetail.xlsx"
+			},
+			success: function (data, status){  //服务器成功响应处理函数			
+				if(status == "success"){
+					alert("导入成功!");
+					getCover();
+					//$("#file").prop("outerHTML", $("#piFileUp").prop("outerHTML"));
+				}else{
+					alert("1:"+data.error);
 				}
-			}else{
-				alert(msg.error);
+			},
+			error: function (data, status, e){//服务器响应失败处理函数		
+				alert("2:"+e);
 			}
-		},
-		error: function (XMLHttpRequest, textStatus, errorThrown) {
-        	// sessionTimeout(XMLHttpRequest, textStatus, errorThrown);
-        }
-	})
-}
-function getForceFollowByProjectid(){
-	var ctx="<?php echo site_url();?>";
-	var projectId=getReqParam('projectid');
-	$.ajax({
-		type:'post',//可选get
-		url:ctx+'/ForceFollowController/getForceByProjectId.action',
-		dataType:'Json',//服务器返回的数据类型 可选XML ,Json jsonp script html text等
-		data:{
-			'projectId':projectId,
-			'forceType':"1"
-		},
-		success:function(msg){
-			if(msg.success){
-				i=msg.data.length;
-				var _obj = null;
-				var tempSel = "";
-				for(var m=0;m<msg.dataDto.length;m++){
-					_obj = (msg.dataDto)[m];
-					forceObj[_obj.uid] = _obj;
-					if(_obj.company == "集团强投包"){
-						tempSel = '<select name="forceFollList['+m+'].company" ><option value="集团强投包" selected="selected">集团强投包</option><option value="城市强投包">城市强投包</option></select>';
-					}else{
-						tempSel = '<select name="forceFollList['+m+'].company" ><option value="集团强投包">集团强投包</option><option value="城市强投包" selected="selected">城市强投包</option></select>';
-					}
-					var tempHtml = 
-					'<tr id="force_row_'+m+'">'+
-						/*'<td>'+(m+1)+'</td>'+*/
-						'<td><input type="hidden" name="forceFollList['+m+'].forceFollowId" value="'+_obj.forceFollowId+'" />'+
-						'<input type="hidden" name="forceFollList['+m+'].forceType" value="'+_obj.forceType+'" />'+
-						'<input type="hidden" name="forceFollList['+m+'].name" value="'+_obj.uid+'" />'+
-						'<input value="'+_obj.name+'" readonly="true" /></td>'+
-						'<td>'+tempSel+'</td>'+
-						'<td><input name="forceFollList['+m+'].department" value="'+_obj.department+'" /></td>'+
-						'<td><input name="forceFollList['+m+'].duty" value="'+(_obj.duty||"")+'" /></td>'+
-						'<td><input name="forceFollList['+m+'].downlimit" value="'+formatMillions(_obj.downlimit)+'" type="number" /></td>'+
-						'<td><input name="forceFollList['+m+'].toplimit" value="'+formatMillions(_obj.toplimit)+'" type="number" /></td>'+
-						'<td><input name="forceFollList['+m+'].remark" value="'+_obj.remark+'" readonly="true" /></td>'+
-						'<td><a class="forceDelBtn" ind="'+m+'" uid="'+_obj.uid+'" fid="'+_obj.forceFollowId+'" href="javascript:void(0)" >删除</a></td></tr>';
-				 $("#forceTbody").append(tempHtml);
-				}	
-			}else{
-				alert(msg.error);
+		})
+	}
+
+	$("#importBtn1").click(function(){
+		$("#file1").click();
+	});
+
+	$("#file1").live("change", importPIFunc1); 
+
+	function importPIFunc1(){
+		if($("#file").val() == ""){
+			return false;
+		}
+		var ctx = "<?php echo site_url();?>";
+		$.ajaxFileUpload({
+			url: ctx+'/Pics/uploadPic', //用于文件上传的服务器端请求地址
+			secureuri: false, //是否需要安全协议，一般设置为false
+			fileElementId: 'file', //文件上传域的ID
+			dataType: 'JSON', //返回值类型 一般设置为json
+			data:{
+				// "filePath":"d://BonusDetail.xlsx"
+			},
+			success: function (data, status){  //服务器成功响应处理函数			
+				if(status == "success"){
+					alert("导入成功!");
+					getPics();
+					//$("#file").prop("outerHTML", $("#piFileUp").prop("outerHTML"));
+				}else{
+					alert("1:"+data.error);
+				}
+			},
+			error: function (data, status, e){//服务器响应失败处理函数		
+				alert("2:"+e);
 			}
-		},
-		error: function (XMLHttpRequest, textStatus, errorThrown) {
-        	// sessionTimeout(XMLHttpRequest, textStatus, errorThrown);
-        }
-	})
-}
+		})
+	}
+
 
 </script>
 </head>
 <body id="rightLayer">
 <div id="basic" class="editTitle"><img src="../../application/views/back/images/arrow_down.png" />项目封面图</div>
 		<div><img src="http://localhost/application/views/front/img/title.jpg" width="600px"></div>
-		<div><p>删除</p></div>
-		<form method="post" action="<?=site_url()?>files/img/" enctype="multipart/form-data" />
+
+		<input type="file" id="file" name="file" class="displayNone">
+		<button id="importBtn" class="btnSTY" style="margin:10px 10px 10px 0px; padding:5px">修改封面图片</button>
+
+		<!--form method="post" action="<?=site_url()?>files/img/" enctype="multipart/form-data" />
 		    <div style="margin:0 0 0.5em 0em;">
 		        <input type="file" name="userfile" size="20" class="button" />
-		        <input type="submit" value=" 上传 " class="button" />
+		        <input type="submit" value=" 修改封面图片 " class="button" />
 		    </div>
-		</form>
+		</form-->
 
 
 <div id="basic" class="editTitle"><img src="../../application/views/back/images/arrow_down.png" />项目图库</div>
 <ul id="ul-pics">
 	<li>
 		<div><img src="http://localhost/application/views/front/img/title.jpg" width="100%"></div>
-		<div><p>删除</p></div>
-	</li>
-	<li>
-		<div><img src="http://localhost/application/views/front/img/title.jpg" width="100%"></div>
-		<div><p>删除</p></div>
-	</li>
-	<li>
-		<div><img src="http://localhost/application/views/front/img/title.jpg" width="100%"></div>
-		<div><p>删除</p></div>
+		<div><p class="deletePic" ><a onclick="delPic(this.id)">删除照片</a></p></div>
 	</li>
 </ul>
-<div><input class="file" type="file" value="更改封面图片" id="item_pic" placeholder="上传封面图片"></div>
+<div style="clear:both">
+	<input type="file" id="file1" name="file1" class="displayNone">
+	<button id="importBtn1" class="btnSTY" style="margin:10px 10px 10px 0px; padding:5px">上传图片</button>	
+</div>
+
 </html>
