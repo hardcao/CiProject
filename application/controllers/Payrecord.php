@@ -172,7 +172,7 @@ class Payrecord extends CI_Controller
                 $count = $this->Payrecord_model->getPayCountWithTime($value['A'],$value['F']);
                 $tableName = 'T_PAYRECORD';
                 $this->load->model('Tools');
-                echo json_encode($result);
+            
                 if(intval($count)>0){
                     $where = 'FSUBSCRIBECONFIGRMRECORDID='. $value['A'].' AND FPAYTIMES='. $value['F'];
                     $result = $this->Tools->updateData( $insertArr,$tableName,$where);
