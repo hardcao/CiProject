@@ -133,4 +133,21 @@
     }());
     win.on('load', function() {
     })*/
+
 });
+
+    var vLogin = false;
+    function check_login()
+    {
+        if (vLogin == false) 
+        {
+            $("#login").text('登出');
+            vLogin = true;
+        }
+        else
+        {
+             $("#login").text('登录');
+            vLogin = false;
+        }
+        
+    }

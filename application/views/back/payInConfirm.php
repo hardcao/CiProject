@@ -12,6 +12,7 @@
 <script type="text/javascript" src="<?php echo site_url('application/views/plugins/jquery.pagination.js')?>"></script>
 <script type="text/javascript" src="<?php echo site_url('application/views/plugins/ajaxfileupload.js')?>"></script>
 <script type="text/javascript" src="<?php echo site_url('application/views/plugins/util.js')?>"></script>
+<script type="text/javascript" src="<?php echo site_url('application/views/plugins/dateFormat.js')?>"></script>
 <style type="text/css">
 body{font-size: 12px;}
 #rightLayer #searchLayer{text-align: right;margin:0px auto 10px;position: relative;}
@@ -37,7 +38,9 @@ function initPayInParams(){
 }
 function initPayInListeners(){
 	$("#searTextBtn").click(getPayInList);
-
+	$("#sDateInp").datetimepicker({format:'Y-m-d',timepicker:false});
+	$("#eDateInp").datetimepicker({format:'Y-m-d',timepicker:false});
+	
 	// 导出缴款模板
 	$("#rightLayer #exportSubBtn").click(function(){
 		//location.href = "../subscribe/callSubscribeRecordByPI.action?projectId="+projectId;
@@ -83,6 +86,7 @@ function initPayInListeners(){
 					endPage:999
 		};
 		$.ajax({
+			type:'post',
 			url: ctx+'/Payrecord/exportPayRecordXls', //用于文件上传的服务器端请求地址
 			dataType: 'JSON', //返回值类型 一般设置为json
 			data:_obj,

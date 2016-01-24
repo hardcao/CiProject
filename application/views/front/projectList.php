@@ -27,7 +27,7 @@
 	<div id="naviTitle"><a href="<?php echo site_url()?>">首页</a> > 认购项目列表</div>
 	<div id="searchLayer">
 		<div class="searSTY">
-			项目认购开始时间:&nbsp;<input id="releaseSDate" name="releaseStartDate" readonly class="dateSTY" />至<input id="releaseEDate" name="releaseEndDate" readonly class="dateSTY" />
+			项目认购开始时间:&nbsp;<input id="releaseSDate" name="releaseSDate" readonly class="dateSTY" />至<input id="releaseEDate" name="releaseEDate" readonly class="dateSTY" />
 		</div>
 		<div class="searSTY" style="display:none;">
 			状态:&nbsp;<select id="proStatus" name="projectStatus">
@@ -65,6 +65,9 @@ function initParams(){
 }
 function searchProject(){
 	var ctx="<?php echo site_url();?>";
+	var _sDate = $("#releaseSDate").val();
+	var _eDate = $("#releaseEDate").val();
+	var _searText = $("#searchText").val();
 	$.ajax({
 		type:'post',//可选get
 		url:ctx+'project/getAllFollowProject',
@@ -73,10 +76,10 @@ function searchProject(){
 			begin: 0,
 			count: 2,
 			uid: '1',
-			searchname: '',
-			subscribeStartDate: '2014-09-01 09:50:00',
-			subscribeEndDate:'2016-09-01 09:50:00',
-			status: 1	
+			searchname: _searText,
+			subscribeStartDate: _sDate,
+			subscribeEndDate:_eDate,
+			queryType: getReqParam('query'),	
 		},
 		success:function(msg){
 			if(msg.success){
@@ -189,7 +192,7 @@ regioAmountComplete: "test"
 						'<td>'+amm1+' 万元</td>'+*/
 					'</tr><tr>'+
 						'<td class="titleTd">强投包总额(含杠杆):</td>'+
-						'<td class=""><span>'+'(tempObj.groupForceAmount+tempObj.compForceAmount)'+'</span> 万元</td>'+
+						'<td class=""><span>'+'(tempObj.groupForceAmount)'+'</span> 万元</td>'+
 						'<td class="titleTd">选投包总额(无杠杆):</td>'+
 						'<td class=""><span>'+'(tempObj.compChoiceAmount)'+'</span> 万元</td>'+
 						/*'<td class="titleTd">已认购总额(含杠杆):</td>'+

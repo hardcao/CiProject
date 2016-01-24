@@ -18,7 +18,7 @@
 #permissionSet #managerList .mngListSTY .ckbox{float: right;}
 #permissionSet #managerList .mngListSTY .ckSTY{width: 15px;height: 15px;padding: 0px;vertical-align: middle;}
 #dialogBgLayer{position: fixed;width: 100%;height: 100%;background: #000;opacity: 0.7;top: 0;left: 0;}
-#dialogLayer{position: fixed;width: 100%;height: 100%;top: 0;left: 0;}
+#dialogLayer{position: fixed;width: 100%;height: 100%;top: 50px;left: 0;}
 #dialogLayer .dialogSTY{background: #fff;border: 1px solid #e8e8e8;border-radius: 5px;width: 750px;height: 470px;margin: 70px auto;}
 #dialogLayer .dialogSTY .tipTitle{float:left;padding: 8px 15px;}
 #dialogLayer .dialogSTY .tipTitle #proName{font-size: 14px;font-weight: bold;color: #D94026;}
@@ -228,14 +228,15 @@ function editPerm(){
 function getPermProjectList(){
 	// var ctx=$("#ctx").val();
 	// var projectName=$("#projectNameList").val();
+	var ctx="http://localhost/";
 	$.ajax({
 		type:'post',//可选get
-		url:'../UserProjectRelateController/getUserManageProjectList.action',
+		url:ctx+'Project/getProjectBack',
 		dataType:'Json',//服务器返回的数据类型 可选XML ,Json jsonp script html text等
-		data:{'projectName':""},
+		// data:{'projectName':""},
 		success:function(msg){
 			if(msg.success){
-				permProList=msg.dataDto;
+				permProList=msg.data;
 				loadPermProjectList();
 			}else{
 				alert(msg.error);
@@ -253,7 +254,7 @@ function loadPermProjectList(){
 		var tempHtml = "";
 		$.each(permProList, function(ind, val){
 			tempHtml +=
-			'<div ind="'+ind+'" class="proListSTY '+(ind==0?"focusOn":"")+'">'+val.projectName+'</div>';
+			'<div ind="'+ind+'" class="proListSTY '+(ind==0?"focusOn":"")+'">'+val.FNAME+'</div>';
 		});
 		$("#proList").html(tempHtml);
 	}
