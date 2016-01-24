@@ -173,18 +173,18 @@ class BonusRecord extends CI_Controller
                     continue;
                 }
                 $insertArr = array();
-                $insertArr['FPAYDATE'] = $value['G'];
-                $insertArr['FPAYAMOUNT'] = $value['H'];
+                $insertArr['FBONUSDATE'] = $value['G'];
+                $insertArr['FBONUSAMOUNT'] = $value['H'];
                 $count = $this->Payrecord_model->getPayCountWithTime($value['A'],$value['F']);
-                $tableName = 'BonusRecord_model';
+                $tableName = 'T_PAYRECORD';
                 $this->load->model('Tools');
             
                 if(intval($count)>0){
-                    $where = 'FSUBSCRIBECONFIGRMRECORDID='. $value['A'].' AND FPAYTIMES='. $value['F'];
+                    $where = 'FSUBSCRIBECONFIGRMRECORDID='. $value['A'].' AND FBONUSTIMES='. $value['F'];
                     $result = $this->Tools->updateData( $insertArr,$tableName,$where);
                 } else {
                      $insertArr['FSUBSCRIBECONFIGRMRECORDID'] = $value['A'];
-                     $insertArr['FPAYTIMES'] = $value['F'];
+                     $insertArr['FBONUSTIMES'] = $value['F'];
                      $result = $this->Tools->addData( $insertArr,$tableName);
                 } 
            }
@@ -194,17 +194,17 @@ class BonusRecord extends CI_Controller
        
     }
 
-    //Payrecord/getPayRecoListByName
+    //BonusRecord/getBonusRecordListByName
 
-    public function getPayRecordListByName(){
+    public function getBonusRecordListByName(){
          $subscribeStartDate = $this->input->post('startDate');
          $subscribeEndDate = $this->input->post('endDate');
          $userName = $this->input->post('uname');
-         $result = $this->Payrecord_model->getPayRecordListByName($subscribeStartDate, $subscribeEndDate,$userName);
+         $result = $this->BonusRecord_model->getBonusRecordListByName($subscribeStartDate, $subscribeEndDate,$userName);
          echo json_encode($result);
     }
     
-    // Payrecord/exportPayRecordXls
+    // BonusRecord/exportPayRecordXls
     public function exportPayRecordXls()
     {
         
@@ -227,11 +227,11 @@ class BonusRecord extends CI_Controller
             $col++;
             $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow($col, 1, '平衡金额');
             $col++;
-             $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow($col, 1, '缴款批次');
+             $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow($col, 1, '分红批次');
             $col++;
-             $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow($col, 1, '缴款日期');
+             $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow($col, 1, '分红日期');
             $col++;
-             $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow($col, 1, '缴款金额');
+             $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow($col, 1, '分红金额');
             $col++;
         
 
@@ -248,17 +248,20 @@ class BonusRecord extends CI_Controller
             $col++;
             $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow($col, $row, $data['FSTATE']);
             $col++;
-            $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow($col, $row, $data['FCONFIRMAMOUNT']);
+             if($data['FCONFIRMAMOUNT'] == null)
+                $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow($col, $row, 0);
+            else 
+                $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow($col, $row, $data['FCONFIRMAMOUNT']);
             
             $col++;
-            $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow($col, $row, $data['FPAYTIMES']);
+            $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow($col, $row, $data['FBONUSTIMES']);
             $col++;
-            $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow($col, $row, $data['FPAYDATE']);
+            $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow($col, $row, $data['FBONUSDATE']);
             $col++;
-            $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow($col, $row, $data['FPAYAMOUNT']);
+            $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow($col, $row, $data['FBONUSAMOUNT']);
             $row++;
         }
-        $fileName ="缴款记录-".date('y-m-d-h-i-s',time()).".xlsx";
+        $fileName ='FengHongJiLu-'.date('y-m-d-h-i-s',time()).".xlsx";
 
         $baseURL = site_url();
         $objWriter = IOFactory::createWriter($objPHPExcel, 'Excel5');

@@ -150,7 +150,7 @@ class BonusRecord_model extends CI_Model
         }
 
     
-        public function getPayRecordListByName($subscribeStartDate, $subscribeEndDate,$userName) {
+        public function getBonusRecordListByName($subscribeStartDate, $subscribeEndDate,$userName) {
             $tablename = 'T_PROJECT';
        
             if($subscribeStartDate || $subscribeEndDate){
@@ -158,15 +158,15 @@ class BonusRecord_model extends CI_Model
                 $startTime= $startdatetime->format('Y-m-d H:i:s');
                 $endDatetime = new DateTime($subscribeEndDate);
                 $endTime = $endDatetime->format('Y-m-d H:i:s');
-                $where = "'".$startTime."' < DATE_FORMAT(T_PAYRECORD.FPAYDATE,'%Y-%m-%d %H:%i:%s') AND DATE_FORMAT(T_PAYRECORD.FPAYDATE,'%Y-%m-%d %H:%i:%s') <'".$endTime."'";
+                $where = "'".$startTime."' < DATE_FORMAT(T_BONUSRECORD.FBONUSDATE,'%Y-%m-%d %H:%i:%s') AND DATE_FORMAT(T_BONUSRECORD.FBONUSDATE,'%Y-%m-%d %H:%i:%s') <'".$endTime."'";
                 $this->db->where($where);
             }
        
-            $selectData = "T_PAYRECORD.FID as FID, T_USER.FNAME as FNAME, T_USER.FORG as FORG,T_FOLLOWER.FSTATE as FSTATE,T_SUBSCRIBECONFIRMRECORD.FCONFIRMAMOUNT as FCONFIRMAMOUNT,T_PAYRECORD.FPAYTIMES as FPAYTIMES,T_PAYRECORD.FPAYDATE as FPAYDATE,T_PAYRECORD.FPAYAMOUNT as FPAYAMOUNT";
+            $selectData = "T_BONUSRECORD.FID as FID, T_USER.FNAME as FNAME, T_USER.FORG as FORG,T_FOLLOWER.FSTATE as FSTATE,T_SUBSCRIBECONFIRMRECORD.FCONFIRMAMOUNT as FCONFIRMAMOUNT,T_BONUSRECORD.FBONUSTIMES as FBONUSTIMES,T_BONUSRECORD.FBONUSDATE as FBONUSDATE,T_BONUSRECORD.FBONUSAMOUNT as FBONUSAMOUNT";
             $this->db->select($selectData);
             $this->db->join('T_USER','T_USER.FID=T_SUBSCRIBECONFIRMRECORD.FUSERID');
             $this->db->join('T_FOLLOWER','T_FOLLOWER.FUSERID=T_SUBSCRIBECONFIRMRECORD.FUSERID');
-            $this->db->join('T_PAYRECORD','T_PAYRECORD.FSUBSCRIBECONFIGRMRECORDID=T_SUBSCRIBECONFIRMRECORD.FID');
+            $this->db->join('T_BONUSRECORD','T_BONUSRECORD.FSUBSCRIBECONFIGRMRECORDID=T_SUBSCRIBECONFIRMRECORD.FID');
             if($userName)
                 $this->db->like('FNAME',$userName);
             $result = $this->db->get('T_SUBSCRIBECONFIRMRECORD')->result_array();
@@ -178,11 +178,11 @@ class BonusRecord_model extends CI_Model
         }
 
         public function exportPayRecordXls() {
-            $selectData = "T_SUBSCRIBECONFIRMRECORD.FID as FID, T_USER.FNAME as FNAME, T_USER.FORG as FORG,T_FOLLOWER.FSTATE as FSTATE,T_SUBSCRIBECONFIRMRECORD.FCONFIRMAMOUNT as FCONFIRMAMOUNT,T_PAYRECORD.FPAYTIMES as FPAYTIMES,T_PAYRECORD.FPAYDATE as FPAYDATE,T_PAYRECORD.FPAYAMOUNT as FPAYAMOUNT";
+            $selectData = "T_SUBSCRIBECONFIRMRECORD.FID as FID, T_USER.FNAME as FNAME, T_USER.FORG as FORG,T_FOLLOWER.FSTATE as FSTATE,T_SUBSCRIBECONFIRMRECORD.FCONFIRMAMOUNT as FCONFIRMAMOUNT,T_BONUSRECORD.FBONUSTIMES as FBONUSTIMES,T_BONUSRECORD.FBONUSDATE as FBONUSDATE,T_BONUSRECORD.FBONUSAMOUNT as FBONUSAMOUNT";
             $this->db->select($selectData);
             $this->db->join('T_USER','T_USER.FID=T_SUBSCRIBECONFIRMRECORD.FUSERID');
             $this->db->join('T_FOLLOWER','T_FOLLOWER.FUSERID=T_SUBSCRIBECONFIRMRECORD.FUSERID');
-            $this->db->join('T_PAYRECORD','T_PAYRECORD.FSUBSCRIBECONFIGRMRECORDID=T_SUBSCRIBECONFIRMRECORD.FID');
+            $this->db->join('T_BONUSRECORD','T_BONUSRECORD.FSUBSCRIBECONFIGRMRECORDID=T_SUBSCRIBECONFIRMRECORD.FID');
             $result = $this->db->get('T_SUBSCRIBECONFIRMRECORD')->result_array();
             return $result;
     }
