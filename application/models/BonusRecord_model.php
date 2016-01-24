@@ -23,6 +23,16 @@ class BonusRecord_model extends CI_Model
         );
         return $data;
     }
+
+     public function getBonusCountWithTime($FID,$time)
+    {
+        $this->db->select("*");
+        $where = 'FSUBSCRIBECONFIGRMRECORDID='.$FID." AND FPAYTIMES = ".$time;
+        $this->db->where($where);
+        $this->db->from('T_PAYRECORD');
+        $result = $this->db->count_all_results();
+        return $result;
+    }
     
     public function addBonusList($dataArr) {
         $insertArr = array();

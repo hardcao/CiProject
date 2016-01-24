@@ -176,8 +176,8 @@ class BonusRecord extends CI_Controller
                 $insertArr = array();
                 $insertArr['FBONUSDATE'] = $value['G'];
                 $insertArr['FBONUSAMOUNT'] = $value['H'];
-                $count = $this->Payrecord_model->getPayCountWithTime($value['A'],$value['F']);
-                $tableName = 'T_PAYRECORD';
+                $count = $this->BonusRecord_model->getBonusCountWithTime($value['A'],$value['F']);
+                $tableName = 'T_BONUSRECORD';
                 $this->load->model('Tools');
             
                 if(intval($count)>0){
