@@ -40,17 +40,20 @@ class News extends CI_Controller
     }
 
     //API :News/getAllNews
-    // 获得所有的新闻
+    // 新闻动态列表 是把所有的项目点新闻列出来
+
     public function getAllNews()
     {
-         $result = $this->news_model->getAllNews();
+        $result = $this->news_model->getAllNews();
         echo json_encode($result);
     }
      
-    
+    //API :News/getPicListWithProjectID
+    //根据项目id  把该项目的所有新闻列出来
+
     public function  getPicListWithProjectID() {
     
-        $projectID = $this->input->post('FPROJECTID');
+        $projectID = $this->input->post('projectId');
         $result = $this->news_model->getNewsListWithProjectID($projectID);
         echo json_encode($result);
     }
