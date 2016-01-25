@@ -172,12 +172,12 @@ function getNewsData(){
 	//var userid=$("#userid").val();
 	$.ajax({
 		type:'post',//可选get
-		url:ctx+'/news/getDynamicNews',
+		url:ctx+'News/getAllNews',
 		dataType:'Json',//服务器返回的数据类型 可选XML ,Json jsonp script html text等
 		//begin=0&count=2&uid=test&projectId=123
 		data:{begin: 0,
 			count:2,
-		    uid: 'test',
+		    uid: '1',
 		    pojectId: '123'},
 		success:function(msg){
 			if(msg.success){
@@ -274,11 +274,13 @@ function loadNewsData(){
 	            </td>
 	        </tr>
     */
+    var ctx = "<?php echo site_url();?>";
+    var newslink = ctx+'home/index/newsDetail?newsId=';
 	//{"FID":"123","FPROJECTID":"123","FTITLE":"\u5408","FCREATORID":"123","FRELEASEDATE":"2014-09-01 09:53:00","FCONTENT":"\u5408\u80a5\u9ad8"}
 	$.each(newsList, function(ind, val){
 	    tempHtml += '<tr class="row"><td><h2><a style="color:red">'+val.FRELEASEDATE+'</a></h2><br>';
-	    tempHtml += '<h4 style="font-weight:600"><a href="#">'+val.FTITLE+'</a></h2>';
-		tempHtml += '<h4 style=""><a href="#">'+val.FCONTENT +'</a></h4><br></td></tr>';
+	    tempHtml += '<h4 style="font-weight:600"><a href="'+newslink+val.FID+'">'+val.FTITLE+'</a></h2>';
+		tempHtml += '<h4 style=""><a href="'+newslink+val.FID+'">'+val.FCONTENT +'</a></h4><br></td></tr>';
 	})
 	$("#news tbody").html(tempHtml);
 }

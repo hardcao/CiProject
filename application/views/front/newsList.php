@@ -144,17 +144,17 @@ function getNewsList(){
         	sessionTimeout(XMLHttpRequest, textStatus, errorThrown);
         }
 	})*/
-		var ctx="<?php echo site_url();?>";
+	var ctx="<?php echo site_url();?>";
 	//var userid=$("#userid").val();
 	$.ajax({
 		type:'post',//可选get
-		url:ctx+'/news/getDynamicNews',
+		url:ctx+'News/getAllNews',
 		dataType:'Json',//服务器返回的数据类型 可选XML ,Json jsonp script html text等
 		//begin=0&count=2&uid=test&projectId=123
 		data:{begin: 0,
 			count:2,
-		    uid: 'test',
-		    pojectId: '123'},
+		    uid: '1',
+		    pojectId: '27'},
 		success:function(msg){
 			if(msg.success){
 				newsList=msg.data;
@@ -177,7 +177,7 @@ function loadNewsData(){
 		$.each(newsList, function(ind, val){
 		    tempHtml += '<tr class="row"><td><h2><a style="color:red">'+val.FRELEASEDATE+'</a></h2><br>';
 		    tempHtml += '<h4 style="font-weight:600"><a href="/home/index/newsDetail?newsId='+val.FID+'">'+val.FTITLE+'</a></h2>';
-			tempHtml += '<h4><a href="/news/getDynamicNewsDetail?newsId='+val.FID+'">'+val.FCONTENT +'</a></h4><br></td></tr>';
+			tempHtml += '<h4><a href="/home/index/newsDetail?newsId='+val.FID+'">'+val.FCONTENT +'</a></h4><br></td></tr>';
 		})
 		$("#news tbody").html(tempHtml);
 	}
