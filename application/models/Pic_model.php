@@ -78,4 +78,18 @@ class Pic_model extends CI_Model
         $data['data'] = $result;
         return  $data; 
     }
+
+   
+
+    public function getAllProjectImage($projectId){
+        $where = 'FPROJECTID='.$projectId;
+        $this->db->select( "*");
+        $this->db->where($where);
+        $result = $this->db->get('T_PIC')->result_array();
+        $data["success"] = true;
+        $data["errorCode"] = 0;
+        $data["error"] = 0;
+        $data['data'] = $result;
+        return  $data; 
+    }
 }

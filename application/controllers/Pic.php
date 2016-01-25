@@ -121,7 +121,7 @@ class Pic extends CI_Controller
         $result = $this->Tools->deleteData($data,$tableName);
         echo json_encode($result);
      }
-
+    //获得主图
     //Pic/getMainImage
      public function getMainImage()
      {
@@ -129,6 +129,15 @@ class Pic extends CI_Controller
         $result = $this->Pic_model->getMainImage($projectId);
         echo json_encode($result);
 
+     }
+
+     //获得所有图片
+     //Pic/getAllProjectImage
+     public function getAllProjectImage()
+     {
+         $projectId = $this->input->post('projectId');
+        $result = $this->Pic_model->getAllProjectImage($projectId);
+        echo json_encode($result);
      }
 
 }
