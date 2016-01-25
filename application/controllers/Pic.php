@@ -59,7 +59,7 @@ class Pic extends CI_Controller
          else
          {
              $data = array('upload_data' => $this->upload->data());
-             $filePath =  .$data['upload_data']['file_name'];
+             $filePath = $data['upload_data']['file_name'];
              $insertdata['FPROJECTID'] = $projectID;
              $insertdata['FCONTENT'] = iconv("gb2312","UTF-8", $filePath);
              $insertdata['FISMAINPIC'] = false;
@@ -120,6 +120,15 @@ class Pic extends CI_Controller
         $this->load->model('Tools');
         $result = $this->Tools->deleteData($data,$tableName);
         echo json_encode($result);
+     }
+
+    //Pic/getMainImage
+     public function getMainImage()
+     {
+        $projectId = $this->input->post('projectId');
+        $result = $this->Pic_model->getMainImage($projectId);
+        echo json_encode($result);
+
      }
 
 }
