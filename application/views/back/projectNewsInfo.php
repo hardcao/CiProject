@@ -133,7 +133,7 @@ function loadNewsData(){
 				'<td>'+rDate.format('yyyy-MM-dd')+'</td>'+
 				'<td>'+val.FUSERNAME+'</td>'+
 				'<td>'+
-					'<a href="newsEditor?newsId='+val.FID+'&projectId='+val.FPROJECTID+'">编辑</a> | '+
+					'<a href="newsEditor?newsId='+val.FID+'&projectId='+getReqParam('projectId')+'">编辑</a> | '+
 					'<a class="delBtn" href="javascript:void(0)" nid="'+val.FID+'">删除</a>'+
 				'</td></tr>';	
 		});
