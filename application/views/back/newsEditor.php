@@ -71,7 +71,16 @@ $(function(){
 	ueObj = UE.getEditor('editor');
 	initParams();
 	initListeners();
-	getNewsInfo();
+
+	if (newsId) 
+		{
+			getNewsInfo();
+		}
+	else
+	{
+		getProjectInfo();
+	}
+	
 	// setTimeout(function(){
 		//getProjectList();
 	// }, 500);
@@ -87,28 +96,17 @@ function initListeners(){
 	$("#backBtn").click(toNewsListPage);
 }
 
-function getProjectList(){
-	/*ctx="<?php echo site_url();?>";
-	//var projectName=$("#projectName").val();
+function getProjectInfo(){
+	var ctx="<?php echo site_url();?>";
+	var projectId =getReqParam('projectid');
 	$.ajax({
 		type:'post',//可选get
-		url:ctx+'Project/getProjectList',
+		url:ctx+'/Project/getProjectDetail',
 		dataType:'Json',//服务器返回的数据类型 可选XML ,Json jsonp script html text等
-		data:{
-			begin: 0,
-			count: 2,
-			uid: 'test1',
-			subscribeStartDate: '2014-09-01 09:50:00',
-			subscribeEndDate:'2016-09-01 09:50:00',
-			status: 1
-		},
+		data:{'projectId':projectId},
 		success:function(msg){
 			if(msg.success){
-				projectList=msg.data;
-				if(newsId){
-					setTimeout("getNewsInfo();",500);
-				}
-				else loadProjectSelector();
+				$("#projectInp").val(msg.data[0].FNAME);
 			}else{
 				alert("aa"+msg.error);
 			}
@@ -116,7 +114,7 @@ function getProjectList(){
 		error: function (XMLHttpRequest, textStatus, errorThrown) {
         	 sessionTimeout(XMLHttpRequest, textStatus, errorThrown);
         }
-	})*/
+	})
 }
 
 function loadProjectSelector(){
@@ -200,7 +198,7 @@ function submitInfo(){
 		updateNews(_param);
 	}else{
 		// 新增
-		var _proid = $("#projectInp").val();
+		var _proid =  getReqParam('projectId');
 		if(_proid == "-1"){
 			alert("请选择项目!");
 			return false;
