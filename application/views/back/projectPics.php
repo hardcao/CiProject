@@ -213,15 +213,14 @@ function delPic(id)
 {
 	var ctx = "<?php echo site_url();?>";
 	$.ajax({
+		type:'post',
 		url: ctx+'Pic/deletePic', //用于文件上传的服务器端请求地址
-		secureuri: false, //是否需要安全协议，一般设置为false
-		fileElementId: 'file', //文件上传域的ID
 		dataType: 'JSON', //返回值类型 一般设置为json
 		data:{
 			FID:id
 		},
 		success: function (msg){  //服务器成功响应处理函数			
-			if(msg.status == "success"){
+			if(msg.success){
 				alert("删除成功!");
 				getPics();
 			}else{
