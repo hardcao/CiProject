@@ -1,4 +1,6 @@
-       <?php        class TestUeditor extends CI_Controller
+       <?php        
+
+       class TestUeditor extends CI_Controller
         {
                 function __construct()
                 {
