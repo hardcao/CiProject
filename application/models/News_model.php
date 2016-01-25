@@ -87,7 +87,7 @@ class News_model extends CI_Model
     public function  getDynamicNewsDetail($newsId) {
         $selectData = "T_NEWS.FID as FID,T_NEWS.FTITLE as FTITLE,T_NEWS.FCONTENT as FCONTENT,T_NEWS.FRELEASEDATE as FRELEASEDATE,T_USER.FNAME as FUSERNAME,T_PROJECT.FNAME as FPROJECTNAME";
         $this->db->select( $selectData);
-        $this->db->where('FID',$newsId);
+        $this->db->where('T_NEWS.FID',$newsId);
         $this->db->join('T_PROJECT', 'T_PROJECT.FID=T_NEWS.FPROJECTID');
         $this->db->join('T_USER', 'T_USER.FID=T_NEWS.FCREATORID');
         $result = $this->db->get('T_NEWS')->result_array();

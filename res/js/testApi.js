@@ -29,6 +29,7 @@ $("#btn_login").click(function(){
 					subscribeEndDate:'2016-09-01 09:50:00',
 					uname:'1',
 					uid:1,
+					newsId:124,
 					searchname:'',
 					queryType:0,
 				},
