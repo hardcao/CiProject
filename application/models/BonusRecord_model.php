@@ -224,4 +224,14 @@ class BonusRecord_model extends CI_Model
             $data['data'] =  $result;
             return $data;
         }
+
+         public function getBonusSubscriptionSum($SubscriptionID)
+    {
+        $this->db->select('sum(FBONUSAMOUNT) as TOTALFBONUSAMOUNT');
+        $this->db->where('FSUBSCRIBECONFIGRMRECORDID', $SubscriptionID);
+        $this->db->group_by('T_BONUSRECORD.FSUBSCRIBECONFIGRMRECORDID');
+        $result = $this->db->get('T_BONUSRECORD')->result_array();
+        if($result==NULL) return 0;
+        return $result[0]['TOTALFBONUSAMOUNT'];
+    }
 }

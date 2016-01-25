@@ -285,14 +285,4 @@ class BonusRecord extends CI_Controller
         $dataR['data'] = $fileName;
         echo json_encode($dataR);
     }
-
-     public function getBonusSubscriptionSum($SubscriptionID)
-    {
-        $this->db->select('sum(FBONUSAMOUNT) as TOTALFBONUSAMOUNT');
-        $this->db->where('FSUBSCRIBECONFIGRMRECORDID', $T_SUBSCRIBECONFIRMRECORDID);
-        $this->db->group_by('T_BONUSRECORD.FSUBSCRIBECONFIGRMRECORDID');
-        $result = $this->db->get('T_BONUSRECORD')->result_array();
-        if($result) return $result[0];
-        return NULL;
-    }
 }

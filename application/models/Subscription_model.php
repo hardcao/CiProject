@@ -163,17 +163,19 @@ class Subscription_model extends CI_Model
         $this->db->join('T_BANKINFO','T_BANKINFO.FID = T_SUBSCRIBECONFIRMRECORD.FBANKID');
         $this->db->group_by("T_SUBSCRIBECONFIRMRECORD.FID"); 
         $result = $this->db->get('T_SUBSCRIBECONFIRMRECORD')->result_array();
+        $this->load->model('Payrecord_model');
+        $this->load->model('BonusRecord_model');
         $insertArr =  array();
         foreach ($result as $item) {
-            $item['TOTALFBONUSAMOUNT'] = 0;//$this->getRecordInfo($item['FID'],'T_BONUSRECORD','FBONUSAMOUNT');
-            $item['TOTALFPAYAMOUNT'] = 0;// $this->getRecordInfo($item['FID'],'T_PAYRECORD','FPAYAMOUNT');
+            $item['TOTALFBONUSAMOUNT'] = $this->Payrecord_model->getSubscriptionSum($item['FID']);
+            $item['TOTALFPAYAMOUNT'] = $this->BonusRecord_model->getBonusSubscriptionSum($item['FID']);
             array_push($insertArr,  $item);
         }
         $data["success"] = true;
         $data["errorCode"] = 0;
         $data["error"] = 0;
         $data['data'] =  $insertArr;
-        return  $data;
+        return $data;
     }
 
      public function getRecordInfo($T_SUBSCRIBECONFIRMRECORDID,$table,$sumItem) {

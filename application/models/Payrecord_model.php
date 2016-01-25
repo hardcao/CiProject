@@ -228,18 +228,18 @@ class Payrecord_model extends CI_Model
         $this->db->where('T_PAYRECORD.FSUBSCRIBECONFIGRMRECORDID',2);
         $this->db->group_by('T_PAYRECORD.FPAYTIMES');
         $result = $this->db->get('T_PAYRECORD')->result_array();
-        if($result) return $result;
-        return $result;
+        if($result==NULL) return 0;
+        return $result[0]['total'];
     }
 
     public function getSubscriptionSum($SubscriptionID)
     {
         $this->db->select('sum(FPAYAMOUNT) as TOTALFPAYAMOUNT');
        
-        $this->db->where('FSUBSCRIBECONFIGRMRECORDID', $T_SUBSCRIBECONFIRMRECORDID);
+        $this->db->where('FSUBSCRIBECONFIGRMRECORDID', $SubscriptionID);
         $this->db->group_by('T_PAYRECORD.FSUBSCRIBECONFIGRMRECORDID');
         $result = $this->db->get('T_PAYRECORD')->result_array();
-        if($result) return $result[0];
-        return NULL;
+        if($result==NULL) return 0;
+        return $result[0]['TOTALFPAYAMOUNT'];
     }
 }
