@@ -285,4 +285,10 @@ class BonusRecord extends CI_Controller
         $dataR['data'] = $fileName;
         echo json_encode($dataR);
     }
+
+    public function getBonusDetail() {
+          $userId = $this->input->post('uid');
+        $result = $this->BonusRecord_model->getBonusDetail($userId);
+        echo json_encode($result);
+    }
 }

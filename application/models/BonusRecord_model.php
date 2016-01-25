@@ -234,4 +234,20 @@ class BonusRecord_model extends CI_Model
         if($result==NULL) return 0;
         return $result[0]['TOTALFBONUSAMOUNT'];
     }
+
+    public function getBonusDetail($userID) {
+        $where = 'T_SUBSCRIBECONFIRMRECORD.FUSERID='.$userID;
+        $this->db->where($where);
+        $selectData = "T_BONUSRECORD.FID as FID,T_PROJECT.FNAME as FNAME,T_SUBSCRIBECONFIRMRECORD.FCONFIRMAMOUNT as FCONFIRMAMOUNT,T_BONUSRECORD.FBONUSTIMES as FBONUSTIMES,T_BONUSRECORD.FBONUSDATE as FBONUSDATE,T_BONUSRECORD.FBONUSAMOUNT as FBONUSAMOUNT,T_BANKINFO.FBANKNO as FBANKNO";
+        $this->db->select($selectData);
+        $this->db->join('T_BONUSRECORD','T_BONUSRECORD.FSUBSCRIBECONFIGRMRECORDID=T_SUBSCRIBECONFIRMRECORD.FID');
+        $this->db->join('T_PROJECT','T_PROJECT.FID=T_SUBSCRIBECONFIRMRECORD.FPROJECTID');
+        $this->db->join('T_BANKINFO','T_BANKINFO.FID=T_SUBSCRIBECONFIRMRECORD.FBANKID');
+        $result = $this->db->get('T_SUBSCRIBECONFIRMRECORD')->result_array();
+        $data["success"] = true;
+        $data["errorCode"] = 0;
+        $data["error"] = 0;
+        $data['data'] =  $result;
+        return $data;
+    }
 }
