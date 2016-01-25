@@ -17,6 +17,21 @@
 <script type="text/javascript" src="<?php echo site_url('application/views/plugins/dateFormat.js')?>"></script>
 <script type="text/javascript" src="<?php echo site_url('application/views/front/js/header.js')?>"></script>
 <script type="text/javascript" src="<?php echo site_url('application/views/front/js/projectDetail.js')?>"></script>
+<style type="text/css">
+	#ul-pics li {
+    width: 32%;
+    float: left;
+    /* height: 300px; */
+    margin-right: 1%;
+    border: 1px solid #CCCCCC;
+    margin-top: 1%;
+}
+
+input#item_pic {
+	width: 200px;
+}
+
+</style>
 </head>
 <body>
 <?php require (dirname(dirname(__FILE__)).'/common/header.php'); ?>
@@ -286,13 +301,12 @@
 		</div>
 		<div id="pics_info" class="info_STY" style="display:none;">
 			<div>
-				<p>项目封面</p>
-				<img id="cover" src=""/>
+				<p>封面图片</p>
+				<img src="<?php echo site_url();?>images/default.jpg" width="600px" id="main_pic">
 			</div>
 			<div>
 				<p>项目图片</p>
-				<ul id="pics">
-					
+				<ul id="ul-pics">
 				</ul>
 			</div>
 		</div>
@@ -355,9 +369,75 @@ function initPages () {
 	getSchemeInfo();
 	getForceList();
 	getNewsList();
+	getMainPic();
+	getPics();
 
 	$("#titleTab .tabSTY[anchor="+tabFlag+"]").click();
 }
+
+function getMainPic()
+{
+	var ctx="<?php echo site_url();?>";
+	var projectId =getReqParam('projectid');
+	$.ajax({
+		type:'post',//可选get
+		url:ctx+'Pic/getMainImage',
+		dataType:'Json',//服务器返回的数据类型 可选XML ,Json jsonp script html text等
+		data:{'projectId':projectId},
+		success:function(msg){
+			if(msg.success){
+				//$("#projectInp").val(msg.data[0].FNAME);
+				if (msg.data.length > 0) 
+				{
+					$("#main_pic").attr("src",ctx+"images/"+msg.data[0].FNAME);
+				};
+			}else{
+				alert("Get main pic failed: "+msg.error);
+			}
+		},
+		error: function (XMLHttpRequest, textStatus, errorThrown) {
+        	 sessionTimeout(XMLHttpRequest, textStatus, errorThrown);
+        }
+	})
+}
+
+function getPics()
+{
+	var ctx="<?php echo site_url();?>";
+	var projectId =getReqParam('projectid');
+	$.ajax({
+		type:'post',//可选get
+		url:ctx+'Pic/getAllProjectImage',
+		dataType:'Json',//服务器返回的数据类型 可选XML ,Json jsonp script html text等
+		data:{'projectId':projectId},
+		success:function(msg){
+			if(msg.success){
+				//$("#projectInp").val(msg.data[0].FNAME);
+				/*
+				<li>
+					<div><img src="http://localhost/application/views/front/img/title.jpg" width="100%"></div>
+					<div><p class="deletePic" ><a onclick="delPic(this.id)">删除照片</a></p></div>
+				</li>
+				*/
+				var picList = msg.data;
+				var tempHtml = "";
+
+				$.each(picList, function(ind, val){
+					tempHtml += ('<li><div><img src="'+ctx+"images/"+val.FNAME+'" width="100%"></div></li>');
+					//tempHtml += ('<div><p class="deletePic" ><a onclick="delPic('+val.FID+')">删除照片</a></p></div></li>');
+				});
+				$("#ul-pics").html(tempHtml);
+
+			}else{
+				alert("aa"+msg.error);
+			}
+		},
+		error: function (XMLHttpRequest, textStatus, errorThrown) {
+        	 sessionTimeout(XMLHttpRequest, textStatus, errorThrown);
+        }
+	})
+}
+
 
 function getProjectInfo(){
 	var ctx="<?php echo site_url();?>";

@@ -71,6 +71,75 @@ input#item_pic {
 </style>
 <script type="text/javascript">
 
+$(function(){
+
+		getMainPic();
+		getPics();
+});
+
+function getMainPic()
+{
+	var ctx="<?php echo site_url();?>";
+	var projectId =getReqParam('projectid');
+	$.ajax({
+		type:'post',//可选get
+		url:ctx+'Pic/getMainImage',
+		dataType:'Json',//服务器返回的数据类型 可选XML ,Json jsonp script html text等
+		data:{'projectId':projectId},
+		success:function(msg){
+			if(msg.success){
+				//$("#projectInp").val(msg.data[0].FNAME);
+				if (msg.data.length > 0) 
+				{
+					$("#main_pic").attr("src",ctx+"images/"+msg.data[0].FNAME);
+				};
+			}else{
+				alert("Get main pic failed: "+msg.error);
+			}
+		},
+		error: function (XMLHttpRequest, textStatus, errorThrown) {
+        	 sessionTimeout(XMLHttpRequest, textStatus, errorThrown);
+        }
+	})
+}
+
+function getPics()
+{
+	var ctx="<?php echo site_url();?>";
+	var projectId =getReqParam('projectid');
+	$.ajax({
+		type:'post',//可选get
+		url:ctx+'Pic/getAllProjectImage',
+		dataType:'Json',//服务器返回的数据类型 可选XML ,Json jsonp script html text等
+		data:{'projectId':projectId},
+		success:function(msg){
+			if(msg.success){
+				//$("#projectInp").val(msg.data[0].FNAME);
+				/*
+				<li>
+					<div><img src="http://localhost/application/views/front/img/title.jpg" width="100%"></div>
+					<div><p class="deletePic" ><a onclick="delPic(this.id)">删除照片</a></p></div>
+				</li>
+				*/
+				var picList = msg.data;
+				var tempHtml = "";
+
+				$.each(picList, function(ind, val){
+					tempHtml += ('<li><div><img src="'+ctx+"images/"+val.FNAME+'" width="100%"></div>');
+					tempHtml += ('<div><p class="deletePic" ><a onclick="delPic('+val.FID+')">删除照片</a></p></div></li>');
+				});
+				$("#ul-pics").html(tempHtml);
+
+			}else{
+				alert("aa"+msg.error);
+			}
+		},
+		error: function (XMLHttpRequest, textStatus, errorThrown) {
+        	 sessionTimeout(XMLHttpRequest, textStatus, errorThrown);
+        }
+	})
+}
+
 		// 导入缴款数据
 	$("#importBtn").click(function(){
 		$("#file").click();
@@ -140,12 +209,36 @@ input#item_pic {
 		})
 	}
 
+function delPic(id)
+{
+	var ctx = "<?php echo site_url();?>";
+	$.ajax({
+		url: ctx+'Pic/deletePic', //用于文件上传的服务器端请求地址
+		secureuri: false, //是否需要安全协议，一般设置为false
+		fileElementId: 'file', //文件上传域的ID
+		dataType: 'JSON', //返回值类型 一般设置为json
+		data:{
+			FID:id
+		},
+		success: function (msg){  //服务器成功响应处理函数			
+			if(msg.status == "success"){
+				alert("删除成功!");
+				getPics();
+			}else{
+				alert("Del Pic:"+data.error);
+			}
+		},
+		error: function (XMLHttpRequest, textStatus, errorThrown) {
+        	 sessionTimeout(XMLHttpRequest, textStatus, errorThrown);
+        }
+	})
+}
 
 </script>
 </head>
 <body id="rightLayer">
-<div id="basic" class="editTitle"><img src="../../application/views/back/images/arrow_down.png" />项目封面图</div>
-		<div><img src="http://localhost/application/views/front/img/title.jpg" width="600px"></div>
+<div id="basic" class="editTitle"><img src="<?php echo site_url();?>application/views/back/images/arrow_down.png" />项目封面图</div>
+		<div><img src="<?php echo site_url();?>images/default.jpg" width="600px" id="main_pic"></div>
 
 		<input type="file" id="file" name="file" class="displayNone">
 		<button id="importBtn" class="btnSTY" style="margin:10px 10px 10px 0px; padding:5px">修改封面图片</button>
@@ -158,12 +251,8 @@ input#item_pic {
 		</form-->
 
 
-<div id="basic" class="editTitle"><img src="../../application/views/back/images/arrow_down.png" />项目图库</div>
+<div id="basic" class="editTitle"><img src="<?php echo site_url();?>application/views/back/images/arrow_down.png" />项目图库</div>
 <ul id="ul-pics">
-	<li>
-		<div><img src="http://localhost/application/views/front/img/title.jpg" width="100%"></div>
-		<div><p class="deletePic" ><a onclick="delPic(this.id)">删除照片</a></p></div>
-	</li>
 </ul>
 <div style="clear:both">
 	<input type="file" id="file1" name="file1" class="displayNone">
