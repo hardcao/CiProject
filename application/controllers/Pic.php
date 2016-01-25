@@ -139,9 +139,9 @@ class Pic extends CI_Controller
         $result = $this->Pic_model->getAllProjectImage($projectId);
         echo json_encode($result);
      }
-//É¾³ý¼ÇÂ¼
-     //Pic/deletePayrecord
-     public function deletePayrecord() {
+//É¾³ýÍ¼Æ¬
+     //Pic/deletePic
+     public function deletePic() {
         $data = $this->input->input_stream();
         $tableName = 'T_PIC';
         $this->load->model('Tools');
