@@ -31,7 +31,7 @@
 		<table width="100%" border="1"><thead><tr>
 			<td width="80" height="30">序号</td>
 			<td width="240">跟投项目</td>
-			<td width="130">区域/总部</td>
+			<!--td width="130">区域/总部</td-->
 			<td width="150">平衡额度<br>(不含杠杆)(万元)</td>
 			<td width="120">缴款批次</td>
 			<td width="170">缴款日期</td>
@@ -105,7 +105,7 @@ function loadData(){
 			tempHtml +=
 			'<tr><td width="50" height="35">'+(ind+1)+'</td>'+
 			'<td>'+(val.FNAME||"")+'</td>'+
-			'<td>'+(val.subType)+'</td>'+
+			//'<td>'+(val.subType)+'</td>'+
 			'<td>'+(val.FCONFIRMAMOUNT||0)+'</td>'+
 			'<td>'+val.FPAYTIMES+'</td>'+
 			'<td>'+(new Date(val.FPAYTIMES)).format('yyyy-MM-dd')+'</td>'+
