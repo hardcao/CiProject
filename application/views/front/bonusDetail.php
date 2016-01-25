@@ -35,7 +35,7 @@
 		<table width="100%" border="1"><thead><tr>
 			<td width="50" height="30">序号</td>
 			<td width="240">跟投项目</td>
-			<td width="110">认购类型</td>
+			<!--td width="110">认购类型</td-->
 			<!-- <td width="120">认购包名</td> -->
 			<!--td width="100">平衡额度<br>(不含杠杆)(万元)</td-->
 			<td width="80">分红批次</td>
@@ -125,7 +125,7 @@ function loadData(){
 			tempHtml +=
 			'<tr><td height="35">'+(ind+1)+'</td>'+
 				'<td><a href="<?php echo site_url();?>back/index/projectDetail?projectId='+val.FID+'">'+val.FNAME+'</a></td>'+
-				'<td>'+val.subscribeType+'</td>'+
+				//'<td>'+val.subscribeType+'</td>'+
 				//'<td>'+(val.subscribeAmount)+'</td>'+
 				'<td>'+val.FBONUSTIMES+'</td>'+
 				'<td>'+(new Date(val.FBONUSDATE)).format('yyyy-MM-dd')+'</td>'+

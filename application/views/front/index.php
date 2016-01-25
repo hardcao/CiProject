@@ -188,7 +188,7 @@ function getNewsData(){
 			}
 		},
 		error: function (XMLHttpRequest, textStatus, errorThrown) {
-        	// sessionTimeout(XMLHttpRequest, textStatus, errorThrown);
+        	sessionTimeout(XMLHttpRequest, textStatus, errorThrown);
         }
 	})
 }
@@ -237,7 +237,7 @@ function getSysInfo(){
 			}
 		},
 		error: function (XMLHttpRequest, textStatus, errorThrown) {
-        	// sessionTimeout(XMLHttpRequest, textStatus, errorThrown);
+        	 sessionTimeout(XMLHttpRequest, textStatus, errorThrown);
         }
 	})
 }
