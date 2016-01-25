@@ -38,6 +38,14 @@ class News extends CI_Controller
         $result = $this->news_model->getDynamicNewsDetail($newsId);
         echo json_encode($result);
     }
+
+    //API :News/getAllNews
+    // 获得所有的新闻
+    public function getAllNews()
+    {
+         $result = $this->news_model->getAllNews();
+        echo json_encode($result);
+    }
      
     
     public function  getPicListWithProjectID() {

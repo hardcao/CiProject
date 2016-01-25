@@ -13,6 +13,23 @@ class News_model extends CI_Model
         $this->load->database();
     }
     
+    
+
+    public function  getAllNews()
+    {
+        
+        $query=$this->db->select("*");
+       // $sql = "SELECT * FROM T_NEWS LEFT OUTER JOIN TableB ON TableA.name = TableB.name";
+        $query=$this->db->join('T_USER', 'T_USER.FID=T_NEWS.FCREATORID','left outer');
+        $query=$this->db->join('T_PROJECT', 'T_PROJECT.FID=T_NEWS.FPROJECTID','left outer');
+        $query=$this->db->get('T_NEWS');
+        $result = $query->result_array();
+        $data["success"] = true;
+        $data["errorCode"] = 0;
+        $data["error"] = 0;
+        $data['data'] = $result;
+        return $data;
+    }
     public function  getDynamicNews($projectId)
     {
         

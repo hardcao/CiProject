@@ -154,7 +154,7 @@ class Subscription_model extends CI_Model
         $data['data'] = $result;
         return  $data;
     }
-
+    //获得已经认购的信息
     public function getHasSubscribe($userID){
         $selectData = 'T_SUBSCRIBECONFIRMRECORD.FID as FID ,T_SUBSCRIBECONFIRMRECORD.FAMOUNT as FAMOUNT,T_SUBSCRIBECONFIRMRECORD.FCONFIRMAMOUNT as FCONFIRMAMOUNT,T_SUBSCRIBECONFIRMRECORD.FLEVERCONFIRMAMOUNT as FLEVERCONFIRMAMOUNT,T_SUBSCRIBECONFIRMRECORD.FCREATETIME as FCREATETIME,T_SUBSCRIBECONFIRMRECORD.FLEVERAMOUNT as FLEVERAMOUNT,T_BANKINFO.FBANKNO as FBANKNO,T_PROJECT.FNAME as FNAME';
         $this->db->select($selectData);
@@ -178,6 +178,14 @@ class Subscription_model extends CI_Model
 
      public function getRecordInfo($T_SUBSCRIBECONFIRMRECORDID,$table,$sumItem) {
         $this->db->select('*');
+       // $this->db->select('sum('.$sumItem.') as TOTAL'.$sumItem);
+        $this->db->where('FSUBSCRIBECONFIGRMRECORDID', $T_SUBSCRIBECONFIRMRECORDID);
+        $result = $this->db->get($table)->result_array();
+        return $result[0];
+    }
+
+     public function getSumRecordInfo($T_SUBSCRIBECONFIRMRECORDID,$table,$sumItem) {
+        $this->db->select('sum(FBONUSAMOUNT)');
        // $this->db->select('sum('.$sumItem.') as TOTAL'.$sumItem);
         $this->db->where('FSUBSCRIBECONFIGRMRECORDID', $T_SUBSCRIBECONFIRMRECORDID);
         $result = $this->db->get($table)->result_array();

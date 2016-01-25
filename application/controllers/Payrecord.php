@@ -15,6 +15,15 @@ class Payrecord extends CI_Controller
         $this->load->library('phpexcel');
         $this->load->library('PHPExcel/iofactory');
     }
+
+    //获得用户的所有交款记录
+    public function getUserPayRecord()
+    {
+        $userId = $this->input->post('uid');
+        $result = $this->BonusRecord_model->getUserPayRecord($userId);
+        echo json_encode($result);
+    }
+
 /*
  * begin=0&count=2&uid=test1&projectId=123
  * playRecode/getPersonalDetail
@@ -277,5 +286,10 @@ class Payrecord extends CI_Controller
         $dataR["error"] = 0;
         $dataR['data'] = $fileName;
         echo json_encode($dataR);*/
+    }
+ //Payrecord/testSum
+    public function testSum() {
+         $result = $this->Payrecord_model->testSum();
+        echo json_encode($result);
     }
 }

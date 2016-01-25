@@ -207,5 +207,21 @@ class BonusRecord_model extends CI_Model
                 $this->db->like('T_USER.FNAME',$userName);
             $result = $this->db->get('T_SUBSCRIBECONFIRMRECORD')->result_array();
             return $result;
-    }
+        }
+
+        //获得用户的所有分红记录
+        public function getUserBonusRecord($userId)
+        {
+            $where = 'T_SUBSCRIBECONFIRMRECORD.FUSERID='.$userId;
+            $this->db->where($where);
+            $selectData = "T_BONUSRECORD.FID as FID, T_USER.FNAME as FNAME, T_USER.FORG as FORG,T_FOLLOWER.FSTATE as FSTATE,T_SUBSCRIBECONFIRMRECORD.FCONFIRMAMOUNT as FCONFIRMAMOUNT,T_BONUSRECORD.FBONUSTIMES as FBONUSTIMES,T_BONUSRECORD.FBONUSDATE as FBONUSDATE,T_BONUSRECORD.FBONUSAMOUNT as FBONUSAMOUNT,T_BANKINFO.FBANKNO as FBANKNO";
+            $this->db->select($selectData);
+            $this->db->join('T_BONUSRECORD','T_BONUSRECORD.FSUBSCRIBECONFIGRMRECORDID=T_SUBSCRIBECONFIRMRECORD.FID');
+            $result = $this->db->get('T_SUBSCRIBECONFIRMRECORD')->result_array();
+            $data["success"] = true;
+            $data["errorCode"] = 0;
+            $data["error"] = 0;
+            $data['data'] =  $result;
+            return $data;
+        }
 }

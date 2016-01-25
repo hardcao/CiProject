@@ -204,4 +204,42 @@ class Payrecord_model extends CI_Model
         return $result;
 
     }
+
+    //获得用户的所有交款记录
+    public function getUserPayRecord($userId)
+    {
+        $where = 'T_SUBSCRIBECONFIRMRECORD.FUSERID='.$userId;
+        $this->db->where($where);
+        $selectData = "T_PAYRECORD.FID as FID,T_SUBSCRIBECONFIRMRECORD.FCONFIRMAMOUNT as FCONFIRMAMOUNT,T_BONUSRECORD.FBONUSTIMES as FBONUSTIMES,T_BONUSRECORD.FBONUSDATE as FBONUSDATE,T_BONUSRECORD.FBONUSAMOUNT as FBONUSAMOUNT,T_BANKINFO.FBANKNO as FBANKNO";
+        $this->db->select($selectData);
+        $this->db->join('T_PAYRECORD','T_PAYRECORD.FSUBSCRIBECONFIGRMRECORDID=T_SUBSCRIBECONFIRMRECORD.FID');
+        $result = $this->db->get('T_SUBSCRIBECONFIRMRECORD')->result_array();
+        $data["success"] = true;
+        $data["errorCode"] = 0;
+        $data["error"] = 0;
+        $data['data'] =  $result;
+        return $data;
+    }
+
+    public function testSum()
+    {
+        $this->db->select('sum(FPAYAMOUNT) as total, T_PAYRECORD.FID as FID');
+       // $this->db->select('sum('.$sumItem.') as TOTAL'.$sumItem);
+        $this->db->where('T_PAYRECORD.FSUBSCRIBECONFIGRMRECORDID',2);
+        $this->db->group_by('T_PAYRECORD.FPAYTIMES');
+        $result = $this->db->get('T_PAYRECORD')->result_array();
+        if($result) return $result;
+        return $result;
+    }
+
+    public function getSubscriptionSum($SubscriptionID)
+    {
+        $this->db->select('sum(FPAYAMOUNT) as TOTALFPAYAMOUNT');
+       
+        $this->db->where('FSUBSCRIBECONFIGRMRECORDID', $T_SUBSCRIBECONFIRMRECORDID);
+        $this->db->group_by('T_PAYRECORD.FSUBSCRIBECONFIGRMRECORDID');
+        $result = $this->db->get('T_PAYRECORD')->result_array();
+        if($result) return $result[0];
+        return NULL;
+    }
 }

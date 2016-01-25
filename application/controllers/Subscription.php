@@ -77,8 +77,8 @@ class Subscription extends CI_Controller
         echo json_encode($result);
     }
 
-
-// Subscription/getHasSubscribe
+    //获得已经认购信息
+    // Subscription/getHasSubscribe
     public function getHasSubscribe()
     {
         $userID = $this->input->post('uid');

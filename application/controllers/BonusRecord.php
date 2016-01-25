@@ -16,6 +16,14 @@ class BonusRecord extends CI_Controller
         $this->load->library('PHPExcel/iofactory');
     }
     
+    //获得用户的所有分红记录
+    public function getUserBonusRecord()
+    {
+        $userId = $this->input->post('uid');
+        $result = $this->BonusRecord_model->getUserBonusRecord($userId);
+        echo json_encode($result);
+    }
+    
     /*
      * var:{"data":[{ "subscribeConfigrmRecordId":1,
 			    	"bonusTimes":"12",
@@ -276,5 +284,15 @@ class BonusRecord extends CI_Controller
         $dataR["error"] = 0;
         $dataR['data'] = $fileName;
         echo json_encode($dataR);
+    }
+
+     public function getBonusSubscriptionSum($SubscriptionID)
+    {
+        $this->db->select('sum(FBONUSAMOUNT) as TOTALFBONUSAMOUNT');
+        $this->db->where('FSUBSCRIBECONFIGRMRECORDID', $T_SUBSCRIBECONFIRMRECORDID);
+        $this->db->group_by('T_BONUSRECORD.FSUBSCRIBECONFIGRMRECORDID');
+        $result = $this->db->get('T_BONUSRECORD')->result_array();
+        if($result) return $result[0];
+        return NULL;
     }
 }
