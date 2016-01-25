@@ -65,13 +65,13 @@ function getNewsData(){
 	var ctx="<?php echo site_url();?>";
 	$.ajax({
 		type:'post',//可选get
-		url:ctx+'news/getDynamicNews',
+		url:ctx+'News/getNewListProjectID',
 		dataType:'Json',//服务器返回的数据类型 可选XML ,Json jsonp script html text等
 		//begin=0&count=2&uid=test&projectId=123
 		data:{//begin: 0,
 			//count:2,
 		    //uid: 'test',
-		    projectId: '27'}, //getReqParam('projectId')},
+		    projectId: getReqParam('projectId')}, //getReqParam('projectId')},
 		success:function(msg){
 			if(msg.success){
 				newsList=msg.data;
@@ -133,7 +133,7 @@ function loadNewsData(){
 				'<td>'+rDate.format('yyyy-MM-dd')+'</td>'+
 				'<td>'+val.FUSERNAME+'</td>'+
 				'<td>'+
-					'<a href="newsEditor?newsId='+val.FID+'&proId='+val.FPROJECTID+'">编辑</a> | '+
+					'<a href="newsEditor?newsId='+val.FID+'&projectId='+val.FPROJECTID+'">编辑</a> | '+
 					'<a class="delBtn" href="javascript:void(0)" nid="'+val.FID+'">删除</a>'+
 				'</td></tr>';	
 		});
@@ -169,12 +169,12 @@ function delNews(_ev){
 </script>
 </head>
 <body id="rightLayer">
-<div id="searchLayer">
+<!--div id="searchLayer">
 	<div class="searDate">发布日期：<input id="relStartInp" readonly />至<input id="relEndInp" readonly /></div>
 	<input id="titleInp" placeholder="请输入新闻标题" />
 	<button id="searchTextBtn" class="btnSTY">搜索</button>
 	<button id="clearTextBtn" class="btnSTY">清空</button>
-</div>
+</div-->
 <div id="addBtnLayer"><button id="addNewsBtn">发布新闻</button></div>
 <table id="newsTable" border="1" width="100%"><thead><tr>
 	<td height="34" width="50">序号</td>
