@@ -14,7 +14,7 @@ class News_model extends CI_Model
     }
     
     
-
+    // 获得所有的新闻
     public function  getAllNews()
     {
         
@@ -119,6 +119,7 @@ class News_model extends CI_Model
     }
     
     public function getNewsListWithProjectID($projectID) {
+        $selectData = "T_NEWS.FID as FID,";
         $this->db->select("*");
         $this->db->where('FPROJECTID',$projectID);
         $this->db->join('T_PROJECT', 'T_PROJECT.FID=T_NEWS.FPROJECTID');
@@ -131,11 +132,18 @@ class News_model extends CI_Model
         return  $data; ;
     }
     
-    public function getProjectID($FPROJECTID) {
-        $this->db->select("*");
-        $this->db->where('FPROJECTID',$FPROJECTID);
+    public function getNewListProjectID($projectID) {
+        $selectData = "T_NEWS.FID as FID,T_NEWS.FTITLE as FTITLE,T_NEWS.FRELEASEDATE as FRELEASEDATE,T_USER.FNAME as FUSERNAME";
+        $this->db->select( $selectData);
+        $this->db->where('FPROJECTID',$projectID);
+        //$this->db->join('T_PROJECT', 'T_PROJECT.FID=T_NEWS.FPROJECTID');
+        $this->db->join('T_USER', 'T_USER.FID=T_NEWS.FCREATORID');
         $result = $this->db->get('T_NEWS')->result_array();
-        return $result;
+        $data["success"] = true;
+        $data["errorCode"] = 0;
+        $data["error"] = 0;
+        $data['data'] = $result;
+        return  $data; ;
     }
     
     

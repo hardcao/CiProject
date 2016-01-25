@@ -48,13 +48,13 @@ class News extends CI_Controller
         echo json_encode($result);
     }
      
-    //API :News/getPicListWithProjectID
+    //API :News/getNewListProjectID
     //根据项目id  把该项目的所有新闻列出来
 
-    public function  getPicListWithProjectID() {
+    public function  getNewListProjectID() {
     
         $projectID = $this->input->post('projectId');
-        $result = $this->news_model->getNewsListWithProjectID($projectID);
+        $result = $this->news_model->getNewListProjectID($projectID);
         echo json_encode($result);
     }
     
