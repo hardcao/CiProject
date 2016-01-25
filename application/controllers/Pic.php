@@ -27,24 +27,26 @@ class Pic extends CI_Controller
         $result = $this->Pic_model->getPicListWithProjectID($projectID);
         echo json_encode($result);
     }
-
+    // 添加项目图片
+     // Pic/addImage
     public function addImage()
     {
+        $projectID = $this->input->post('projectId');
         $config['upload_path']      = './Image/';
          $config['allowed_types']    = 'gif|jpg';
          $config['max_size']     = 100;
          $config['max_width']        = 1024;
          $config['max_height']       = 768;
          $name = $_FILES["file"]["name"];
-         $this->load->model('FollowScheme_model');
          
-         $followScheme = $this->FollowScheme_model->getPersonBankInfo($FID);
+         
+        
          $is_exist = is_int(strpos($followScheme['FLINK'],$name));
          if ($is_exist){
              echo "update fail";
              return ;
          }
-         $followScheme['FLINK'] = $followScheme['FLINK'].';'.$name;
+        
          $config['file_name']  =  date('y-m-d-h-i-s',time()).iconv("UTF-8","gb2312", $name);
          $this->load->library('upload', $config);
          
@@ -57,22 +59,22 @@ class Pic extends CI_Controller
          else
          {
              $data = array('upload_data' => $this->upload->data());
-             $filePath =  './fileFolder/'.$data['upload_data']['file_name'];
+             $filePath =  .$data['upload_data']['file_name'];
+             $insertdata['FPROJECTID'] = $projectID;
              $insertdata['FCONTENT'] = iconv("gb2312","UTF-8", $filePath);
              $insertdata['FISMAINPIC'] = false;
              $insertdata['FNAME'] = $name;
              $tableName = 'T_PIC';
              $where='FID='.$FID;
              $this->load->model('Tools');
-             $result = $this->Tools->updateData($followScheme,$tableName,$where);
-             
+             $result = $this->Tools->updateData($insertdata,$tableName,$where);
+             $result['data'] = $filePath;
+             return $result;
          }
     }
      
-    /*
-
-    */
-
+     // 更新项目图片
+     // Pic/updateImage
      public function updateImage()
      {
         $FID = $this->input->post('uploadSchemeId');
@@ -82,15 +84,12 @@ class Pic extends CI_Controller
          $config['max_width']        = 1024;
          $config['max_height']       = 768;
          $name = $_FILES["file"]["name"];
-         $this->load->model('FollowScheme_model');
-         
-         $followScheme = $this->FollowScheme_model->getPersonBankInfo($FID);
          $is_exist = is_int(strpos($followScheme['FLINK'],$name));
          if ($is_exist){
              echo "update fail";
              return ;
          }
-         $followScheme['FLINK'] = $followScheme['FLINK'].';'.$name;
+        ;
          $config['file_name']  =  date('y-m-d-h-i-s',time()).iconv("UTF-8","gb2312", $name);
          $this->load->library('upload', $config);
          
@@ -103,13 +102,14 @@ class Pic extends CI_Controller
          else
          {
              $data = array('upload_data' => $this->upload->data());
-             $filePath =  './fileFolder/'.$data['upload_data']['file_name'];
+             $filePath =  $data['upload_data']['file_name'];
              $insertdata['FCONTENT'] = iconv("gb2312","UTF-8", $filePath);
              $tableName = 'T_PIC';
              $where='FID='.$FID;
              $this->load->model('Tools');
-             $result = $this->Tools->updateData($followScheme,$tableName,$where);
-             
+             $result = $this->Tools->updateData($insertdata,$tableName,$where);
+             $result['data'] = $filePath;
+             return $result;
          }
      }
 
