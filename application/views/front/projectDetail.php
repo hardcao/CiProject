@@ -626,19 +626,18 @@ function getForceList(){
 }
 
 function getNewsList(){
+	var ctx="<?php echo site_url();?>";
+	var projectId=getReqParam('projectid');
 	$.ajax({
 		type:'post',//可选get
-		url:'../DynamicNewsController/getNewsListByProjectId.action',
+		url:ctx+'News/getNewListProjectID',
 		dataType:'Json',//服务器返回的数据类型 可选XML ,Json jsonp script html text等
 		data:{
 			'projectId':projectId,
-			'title':"",
-			'releaseBegin':"",
-			'releaseEnd':""
 		},
 		success:function(msg){
 			if(msg.success){
-				newsInfo = msg.dataDto;
+				newsInfo = msg.data;
 			}else{
 				alert(msg.error);
 			}
@@ -652,14 +651,15 @@ function getNewsList(){
 
 function loadNewsList(){
 	$("#newsTbody").empty();
+	var ctx="<?php echo site_url();?>";
 	if(newsInfo && newsInfo.length > 0){
 		var tempHtml = "";
 		$.each(newsInfo, function(ind, val){
 			tempHtml +=
 			'<tr><td height="30">'+(ind+1)+'</td>'+
-				'<td><a href="newsDetail.jsp?projectId='+projectId+'&newsId='+val.newsId+'">'+val.title+'</a></td>'+
-				'<td>'+(new Date(val.releaseDate)).format('yyyy-MM-dd')+'</td>'+
-				'<td>'+val.authorName+'</td></tr>';
+				'<td><a href="'+ctx+'home/index/newsDetail?newsId='+val.FID+'">'+val.FTITLE+'</a></td>'+
+				'<td>'+(new Date(val.FRELEASEDATE)).format('yyyy-MM-dd')+'</td>'+
+				'<td>'+val.FUSERNAME+'</td></tr>';
 		});
 		$("#newsTbody").html(tempHtml);
 	}

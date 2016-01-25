@@ -172,16 +172,22 @@ class Project extends CI_Controller
      public function  addProject()
      {
          
-         $data = $this->input->input_stream();
-         $tableName = 'T_PROJECT';
-         $this->load->model('Tools');
-         $result = $this->Tools->addData($data,$tableName);
-         $projectDetail['FPROJECTID'] = $result['data'];
-         $tableName = 'T_PROJECTDETAILINFO';
-         $result = $this->Tools->addData($projectDetail,$tableName);
-         $tableName = 'T_FOLLOWSCHEME';
-         $result = $this->Tools->addData($projectDetail,$tableName);
-         echo json_encode($result);
+        $data = $this->input->input_stream();
+        $tableName = 'T_PROJECT';
+        $this->load->model('Tools');
+        $result = $this->Tools->addData($data,$tableName);
+        $projectDetail['FPROJECTID'] = $result['data'];
+        $tableName = 'T_PROJECTDETAILINFO';
+        $result = $this->Tools->addData($projectDetail,$tableName);
+        $tableName = 'T_FOLLOWSCHEME';
+        $result = $this->Tools->addData($projectDetail,$tableName);
+        $tableName = 'T_PIC';
+        $PICData['FPROJECTID']=$result['data'];
+        $PICData['FNAME']='default.jpg';
+        $PICData['FCONTENT']='default.jpg';
+        $PICData['FISMAINPIC']=true;
+        $result = $this->Tools->addData($PICData,$tableName);
+        echo json_encode($result);
      }
      
      public function  deleteEnclosure(){

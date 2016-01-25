@@ -32,7 +32,7 @@ class Pic extends CI_Controller
     public function addImage()
     {
         $projectID = $this->input->post('projectId');
-        $config['upload_path']      = './Image/';
+        $config['upload_path']      = './images/';
          $config['allowed_types']    = 'gif|jpg';
          $config['max_size']     = 100;
          $config['max_width']        = 1024;
@@ -78,7 +78,7 @@ class Pic extends CI_Controller
      public function updateImage()
      {
         $FID = $this->input->post('uploadSchemeId');
-         $config['upload_path']      = './Image/';
+         $config['upload_path']      = './images/';
          $config['allowed_types']    = 'gif|jpg';
          $config['max_size']     = 100;
          $config['max_width']        = 1024;
@@ -111,6 +111,15 @@ class Pic extends CI_Controller
              $result['data'] = $filePath;
              return $result;
          }
+     }
+
+     public function deleteImage()
+     {
+        $data = $this->input->input_stream();
+        $tableName = 'T_PIC';
+        $this->load->model('Tools');
+        $result = $this->Tools->deleteData($data,$tableName);
+        echo json_encode($result);
      }
 
 }
