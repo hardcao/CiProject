@@ -288,4 +288,15 @@ class Payrecord extends CI_Controller
          $result = $this->Payrecord_model->testSum();
         echo json_encode($result);
     }
+
+    //根据userid把该用户所有的缴款列出来
+   //Payrecord/getPayInDetail
+    public function getPayInDetail()
+    {
+
+       
+         $userId = $this->input->post('uid');
+        $result = $this->Payrecord_model->getPayInDetail($userId);
+        echo json_encode($result);
+    }
 }

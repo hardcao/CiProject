@@ -28,7 +28,7 @@ $("#btn_login").click(function(){
 					subscribeStartDate:'2013-09-01 09:50:00',
 					subscribeEndDate:'2016-09-01 09:50:00',
 					uname:'1',
-					uid:2,
+					uid:1,
 					searchname:'',
 					queryType:0,
 				},

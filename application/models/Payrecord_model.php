@@ -242,4 +242,20 @@ class Payrecord_model extends CI_Model
         if($result==NULL) return 0;
         return $result[0]['TOTALFPAYAMOUNT'];
     }
+
+    public function getPayInDetail($userID)
+    {
+        $where = 'T_SUBSCRIBECONFIRMRECORD.FUSERID='.$userID;
+        $this->db->where($where);
+        $selectData = "T_PAYRECORD.FID as FID,T_PROJECT.FNAME as FNAME,T_SUBSCRIBECONFIRMRECORD.FCONFIRMAMOUNT as FCONFIRMAMOUNT,T_PAYRECORD.FPAYTIMES as FPAYTIMES,T_PAYRECORD.FPAYDATE as FPAYDATE,T_PAYRECORD.FPAYAMOUNT as FPAYAMOUNT";
+        $this->db->select($selectData);
+        $this->db->join('T_PAYRECORD','T_PAYRECORD.FSUBSCRIBECONFIGRMRECORDID=T_SUBSCRIBECONFIRMRECORD.FID');
+         $this->db->join('T_PROJECT','T_PROJECT.FID=T_SUBSCRIBECONFIRMRECORD.FPROJECTID');
+        $result = $this->db->get('T_SUBSCRIBECONFIRMRECORD')->result_array();
+        $data["success"] = true;
+        $data["errorCode"] = 0;
+        $data["error"] = 0;
+        $data['data'] =  $result;
+        return $data;
+    }
 }
