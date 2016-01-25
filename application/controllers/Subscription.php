@@ -80,6 +80,9 @@ class Subscription extends CI_Controller
     //获得已经认购信息
     // Subscription/getHasSubscribe
     public function getHasSubscribe()
+
+
+    
     {
         $userID = $this->input->post('uid');
         $result = $this->Subscription_model->getHasSubscribe($userID);
