@@ -1,5 +1,5 @@
 ﻿1 create table T_PROJECT (FID integer PRIMARY KEY,
-		            FNAME VARCHAR(50), 
+		            FPROJECTNAME VARCHAR(50), 
 			        FNUMBER VARCHAR(50), 
 			        FSTATE VARCHAR(50), 
 			        FSTATUS BOOLEAN, 
@@ -138,7 +138,7 @@ INSERT INTO T_PIC(FPROJECTID,
 					   
 9 create table T_USER (FID integer PRIMARY KEY,
 					   FNUMBER VARCHAR(20),
-					   FNAME VARCHAR(20),
+					   FUSERNAME VARCHAR(20),
 					   FORG VARCHAR(100))ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='用户表';
 alter table T_USER modify FID integer auto_increment;
 INSERT INTO T_USER (FNUMBER,

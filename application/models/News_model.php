@@ -18,8 +18,9 @@ class News_model extends CI_Model
         
         $query=$this->db->select("*");
         $query=$this->db->where('FPROJECTID',$projectId);
-        $query=$this->db->join('T_USER', 'T_USER.FID=T_NEWS.FCREATORID','inner');
-        $query=$this->db->join('T_PROJECT', 'T_NEWS.FPROJECTID=T_PROJECT.FID','inner');
+       // $sql = "SELECT * FROM T_NEWS LEFT OUTER JOIN TableB ON TableA.name = TableB.name";
+        $query=$this->db->join('T_USER', 'T_USER.FID=T_NEWS.FCREATORID','left outer');
+        $query=$this->db->join('T_PROJECT', 'T_PROJECT.FID=T_NEWS.FPROJECTID','left outer');
         $query=$this->db->get('T_NEWS');
         $result = $query->result_array();
         $data["success"] = true;

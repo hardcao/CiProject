@@ -35,12 +35,29 @@ class Pic_model extends CI_Model
         return  $data; ;
     }
     
-    public function  addPic($dataArry){
+    public function  addPic($projectID,$picName,$picURL){
         $insertArry = array(
-            'FPROJECTID'=>$dataArry['FPROJECTID'],
-            'FNAME' =>$dataArry['FNAME'],
-            'FCONTENT' => $dataArry['FCONTENT'],
-            'FISMAINPIC' => $dataArry['FISMAINPIC']
+            'FPROJECTID'=>$projectID,
+            'FNAME' =>$picName,
+            'FCONTENT' => $picURL,
+            'FISMAINPIC' => false,
+        );
+        $this->db->insert('T_PIC', $insertArry);
+        $data["success"] = true;
+        $data["errorCode"] = 0;
+        $data["error"] = 0;
+        $data['data'] = '0';
+        return  $data;
+    }
+
+    public function addMainImages($projectID,$picName,$picURL)
+    {
+         $insertArry = array(
+            'FPROJECTID'=>$projectID,
+            'FNAME' =>$picName,
+            'FCONTENT' => $picURL,
+            'FISMAINPIC' => true,
+            
         );
         $this->db->insert('T_PIC', $insertArry);
         $data["success"] = true;
