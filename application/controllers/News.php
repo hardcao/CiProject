@@ -1,4 +1,5 @@
 <?php  
+
 defined('BASEPATH') or exit('Error!');
 
 /**
@@ -119,6 +120,6 @@ class News extends CI_Controller
         $tableName = 'T_NEWS';
         $this->load->model('Tools');
         $result = $this->Tools->addData($data,$tableName);
-        echo json_encode($data);
+        echo json_encode($result);
     }
 }

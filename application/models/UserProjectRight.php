@@ -14,5 +14,9 @@ class UserProjectRight extends CI_Controller
         $this->load->model('UserProjectRight_model');
     }
 
-    
+    public function getUserProjectRight() {
+        $userID = $this->input->
+        $ProjdecID)
+    }
+   
 }
