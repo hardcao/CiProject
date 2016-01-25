@@ -285,9 +285,10 @@ class BonusRecord extends CI_Controller
         $dataR['data'] = $fileName;
         echo json_encode($dataR);
     }
-
+    //根据userid把该用户所有的分红信息列出来
+    //BonusRecord/getBonusDetail
     public function getBonusDetail() {
-          $userId = $this->input->post('uid');
+        $userId = $this->input->post('uid');
         $result = $this->BonusRecord_model->getBonusDetail($userId);
         echo json_encode($result);
     }
