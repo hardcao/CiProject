@@ -82,7 +82,7 @@ class Pic_model extends CI_Model
    
 
     public function getAllProjectImage($projectId){
-        $where = 'FPROJECTID='.$projectId;
+        $where = 'FPROJECTID='.$projectId.' AND FISMAINPIC=false';
         $this->db->select( "*");
         $this->db->where($where);
         $result = $this->db->get('T_PIC')->result_array();
