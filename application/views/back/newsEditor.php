@@ -32,8 +32,8 @@
 	<td><input id="titleInp" value="" /></td>
 </tr><tr>
 	<td class="titleTd">所属项目</td>
-	<td><select id="projectInp" disabled="true" >
-	</select></td>
+	<td><input id="projectInp" disabled="true" >
+	</input></td>
 </tr><tr>
 	<td class="titleTd">内容</td>
 	<td class="richTd">
@@ -71,14 +71,15 @@ $(function(){
 	ueObj = UE.getEditor('editor');
 	initParams();
 	initListeners();
+	getNewsInfo();
 	// setTimeout(function(){
-		getProjectList();
+		//getProjectList();
 	// }, 500);
 });
 
 function initParams(){
 	newsId = getReqParam("newsId");
-	currProId = getReqParam("proId");
+	currProId = getReqParam("projectId");
 }
 
 function initListeners(){
@@ -87,7 +88,7 @@ function initListeners(){
 }
 
 function getProjectList(){
-	ctx="<?php echo site_url();?>";
+	/*ctx="<?php echo site_url();?>";
 	//var projectName=$("#projectName").val();
 	$.ajax({
 		type:'post',//可选get
@@ -115,7 +116,7 @@ function getProjectList(){
 		error: function (XMLHttpRequest, textStatus, errorThrown) {
         	 sessionTimeout(XMLHttpRequest, textStatus, errorThrown);
         }
-	})
+	})*/
 }
 
 function loadProjectSelector(){
@@ -153,7 +154,7 @@ function getNewsInfo(){
 			}else{
 				alert(msg.error);
 			}
-			loadProjectSelector();
+			//loadProjectSelector();
 			loadNewsInfo();
 		},
 		error: function (XMLHttpRequest, textStatus, errorThrown) {
@@ -165,6 +166,7 @@ function getNewsInfo(){
 function loadNewsInfo(){
 	if(newsInfo){
 		$("#titleInp").val(newsInfo.FTITLE);
+		$("#projectInp").val(newsInfo.FPROJECTNAME);
 		ueObj.execCommand('insertHtml', newsInfo.FCONTENT);
 	}
 }
@@ -186,13 +188,16 @@ function submitInfo(){
 	if(newsId){
 		// 修改
 		_url = "update";
+		var _proid = getReqParam('projectId');
 		_param = {
-			'newsId':newsId,
-			'title':_title,
+			'FID':newsId,
+			'FTITLE':_title,
 			// 'author':"",
 			// 'projectId':_proid,
-			'content':_cont
+			'FCONTENT':_cont,
+			'FPROJECTID':_proid
 		};
+		updateNews(_param);
 	}else{
 		// 新增
 		var _proid = $("#projectInp").val();
@@ -201,19 +206,50 @@ function submitInfo(){
 			return false;
 		}
 
-		_url = "insert";
 		_param = {
-			'newsId':newsId,
-			'title':_title,
+			'FTITLE':_title,
 			// 'author':"",
-			'projectId':_proid,
-			'content':_cont
+			'FPROJECTID':_proid,
+			'FCONTENT':_cont,
+			'FCREATORID': 1,
 		};
+		addNews(_param);
 	}
 
+}
+
+function updateNews(_param)
+{
+	var ctx ="<?php echo site_url() ?>";
 	$.ajax({
 		type:'post',//可选get
-		url:'../DynamicNewsController/'+_url+'.action',
+		url:ctx+'news/updateNews',
+		dataType:'Json',//服务器返回的数据类型 可选XML ,Json jsonp script html text等
+		data:_param,
+		success:function(msg){
+			if(msg.success){
+				var _tip = "新增成功！";
+				if(newsId){
+					_tip = "更新成功！";
+				}
+				alert(_tip);
+			}else{
+				alert(msg.error);
+			}
+			toNewsListPage();
+		},
+		error: function (XMLHttpRequest, textStatus, errorThrown) {
+			sessionTimeout(XMLHttpRequest, textStatus, errorThrown);
+		}
+	});
+}
+
+function addNews(_param)
+{
+	var ctx ="<?php echo site_url() ?>";
+	$.ajax({
+		type:'post',//可选get
+		url:ctx+'news/addNews',
 		dataType:'Json',//服务器返回的数据类型 可选XML ,Json jsonp script html text等
 		data:_param,
 		success:function(msg){
