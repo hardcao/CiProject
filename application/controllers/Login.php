@@ -17,10 +17,17 @@ class Login extends CI_Controller {
 	 * map to /index.php/welcome/<method_name>
 	 * @see http://codeigniter.com/user_guide/general/urls.html
 	 */
+
+	public function __construct()
+    {
+        # code...
+        parent::__construct();
+        $this->load->model('User_model');
+    }
 	public function index()
 	{
-		header("Location:".base_url());
-		exit;
+		//header("Location:".base_url());
+		//exit;
 
 		$usercode = $this->input->get('usercode');
 		$username = $this->input->get('username');
@@ -56,6 +63,20 @@ class Login extends CI_Controller {
 				header("location:".base_url() );
 		//}else die("Invalid request!");
 	}
+    //Login/login
+    public function login()
+    {
+    	$username = $this->input->post('username');
+		$password = $this->input->post('password');
+		$result = $this->User_model->checkLogin($username, $password);
+		//$result['test'] = $username;
+		if($result['success'] == true) {
+			echo site_url();
+		} else {
+			echo json_encode($result);
+		}
+	
+    }
 
 	public function userlogin(){
 //		error_reporting(E_ALL);
@@ -71,7 +92,7 @@ class Login extends CI_Controller {
 			$ad = ldap_connect($host) or die( "Could not connect!" ); 
 //			var_dump($ad);
 			if($ad){ 
-				//设置参数 
+				//脡猫脰脙虏脦脢媒 
 				ldap_set_option ( $ad, LDAP_OPT_PROTOCOL_VERSION, 3 ); 
 				ldap_set_option ( $ad, LDAP_OPT_REFERRALS, 0 ); // bool ldap_bind ( resource $link_identifier [, string $bind_rdn = NULL [, string $bind_password = NULL ]] ) 
 				$bd = ldap_bind($ad, $usercode . '@cifi.com.cn', $password); 
@@ -95,23 +116,23 @@ class Login extends CI_Controller {
 						$this->load->model('Mystring_model','MyString');
 						$authcode = $this->MyString->authcode(serialize($auth),'ENCODE');
 
-						$this->input->set_cookie('px_auth',$authcode,-3600);
+						$this->input->sesseion('px_auth',$authcode,-3600);
 
 						$error = 0;
 
 					}else{
-						$message = "验证失败，请确认用户编号和密码是否正确。.";
+						$message = "脩茅脰陇脢搂掳脺拢卢脟毛脠路脠脧脫脙禄搂卤脿潞脜潞脥脙脺脗毛脢脟路帽脮媒脠路隆拢.";
 					}
 
 
 				}else{
-					$message = "验证失败，请确认用户编号和密码是否正确。";
+					$message = "脩茅脰陇脢搂掳脺拢卢脟毛脠路脠脧脫脙禄搂卤脿潞脜潞脥脙脺脗毛脢脟路帽脮媒脠路隆拢";
 				}
 			}
 
 		}
 		else {
-			$message = "请输入用户编号和用户密码";
+			$message = "脟毛脢盲脠毛脫脙禄搂卤脿潞脜潞脥脫脙禄搂脙脺脗毛";
 		}
 
         header("Expires: Mon, 26 Jul 1997 05:00:00 GMT" ); 

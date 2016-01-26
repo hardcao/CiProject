@@ -25,12 +25,39 @@ class User_model extends CI_Model
         $data['data'] = $result;
         return $data;
     }
+
+    public function checkLogin($userName, $password) {
+        $this->db->select("*");
+        if($userName) {
+            $this->db->where('FNAME',$userName);
+        }
+        $result = $this->db->get('T_USER')->result_array();
+        $data["errorCode"] = 0;
+        $data["error"] = 0;
+        if($result != NULL) {
+            $data['data'] = $result;
+            $data["success"] = true;
+        } else {
+             $data['data'] = $result;
+            $data["success"] = false;
+        }
+        return  $data;
+    }
     
     public function getUser($FID) {
         $this->db->select("*");
         $this->db->where('FID',$FID);
         $result = $this->db->get('T_USER')->result_array();
-        return $result[0];
+        $data["errorCode"] = 0;
+        $data["error"] = 0;
+        if($result != NULL) {
+            $data['data'] = $result;
+            $data["success"] = true;
+        } else {
+             $data['data'] = $result;
+            $data["success"] = false;
+        }
+        return $data;
     }
     
     public function  addUser($dataArry){
