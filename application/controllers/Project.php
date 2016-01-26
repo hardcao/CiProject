@@ -32,9 +32,9 @@ class Project extends CI_Controller
 
     //项目统计接口
      //project/getAllProjectBaseInfo
-     public function getAllProjectBaseInfo()
+     public function getStatisticsInfo()
      {
-        $result = $this->project_model->getAllProjectBaseInfo();
+        $result = $this->project_model->getStatisticsInfo();
         echo  json_encode($result);
      }
     

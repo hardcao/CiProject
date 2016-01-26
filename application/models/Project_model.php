@@ -274,7 +274,7 @@ class Project_model extends CI_Model
         return  $data;
     }
 
-    public function getAllProjectBaseInfo()
+    public function getStatisticsInfo()
     {
         $result;
         $query = $this->db->query("select count(1) as FPROJECTCOUNT from T_PROJECT where FSTATUS = 1");
