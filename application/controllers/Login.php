@@ -135,8 +135,12 @@ class Login extends CI_Controller {
 	}
 
 	public function logout(){
-		delete_cookie('px_auth');
-		header("location:".base_url());
+		$this->session->unset_userdata('username');
+		$data["success"] = true;
+        $data["errorCode"] = 0;
+        $data["error"] = 0;
+        $data['data'] = true;
+        echo json_encode($data);
 	}
 }
 
