@@ -15,6 +15,7 @@
 #sysManageLayer #addProject{line-height: 35px;/*width: 95%;*/margin: 0px auto;float: left;}
 #sysManageLayer #addProject a{color: #21B4F6;}
 #sysManageLayer #addProject a img{vertical-align:middle;border:none;}
+select[disabled] { background-color: #e8e8e8; }
 </style>
 <script type="text/javascript" src="<?php echo site_url('application/views/plugins/jquery-1.8.0.min.js')?>"></script>
 <script type="text/javascript">
@@ -83,10 +84,22 @@ function loadProData (argument) {
 	if(proList && proList.length > 0){
 		var tempHtml = "";
 		$.each(proList, function(ind, val){
-			tempHtml +=
+		if(val.FSTATUS == 1)
+		{
+			tempSel = '<select  disabled="true" class="statusTd" id="statusSel'+ind+'"><option value="1" selected="selected">跟投开放</option>'
+			+'<option value="0">跟投关闭</option></select>';
+		}
+		else
+		{
+			tempSel = '<select  disabled="true" class="statusTd" id="statusSel'+ind+'"><option value="1">跟投开放</option>'
+			+'<option value="0" selected="selected">跟投关闭</option></select>';
+		}
+
+		tempHtml +=
 			'<tr><td height="40">'+(ind+1)+'</td>'+
 				'<td class="nameTd">'+val.FNAME+'</td>'+
 				'<td class="areaTd">'+val.FSTATE+'</td>'+
+				'<td>'+tempSel+'</td>'+
 				'<td><a class="updBtn" ind="'+ind+'" href="javascript:void(0);">修改</a>&nbsp;&nbsp;'+
 				'<a href="javascript:delProject(\''+val.FID+'\')">删除</a>&nbsp;&nbsp;'+
 				'<a class="cancelUpdBtn" ind="'+ind+'" href="javascript:void(0);" style="display:none;">取消</a></td></tr>';
@@ -140,12 +153,15 @@ function updProject() {
 	$(this).next(".cancelUpdBtn").show();
 	$(this).parent().prevAll(".nameTd").html('<input id="nameInp_'+_ind+'" value="'+proList[_ind].FNAME+'" />');
 	$(this).parent().prevAll(".areaTd").html('<input id="areaInp_'+_ind+'" value="'+proList[_ind].FSTATE+'" />');
+	//$(this).parent().prevAll(".statusTd").removeAttr("disabled");;
+	$('#statusSel'+_ind).removeAttr("disabled");
 }
 function saveUpdProject() {
 	var _ind = $(this).attr("ind");
 	var _proid = proList[_ind].FID;
 	var _name = $("#nameInp_"+_ind).val();
 	var _area = $("#areaInp_"+_ind).val();
+	var _status = $("#statusSel"+_ind).val();
 	if($.trim(_name) == ""){
 		alert("请输入项目名！");
 		return false;
@@ -159,7 +175,7 @@ function saveUpdProject() {
 		type:'post',//可选get
 		url:ctx+'/Project/updateProjectBack',
 		dataType:'Json',//服务器返回的数据类型 可选XML ,Json jsonp script html text等
-		data:{'FID':_proid,'FNAME':_name,"FSTATE":_area},
+		data:{'FID':_proid,'FNAME':_name,"FSTATE":_area, 'FSTATUS': _status},
 		success:function(msg){
 			if(msg.success){
 				getManageProjectList();
@@ -191,7 +207,8 @@ function cancelUpdProject() {
 <table id="proTable" border="1"><thead><tr>
 	<td width="50" height="34">序号</td>
 	<td width="400">项目名称</td>
-	<td width="200">区域</td>
+	<td width="100">区域</td>
+	<td width="200">项目状态</td>
 	<td>操作</td>
 </tr></thead>
 <tbody id="proTbody">
