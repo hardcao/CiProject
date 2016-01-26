@@ -1,4 +1,4 @@
-﻿<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 date_default_timezone_set('Asia/Shanghai');
 
 
@@ -24,6 +24,7 @@ class Login extends CI_Controller {
         # code...
         parent::__construct();
         $this->load->model('User_model');
+        $this->load->library('session');
     }
 	public function index()
 	{
@@ -70,6 +71,10 @@ class Login extends CI_Controller {
     	$username = $this->input->post('username');
 		$password = $this->input->post('password');
 		$result = $this->User_model->checkLogin($username, $password);
+		if($result['success'] == true) {
+			$this->session->set_userdata($username, $username);
+			
+		}
 		//$result['test'] = $username;
 		echo json_encode($result);
     }
@@ -78,17 +83,15 @@ class Login extends CI_Controller {
 //		error_reporting(E_ALL);
 		$usercode = $this->input->post('username');
 		$password = $this->input->post('password');
-
 		$error = 1 ;
 		if($usercode && $password){
-
 			$host = "192.168.8.232"; 
 //			$user = "ldapuser"; 
 //			$pswd = "CIFILdapuserRead"; 
 			$ad = ldap_connect($host) or die( "Could not connect!" ); 
 //			var_dump($ad);
 			if($ad){ 
-				//ÉèÖÃ²ÎÊý 
+				//设置参数 
 				ldap_set_option ( $ad, LDAP_OPT_PROTOCOL_VERSION, 3 ); 
 				ldap_set_option ( $ad, LDAP_OPT_REFERRALS, 0 ); // bool ldap_bind ( resource $link_identifier [, string $bind_rdn = NULL [, string $bind_password = NULL ]] ) 
 				$bd = ldap_bind($ad, $usercode . '@cifi.com.cn', $password); 
@@ -97,9 +100,7 @@ class Login extends CI_Controller {
 					$query = $this->db->query("SELECT * FROM px_managers WHERE usercode = '".$usercode."'");
 					$res = $query->row_array();
 					$admin_type = $res['type'] > 0 ? $res['type'] : 0;
-
 					$query = $this->db->query("SELECT * FROM px_tmp WHERE usercode = '".$usercode."'");
-
 					$res = $query->row_array();
 					$username = $res['username'];
 					if($username){
@@ -108,29 +109,21 @@ class Login extends CI_Controller {
 							'admin_type' => $admin_type,
 							'username' => $username,
 						);
-
 						$this->load->model('Mystring_model','MyString');
 						$authcode = $this->MyString->authcode(serialize($auth),'ENCODE');
-
-						$this->input->sesseion('px_auth',$authcode,-3600);
-
+						$this->input->set_cookie('px_auth',$authcode,-3600);
 						$error = 0;
-
 					}else{
-						$message = "ÑéÖ¤Ê§°Ü£¬ÇëÈ·ÈÏÓÃ»§±àºÅºÍÃÜÂëÊÇ·ñÕýÈ·¡£.";
+						$message = "验证失败，请确认用户编号和密码是否正确。.";
 					}
-
-
 				}else{
-					$message = "ÑéÖ¤Ê§°Ü£¬ÇëÈ·ÈÏÓÃ»§±àºÅºÍÃÜÂëÊÇ·ñÕýÈ·¡£";
+					$message = "验证失败，请确认用户编号和密码是否正确。";
 				}
 			}
-
 		}
 		else {
-			$message = "ÇëÊäÈëÓÃ»§±àºÅºÍÓÃ»§ÃÜÂë";
+			$message = "请输入用户编号和用户密码";
 		}
-
         header("Expires: Mon, 26 Jul 1997 05:00:00 GMT" ); 
         header("Last-Modified: " . gmdate( "D, d M Y H:i:s" ) . "GMT" ); 
         header("Cache-Control: no-cache, must-revalidate" ); 
