@@ -134,6 +134,7 @@ class Login extends CI_Controller {
 		echo json_encode(array('error'=>$error,'message'=>$message));
 	}
 
+//login/logout
 	public function logout(){
 		$this->session->unset_userdata('username');
 		$data["success"] = true;
