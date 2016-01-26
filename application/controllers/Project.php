@@ -42,9 +42,10 @@ class Project extends CI_Controller
     {
         
         $data = $this->input->input_stream();
+        $where = 'FID ='.$data['FID'];
         $tableName = 'T_PROJECT';
         $this->load->model('Tools');
-        $result = $this->Tools->updateData($data,$tableName);
+        $result = $this->Tools->updateData($data,$tableName,$where);
         echo json_encode($result);
     }
     

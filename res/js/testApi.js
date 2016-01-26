@@ -21,7 +21,7 @@ $("#btn_login").click(function(){
 				url: window.location.origin+"/"+password,
 				type: "post",
 				data:{
-					FID:17,
+					FID:2,
 					projectId:27,
 					startDate:'2013-09-01 09:50:00',
 					endDate:'2016-09-01 09:50:00',
