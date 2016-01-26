@@ -172,19 +172,19 @@ function loadData(){
 		$.each(dataList, function(ind, val){
 			tempHtml +=
 			'<tr><td height="35">'+(ind+1)+'</td>'+
-				'<td><a href="projectDetail.jsp?proId='+val.projectId+'">'+(val.projectName||"")+'</a></td>'+
+				'<td><a href="projectDetail.jsp?proId='+val.FID+'">'+(val.FNAME||"")+'</a></td>'+
 				//'<td>'+ (val.isRemissionSubscribe == true ? "是" : "否") +'</td>'+
-				'<td>'+formatDate(val.number)+'</td>'+
-				'<td>'+formatMillions(val.contributiveAmount)+'</td>'+
-				'<td>'+formatMillions(val.leverageAmount)+'</td>'+
-				'<td class="displayNone">'+(val.adjustamt)+'</td>'+
-				'<td class="displayNone">'+(val.adjustLeverageAmt)+'</td>'+
-				'<td>'+formatMillions(val.contributiveConfirmAmount)+'</td>'+
+				'<td>'+formatDate(val.FCREATETIME)+'</td>'+
+				'<td>'+(val.FAMOUNT||0)+'</td>'+
+				'<td>'+(val.FLEVERAMOUNT||0)+'</td>'+
+				//'<td class="displayNone">'+(val.adjustamt)+'</td>'+
+				//'<td class="displayNone">'+(val.adjustLeverageAmt)+'</td>'+
+				'<td>'+(val.FCONFIRMAMOUNT||0)+'</td>'+
 				// '<td width="120">'+formatMillions(val.bonusAmount)+'</td>'+
-				'<td>'+formatMillions(val.confirmLeverageAmt)+'</td>'+
-				'<td>'+formatMillions(val.confirmationPayment)+'</td>'+
-				'<td>'+formatMillions(val.completeBonusAmount)+'</td>'+
-				'<td>'+val.bankNo+'</td>'+
+				'<td>'+(val.FLEVERCONFIRMAMOUNT||0)+'</td>'+
+				'<td>'+(val.FAMOUNT || 0)+'</td>'+
+				'<td>'+(val.TOTALFBONUSAMOUNT || 0)+'</td>'+
+				'<td>'+val.FBANKNO+'</td>'+
 				'<td>'+
 					'<a class="change" href="javascript:void(0)" ind="'+ind+'">更换收款账号</a>&nbsp;&nbsp;'+
 					// '<a class="view" href="javascript:void(0)">查看</a>'+
