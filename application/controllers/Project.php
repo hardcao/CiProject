@@ -31,7 +31,7 @@ class Project extends CI_Controller
     }
 
     //项目统计接口
-     //project/getAllProjectBaseInfo
+     //project/getStatisticsInfo
      public function getStatisticsInfo()
      {
         $result = $this->project_model->getStatisticsInfo();
