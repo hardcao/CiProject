@@ -102,16 +102,20 @@ function loadProData (argument) {
 				'<td>'+tempSel+'</td>'+
 				'<td><a class="updBtn" ind="'+ind+'" href="javascript:void(0);">修改</a>&nbsp;&nbsp;'+
 				'<a href="javascript:delProject(\''+val.FID+'\')">删除</a>&nbsp;&nbsp;'+
-				'<a class="cancelUpdBtn" ind="'+ind+'" href="javascript:void(0);" style="display:none;">取消</a></td></tr>';
+				'<a class="cancelUpdBtn" ind="'+ind+'" href="javascript:void(0);" style="display:none;" id="cancelBtn'+ind+'">取消</a></td></tr>';
 		});
 		$("#proTbody").html(tempHtml);
 	}
 }
 function addProRow(){
 	var leng = $("#proTbody tr").length;
+	var tempSel = '<select class="statusTd" id="statusSel'+leng
+					+'"><option value="1" selected="selected">跟投开放</option>'
+					+'<option value="0">跟投关闭</option></select>';
 	var tempHtml = '<tr><td height="40">'+(leng+1)+'</td>'+
 						'<td><input id="nameInp_'+leng+'" /></td>'+
 						'<td><input id="areaInp_'+leng+'" /></td>'+
+						'<td>'+tempSel+'</td>'+
 						'<td><a class="saveAddBtn" ind="'+leng+'" href="javascript:void(0);">保存</a></td>'+
 					'</tr>';
 	$("#proTbody").append(tempHtml);
@@ -120,21 +124,22 @@ function addProject(_ev){
 	var _ind = $(this).attr("ind");
 	var _nameInpVal = $.trim($("#nameInp_"+_ind).val());
 	var _areaInpVal = $.trim($("#areaInp_"+_ind).val());
+	var _statusSel = $.trim($("#statusSel"+_ind).val());
 	if(_nameInpVal.length <= 0){
 		alert("请输入项目名！");
 	}else if(_areaInpVal.length <= 0){
 		alert("请填写项目所在区域！");
 	}else{
-		 saveAddProject(_nameInpVal,_areaInpVal);
+		 saveAddProject(_nameInpVal,_areaInpVal,_statusSel);
 	}
 }
-function saveAddProject(_nameInpVal,_areaInpVal){
+function saveAddProject(_nameInpVal,_areaInpVal, _statusSel){
 	var ctx="<?php echo site_url();?>";
 	$.ajax({
 		type:'post',//可选get
 		url:ctx+'/Project/addProject',
 		dataType:'Json',//服务器返回的数据类型 可选XML ,Json jsonp script html text等
-		data:{'FNAME':_nameInpVal,"FSTATE":_areaInpVal},
+		data:{'FNAME':_nameInpVal,"FSTATE":_areaInpVal, 'FSTATUS': _statusSel},
 		success:function(msg){
 			if(msg.success){
 				getManageProjectList();
@@ -150,11 +155,12 @@ function saveAddProject(_nameInpVal,_areaInpVal){
 function updProject() {
 	var _ind = $(this).attr("ind");
 	$(this).text("保存").removeClass("updBtn").addClass("saveUpdBtn");
-	$(this).next(".cancelUpdBtn").show();
+	//$(this).next(".cancelUpdBtn").show();
 	$(this).parent().prevAll(".nameTd").html('<input id="nameInp_'+_ind+'" value="'+proList[_ind].FNAME+'" />');
 	$(this).parent().prevAll(".areaTd").html('<input id="areaInp_'+_ind+'" value="'+proList[_ind].FSTATE+'" />');
 	//$(this).parent().prevAll(".statusTd").removeAttr("disabled");;
 	$('#statusSel'+_ind).removeAttr("disabled");
+	$('#cancelBtn'+_ind).show();
 }
 function saveUpdProject() {
 	var _ind = $(this).attr("ind");
@@ -192,7 +198,8 @@ function cancelUpdProject() {
 	var _ind = $(this).attr("ind");
 	$(this).parent().prevAll(".nameTd").html(proList[_ind].FNAME);
 	$(this).parent().prevAll(".areaTd").html(proList[_ind].FSTATE);
-	$(this).prev(".saveUpdBtn").text("修改").removeClass("saveUpdBtn").addClass("updBtn");
+	$('#statusSel'+_ind).attr("disabled","disabled");
+	$(this).prevAll(".saveUpdBtn").text("修改").removeClass("saveUpdBtn").addClass("updBtn");
 	$(this).hide();
 }
 </script>
