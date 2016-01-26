@@ -1,5 +1,6 @@
-<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+﻿<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 date_default_timezone_set('Asia/Shanghai');
+
 
 class Login extends CI_Controller {
 	/**
@@ -70,12 +71,7 @@ class Login extends CI_Controller {
 		$password = $this->input->post('password');
 		$result = $this->User_model->checkLogin($username, $password);
 		//$result['test'] = $username;
-		if($result['success'] == true) {
-			echo site_url();
-		} else {
-			echo json_encode($result);
-		}
-	
+		echo json_encode($result);
     }
 
 	public function userlogin(){
