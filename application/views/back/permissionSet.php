@@ -4,6 +4,11 @@
 <head>
 <title>数据维护平台 - 权限分配</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+
+<script type="text/javascript" src="<?php echo site_url('application/views/plugins/jquery-1.8.0.min.js')?>"></script>
+
+
 <style type="text/css">
 #permissionSet button, #dialogLayer button{width: 50px;height: 25px;margin: 0px 5px;}
 #permissionSet .layerSTY{float: left;margin:20px 0px 0px 35px;width: 250px;}
@@ -47,8 +52,6 @@ var permArr = [
 	"认购核准",
 	"缴款确认",
 	"分红明细",
-	"特别跟投",
-	"离职处理",
 ];
 // 临时数据存储对象
 var tempMngObj = {};
@@ -207,7 +210,7 @@ function editPerm(){
 		url:'../UserProjectRelateController/editRelateByUserProject.action',
 		dataType:'Json',//服务器返回的数据类型 可选XML ,Json jsonp script html text等
 		data:{
-			'projectId':permProList[proInd].projectId,
+			'projectId':permProList[proInd].FID,
 			'delUserId':"",
 			'addUserId':"",
 			'updUserId':objConcatStr(_tempUpdObj)
@@ -265,12 +268,13 @@ function getMngUserData(_proid){
 	if(_proid){
 		proid = _proid;
 	}else if(permProList && permProList.length>0){
-		proid = permProList[proInd].projectId;
+		proid = permProList[proInd].FID;
 	}
 	
+	var ctx ="<?php echo site_url() ?>";
 	$.ajax({
 		type:'post',//可选get
-		url:'../userController/getUserListByProject.action',
+		url:ctx+'UserProjectRight/getProjectUserRightWithProjectID',
 		dataType:'Json',//服务器返回的数据类型 可选XML ,Json jsonp script html text等
 		data:{
 			'projectId':proid,
@@ -279,7 +283,7 @@ function getMngUserData(_proid){
 		},
 		success:function(msg){
 			if(msg.success){
-				mngUserList=msg.dataDto;
+				mngUserList=msg.data;
 				loadMngUserData();
 			}else{
 				alert(msg.error);
@@ -297,22 +301,22 @@ function loadMngUserData(){
 		var tempHtml = "";
 		var ckArr = [];
 		$.each(mngUserList, function(ind, val){
-			if(!mngObj[val.uid]){
-				mngObj[val.uid] = val;
+			if(!mngObj[val.FID]){
+				mngObj[val.FID] = val;
 			}
 			if(val.samaccountname == "admin"){
 				tempHtml +=
 				'<div class="mngListSTY">'+val.uname+'</div>';
 			}else{
-				ckArr = val.permissionFlag?val.permissionFlag.split(""):setAllPerm("0");
+				ckArr = catPermissionArr(val);//val.permissionFlag?val.permissionFlag.split(""):setAllPerm("0");
 
 				var permStr = "";
 				for (var i = 0; i < permArr.length; i++) {
-					permStr += '<input type="checkbox" class="ckSTY" uid="'+val.uid+'" '+(isPermission(ckArr,i)?"checked='checked'":"")+' />'+permArr[i]+'&nbsp;&nbsp;'
+					permStr += '<input type="checkbox" class="ckSTY" uid="'+val.FID+'" '+(isPermission(ckArr,i)?"checked='checked'":"")+' />'+permArr[i]+'&nbsp;&nbsp;'
 				};
 
 				tempHtml +=
-				'<div class="mngListSTY">'+val.uname+'<a class="delBtn" uid="'+val.uid+'" '+
+				'<div class="mngListSTY">'+val.FUSERNAME+'<a class="delBtn" uid="'+val.FID+'" '+
 					'href="javascript:void(0);"> x </a>'+
 					'<span class="ckbox">'+ permStr +
 					// '<input type="checkbox" class="ckSTY" uid="'+val.uid+'" '+(isPermission(ckArr,0)?"checked='checked'":"")+' />基础信息&nbsp;&nbsp;'+
@@ -340,19 +344,20 @@ function isPermission(_arr,_ind){
 }
 function getAllUserData(){
 	var _nameVal = $.trim($("#searUserInp").val());
+	var ctx = "<?php echo site_url() ?>";
 	$.ajax({
 		type:'post',//可选get
-		url:'../userController/getUserListByName.action',
+		url:ctx+'UserProjectRight/getAllUserRight',
 		dataType:'Json',//服务器返回的数据类型 可选XML ,Json jsonp script html text等
 		data:{
 			'uname':_nameVal,
-			'projectId':permProList[proInd].projectId,
+			'projectId':permProList[proInd].FID,
 			"startPage":0,
-			"pageSize":7
+			"pageSize":10
 		},
 		success:function(msg){
 			if(msg.success){
-				allUserList=msg.dataDto;
+				allUserList=msg.data;
 				loadAllUserData();
 			}else{
 				alert(msg.error);
@@ -363,6 +368,25 @@ function getAllUserData(){
         }
 	})
 }
+
+function catPermissionArr(val)
+{
+	/*FBASICS: false
+FBONUSDETAIL: false
+FID: "3"
+FNEWS: false
+FPAYCONFIRM: false
+FSTATUS: false
+FSUBSCRIPTION: false
+FUSERNAME: "test1"
+	"基础信息",
+	"动态新闻",
+	"认购核准",
+	"缴款确认",
+	"分红明细",*/
+	return new Array(val.FBASICS, val.FNEWS, val.FSUBSCRIPTION, val.FSUBSCRIPTION, val.FBONUSDETAIL);
+}
+
 function loadAllUserData (argument) {
 	$("#allUserTbody").empty();
 	if(allUserList && allUserList.length > 0){
@@ -372,20 +396,20 @@ function loadAllUserData (argument) {
 		$.each(allUserList, function(ind, val){
 			ckStr = "";
 			ckArr = setAllPerm("0");
-			if(tempAddObj[val.uid] || (tempMngObj[val.uid] && !tempDelObj[val.uid])){
+			if(tempAddObj[val.FID] || (tempMngObj[val.FID] && !tempDelObj[val.FID])){
 				 ckStr = 'checked="checked"';
-				 ckArr = val.permissionFlag?val.permissionFlag.split(""):setAllPerm("1");
+				 ckArr = catPermissionArrval(val); //.permissionFlag?val.permissionFlag.split(""):setAllPerm("1");
 			}
 
 			var permStr = "";
 			for (var i = 0; i < permArr.length; i++) {
-				permStr += '<input name="permCk" type="checkbox" class="ckSTY" uid="'+val.uid+'" '+(isPermission(ckArr,i)?"checked='checked'":"")+' />'+permArr[i];
+				permStr += '<input name="permCk" type="checkbox" class="ckSTY" uid="'+val.FID+'" '+(isPermission(ckArr,i)?"checked='checked'":"")+' />'+permArr[i];
 				if(i%3==0 && i>0 && i<permStr.length-1) permStr +="<br>";
 				else permStr +="&nbsp;&nbsp;";
 			};
 
 			tempHtml +=
-			'<tr><td class="userTd"><input name="userCk" type="checkbox" class="ckSTY" '+ckStr+' uid="'+val.uid+'"></td>'+
+			'<tr><td class="userTd"><input name="userCk" type="checkbox" class="ckSTY" '+ckStr+' uid="'+val.FID+'"></td>'+
 			'<td>'+val.uname+'</td>'+
 			'<td>'+val.samaccountname+'</td>'+
 			'<td>'+val.filiale+'</td>'+

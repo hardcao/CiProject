@@ -251,8 +251,8 @@ FTOTALBONUSAMOUNT: "15"
 	*/
 	$("#projectCount").html(systemInfo.FPROJECTCOUNT||0);
 	$("#peopleCount").html(systemInfo.FSUBSCRIBECONCOUNT||0);
-	$("#subAmount").html(systemInfo.FTOTALAMOUNT||0);
-	$("#bonusAmount").html((systemInfo.FTOTALBONUSAMOUNT||0));
+	$("#subAmount").html((systemInfo.FTOTALAMOUNT||0)+万元);
+	$("#bonusAmount").html((systemInfo.FTOTALBONUSAMOUNT||0)+万元);
 }
 function formatDate(ss){
 	var dt=new Date(ss);

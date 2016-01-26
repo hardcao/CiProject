@@ -101,9 +101,10 @@ function UserProjectList(){
 	var projectName=$("#projectName").val();
 	$.ajax({
 		type:'post',//可选get
-		url:ctx+'Project/getProjectBack',
+		url:ctx+'UserProjectRight/getProjectUserRightWithUserID',
 		dataType:'Json',//服务器返回的数据类型 可选XML ,Json jsonp script html text等
 		data:{	
+			'uid':1
 		},
 		success:function(msg){
 			if(msg.success){
@@ -118,6 +119,25 @@ function UserProjectList(){
         }
 	})
 }
+
+function catPermissionArr(val)
+{
+	/*FBASICS: false
+FBONUSDETAIL: false
+FID: "3"
+FNEWS: false
+FPAYCONFIRM: false
+FSTATUS: false
+FSUBSCRIPTION: false
+FUSERNAME: "test1"
+	"基础信息",
+	"动态新闻",
+	"认购核准",
+	"缴款确认",
+	"分红明细",*/
+	return new Array(val.FBASICS, val.FNEWS, val.FSUBSCRIPTION, val.FSUBSCRIPTION, val.FBONUSDETAIL);
+}
+
 function loadProjectData () {
 	$("#projectTbody").empty();
 	if(projectList && projectList.length > 0){
@@ -125,11 +145,11 @@ function loadProjectData () {
 		var perArr = [];
 		var tempUrl = "";
 		$.each(projectList, function(ind,val){
-		    perArr = null;//val.permissionFlag.split("");
-			tempUrl = "back/index/projectManage?projectId="+val.FID+"&projectName="+escape(val.FNAME);
+		    perArr = catPermissionArr(val);//val.permissionFlag.split("");
+			tempUrl = "back/index/projectManage?projectId="+val.FID+"&projectName="+escape(val.FPROJECTNAME);
 			tempHtml +=
 			'<tr><td height="40">'+(ind+1)+'</td>'+
-				'<td>'+val.FNAME+'</td>'+
+				'<td>'+val.FPROJECTNAME+'</td>'+
 				'<td><a href="'+tempUrl+'#projectBasicInfo" class="'+(isPermission(perArr,0)?"":"displayNone")+'">基础信息</a>'+
 				'<a href="'+tempUrl+'#projectNewsInfo" class="'+(isPermission(perArr,1)?"":"displayNone")+'">&nbsp;&nbsp;动态新闻</a>'+
 				'<a href="'+tempUrl+'#subscribeConfirm" class="'+(isPermission(perArr,2)?"":"displayNone")+'">&nbsp;&nbsp;认购核准</a>'+
@@ -141,15 +161,15 @@ function loadProjectData () {
 	}
 }
 function isPermission(_arr,_ind){
-	/*if(!_arr){
+	if(!_arr){
 		return false;
 	}else if(_ind >= _arr.length){
 		return false;
 	}else if(_arr[_ind] != "0"){
 		return true;
 	}
-	return false;*/
-	return true;
+	return false;
+	//return true;
 }
 function projectRedirect(projectId){
 	//javascript:projectRedirect('+val.projectId+')
