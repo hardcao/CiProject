@@ -273,4 +273,35 @@ class Project_model extends CI_Model
         $data['data'] = $this->db->insert_id();
         return  $data;
     }
+
+    public function getAllProjectBaseInfo()
+    {
+        $result;
+        $query = $this->db->query("select count(1) as FPROJECTCOUNT from T_PROJECT where FSTATUS = 1");
+        $arr=$query->result_array();
+        if($arr != NULL){
+            $result['FPROJECTCOUNT'] = $arr[0]['FPROJECTCOUNT'];
+        }
+         $query = $this->db->query("select count(1) as  FSUBSCRIBECONCOUNT from T_SUBSCRIBECONFIRMRECORD");
+        $arr=$query->result_array();
+        if($arr != NULL){
+            $result['FSUBSCRIBECONCOUNT'] = $arr[0]['FSUBSCRIBECONCOUNT'];
+        }
+         $query = $this->db->query("select  SUM(FAMOUNT+FLEVERAMOUNT) as FTOTALAMOUNT from T_SUBSCRIBECONFIRMRECORD");
+        $arr=$query->result_array();
+        if($arr != NULL){
+            $result['FTOTALAMOUNT'] = $arr[0]['FTOTALAMOUNT'];
+        }
+        $query = $this->db->query("select  SUM(FBONUSAMOUNT) as FTOTALBONUSAMOUNT from T_BONUSRECORD");
+        $arr=$query->result_array();
+        if($arr != NULL){
+            $result['FTOTALBONUSAMOUNT'] = $arr[0]['FTOTALBONUSAMOUNT'];
+        }
+        $data["success"] = true;
+        $data["errorCode"] = 0;
+        $data["error"] = 0;
+        $data['data'] = $result;
+        return  $data;
+    }
+
 }

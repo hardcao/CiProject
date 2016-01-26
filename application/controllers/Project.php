@@ -29,6 +29,14 @@ class Project extends CI_Controller
         $result = $this->project_model->getProjectBack();
         echo  json_encode($result);
     }
+
+    //项目统计接口
+     //project/getAllProjectBaseInfo
+     public function getAllProjectBaseInfo()
+     {
+        $result = $this->project_model->getAllProjectBaseInfo();
+        echo  json_encode($result);
+     }
     
     public function updateProjectBack()
     {
