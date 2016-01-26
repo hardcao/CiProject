@@ -72,7 +72,7 @@ class Login extends CI_Controller {
 		$password = $this->input->post('password');
 		$result = $this->User_model->checkLogin($username, $password);
 		if($result['success'] == true) {
-			$this->session->set_userdata($username, $username);
+			$this->session->set_userdata('username', $username);
 			
 		}
 		//$result['test'] = $username;
