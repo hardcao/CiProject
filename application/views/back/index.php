@@ -146,7 +146,7 @@ function loadProjectData () {
 		var tempUrl = "";
 		$.each(projectList, function(ind,val){
 		    perArr = catPermissionArr(val);//val.permissionFlag.split("");
-			tempUrl = "back/index/projectManage?projectId="+val.FID+"&projectName="+escape(val.FPROJECTNAME);
+			tempUrl = "back/index/projectManage?projectId="+val.PROJECTID+"&projectName="+escape(val.FPROJECTNAME);
 			tempHtml +=
 			'<tr><td height="40">'+(ind+1)+'</td>'+
 				'<td>'+val.FPROJECTNAME+'</td>'+
