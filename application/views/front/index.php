@@ -62,19 +62,19 @@ h2
 	<div class="content">
 			<div class="float divide25 number_box">
 				<div class="float number"><img src="application/views/front/img/gtzs.png" ></div>
-				<div>项目跟投总数: <span id="gtzs"></span></div>
+				<div>项目跟投总数: <span id="projectCount" style="color:red; font-weigh:600"></span></div>
 			</div>
 			<div class="float divide25 number_box">
-				<div class="float number"><span id="gtrc"></span><img src="application/views/front/img/gtrc.png"></div>
-				<div>认购人次</div>
+				<div class="float number"><img src="application/views/front/img/gtrc.png"></div>
+				<div>认购人次: <span id="peopleCount" style="color:red; font-weigh:600"></span></div>
 			</div>
 			<div class="float divide25 number_box">
-				<div class="float number"><span id="rgze"></span><img src="application/views/front/img/rgze.png"></div>
-				<div>认购总额(含杠杆)</div>
+				<div class="float number"></span><img src="application/views/front/img/rgze.png"></div>
+				<div>认购总额(含杠杆): <span id="subAmount" style="color:red; font-weigh:600"></div>
 			</div>
 			<div class="float divide25 number_box">
-				<div class="float number"><span id="fhze"></span><img src="application/views/front/img/fhze.png"></div>
-				<div>分红总额</div>
+				<div class="float number"><img src="application/views/front/img/fhze.png"></div>
+				<div>分红总额: <span id="bonusAmount" style="color:red; font-weigh:600"></span></div>
 			</div>
 	</div>
 
@@ -175,8 +175,8 @@ function getNewsData(){
 		url:ctx+'News/getAllNews',
 		dataType:'Json',//服务器返回的数据类型 可选XML ,Json jsonp script html text等
 		//begin=0&count=2&uid=test&projectId=123
-		data:{begin: 0,
-			count:2,
+		data:{//begin: 0,
+			//count:2,
 		    uid: '1',
 		    pojectId: '123'},
 		success:function(msg){
@@ -221,15 +221,16 @@ function getProjectData(){
 	})
 }
 function getSysInfo(){
+	var ctx="<?php echo site_url();?>";
 	$.ajax({
 		type:'post',//可选get
-		url:'../subscribe/getSubscribeSummary.action',
+		url:ctx+'project/getStatisticsInfo',
 		dataType:'Json',//服务器返回的数据类型 可选XML ,Json jsonp script html text等
 		data:{},
 		success:function(msg){
 			if(msg.success){
-				if(msg.dataDto && msg.dataDto.length > 0){
-					systemInfo = msg.dataDto[0];
+				if(msg.data ){
+					systemInfo = msg.data;
 					loadSysInfo();
 				}
 			}else{
@@ -242,10 +243,16 @@ function getSysInfo(){
 	})
 }
 function loadSysInfo(){
-	$("#projectCount").html(systemInfo.projectCount||0);
-	$("#peopleCount").html(systemInfo.personCount||0);
-	$("#subAmount").html(formatMillions(systemInfo.subscribeAmt));
-	$("#bonusAmount").html((systemInfo.bonusAmt?systemInfo.bonusAmt/10000:0));
+	/*
+	FPROJECTCOUNT: "0"
+FSUBSCRIBECONCOUNT: "9"
+FTOTALAMOUNT: "2000471"
+FTOTALBONUSAMOUNT: "15"
+	*/
+	$("#projectCount").html(systemInfo.FPROJECTCOUNT||0);
+	$("#peopleCount").html(systemInfo.FSUBSCRIBECONCOUNT||0);
+	$("#subAmount").html(systemInfo.FTOTALAMOUNT||0);
+	$("#bonusAmount").html((systemInfo.FTOTALBONUSAMOUNT||0));
 }
 function formatDate(ss){
 	var dt=new Date(ss);
