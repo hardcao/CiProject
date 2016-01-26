@@ -55,30 +55,30 @@ h2
 <body>
 <?php require (dirname(dirname(__FILE__)).'/common/header.php'); ?>
 <div style = "margin-top:-67px">
-	<img src="application/views/front/img/title.jpg" width="100%">
+	<img src="<?php echo site_url() ?>application/views/front/img/title.jpg" width="100%">
 	
 	
-	<img src="application/views/front/img/subtitle1.png" width="100%" style="margin-top:20px">
+	<img src="<?php echo site_url() ?>application/views/front/img/subtitle1.png" width="100%" style="margin-top:20px">
 	<div class="content">
 			<div class="float divide25 number_box">
-				<div class="float number"><img src="application/views/front/img/gtzs.png" ></div>
+				<div class="float number"><img src="<?php echo site_url() ?>application/views/front/img/gtzs.png" ></div>
 				<div>项目跟投总数: <span id="projectCount" style="color:red; font-weigh:600"></span></div>
 			</div>
 			<div class="float divide25 number_box">
-				<div class="float number"><img src="application/views/front/img/gtrc.png"></div>
+				<div class="float number"><img src="<?php echo site_url() ?>application/views/front/img/gtrc.png"></div>
 				<div>认购人次: <span id="peopleCount" style="color:red; font-weigh:600"></span></div>
 			</div>
 			<div class="float divide25 number_box">
-				<div class="float number"></span><img src="application/views/front/img/rgze.png"></div>
+				<div class="float number"></span><img src="<?php echo site_url() ?>application/views/front/img/rgze.png"></div>
 				<div>认购总额(含杠杆): <span id="subAmount" style="color:red; font-weigh:600"></div>
 			</div>
 			<div class="float divide25 number_box">
-				<div class="float number"><img src="application/views/front/img/fhze.png"></div>
+				<div class="float number"><img src="<?php echo site_url() ?>application/views/front/img/fhze.png"></div>
 				<div>分红总额: <span id="bonusAmount" style="color:red; font-weigh:600"></span></div>
 			</div>
 	</div>
 
-	<img src="application/views/front/img/subtitle2.png" width="100%" style="margin-top:20px">
+	<img src="<?php echo site_url() ?>application/views/front/img/subtitle2.png" width="100%" style="margin-top:20px">
 	<div class="content" style="clear:both; overflow:hidden">
 		<table width="100%" class="pay_bill " id="projects">
 	        <tbody>
@@ -108,10 +108,10 @@ h2
 	</div>
 
 	<div class="content moreinfo" style="clear:both; overflow:hidden">
-		<div><a href="/home/index/projectList">查看更多</a></div>
+		<div><a href="<?php echo site_url() ?>/home/index/projectList">查看更多</a></div>
 	</div>
 
-	<img src="application/views/front/img/subtitle3.png" width="100%" style="margin-top:20px">
+	<img src="<?php echo site_url() ?>application/views/front/img/subtitle3.png" width="100%" style="margin-top:20px">
 	<div class="content" style="clear:both; overflow:hidden">
 		<table width="100%" class="pay_bill " id="news">
 	        <tbody>
@@ -121,7 +121,7 @@ h2
 	</div>
 
 	<div class="content moreinfo" style="clear:both; overflow:hidden">
-		<div><a href="/home/index/newsList" >查看更多</a></div>
+		<div><a href="<?php echo site_url() ?>/home/index/newsList" >查看更多</a></div>
 	</div>
 
 	<div style="margin-bottom:80px"></div>

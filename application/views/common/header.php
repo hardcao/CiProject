@@ -11,8 +11,8 @@
             </ul>
 
             <div id="shop">
-                <a class="btn-lang tmp-unselect" onclick="check_login()" id="login">登录</a>
-                <!--a href="javascript:void(0);" class="btn-search"></a-->
+                <a class="btn-lang tmp-unselect"  href="<?php echo site_url()?>home\index\login" id="login" onclick="loginout()">登录</a>
+                <!--a href="javascript:void(0);" onclick="check_login()"class="btn-search"></a-->
             </div>
         </div>
     </div>
@@ -45,5 +45,24 @@
         <div style="height:67px; width:100%">
         </div>
     </div>
+<script type="text/javascript">
+$('#login').text('登出:'+"<?php echo $uid ?>");
 
+function loginout() {
+    var ctx= "<?php echo site_url() ?>";
+        $.ajax({
+            type:'post',
+            url:ctx+'Login/loginout',
+            dataType:'json',//服务器返回的数据类型 可选XML ,Json jsonp script html text等
+            success:function(msg){
+                location.href = ctx+'home/index/login';;
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                alert(errorThrown); 
+            }
+        });
+    }
+    
+}
+</script>
 

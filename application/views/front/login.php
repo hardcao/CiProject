@@ -16,7 +16,7 @@ background-size:cover;}
     border-radius: 5px;
     box-shadow: 5px 5px 15px #B6B4B4;
     width: 380px;
-    height: 220px;
+    height: 250px;
     position: absolute;
     left: 50%;
     top: 230px;
@@ -53,7 +53,7 @@ $(function(){
 function checkSubmit(){
 	var uid = $.trim($("#uidInp").val());
 	var pwd = $.trim($("#pwdInp").val());
-	var data = '{"loginId":"'+uid+'","password":"'+pwd+'"}';
+	var data = {username:uid,password:pwd};
 	/*if(uid != "admin" || pwd != "admin"){
 		$(".tipsTd").text("用户与密码不匹配!");
 	}else*/ if(uid.length <= 0 || pwd.length <= 0){

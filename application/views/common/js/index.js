@@ -136,7 +136,7 @@
 
 });
 
-    var vLogin = false;
+    /*var vLogin = false;
     function check_login()
     {
         if (vLogin == false) 
@@ -150,4 +150,6 @@
             vLogin = false;
         }
         
-    }
+    }*/
+
+    //alert("<?php echo $uid ?>");
