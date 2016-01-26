@@ -30,8 +30,8 @@ $("#btn_login").click(function(){
 					uname:'',
 					uid:1,
 					newsId:124,
-					username1:'123',
-					password1:'asdfas',
+					username:'123',
+					password:'asdfas',
 					queryType:0,
 				},
 				success: function(data){

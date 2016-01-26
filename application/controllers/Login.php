@@ -68,6 +68,7 @@ class Login extends CI_Controller {
     //Login/login
     public function login()
     {
+
     	$username = $this->input->post('username');
 		$password = $this->input->post('password');
 		$result = $this->User_model->checkLogin($username, $password);
@@ -75,6 +76,7 @@ class Login extends CI_Controller {
 			$this->session->set_userdata('username', $username);
 			
 		}
+
 		//$result['test'] = $username;
 		echo json_encode($result);
     }
