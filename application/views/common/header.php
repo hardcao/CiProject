@@ -52,17 +52,15 @@ function loginout() {
     var ctx= "<?php echo site_url() ?>";
         $.ajax({
             type:'post',
-            url:ctx+'Login/loginout',
+            url:ctx+'Login/logout',
             dataType:'json',//服务器返回的数据类型 可选XML ,Json jsonp script html text等
             success:function(msg){
-                location.href = ctx+'home/index/login';;
+                location.href = ctx+'home/index/login';
             },
             error: function (XMLHttpRequest, textStatus, errorThrown) {
                 alert(errorThrown); 
             }
         });
     }
-    
-}
 </script>
 
