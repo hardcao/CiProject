@@ -91,7 +91,7 @@ class UserProjectRight_model extends CI_Model
 
     public function getAllUserInfo($userName)
     {
-        $selectData = "T_USER.FID as FID,T_USER.FNAME as FUSERNAME";
+        $selectData = "T_USER.FID as FUSERID,T_USER.FNAME as FUSERNAME，T_USER.FORG as FORG";
         if($userName != NULL )
              $this->db->like('FNAME',$userName);
         $this->db->select( $selectData);

@@ -48,5 +48,13 @@ class UserProjectRight extends CI_Controller
         $result = $this->UserProjectRight_model->getAllUserRight($ProjctID,$userName);
         echo  json_encode($result);
     }
-   
+   //删除一个管理员
+   // BonusRecord/deleteBonus
+    public function deleteUserProjectRight() {
+        $data = $this->input->input_stream();
+        $tableName = 'T_USERPROJECTRIGHT';
+        $this->load->model('Tools');
+        $result = $this->Tools->deleteData($data,$tableName);
+        echo json_encode($result);
+    }
 }
