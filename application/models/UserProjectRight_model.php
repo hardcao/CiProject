@@ -57,4 +57,46 @@ class UserProjectRight_model extends CI_Model
         $data['data'] = $result;
         return  $data;
     }
+
+    public function getAllUserRight($ProjctID,$userName)
+    {
+        $userInfo = $this->getAllUserInfo($userName);
+        $insertArr = array();
+        $data["success"] = true;
+        $data["errorCode"] = 0;
+        $data["error"] = 0;
+       
+       
+        foreach ($userInfo as $item) {
+            $searchResult = $this->getUserProjectRight($item['FID'],$ProjctID);
+            
+            $tempResult = $searchResult['data'];
+            if($tempResult != NULL) {
+                $tempResult['FSTATUS'] = true;
+            } else {
+                $tempResult =  $item;
+                $tempResult['FSTATUS'] = false;
+                $tempResult['FNEWS'] = false;
+                $tempResult['FSUBSCRIPTION'] = false;
+                $tempResult['FPAYCONFIRM'] = false;
+                $tempResult['FBONUSDETAIL'] = false;
+                $tempResult['FBASICS'] = false;
+            }
+            array_push($insertArr,  $tempResult);
+        }
+       
+        $data['data'] = $insertArr;
+        return  $data;
+    }
+
+    public function getAllUserInfo($userName)
+    {
+        $selectData = "T_USER.FID as FID,T_USER.FNAME as FUSERNAME";
+        if($userName != NULL )
+             $this->db->like('FNAME',$userName);
+        $this->db->select( $selectData);
+        $this->db->order_by('T_USER.FORG','DESC');
+        $result = $this->db->get('T_USER')->result_array();
+        return $result;
+    }
 }

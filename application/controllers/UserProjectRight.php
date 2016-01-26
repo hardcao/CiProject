@@ -38,5 +38,15 @@ class UserProjectRight extends CI_Controller
         $result = $this->UserProjectRight_model->getProjectUserRightWithUserID($userID);
         echo  json_encode($result);
     }
+
+    //获得所有用户的项目权限链表
+    //UserProjectRight/getAllUserRight
+    public function getAllUserRight()
+    {
+        $ProjctID =$this->input->post('projectId');
+        $userName =$this->input->post('uname');
+        $result = $this->UserProjectRight_model->getAllUserRight($ProjctID,$userName);
+        echo  json_encode($result);
+    }
    
 }
