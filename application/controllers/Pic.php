@@ -31,22 +31,14 @@ class Pic extends CI_Controller
      // Pic/addImage
     public function addImage()
     {
-        $projectID = $this->input->post('projectId');
-        $config['upload_path']      = './images/';
+         $projectID = $this->input->post('projectId');
+
+         $config['upload_path']      = './images/';
          $config['allowed_types']    = 'gif|jpg';
          $config['max_size']     = 100;
          $config['max_width']        = 1024;
          $config['max_height']       = 768;
          $name = $_FILES["file"]["name"];
-         
-         
-        
-         $is_exist = is_int(strpos($followScheme['FLINK'],$name));
-         if ($is_exist){
-             echo "update fail";
-             return ;
-         }
-        
          $config['file_name']  =  date('y-m-d-h-i-s',time()).iconv("UTF-8","gb2312", $name);
          $this->load->library('upload', $config);
          
@@ -63,13 +55,12 @@ class Pic extends CI_Controller
              $insertdata['FPROJECTID'] = $projectID;
              $insertdata['FCONTENT'] = iconv("gb2312","UTF-8", $filePath);
              $insertdata['FISMAINPIC'] = false;
-             $insertdata['FNAME'] = $name;
+             $insertdata['FNAME'] = iconv("gb2312","UTF-8", $filePath);
              $tableName = 'T_PIC';
-             $where='FID='.$FID;
              $this->load->model('Tools');
-             $result = $this->Tools->updateData($insertdata,$tableName,$where);
+             $result = $this->Tools->addData($insertdata,$tableName);
              $result['data'] = $filePath;
-             return $result;
+             echo json_encode($result);
          }
     }
      
@@ -77,19 +68,14 @@ class Pic extends CI_Controller
      // Pic/updateImage
      public function updateImage()
      {
-        $FID = $this->input->post('uploadSchemeId');
+         $FID = $this->input->post('FID');
+
          $config['upload_path']      = './images/';
          $config['allowed_types']    = 'gif|jpg';
          $config['max_size']     = 100;
          $config['max_width']        = 1024;
          $config['max_height']       = 768;
          $name = $_FILES["file"]["name"];
-         $is_exist = is_int(strpos($followScheme['FLINK'],$name));
-         if ($is_exist){
-             echo "update fail";
-             return ;
-         }
-        ;
          $config['file_name']  =  date('y-m-d-h-i-s',time()).iconv("UTF-8","gb2312", $name);
          $this->load->library('upload', $config);
          
@@ -109,7 +95,7 @@ class Pic extends CI_Controller
              $this->load->model('Tools');
              $result = $this->Tools->updateData($insertdata,$tableName,$where);
              $result['data'] = $filePath;
-             return $result;
+             echo json_encode($result);
          }
      }
 
