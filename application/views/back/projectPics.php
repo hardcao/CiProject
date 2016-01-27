@@ -256,7 +256,7 @@ function delPic(id)
 <ul id="ul-pics">
 </ul>
 <div style="clear:both">
-	<input type="file" id="file1" name="file1" class="displayNone">
+	<input type="file" id="file" name="file" class="displayNone">
 	<button id="importBtn1" class="btnSTY" style="margin:10px 10px 10px 0px; padding:5px">上传图片</button>	
 </div>
 

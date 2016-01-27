@@ -218,4 +218,10 @@ class User_model extends CI_Model
         $result = $this->db->get('T_USER')->result_array();
         return $result;
     }
+
+
+    public function getUserBaseInfo($userID)
+    {
+
+    }
 }
