@@ -325,6 +325,7 @@ class Project_model extends CI_Model
                 $tempResult['FPAYCONFIRM'] = false;
                 $tempResult['FBONUSDETAIL'] = false;
                 $tempResult['FBASICS'] = false;
+                $tempResult['FPROJECTNAME'] = $item['FNAME'];
             }
             array_push($insertArr,  $tempResult);
         }
