@@ -68,7 +68,7 @@ class Pic extends CI_Controller
      // Pic/updateImage
      public function updateImage()
      {
-         $FID = $this->input->post('FID');
+         $projectID = $this->input->post('projectId');
 
          $config['upload_path']      = './images/';
          $config['allowed_types']    = 'gif|jpg';
@@ -91,7 +91,7 @@ class Pic extends CI_Controller
              $filePath =  $data['upload_data']['file_name'];
              $insertdata['FCONTENT'] = iconv("gb2312","UTF-8", $filePath);
              $tableName = 'T_PIC';
-             $where='FID='.$FID;
+             $where='FPROJECTID='.$projectID.' AND FISMAINPIC = true';
              $this->load->model('Tools');
              $result = $this->Tools->updateData($insertdata,$tableName,$where);
              $result['data'] = $filePath;
