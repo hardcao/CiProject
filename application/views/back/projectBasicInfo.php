@@ -46,6 +46,7 @@
 #forceDialogLayer .dialogSTY .btnDiv{width: 96%;text-align: right;margin: 0px auto;}
 #forceDialogLayer .ckSTY{width: 15px;height: 15px;padding: 0px;margin: 3px;}
 #forceDialogLayer button{width: 50px;height: 25px;margin: 0px 5px;}
+.tdInfo {height: 40px; font-size: 14px; font-weight: 600}
 </style>
 <script type="text/javascript">
 var allUserList = [];
@@ -593,7 +594,13 @@ function hideForceDialog(){
 	<table width="100%"><tr>
 		<td class="tdTitle">项目名称</td>
 		<td colspan="3"><input name="projectName" id="projectName"/></td>
-	</tr><tr>
+	</tr>
+
+	<!--tr>
+		<td class="tdInfo"><b>----基础信息</b><br></td>
+
+	</tr-->
+	<tr>
 		<td class="tdTitle">占地面积</td>
 		<td><input name="floorArea" id="floorArea" onkeyup="clearNoNum(this)" /> (平方米)</td>
 		<td class="tdTitle">计容建面</td>

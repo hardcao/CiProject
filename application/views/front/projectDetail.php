@@ -105,9 +105,16 @@ input#item_pic {
 				<table border="1"><tr>
 					<td class="titleTd">项目IRR</td>
 					<td width="300" id="planIrr"></td>
-					<!--td class="titleTd">预计销售毛利率</td>
-					<td id="planGrossMargin"></td-->
-				</tr><tr class="displayNone">
+					<td class="titleTd"></td>
+					<td id="planGrossMargin"></td>
+				</tr>
+				<tr>
+					<td class="titleTd">税前销售利润率</td>
+					<td width="300" id="FPREPROFIT"></td>
+					<td class="titleTd">税后销售净利润率</td>
+					<td id="FPROFIT"></td>
+				</tr>
+				<tr class="displayNone">
 					<td class="titleTd">跟投MOIC(税前)</td>
 					<td width="300" id="planMoic"></td>
 					<td class="titleTd"></td>
@@ -219,17 +226,56 @@ input#item_pic {
 					<td class="titleTd">区域最大可跟投总额（含杠杆）</td>
 					<td id="compForceAmount"></td>
 				</tr><tr>
-					<td class="titleTd">选投包比例(无杠杆)</td>
+					<td class="titleTd">全部跟投比例</td>
 					<td id="compChoiceRatio"></td>
-					<td class="titleTd">选投包总额(无杠杆)</td>
+					<td class="titleTd">全部最大可跟投总额（含杠杆）</td>
 					<td id="compChoiceAmount"></td>
-				</tr><tr>
+				</tr>
+				<tr>
+					<td class="titleTd">总部已跟投总额（含杠杆）</td>
+					<td id="compChoiceRatio"></td>
+					<td class="titleTd">总部个人自有资金投入总额</td>
+					<td id="compChoiceAmount"></td>
+				</tr>
+				<tr>
+					<td class="titleTd">总部平均杠杆水平</td>
+					<td id="compChoiceRatio"></td>
+					<td class="titleTd"></td>
+					<td id=""></td>
+				</tr>
+				<tr>
+					<td class="titleTd">区域已跟投总额（含杠杆）</td>
+					<td id="compChoiceRatio"></td>
+					<td class="titleTd">区域个人自有资金投入总额</td>
+					<td id="compChoiceAmount"></td>
+				</tr>
+				<tr>
+					<td class="titleTd">区域平均杠杆水平</td>
+					<td id="compChoiceRatio"></td>
+					<td class="titleTd"></td>
+					<td id=""></td>
+				</tr>
+				<tr>
+					<td class="titleTd">全部已跟投总额（含杠杆）</td>
+					<td id="compChoiceRatio"></td>
+					<td class="titleTd">全部个人自有资金投入总额</td>
+					<td id="compChoiceAmount"></td>
+				</tr>
+				<tr>
+					<td class="titleTd">平均杠杆水平</td>
+					<td id="compChoiceRatio"></td>
+					<td class="titleTd"></td>
+					<td id=""></td>
+				</tr>
+
+
+				<!--tr>
 					<td class="titleTd">全部跟投比例</td>
 					<td colspan="3" class="richTd" id="leverageDes"></td>
 				</tr><tr>
 					<td class="titleTd">全部最大可跟投总额（含杠杆）</td>
 					<td colspan="3" class="richTd"><textarea id="followAmountDesc" style="height:100%;width:100%;resize:none;border:none;outline:none;" readonly></textarea></td>
-				</tr><tr>
+				</tr--><tr>
 					<td class="titleTd">募集方式</td><!-- "认购提醒"字段变更为"募集方式" -->
 					<td colspan="3" class="richTd" id="subscribeRemind"></td>
 				</tr><!--tr>
@@ -239,7 +285,7 @@ input#item_pic {
 			</div>
 		</div>
 		<div id="danger_info" class="info_STY" style="display:none;">
-			<pre>
+			<!--pre>
 
 1.跟投项目属于长期投资、股权而非债券投资，需与其他投资人共担风险，且投资回报具有波动性、不确定型。
 2.根据不同的项目，跟投人员短期内的现金回流情况不同。
@@ -251,10 +297,10 @@ input#item_pic {
   7.1受当地预售款资金监管政策影响，可能存在因资金使用受限导致无法及时分配资金的风险。
   7.2受当地税务政策影响，可能存在项目实际税负率波动以及项目清算时间的风险。
   7.3操盘团队面临来自行业的竞争，跟投项目的经营结果可能会在一定程度上受到竞争因素的影响，项目管理团队可以针对市场变化采取合理的经营措施。
-			</pre>
+			</pre-->
 		</div>
 		<div id="protocal_info" class="info_STY" style="display:none;">
-			<div>协议下载地址：<a id="protocalDown" href="javascript:void(0)">合肥高新项目跟投协议内容.docx</a></div>
+			<!--div>协议下载地址：<a id="protocalDown" href="javascript:void(0)">合肥高新项目跟投协议内容.docx</a></div-->
 		</div>
 		<div id="force_info" class="info_STY" style="display:none;">
 			<br><!--div class="titleSTY">强制跟投人员名单</div-->
@@ -500,24 +546,24 @@ function getProjectInfo(){
 
 
 				$("#naviProName").text(data.FNAME);
-				$("#floorArea").text(data.FAREA+" 平方米");
-				$("#structArea").text(data.FSTRUCTAREA+" 平方米");
-				$("#plotArea").text(data.FRJL);
-				$("#saleStructArea").text(data.FSALEAREA+" 平方米");
+				$("#floorArea").text((data.FAREA||0)+" 平方米");
+				$("#structArea").text(data.FSTRUCTAREA||0+" 平方米");
+				$("#plotArea").text(data.FRJL||0);
+				$("#saleStructArea").text(data.FSALEAREA||0+" 平方米");
 				$("#groundInp").text((new Date(data.FGETDATE)).format('yyyy-MM-dd'));
-				$("#groundAmount").text(data.FTOTAL+" 亿元");
-				$("#groundType").text(data.FGETWAY);
-				$("#buildareaprice").text(data.FPRICE +" 元/平方米");
-				$("#groundPosition").text(data.FPOSITION);
-				$("#groundPositioning").text(data.FPROPOSITION);
-				$("#groundPlanning").text(data.FSCHEME);
-				$("#planFold").text(data.FPRICE+" 元/平方米");
-				$("#planRent").text(data.FCYWYSP);
-				$("#planIrr").text(data.FIRR+" %");
+				$("#groundAmount").text(data.FTOTAL||0+" 亿元");
+				$("#groundType").text(data.FGETWAY||"");
+				$("#buildareaprice").text(data.FPRICE||0 +" 元/平方米");
+				$("#groundPosition").text(data.FPOSITION||"");
+				$("#groundPositioning").text(data.FPROPOSITION||"");
+				$("#groundPlanning").text(data.FSCHEME||"");
+				$("#planFold").text(data.FPRICE||0+" 元/平方米");
+				$("#planRent").text(data.FCYWYSP||0);
+				$("#planIrr").text(data.FIRR||0+" %");
 				//$("#planGrossMargin").text(data.planGrossMargin+" %");
-				$("#FPREPROFIT").text(data.FPREPROFIT+" %");
+				$("#FPREPROFIT").text(data.FPREPROFIT||0+" %");
 				//$("#planMoic").text(data.planMoic);
-				$("#FPROFIT").text(data.FPROFIT);
+				$("#FPROFIT").text(data.FPROFIT||0+"%");
 
 				$("#stageStartInp").text((new Date(data.FSTARTDATE)).format('yyyy-MM-dd'));
 				$("#stageOpenInp").text((new Date(data.FOPENDATE)).format('yyyy-MM-dd'));
@@ -527,16 +573,16 @@ function getProjectInfo(){
 				$("#deliverInp").text((new Date(data.FHANDDATE)).format('yyyy-MM-dd'));
 				$("#carryoverInp").text((new Date(data.FCARRYOVERDATE)).format('yyyy-MM-dd'));
 				$("#liquidateInp").text((new Date(data.FLIQUIDATE)).format('yyyy-MM-dd'));
-				$("#planPropertyScheme").text(data.FPROPERTYSCHEME);
+				$("#planPropertyScheme").text(data.FPROPERTYSCHEME||"");
 				//$("#planFinanceCalculate").text(data.planFinanceCalculate);
-				$("#corpPartnerBackground").text(data.FPARTNERINFO);
-				$("#corpContributiveRatio").text(data.FCONTRIBUTIVE);
+				$("#corpPartnerBackground").text(data.FPARTNERINFO||"");
+				$("#corpContributiveRatio").text(data.FCONTRIBUTIVE||0);
 				//$("#corpBoardMember").text(data.corpBoardMember);
 				//$("#corpVoteRule").text(data.corpVoteRule);
-				$("#restAnswerMail").text(data.FANSWERMAIL);
+				$("#restAnswerMail").text(data.FANSWERMAIL||"");
 				// $("#restAnswerLink").text(data.restAnswerLink);
-				$("#restProjectManagers").text(data.FPROJECTINFOMANAGERS);
-				$("#restFollowerManagers").text(data.FFOLLOWERMANAGERS);
+				$("#restProjectManagers").text(data.FPROJECTINFOMANAGERS||"");
+				$("#restFollowerManagers").text(data.FFOLLOWERMANAGERS||"");
 				// $("#riskDisclaimerDes").val(data.riskDisclaimerDes);
 				// $("#schemeProtocol").val(data.schemeProtocol);
 				/*if(msg.baseModel.schemeProtocol){
@@ -623,17 +669,17 @@ function getSchemeInfo(){
 				 // $("#personamt").text(data.personamt);
 				 // $("#yxpersonamt").text(data.yxpersonamt);
 				 // $("#jtpersonamt").text(data.jtpersonamt);
-				 $("#fundPeake").text((data.FFUNDPEAKE)+" 亿元");
+				 $("#fundPeake").text((data.FFUNDPEAKE||0)+" 亿元");
 				 //$("#followAmount").text(formatMillions(data.followAmount)+" 万元");
-				 $("#followAmountDesc").val(data.FFOLLOWTEAM);
-				 $("#groupForceRatio").text((data.FHDRATIO)+" %");
-				 $("#groupForceAmount").text((data.FHDAMOUNT)+" 万元");
-				 $("#compForceRatio").text((data.FREGIONRATIO)+" %");
-				 $("#compForceAmount").text((data.FREGIONAMOUNT)+" 万元");
-				 $("#compChoiceRatio").text((data.FALLRATION)+" %");
-				 $("#compChoiceAmount").text((data.FALLAMOUNT)+" 万元");
-				 $("#leverageDes").text(data.FLEVERAGEDES);
-				 $("#subscribeRemind").text(data.FCOLLECTWAY);
+				 $("#followAmountDesc").val(data.FFOLLOWTEAM||"");
+				 $("#groupForceRatio").text((data.FHDRATIO||0)+" %");
+				 $("#groupForceAmount").text((data.FHDAMOUNT||0)+" 万元");
+				 $("#compForceRatio").text((data.FREGIONRATIO||0)+" %");
+				 $("#compForceAmount").text((data.FREGIONAMOUNT||0)+" 万元");
+				 $("#compChoiceRatio").text((data.FALLRATION||0)+" %");
+				 $("#compChoiceAmount").text((data.FALLAMOUNT||0)+" 万元");
+				 $("#leverageDes").text(data.FLEVERAGEDES||0);
+				 $("#subscribeRemind").text(data.FCOLLECTWAY||"");
 				 //$("#followChemeLink").html(structSchemeLink(data.FLINK));
 				 //$("#followChemeLink").html(msg.baseModel.followChemeLink?'<a href="files/数据表.doc">跟投方案下载链接</a>':"");
 				 if(data.FLINK){

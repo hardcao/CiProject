@@ -467,8 +467,8 @@ function getPath(obj,fileQuery){
 	<td height="34" width="40">序号</td>
 	<td width="100">跟投人</td>
 	<td width="100">部门</td>
-	<td width="110">跟投类型</td>
-	<td width="100">平衡额度<br>(不含杠杆)(万元)</td>
+	<td width="110">区域/总部</td>
+	<td width="100">认购金额</td>
 	<td width="70">分红批次</td>
 	<td width="100">分红日期</td>
 	<td width="80">分红金额<br>(万元)</td>

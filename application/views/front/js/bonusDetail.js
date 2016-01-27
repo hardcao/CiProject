@@ -64,10 +64,10 @@ function loadData(){
 			'<tr><td height="35">'+(ind+1)+'</td>'+
 				'<td><a href="<?php echo site_url();?>back/projectDetail?projectId='+val.projectId+'">'+val.projectName+'</a></td>'+
 				'<td>'+val.subscribeType+'</td>'+
-				'<td>'+formatMillions(val.subscribeAmount)+'</td>'+
+				'<td>'+(val.subscribeAmount || 0)+'</td>'+
 				'<td>'+val.bonusTimes+'</td>'+
 				'<td>'+(new Date(val.bonusDate)).format('yyyy-MM-dd')+'</td>'+
-				'<td>'+formatMillions(val.bonusAmount)+'</td>'+
+				'<td>'+(val.bonusAmount || 0)+'</td>'+
 				'<td>'+(val.subscribePackageName||"")+'</td>'+
 				'<td>'+(val.completeSubscribeRecord||"")+'</td></tr>';
 		});

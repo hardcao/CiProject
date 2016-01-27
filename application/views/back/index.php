@@ -101,7 +101,7 @@ function UserProjectList(){
 	var projectName=$("#projectName").val();
 	$.ajax({
 		type:'post',//可选get
-		url:ctx+'UserProjectRight/getProjectUserRightWithUserID',
+		url:ctx+'project/getAllFollowProjectWithUserID',
 		dataType:'Json',//服务器返回的数据类型 可选XML ,Json jsonp script html text等
 		data:{	
 			'uid':1

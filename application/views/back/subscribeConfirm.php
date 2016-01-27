@@ -158,17 +158,17 @@ FSTATE: "区域"
 		$.each(confirmList, function(ind,val){
 			tempHtml += 
 			'<tr><td>'+(ind+1)+'</td>'+
-				'<td>'+val.FNAME+'</td>'+
-				'<td>'+val.FORG+'</td>'+
-				'<td>'+val.FSTATE+'</td>'+
-				'<td>'+ val.FLEVERRATIO+'</td>'+
+				'<td>'+(val.FNAME||"")+'</td>'+
+				'<td>'+(val.FORG||"")+'</td>'+
+				'<td>'+(val.FSTATE||'总部')+'</td>'+
+				'<td>'+ val.FLEVERRATIO||0+'</td>'+
 				//'<td'+ (val.dimission == true ? " class=marked>是" : ">否")+'</td>'+
-				'<td>'+val.FAMOUNT+'</td>'+
-				'<td>'+val.FLEVERAMOUNT+'</td>'+
+				'<td>'+val.FAMOUNT||0+'</td>'+
+				'<td>'+val.FLEVERAMOUNT||0+'</td>'+
 				//'<td class="displayNone"><input id="adjustInp_'+ind+'" value="0" /></td>'+
 				//'<td class="displayNone"><input id="adjustLevInp_'+ind+'" value="0" /></td>'+
-				'<td>'+(val.FCONFIRMAMOUNT||0)+'</td>'+
-				'<td>'+(val.FLEVERCONFIRMAMOUNT||0)+'</td>'+
+				//'<td>'+(val.FCONFIRMAMOUNT||0)+'</td>'+
+				//'<td>'+(val.FLEVERCONFIRMAMOUNT||0)+'</td>'+
 				'<td>'+val.FBANKNO+'</td>'+
 				//'<td><a class="saveBtn" ind="'+ind+'" href="javascript:void(0)">保存</a>'+
 				// '&nbsp;&nbsp;<a class="delBtn" ind="'+ind+'" href="javascript:void(0)">删除</a></td></tr>';
@@ -245,7 +245,7 @@ function keyForceFunc(){
 			<td rowspan="2" width="70">杠杆比例</td>
 			<td colspan="2">认购额度(万元)</td>
 			<!--td colspan="2" class="displayNone">调整额度(万元)</td-->
-			<td colspan="2">平衡额度(万元)</td>
+			<!--td colspan="2">平衡额度(万元)</td-->
 			<td rowspan="2">分红账号</td>
 			<!--td rowspan="2" width="60">操作</td-->
 		</tr>
@@ -254,8 +254,8 @@ function keyForceFunc(){
 		<td width="85">杠杆金额</td>
 		<!--td width="95" class="displayNone">出资金额</td>
 		<td width="95" class="displayNone">杠杆金额</td-->
-		<td width="85">出资金额</td>
-		<td width="85">杠杆金额</td>
+		<!--td width="85">出资金额</td-->
+		<!--td width="85">杠杆金额</td-->
 	</tr>
 </thead>
 <tbody id="confirmTbody">
