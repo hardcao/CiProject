@@ -314,8 +314,8 @@ class Project_model extends CI_Model
         foreach ($result as $item) {
             $searchResult = $this->UserProjectRight_model->getUserProjectRight($userID,$item['FID']);
             
-            $tempResult = $searchResult['data'];
-            if($tempResult != NULL) {
+            if($searchResult['data'] != NULL) {
+                $tempResult = $searchResult['data'][0];
                 $tempResult['FSTATUS'] = true;
             } else {
                 $tempResult =  $item;
