@@ -134,6 +134,9 @@ class Project_model extends CI_Model
         $query=$this->db->select('T_PROJECT.FSTATUS as FSTATUS,T_PROJECT.FID as FPROJECTID,T_PROJECT.FNAME as FPROJECTNAME, T_FOLLOWSCHEME.FSUBSCRIBESTARTDATE as FSUBSCRIBESTARTDATE,T_FOLLOWSCHEME.FSUBSCRIBEENDDATE as FSUBSCRIBEENDDATE,T_FOLLOWSCHEME.FPAYENDDATE as FPAYENDDATE,T_FOLLOWSCHEME.FPAYSTARTDATE,T_FOLLOWSCHEME.FHDAMOUNT as FHDAMOUNT,T_FOLLOWSCHEME.FHDAMOUNT as FHDAMOUNT, T_FOLLOWSCHEME.FREGIONAMOUNT as FREGIONAMOUNT from T_FOLLOWSCHEME');
         if($where != NULL)
             $query=$this->db->where($where);
+        if($projectName) {
+            $query=$this->db->like('T_PROJECT.FNAME',$projectName);
+        }
         $query = $this->db->join('T_FOLLOWSCHEME','T_FOLLOWSCHEME.FPROJECTID = T_PROJECT.FID');
         $query = $this->db->get('T_PROJECT');
         $arr=$query->result_array();
