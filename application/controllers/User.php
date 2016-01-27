@@ -65,4 +65,13 @@ class User extends CI_Controller
         $result = $this->User_model->getPersonSubscribeDetail($begin,$count,$userID,$projectId);
         echo json_encode($result);
     }
+
+
+    // user/getUserBaseInfo
+    public function getUserBaseInfo()
+    {
+        $userID = $this->input->post('uid');
+         $result = $this->User_model-> getUserBaseInfo($userID);
+        echo json_encode($result);
+    }
 }
