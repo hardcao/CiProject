@@ -17,6 +17,7 @@ class BonusRecord extends CI_Controller
     }
     
     //获得用户的所有分红记录
+    //BonusRecord/getUserBonusRecord
     public function getUserBonusRecord()
     {
         $userId = $this->input->post('uid');
