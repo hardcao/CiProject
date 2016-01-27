@@ -1,4 +1,4 @@
-<?php
+ï»¿<?php
 defined('BASEPATH') or exit('Error!');
 
 /**
@@ -7,7 +7,7 @@ defined('BASEPATH') or exit('Error!');
 class Pic extends CI_Controller
 {
 
-    public function __construct()
+    public function __construct()    
     {
         # code...
         parent::__construct();
@@ -17,9 +17,9 @@ class Pic extends CI_Controller
 
     /*
      * 
-     * ÊäÈë£ºnewsId=123
-     *  ½Ó¿Ú£ºnews/getDynamicNewsDetail
-     * Êä³ö£º{"success":true,"errorCode":0,"error":0,"data":[{"FID":"123","FPROJECTID":"123","FTITLE":"\u5408","FCREATORID":"123","FRELEASEDATE":"2014-09-01 09:53:00","FCONTENT":"\u5408\u80a5\u9ad8"}]}
+     * è¾“å…¥ï¼šnewsId=123
+     *  æ¥å£ï¼šnews/getDynamicNewsDetail
+     * è¾“å‡ºï¼š{"success":true,"errorCode":0,"error":0,"data":[{"FID":"123","FPROJECTID":"123","FTITLE":"\u5408","FCREATORID":"123","FRELEASEDATE":"2014-09-01 09:53:00","FCONTENT":"\u5408\u80a5\u9ad8"}]}
      * */
     public function  getPicListWithProjectID() {
         
@@ -27,7 +27,7 @@ class Pic extends CI_Controller
         $result = $this->Pic_model->getPicListWithProjectID($projectID);
         echo json_encode($result);
     }
-    // Ìí¼ÓÏîÄ¿Í¼Æ¬
+    // æ·»åŠ é¡¹ç›®å›¾ç‰‡
      // Pic/addImage
     public function addImage()
     {
@@ -64,12 +64,13 @@ class Pic extends CI_Controller
          }
     }
      
-     // ¸üĞÂÏîÄ¿Í¼Æ¬
+     // æ›´æ–°é¡¹ç›®å›¾ç‰‡
      // Pic/updateImage
      public function updateImage()
      {
          $projectID = $this->input->post('projectId');
-
+         echo $projectID;
+         exit;
          $config['upload_path']      = './images/';
          $config['allowed_types']    = 'gif|jpg';
          $config['max_size']     = 100;
@@ -107,7 +108,7 @@ class Pic extends CI_Controller
         $result = $this->Tools->deleteData($data,$tableName);
         echo json_encode($result);
      }
-    //»ñµÃÖ÷Í¼
+    //è·å¾—ä¸»å›¾
     //Pic/getMainImage
      public function getMainImage()
      {
@@ -117,7 +118,7 @@ class Pic extends CI_Controller
 
      }
 
-     //»ñµÃËùÓĞÍ¼Æ¬
+     //è·å¾—æ‰€æœ‰å›¾ç‰‡
      //Pic/getAllProjectImage
      public function getAllProjectImage()
      {
@@ -125,7 +126,7 @@ class Pic extends CI_Controller
         $result = $this->Pic_model->getAllProjectImage($projectId);
         echo json_encode($result);
      }
-//É¾³ıÍ¼Æ¬
+//åˆ é™¤å›¾ç‰‡
      //Pic/deletePic
      public function deletePic() {
         $data = $this->input->input_stream();

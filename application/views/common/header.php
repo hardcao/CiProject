@@ -6,7 +6,7 @@
                 <li class="n2 more"><a href="<?php echo site_url().'home/index/projectList?query=0#1';?>"><span>跟投项目信息</span><span class="bkg"></span></a></li>
                 <li class="n3 more"><a href="<?php echo site_url().'home/index/personalCenter#2';?>"><span>个人中心</span></span><span class="bkg"></span></a></li>
                 <li class="n4 "><a href="<?php echo site_url().'home/index/followRules#3';?>"><span>跟投制度</span><span class="bkg"></span></a></li>
-                <li class="n5 "><a href="<?php echo site_url().'home/index/helpCenter#4';?>"><span>帮助中心</span><span class="bkg"></span></a></li>
+                <!--li class="n5 "><a href="<?php echo site_url().'home/index/helpCenter#4';?>"><span>帮助中心</span><span class="bkg"></span></a></li-->
                 <li class="n5 "><a href="<?php echo site_url().'back';?>"><span>后台管理</span><span class="bkg"></span></a></li>
             </ul>
 

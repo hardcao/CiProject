@@ -19,6 +19,11 @@
     position: relative;
     margin-left: -512px;}
 .row{
+	height: 100px;
+	border-bottom: 1px dotted #FF9600;
+}
+
+.row2{
 	height: 200px;
 	border-bottom: 1px dotted #FF9600;
 }
@@ -57,7 +62,6 @@ h2
 <div style = "margin-top:-67px">
 	<img src="<?php echo site_url() ?>application/views/front/img/title.jpg" width="100%">
 	
-	
 	<img src="<?php echo site_url() ?>application/views/front/img/subtitle1.png" width="100%" style="margin-top:20px">
 	<div class="content">
 			<div class="float divide25 number_box">
@@ -77,6 +81,22 @@ h2
 				<div>分红总额: <span id="bonusAmount" style="color:red; font-weigh:600"></span></div>
 			</div>
 	</div>
+
+
+
+	<img src="<?php echo site_url() ?>application/views/front/img/subtitle3.png" width="100%" style="margin-top:20px">
+	<div class="content" style="clear:both; overflow:hidden">
+		<table width="100%" class="pay_bill " id="news">
+	        <tbody>
+
+	        </tbody>
+		</table>
+	</div>
+	<div class="content moreinfo" style="clear:both; overflow:hidden">
+		<div><a href="<?php echo site_url() ?>/home/index/newsList" >查看更多</a></div>
+	</div>
+
+
 
 	<img src="<?php echo site_url() ?>application/views/front/img/subtitle2.png" width="100%" style="margin-top:20px">
 	<div class="content" style="clear:both; overflow:hidden">
@@ -111,23 +131,11 @@ h2
 		<div><a href="<?php echo site_url() ?>/home/index/projectList">查看更多</a></div>
 	</div>
 
-	<img src="<?php echo site_url() ?>application/views/front/img/subtitle3.png" width="100%" style="margin-top:20px">
-	<div class="content" style="clear:both; overflow:hidden">
-		<table width="100%" class="pay_bill " id="news">
-	        <tbody>
-
-	        </tbody>
-		</table>
-	</div>
-
-	<div class="content moreinfo" style="clear:both; overflow:hidden">
-		<div><a href="<?php echo site_url() ?>/home/index/newsList" >查看更多</a></div>
-	</div>
 
 	<div style="margin-bottom:80px"></div>
 
-	<div class=" moreinfo" style="clear:both; overflow:hidden">
-		
+	<div class=" moreinfo" style="clear:both; overflow:hidden;text-algin:center; color:#2e2e2e">
+		中粮地产集团
 	</div>
 
 </div>
@@ -286,8 +294,8 @@ function loadNewsData(){
 	//{"FID":"123","FPROJECTID":"123","FTITLE":"\u5408","FCREATORID":"123","FRELEASEDATE":"2014-09-01 09:53:00","FCONTENT":"\u5408\u80a5\u9ad8"}
 	$.each(newsList, function(ind, val){
 	    tempHtml += '<tr class="row"><td><h2><a style="color:red">'+val.FRELEASEDATE+'</a></h2><br>';
-	    tempHtml += '<h4 style="font-weight:600"><a href="'+newslink+val.FID+'">'+val.FTITLE+'</a></h2>';
-		tempHtml += '<h4 style=""><a href="'+newslink+val.FID+'">'+val.FCONTENT +'</a></h4><br></td></tr>';
+	    tempHtml += '<h4 style="font-weight:600"><a href="'+newslink+val.FID+'">'+val.FTITLE+'</a></h2></td></tr>';
+		//tempHtml += '<h4 style=""><a href="'+newslink+val.FID+'">'+val.FCONTENT +'</a></h4><br></td></tr>';
 	})
 	$("#news tbody").html(tempHtml);
 }
@@ -295,8 +303,8 @@ function loadProjectData(){
 	var tempHtml = "";
 	var tempImg = "images/254_142.png";
 	var leng = 0;
-	if(projectList && projectList.length > 3){
-		leng = 3;
+	if(projectList && projectList.length > 10){
+		leng = 10;
 	}else{
 		leng = projectList.length;
 	}
@@ -329,7 +337,7 @@ function loadProjectData(){
 	            </td>
 	        </tr-->
 	*/
-		tempHtml += '<tr class="row"><td class="left_td"><img src="' + tempImg + '" width="200px" height="150px"></td>';
+		tempHtml += '<tr class="row2"><td class="left_td"><img src="' + tempImg + '" width="200px" height="150px"></td>';
 		tempHtml += '<td class="right_td"><a href="home/index/projectDetail/?projectId='+val.FID+'"><h2 style="color:red">项目名称:  '+val.FNAME +'</a></h2><br>';
 		tempHtml += '<h4>总部最大可跟投总额（含杠杆）:'+val.HDAmount +'</a></h4><h4>区域最大可跟投总额（含杠杆）:'+val.regioAmount +'</a></h4><br></td></tr>';
 		/*tempHtml += 

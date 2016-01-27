@@ -7,6 +7,7 @@
 <script type="text/javascript" src="<?php echo site_url('application/views/plugins/jquery-1.8.0.min.js')?>"></script>
 <script type="text/javascript" src="<?php echo site_url('application/views/plugins/jquery.datetimepicker.js')?>"></script>
 <script type="text/javascript" src="<?php echo site_url('application/views/plugins/jquery.json-2.4.js')?>"></script>
+<script type="text/javascript" src="<?php echo site_url('application/views/plugins/ajaxFileUpload.js')?>"></script>
 <script type="text/javascript" src="<?php echo site_url('application/views/plugins/dateFormat.js')?>"></script>
 <script type="text/javascript" src="<?php echo site_url('application/views/plugins/util.js')?>"></script>
 
@@ -155,26 +156,29 @@ function getPics()
 		if($("#file").val() == ""){
 			return false;
 		}
+
+		var projectId = getReqParam('projectId');
 		var ctx = "<?php echo site_url();?>";
-		$.ajax({
-			type:'post',
+        var _obj = {"projectId": projectId};
+		$.ajaxFileUpload({
+			type: 'POST',
 			url: ctx+'Pic/updateImage', //用于文件上传的服务器端请求地址
-			dataType: 'JSON', //返回值类型 一般设置为json
-			data:{
-				projectId: getReqParam('projectId')
-			},
-			success: function (msg){  //服务器成功响应处理函数			
+			secureuri: false, //是否需要安全协议，一般设置为false
+			fileElementId: 'file', //文件上传域的ID
+			dataType: 'json', //返回值类型 一般设置为json
+			data:_obj,
+			success: function (msg, status){  //服务器成功响应处理函数			
 				if(msg.success){
 					alert("导入成功!");
 					getCover();
 					//$("#file").prop("outerHTML", $("#piFileUp").prop("outerHTML"));
 				}else{
-					alert("1:"+data.error);
+					alert("1:"+msg.error);
 				}
 			},
-			error: function (XMLHttpRequest, textStatus, errorThrown) {
-	        	 sessionTimeout(XMLHttpRequest, textStatus, errorThrown);
-	        }
+			error: function (data, status, e){//服务器响应失败处理函数		
+				alert("2:"+e);
+			}
 		})
 	}
 
@@ -191,6 +195,7 @@ function getPics()
 		var ctx = "<?php echo site_url();?>";
 		$.ajaxFileUpload({
 			url: ctx+'/Pics/uploadPic', //用于文件上传的服务器端请求地址
+			secureuri: false, //是否需要安全协议，一般设置为false
 			dataType: 'JSON', //返回值类型 一般设置为json
 			data:{
 				// "filePath":"d://BonusDetail.xlsx"
@@ -256,7 +261,7 @@ function delPic(id)
 <ul id="ul-pics">
 </ul>
 <div style="clear:both">
-	<input type="file" id="file" name="file" class="displayNone">
+	<input type="file" id="file1" name="file1" class="displayNone">
 	<button id="importBtn1" class="btnSTY" style="margin:10px 10px 10px 0px; padding:5px">上传图片</button>	
 </div>
 

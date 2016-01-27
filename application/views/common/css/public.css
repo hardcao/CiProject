@@ -43,7 +43,7 @@ body {max-width:2000px; min-width:1130px; +overflow:hidden;}
     #nav {position:absolute; top:0; right:86px; z-index:4; height:100%; background-color:#fff; overflow:hidden;}
     #nav li {float:left; height:100%; -webkit-transition:background-color 700ms; transition:background-color 700ms;}
     #nav .n1 {width:58px;}
-    #nav .n2, #nav .n3, #nav .n5, #nav .n6, #nav .n7, #nav .n8 {width:83px;}
+    #nav .n2, #nav .n3, #nav .n5, #nav .n6, #nav .n7, #nav .n8 {width:120px;}
     #nav .n4 {width:96px;}
     /*#nav li a {position:relative; display:block; width:100%; height:100%;}
     #nav li a * {position:absolute; bottom:0; left:0; z-index:2; width:100%; height:100%; background:no-repeat 16px 32px; -webkit-transition:-webkit-opacity 200ms; transition:opacity 200ms; cursor:pointer;}
