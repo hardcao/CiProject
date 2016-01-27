@@ -304,4 +304,35 @@ class Project_model extends CI_Model
         return  $data;
     }
 
+    public function getAllFollowProjectWithUserID($userID)
+    {
+        $query=$this->db->select("*");
+        $query=$this->db->get('T_PROJECT');
+        $result = $query->result_array();
+        $this->load->model('UserProjectRight_model');
+        $insertArr = array();
+        foreach ($result as $item) {
+            $searchResult = $this->UserProjectRight_model->getUserProjectRight($userID,$item['FID']);
+            
+            $tempResult = $searchResult['data'];
+            if($tempResult != NULL) {
+                $tempResult['FSTATUS'] = true;
+            } else {
+                $tempResult =  $item;
+                $tempResult['FSTATUS'] = false;
+                $tempResult['FNEWS'] = false;
+                $tempResult['FSUBSCRIPTION'] = false;
+                $tempResult['FPAYCONFIRM'] = false;
+                $tempResult['FBONUSDETAIL'] = false;
+                $tempResult['FBASICS'] = false;
+            }
+            array_push($insertArr,  $tempResult);
+        }
+        $data["success"] = true;
+        $data["errorCode"] = 0;
+        $data["error"] = 0;
+        $data['data'] = $insertArr;
+        return  $data;
+    }
+
 }

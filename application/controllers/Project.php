@@ -256,4 +256,12 @@ class Project extends CI_Controller
          $result = $this->ProjectUser_model->getFollowerList($projectID);
          echo json_encode($result);
      }
+
+     public function getAllFollowProjectWithUserID()
+     {
+         $userID = $this->input->post('uid');
+     
+         $result = $this->project_model->getAllFollowProjectWithUserID($userID);
+         echo json_encode($result);
+     }
 }
