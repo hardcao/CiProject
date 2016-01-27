@@ -26,11 +26,11 @@
    }
 
    public function login(){
-      /*if($this->session->userdata('username')!=''){*/
+      if($this->session->userdata('username')!=''){
         redirect(base_url('/index.php/home/index'));
-      /*}else{
+      }else{
         $this->load->view('loginview');  
-      }*/
+      }
       
    }
 
