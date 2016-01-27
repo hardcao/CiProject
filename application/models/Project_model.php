@@ -95,6 +95,16 @@ class Project_model extends CI_Model
             $query = $this->db->query($selectdata);
             $num = $query->num_rows() > 0?1:0;
             $FOLLOWSCHEME[0]['FISSU']  = $num;
+            $FOLLOWSCHEME[0]['FPROJECTNAME']  = $item['FNAME'];
+            //获得项目的主图
+            $selectdata = 'select FCONTENT from T_PIC where FPROJECTID ='.$item['FID'].' AND FISMAINPIC = true';
+            $query = $this->db->query($selectdata);
+            $imageData = $query->row();
+            if($imageData != NULL) {
+                $FOLLOWSCHEME[0]['ImageName']  = $imageData['FCONTENT'];
+            } else {
+                $FOLLOWSCHEME[0]['ImageName']  = 'default.jpg';
+            }
             array_push($insertArr,  $FOLLOWSCHEME[0]);
         }
 
