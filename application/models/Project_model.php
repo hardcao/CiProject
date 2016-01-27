@@ -105,6 +105,7 @@ class Project_model extends CI_Model
             } else {
                 $FOLLOWSCHEME[0]['ImageName']  = 'default.jpg';
             }
+            $FOLLOWSCHEME[0]['FPROJECTID']  =  $item['FID'];
             array_push($insertArr,  $FOLLOWSCHEME[0]);
         }
 
