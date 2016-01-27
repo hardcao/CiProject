@@ -141,9 +141,13 @@ function getPics()
 }
 
 		// 导入缴款数据
-	$("#importBtn").click(function(){
+	function importBtn_click(){
 		$("#file").click();
-	});
+	}
+
+	/*$("#importBtn").click(function(){
+		$("#file").click();
+	});*/
 
 	$("#file").live("change", importPIFunc); 
 
@@ -152,16 +156,15 @@ function getPics()
 			return false;
 		}
 		var ctx = "<?php echo site_url();?>";
-		$.ajaxFileUpload({
-			url: ctx+'/Pics/uploadCover', //用于文件上传的服务器端请求地址
-			secureuri: false, //是否需要安全协议，一般设置为false
-			fileElementId: 'file', //文件上传域的ID
+		$.ajax({
+			type:'post',
+			url: ctx+'Pic/updateImage', //用于文件上传的服务器端请求地址
 			dataType: 'JSON', //返回值类型 一般设置为json
 			data:{
-				// "filePath":"d://BonusDetail.xlsx"
+				projectId: getReqParam('projectId')
 			},
-			success: function (data, status){  //服务器成功响应处理函数			
-				if(status == "success"){
+			success: function (msg){  //服务器成功响应处理函数			
+				if(msg.success){
 					alert("导入成功!");
 					getCover();
 					//$("#file").prop("outerHTML", $("#piFileUp").prop("outerHTML"));
@@ -169,9 +172,9 @@ function getPics()
 					alert("1:"+data.error);
 				}
 			},
-			error: function (data, status, e){//服务器响应失败处理函数		
-				alert("2:"+e);
-			}
+			error: function (XMLHttpRequest, textStatus, errorThrown) {
+	        	 sessionTimeout(XMLHttpRequest, textStatus, errorThrown);
+	        }
 		})
 	}
 
@@ -188,8 +191,6 @@ function getPics()
 		var ctx = "<?php echo site_url();?>";
 		$.ajaxFileUpload({
 			url: ctx+'/Pics/uploadPic', //用于文件上传的服务器端请求地址
-			secureuri: false, //是否需要安全协议，一般设置为false
-			fileElementId: 'file', //文件上传域的ID
 			dataType: 'JSON', //返回值类型 一般设置为json
 			data:{
 				// "filePath":"d://BonusDetail.xlsx"
@@ -240,7 +241,8 @@ function delPic(id)
 		<div><img src="<?php echo site_url();?>images/default.jpg" width="600px" id="main_pic"></div>
 
 		<input type="file" id="file" name="file" class="displayNone">
-		<button id="importBtn" class="btnSTY" style="margin:10px 10px 10px 0px; padding:5px">修改封面图片</button>
+		<button id="importBtn" onclick="importBtn_click()" 
+		class="btnSTY" style="margin:10px 10px 10px 0px; padding:5px">修改封面图片</button>
 
 		<!--form method="post" action="<?=site_url()?>files/img/" enctype="multipart/form-data" />
 		    <div style="margin:0 0 0.5em 0em;">
