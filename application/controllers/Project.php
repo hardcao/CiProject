@@ -168,6 +168,24 @@ class Project extends CI_Controller
          $result = $this->project_model->getAllFollowProject($userID,$subscribeStartDate, $subscribeEndDate,$projectName,$queryType);
          echo  json_encode($result);
      }
+
+
+      /*
+
+        获得所有可以跟投的项目名单
+
+        project/getUserAllFollowProject
+     */
+     public function getUserAllFollowProject()
+     {
+         $userID = $this->input->post('uid');
+         $subscribeStartDate = $this->input->post('subscribeStartDate');
+         $subscribeEndDate = $this->input->post('subscribeEndDate');
+         $projectName = $this->input->post('searchname');
+         $queryType = $this->input->post('queryType');
+         $result = $this->project_model->getUserAllFollowProject($userID,$subscribeStartDate, $subscribeEndDate,$projectName,$queryType);
+         echo  json_encode($result);
+     }
      
      /*
       * projectId=1

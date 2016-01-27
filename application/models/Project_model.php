@@ -117,6 +117,124 @@ class Project_model extends CI_Model
         return  $data;
     }
 
+      public function getUserAllFollowProject($userID,$subscribeStartDate, $subscribeEndDate,$projectName,$queryType) {
+        
+       
+        $where =NULL;
+         if($subscribeStartDate && $subscribeEndDate){
+            $startdatetime = new DateTime($subscribeStartDate);
+            $startTime= $startdatetime->format('Y-m-d H:i:s');
+            $endDatetime = new DateTime($subscribeEndDate);
+            $endTime = $endDatetime->format('Y-m-d H:i:s');
+            $Startwhere = "'".$startTime."' < DATE_FORMAT(T_FOLLOWSCHEME.FSUBSCRIBESTARTDATE,'%Y-%m-%d %H:%i:%s') AND DATE_FORMAT(T_FOLLOWSCHEME.FSUBSCRIBESTARTDATE,'%Y-%m-%d %H:%i:%s') <'".$endTime."'";
+            $whereflag = 0;
+        }
+
+          //获得项目的方案信息
+        $query=$this->db->select('T_PROJECT.FSTATUS as FSTATUS,T_PROJECT.FID as FPROJECTID,T_PROJECT.FNAME as FPROJECTNAME, T_FOLLOWSCHEME.FSUBSCRIBESTARTDATE as FSUBSCRIBESTARTDATE,T_FOLLOWSCHEME.FSUBSCRIBEENDDATE as FSUBSCRIBEENDDATE,T_FOLLOWSCHEME.FPAYENDDATE as FPAYENDDATE,T_FOLLOWSCHEME.FPAYSTARTDATE,T_FOLLOWSCHEME.FHDAMOUNT as FHDAMOUNT,T_FOLLOWSCHEME.FHDAMOUNT as FHDAMOUNT, T_FOLLOWSCHEME.FREGIONAMOUNT as FREGIONAMOUNT from T_FOLLOWSCHEME');
+        if($where != NULL)
+            $query=$this->db->where($where);
+        $query = $this->db->join('T_FOLLOWSCHEME','T_FOLLOWSCHEME.FPROJECTID = T_PROJECT.FID');
+        $query = $this->db->get('T_PROJECT');
+        $arr=$query->result_array();
+        $insertArr = array();
+        if($arr != NULL){
+          foreach ($arr as $item) {
+           
+        
+            $FOLLOWSCHEME= $item;
+
+            //获得项目的认购信息
+            $selectdata = 'select SUM(T_SUBSCRIBECONFIRMRECORD.FAMOUNT) as TOTALFAMOUNT, T_USER.FORG as FORG from T_SUBSCRIBECONFIRMRECORD  join T_USER on T_USER.FID= T_SUBSCRIBECONFIRMRECORD.FPROJECTID  where FPROJECTID ='.$item['FPROJECTID'].' group by T_USER.FORG';
+            $query = $this->db->query($selectdata);
+            $tmpdata=$query->row();
+            $item['FHDSUAMOUNT'] = NULL;
+            $item['FREGIONSUAMOUNT']= NULL;
+            if(!$tmpdata!= NULL && $tmpdata['FORG'] == '总部')
+            {
+                if($tmpdata['FORG'] == '总部'){
+                    $item['FHDSUAMOUNT'] = $tmpdata['TOTALFAMOUNT'];
+                } else {
+                    $$item['FREGIONSUAMOUNT'] = $tmpdata['TOTALFAMOUNT'];
+                }
+            }
+
+            $tmpdata=$query->row(1);
+            if(!$tmpdata!= NULL && $tmpdata['FORG'] == '总部')
+            {
+                if($tmpdata['FORG'] == '总部'){
+                    $item['FHDSUAMOUNT'] = $tmpdata['TOTALFAMOUNT'];
+                } else {
+                    $item['FREGIONSUAMOUNT'] = $tmpdata['TOTALFAMOUNT'];
+                }
+            }
+            //判读用户是不是已经认购该项目
+             $selectdata = 'select * from T_SUBSCRIBECONFIRMRECORD where FUSERID ='.$userID.' AND FPROJECTID ='.$item['FPROJECTID'];
+            $query = $this->db->query($selectdata);
+            $SUnum = $query->num_rows() > 0?1:0;
+
+             $selectdata = 'select * from T_FOLLOWER where FUSERID ='.$userID.' AND FPROJECTID ='.$item['FPROJECTID'];
+            $query = $this->db->query($selectdata);
+            $FLnum = $query->num_rows() > 0?1:0;
+            //获得项目的主图
+            $selectdata = 'select FCONTENT from T_PIC where FPROJECTID ='.$item['FPROJECTID'].' AND FISMAINPIC = true';
+            $query = $this->db->query($selectdata);
+            $imageData = $query->row();
+            if($imageData != NULL) {
+                $item['ImageName']  = $imageData['FCONTENT'];
+            } else {
+                $item['ImageName']  = 'default.jpg';
+            }
+            
+
+             if($FLnum == 0) {
+                $item['FISSU']  = 0;
+            } else {
+                if( $SUnum == 0) {
+                    $item['FISSU']  = 2;
+                } else {
+                    $item['FISSU']  = 3;
+                }
+            }
+
+            if($queryType == 0) {
+                array_push($insertArr,  $item);
+            } else if($queryType == 1) {
+                if($FLnum != 0) {
+                    array_push($insertArr,  $item);
+                }
+            } else if ($queryType == 2){
+                if($FLnum != 0 && $SUnum == 0) {
+                    array_push($insertArr,  $item);
+                } 
+            } else if($queryType == 3) {
+                 if($FLnum == 1 && $SUnum == 1) {
+                    array_push($insertArr,  $item);
+                } 
+            }
+        }
+
+        }
+        $data["success"] = true;
+        $data["errorCode"] = 0;
+        $data["error"] = 0;
+        $data['data'] = $insertArr;
+        return  $data;
+
+       // 获得用户的所有跟投项目
+        $projectIDList = $this->getFollowProjectListWithUserID($userID);
+        
+        $resultArr = array();
+        foreach ($projectIDList as $item) {
+           
+        }
+        $data["success"] = true;
+        $data["errorCode"] = 0;
+        $data["error"] = 0;
+        $data['data'] =  $resultArr;
+        return $data;
+    }
+
     public function getAllFollowProject($userID,$subscribeStartDate, $subscribeEndDate,$projectName,$queryType) {
 
         $whereflag = 1;
@@ -159,6 +277,9 @@ class Project_model extends CI_Model
         return $data;
     }
 
+
+    
+   
      public function isSubscriptionProject($userID,$projecID,$queryType)
     {
         $flag = intval($queryType);
