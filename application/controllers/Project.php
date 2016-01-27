@@ -30,6 +30,15 @@ class Project extends CI_Controller
         echo  json_encode($result);
     }
 
+    //获得所有项目列表
+    // project/getAllProjectList
+    public function getAllProjectList()
+    {
+         $userID = $this->input->post('uid');
+        $result = $this->project_model->getAllProjectList($userID);
+        echo  json_encode($result);
+    }
+
     //项目统计接口
      //project/getStatisticsInfo
      public function getStatisticsInfo()

@@ -54,6 +54,58 @@ class Project_model extends CI_Model
         return  $data;
     }
 
+    public function getAllProjectList($userID)
+    {
+        $query = $this->db->query("select  * from T_PROJECT");
+        $arr=$query->result_array();
+        $insertArr = array();
+        if($arr != NULL){
+          foreach ($arr as $item) {
+            //获得项目的方案信息
+            $selectdata = 'select T_FOLLOWSCHEME.FSUBSCRIBESTARTDATE as FSUBSCRIBESTARTDATE,T_FOLLOWSCHEME.FPAYSTARTDATE,T_FOLLOWSCHEME.FHDAMOUNT as FHDAMOUNT,T_FOLLOWSCHEME.FHDAMOUNT as FHDAMOUNT, T_FOLLOWSCHEME.FREGIONAMOUNT as FREGIONAMOUNT from T_FOLLOWSCHEME where FPROJECTID ='.$item['FID'];
+            $query = $this->db->query($selectdata);
+            $FOLLOWSCHEME=$query->result_array();
+
+            //获得项目的认购信息
+            $selectdata = 'select SUM(T_SUBSCRIBECONFIRMRECORD.FAMOUNT) as TOTALFAMOUNT, T_USER.FORG as FORG from T_SUBSCRIBECONFIRMRECORD  join T_USER on T_USER.FID= T_SUBSCRIBECONFIRMRECORD.FPROJECTID  where FPROJECTID ='.$item['FID'].' group by T_USER.FORG';
+            $query = $this->db->query($selectdata);
+            $tmpdata=$query->row();
+            $FOLLOWSCHEME[0]['FHDSUAMOUNT'] = NULL;
+            $FOLLOWSCHEME[0]['FREGIONSUAMOUNT']= NULL;
+            if(!$tmpdata!= NULL && $tmpdata['FORG'] == '总部')
+            {
+                if($tmpdata['FORG'] == '总部'){
+                    $FOLLOWSCHEME['FHDSUAMOUNT'] = $tmpdata['TOTALFAMOUNT'];
+                } else {
+                    $FOLLOWSCHEME['FREGIONSUAMOUNT'] = $tmpdata['TOTALFAMOUNT'];
+                }
+            }
+
+            $tmpdata=$query->row(1);
+            if(!$tmpdata!= NULL && $tmpdata['FORG'] == '总部')
+            {
+                if($tmpdata['FORG'] == '总部'){
+                    $FOLLOWSCHEME['FHDSUAMOUNT'] = $tmpdata['TOTALFAMOUNT'];
+                } else {
+                    $FOLLOWSCHEME['FREGIONSUAMOUNT'] = $tmpdata['TOTALFAMOUNT'];
+                }
+            }
+            //判读用户是不是已经认购该项目
+             $selectdata = 'select * from T_SUBSCRIBECONFIRMRECORD where FUSERID ='.$userID.' AND FPROJECTID ='.$item['FID'];
+            $query = $this->db->query($selectdata);
+            $num = $query->num_rows() > 0?1:0;
+            $FOLLOWSCHEME[0]['FISSU']  = $num;
+            array_push($insertArr,  $FOLLOWSCHEME[0]);
+        }
+
+        }
+        $data["success"] = true;
+        $data["errorCode"] = 0;
+        $data["error"] = 0;
+        $data['data'] = $insertArr;
+        return  $data;
+    }
+
     public function getAllFollowProject($userID,$subscribeStartDate, $subscribeEndDate,$projectName,$queryType) {
 
         $whereflag = 1;
