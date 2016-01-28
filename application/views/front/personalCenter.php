@@ -179,7 +179,8 @@
 				<td width="170">认购金额(万元)</td>
 				<td width="170">分红日期</td>
 				<td width="150">分红金额<br>(万元)</td>
-				<td>备注</td>
+				<td width="60">分红批次</td>
+				<!--td>备注</td-->
 			</tr></thead>
 			<tbody id="bonusTbody">
 				<tr><td colspan="7" height="70" valign="middle">
@@ -550,11 +551,11 @@ function loadBonusInfo(){
 		$.each(bonusList, function(ind, val){
 			tempHtml +=
 				'<tr><td height="25">'+(ind+1)+'</td>'+
-					'<td>'+val.projectName+'</td>'+
-					'<td>'+formatMillions(val.subscribeAmount)+'</td>'+
-					'<td>'+(new Date(val.bonusDate)).format('yyyy-MM-dd')+'</td>'+
-					'<td>'+formatMillions(val.bonusAmount)+'</td>'+
-					'<td>'+(val.completeSubscribeRecord||"")+'</td>'+
+					'<td>'+(val.FNAME||"")+'</td>'+
+					'<td>'+(val.subscribeAmount||0)+'</td>'+
+					'<td>'+(new Date(val.FBONUSDATE)).format('yyyy-MM-dd')+'</td>'+
+					'<td>'+(val.FBONUSAMOUNT||0)+'</td>'+
+					'<td>'+(val.FBONUSTIMES||0)+'</td>'+
 				'</tr>';
 		})
 		$("#bonusTbody").html(tempHtml);

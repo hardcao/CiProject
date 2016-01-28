@@ -3,7 +3,9 @@
 <head>
 <title>数据维护系统</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-
+<link rel="stylesheet" type="text/css" href="<?php echo site_url('application/views/front/css/public.css')?>">
+<link rel="stylesheet" type="text/css" href="<?php echo site_url('application/views/front/css/header.css')?>">
+<link rel="stylesheet" type="text/css" href="<?php echo site_url('application/views/plugins/jquery.datetimepicker.css')?>">
 <script type="text/javascript" src="<?php echo site_url('application/views/plugins/jquery-1.8.0.min.js')?>"></script>
 <script type="text/javascript" src="<?php echo site_url('application/views/plugins/jquery.datetimepicker.js')?>"></script>
 <script type="text/javascript" src="<?php echo site_url('application/views/plugins/jquery.json-2.4.js')?>"></script>
@@ -256,18 +258,22 @@ function getSchemeByProjectid(){
 				 //$("#minamount").val(data.minamount / 10000);
 				 //项目跟投小组
 				 $("#followAmountDesc").val(data.FFOLLOWTEAM);
+
 				 //总部跟投比例
 				 $("#groupForceRatio").val(data.FHDRATIO);
 				 //总部最大可跟投总额（含杠杆）
-				 $("#groupForceAmount").val(data.FHDAMOUNT / 10000);
+				 $("#groupForceAmount").val(data.FHDAMOUNT);
+
 				 //区域跟投比例
 				 $("#compForceRatio").val(data.FREGIONRATIO);
 				 //区域最大可跟投总额（含杠杆）
-				 $("#compForceAmount").val(data.FREGIONAMOUNT / 10000);
+				 $("#compForceAmount").val(data.FREGIONAMOUNT);
+
 				 //全部跟投比例
 				 $("#compChoiceRatio").val(data.FALLRATION);
 				 //全部最大可跟投总额（含杠杆）
-				 $("#compChoiceAmount").val(data.FALLAMOUNT / 10000);
+				 $("#compChoiceAmount").val(data.FALLAMOUNT);
+
 				 //杠杆认购说明
 				 $("#leverageDes").val(data.FLEVERAGEDES);
 				 //募集方式

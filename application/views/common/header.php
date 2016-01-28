@@ -46,7 +46,7 @@
         </div>
     </div>
 <script type="text/javascript">
-$('#login').text('登出:'+"<?php echo $uid ?>");
+$('#login').text('登出:'+"<?php echo $username ?>");
 
 function loginout() {
     var ctx= "<?php echo site_url() ?>";
