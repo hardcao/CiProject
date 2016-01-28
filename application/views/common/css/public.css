@@ -6,8 +6,8 @@ big, cite, code, del, dfn, em, font, img, ins, kbd, q, s, samp,
 small, strike, strong, sub, sup, tt, var, dl, dt, dd, ol, ul, li,
 fieldset, form, label, legend, table, caption, tbody, tfoot,
 thead, tr, th, td, select {margin:0; padding:0; border:0 none; outline:0; color:inherit;}
-html, body {width:100%; height:100%;}
-body {margin:0 auto; font:12px/1 "Microsoft Yahei", "微软雅黑", sans-serif; vertical-align:baseline; overflow-y:scroll;}
+html, body {width:100%; }
+body {margin:0 auto; font:12px/1 "Microsoft Yahei", "微软雅黑", sans-serif;  overflow-y:scroll;}
 h1 {font-weight:bold; font-size:18px; line-height:18px; color:#474545;}
 h3 {font-weight:normal; font-size:12px; color:#746969;}
 h2, h4, h5, h6 {font-weight:normal; font-size:100%;}
@@ -30,7 +30,7 @@ input, textarea, select, button {font-weight:inherit; font-size:inherit; *font-s
 
 /**************** 全局公用样式 ****************/
 /*body {max-width:1580px; min-width:1130px;_width:expression(document.body.clientWidth<1130? "1130px": (document.body.clientWidth>1580?"1580px":"auto"));}*/
-body {max-width:2000px; min-width:1130px; +overflow:hidden;}
+body {max-width:2000px; min-width:1130px;}
 /*body.on {margin-left:-378px;}*/
 .g-wrap {position:relative; margin:0 auto; width:1130px; height:100%; overflow:hidden;}
 #header {position:relative; z-index:5; height:79px; background-color:#fff;box-shadow:0px 5px 10px -5px #919191;}
@@ -40,7 +40,7 @@ body {max-width:2000px; min-width:1130px; +overflow:hidden;}
     width: 300px;
     height: 50px;
     background: url(../img/logo.png) no-repeat 0 0;}
-    #nav {position:absolute; top:0; right:86px; z-index:4; height:100%; background-color:#fff; overflow:hidden;}
+    #nav {position:absolute; top:0; right:156px; z-index:4; height:100%; background-color:#fff; overflow:hidden;}
     #nav li {float:left; height:100%; -webkit-transition:background-color 700ms; transition:background-color 700ms;}
     #nav .n1 {width:58px;}
     #nav .n2, #nav .n3, #nav .n5, #nav .n6, #nav .n7, #nav .n8 {width:120px;}
@@ -80,16 +80,16 @@ body {max-width:2000px; min-width:1130px; +overflow:hidden;}
 
     #shop {position:absolute; bottom:0; right:0; z-index:5; width:78px; height:100%; background:#fff; border-left:1px solid #e5e5e5;}
 
-    #shop {width:85px;}
+    #shop {width:150px;}
     #shop .btn-search {position:absolute; top:30px; left:15px; width:20px; height:20px; background:url(../img/icon_search.png) no-repeat 0px 0px;}
     #shop .btn-search:hover,
     #shop .btn-search.on {background-image:url(../img/icon_search_on.png);}
         /*#searchbox {display:none; position:absolute; top:100%; z-index:11115; line-height:44px; right:0; padding:0 20px; width:200px; height:44px; border:8px solid #4c4a4f;}*/
     #shop .btn-lang {position: absolute;
     top: 0;
-    right: -80px;
+    left: 20px;
     padding: 0 10px;
-    width: 120px;
+    width: 150px;
     height: 100%;
     font-weight: bold;
     font-size: 12px;

@@ -122,7 +122,7 @@ var forceObj = null;
 var bankList = null;
 var topLimitVal = 0;
 var downLimitVal = 0;
-
+var uid ="<?php echo $uid ?>";
 $(function(){
 	initParams();
 	initListeners();
@@ -471,7 +471,7 @@ function submitFunc (isRemissionSubscribe) {
 		dataType:'Json',//服务器返回的数据类型 可选XML ,Json jsonp script html text等
 		cache:false,
 		data:{
-			"FUSERID":1,
+			"FUSERID":uid,
 			"FPROJECTID":getReqParam('projectId'),//"024ec88b-188b-4ada-a807-1f79454eeea3",
 			"FAMOUNT":FAMOUNT,
 			"FLEVERAMOUNT":(FAMOUNT*FLEVERRATIO||0),

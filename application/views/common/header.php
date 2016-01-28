@@ -13,6 +13,7 @@
             <div id="shop">
                 <a class="btn-lang tmp-unselect"  href="<?php echo site_url()?>home\index\login" id="login" onclick="loginout()">登录</a>
                 <!--a href="javascript:void(0);" onclick="check_login()"class="btn-search"></a-->
+                <input type="text" style="display:none" id="uid" value="" />
             </div>
         </div>
     </div>
@@ -32,7 +33,7 @@
                     <a href="<?php echo site_url().'home/index/bonusDetail#2';?>">分红明细<span></a>
                     <a href="<?php echo site_url().'home/index/personalInfo#2';?>">个人信息<span></a>
                 </div>
-                <div class="item search">
+                <!--div class="item search">
                     <input id='searchbox' type="text" placeholder="请输入关键词" />
                 </div>
                 <!--div id="language-box" class="item langs">
@@ -47,6 +48,7 @@
     </div>
 <script type="text/javascript">
 $('#login').text('登出:'+"<?php echo $username ?>");
+$('#uid').attr('uid',"<?php echo $uid ?>");
 
 function loginout() {
     var ctx= "<?php echo site_url() ?>";

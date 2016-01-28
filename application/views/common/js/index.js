@@ -1,4 +1,6 @@
-﻿$(function() {
+﻿var win = $(window),
+    nav_on = null;
+$(function() {
     // banner 切换
     (function() {
         var banner = $('#banner'),
@@ -82,7 +84,7 @@
 
 
     // 二级栏目 下拉
-    /*(function() {
+    (function() {
         win.on('load', function() {
             var lis = $('#nav li'),
                 on  = $(nav_on),
@@ -132,24 +134,7 @@
         });
     }());
     win.on('load', function() {
-    })*/
+    })
 
 });
 
-    /*var vLogin = false;
-    function check_login()
-    {
-        if (vLogin == false) 
-        {
-            $("#login").text('登出');
-            vLogin = true;
-        }
-        else
-        {
-             $("#login").text('登录');
-            vLogin = false;
-        }
-        
-    }*/
-
-    //alert("<?php echo $uid ?>");

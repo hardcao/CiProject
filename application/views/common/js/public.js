@@ -62,7 +62,7 @@ $(function () {
             // 鼠标离开导航栏, 恢复当前页面高亮
             nav.hover(none, function () {
                 timeout = setTimeout(function () {
-                    control(link_page, true);
+                    //control(link_page, true);
                 }, 10);
             });
             subNav.hover(function () {
@@ -106,7 +106,7 @@ $(function () {
     }());
 
     // 搜索按钮
-    (function () {
+    /*function () {
         var sup = $('#header'),
             btn = sup.find('.btn-search'),
             box = sup.find('#searchbox'),
@@ -136,10 +136,10 @@ $(function () {
                 close();
             }, delay);
         }
-    }());
+    }());*/
 
     // placeholder 处理
-    (function () {
+    /*(function () {
         // 情况1，如果浏览器支持 placeholder，则优先使用默认。
         var input = document.createElement("input");
         input.type = "text";
@@ -223,7 +223,7 @@ $(function () {
         //     } else window.event.cancelBubble = true;
         //     // return false;
         // });
-    }());
+    }());*/
     // 调整高度
     (function () {
         var copyright = $('#copyright'),

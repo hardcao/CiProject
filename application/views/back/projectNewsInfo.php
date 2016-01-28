@@ -19,13 +19,14 @@ body{font-size: 12px;}
 #rightLayer #searchLayer input{height: 25px;padding:0px 5px;}
 #rightLayer #addBtnLayer{text-align: right;margin: 5px 0px;}
 #rightLayer #newsTable{border: 1px solid #e8e8e8;border-spacing: 1px;border-collapse: collapse;font-size: 1em;}
-#rightLayer #newsTable thead{background: url(images/thead_bg.png);}
+#rightLayer #newsTable thead{background: url("<?php echo site_url() ?>"application/views/front/images/thead_bg.png);}
 #rightLayer #newsTable td{text-align: center;border: 1px solid #e8e8e8;}
 #rightLayer #newsTable input{width: 80px;height: 25px;}
 </style>
 
 <script type="text/javascript">
 var newsList = null;
+var uid =$('#uid').attr('uid');
 $(function(){
 	initNewsParams();
 	initNewsListeners();
@@ -48,7 +49,7 @@ function initNewsListeners(){
 	$("#addNewsBtn").click(function(){
 		// location.hash = "";
 		var ctx="<?php echo site_url();?>";
-		location.href = "/back/index/newsEditor?projectId="+getReqParam('projectId');
+		location.href = "/back/index/newsEditor?projectId="+getReqParam('projectId')+'&uid='+uid;
 	});
 	$("#newsTbody .delBtn").live("click",delNews);
 }

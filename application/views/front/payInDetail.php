@@ -51,7 +51,7 @@
 <div id="footer">中粮地产集团</div>
 <script type="text/javascript">
 	var dataList = [];
-
+var uid = "<?php echo $uid ?>";
 $(function(){
 	initParams();
 	initListeners();
@@ -75,7 +75,7 @@ function initPages(){
 function getData(){
 	var _searText = $("#searTextInp").val();
 	var ctx="<?php echo site_url();?>";
-	var _obj = {uid:'1'};
+	var _obj = {uid:uid};
 	$.ajax({
 		type:'post',//可选get
 		url:ctx+'Payrecord/getPayInDetail',
