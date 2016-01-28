@@ -516,9 +516,10 @@ function loadPayInInfo(){
 }
 
 function getBonusInfo(){
+	var ctx = "<?php echo site_url() ?>";
 	$.ajax({
 		type:'post',//可选get
-		url:'../BonusDetailController/getBonusDetailList.action',
+		url:ctx+'BonusRecord/getUserBonusRecord',
 		dataType:'Json',//服务器返回的数据类型 可选XML ,Json jsonp script html text等
 		data:{
 			"startPage":0,
@@ -526,12 +527,12 @@ function getBonusInfo(){
 			"startDate":"",
 			"endDate":"",
 			"projectName":"",
-			"userid":"true",
+			"uid":"1",
 			"projectId":""
 		},
 		success:function(msg){
 			if(msg.success){
-				bonusList = msg.dataDto;
+				bonusList = msg.data;
 				loadBonusInfo();
 			}else{
 				alert(msg.error);
