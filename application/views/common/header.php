@@ -32,7 +32,7 @@
                     <a href="<?php echo site_url().'home/index/bonusDetail#2';?>">分红明细<span></a>
                     <a href="<?php echo site_url().'home/index/personalInfo#2';?>">个人信息<span></a>
                 </div>
-                <div class="item search">
+                <!--div class="item search">
                     <input id='searchbox' type="text" placeholder="请输入关键词" />
                 </div>
                 <!--div id="language-box" class="item langs">

@@ -1,14 +1,4 @@
-﻿
-
-<?php
-/*<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%
-	String loginId = (String)request.getSession().getAttribute("loginId");
-	String loginName = (String)request.getSession().getAttribute("loginName");
-	// System.out.println("wyyyyyyy --- loginId:::"+loginId);
-%>	*/
-?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <title>数据维护平台</title>
@@ -99,12 +89,13 @@ function initialPages(){
 function UserProjectList(){
 	var ctx="<?php echo site_url();?>";
 	var projectName=$("#projectName").val();
+	var uid = "<?php echo $uid;?>";
 	$.ajax({
 		type:'post',//可选get
 		url:ctx+'project/getAllFollowProjectWithUserID',
 		dataType:'Json',//服务器返回的数据类型 可选XML ,Json jsonp script html text等
 		data:{	
-			'uid':1
+			'uid': uid,
 		},
 		success:function(msg){
 			if(msg.success){

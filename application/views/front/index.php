@@ -172,6 +172,8 @@ var projectList = [];
 // 系统概览内容
 var systemInfo = {};
 
+var uid="<?php echo $uid; ?>";
+
 $(function(){
 	initParams();
 	//initListeners();
@@ -199,6 +201,7 @@ function initPages(){
 }
 function getNewsData(){
 	var ctx="<?php echo site_url();?>";
+
 	//var userid=$("#userid").val();
 	$.ajax({
 		type:'post',//可选get
@@ -207,8 +210,8 @@ function getNewsData(){
 		//begin=0&count=2&uid=test&projectId=123
 		data:{//begin: 0,
 			//count:2,
-		    uid: '1',
-		    pojectId: '123'},
+		    uid: uid,
+		    /*pojectId: '123'*/},
 		success:function(msg){
 			if(msg.success){
 				newsList=msg.data;
@@ -231,7 +234,7 @@ function getProjectData(){
 		data:{
 			begin: 0,
 			count: 2,
-			uid: '1',
+			uid: uid,
 			searchname: "",
 			subscribeStartDate: "",
 			subscribeEndDate:"",
