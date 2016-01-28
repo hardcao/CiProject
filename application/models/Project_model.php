@@ -140,27 +140,18 @@ class Project_model extends CI_Model
             $FOLLOWSCHEME= $item;
 
             //获得项目的认购信息
-            $selectdata = 'select SUM(T_SUBSCRIBECONFIRMRECORD.FAMOUNT) as TOTALFAMOUNT, T_USER.FORG as FORG from T_SUBSCRIBECONFIRMRECORD  join T_USER on T_USER.FID= T_SUBSCRIBECONFIRMRECORD.FPROJECTID  where FPROJECTID ='.$item['FPROJECTID'].' group by T_USER.FORG';
+               $selectdata = 'select SUM(T_SUBSCRIBECONFIRMRECORD.FAMOUNT) as TOTALFAMOUNT, T_FOLLOWER.FSTATE as FSTATE from T_SUBSCRIBECONFIRMRECORD  join T_FOLLOWER on T_FOLLOWER.FPROJECTID= T_SUBSCRIBECONFIRMRECORD.FPROJECTID AND T_FOLLOWER.FUSERID= T_SUBSCRIBECONFIRMRECORD.FUSERID  where T_SUBSCRIBECONFIRMRECORD.FPROJECTID ='.$item['FID'].' group by T_FOLLOWER.FSTATE';
             $query = $this->db->query($selectdata);
-            $tmpdata=$query->row();
-            $item['FHDSUAMOUNT'] = NULL;
-            $item['FREGIONSUAMOUNT']= NULL;
-            if(!$tmpdata!= NULL && $tmpdata['FORG'] == '总部')
-            {
-                if($tmpdata['FORG'] == '总部'){
-                    $item['FHDSUAMOUNT'] = $tmpdata['TOTALFAMOUNT'];
+            $tmpdata=$query->result_array();
+            $FOLLOWSCHEME[0]['FHDSUAMOUNT'] = NULL;
+            $FOLLOWSCHEME[0]['FREGIONSUAMOUNT']= NULL;
+            foreach ($tmpdata as $Titem) {
+                if($Titem['FSTATE'] == '总部'){
+                    
+                    $FOLLOWSCHEME[0]['FHDSUAMOUNT'] = $Titem['TOTALFAMOUNT'];
                 } else {
-                    $$item['FREGIONSUAMOUNT'] = $tmpdata['TOTALFAMOUNT'];
-                }
-            }
-
-            $tmpdata=$query->row(1);
-            if(!$tmpdata!= NULL && $tmpdata['FORG'] == '总部')
-            {
-                if($tmpdata['FORG'] == '总部'){
-                    $item['FHDSUAMOUNT'] = $tmpdata['TOTALFAMOUNT'];
-                } else {
-                    $item['FREGIONSUAMOUNT'] = $tmpdata['TOTALFAMOUNT'];
+                     echo $Titem['TOTALFAMOUNT'];
+                    $FOLLOWSCHEME[0]['FREGIONSUAMOUNT'] = $Titem['TOTALFAMOUNT'];
                 }
             }
             //判读用户是不是已经认购该项目
