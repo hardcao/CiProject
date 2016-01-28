@@ -143,15 +143,15 @@ class Project_model extends CI_Model
                $selectdata = 'select SUM(T_SUBSCRIBECONFIRMRECORD.FAMOUNT) as TOTALFAMOUNT, T_FOLLOWER.FSTATE as FSTATE from T_SUBSCRIBECONFIRMRECORD  join T_FOLLOWER on T_FOLLOWER.FPROJECTID= T_SUBSCRIBECONFIRMRECORD.FPROJECTID AND T_FOLLOWER.FUSERID= T_SUBSCRIBECONFIRMRECORD.FUSERID  where T_SUBSCRIBECONFIRMRECORD.FPROJECTID ='.$item['FID'].' group by T_FOLLOWER.FSTATE';
             $query = $this->db->query($selectdata);
             $tmpdata=$query->result_array();
-            $FOLLOWSCHEME[0]['FHDSUAMOUNT'] = NULL;
-            $FOLLOWSCHEME[0]['FREGIONSUAMOUNT']= NULL;
+            $item['FHDSUAMOUNT'] = NULL;
+            $item['FREGIONSUAMOUNT']= NULL;
             foreach ($tmpdata as $Titem) {
                 if($Titem['FSTATE'] == '总部'){
                     
-                    $FOLLOWSCHEME[0]['FHDSUAMOUNT'] = $Titem['TOTALFAMOUNT'];
+                    $item['FHDSUAMOUNT'] = $Titem['TOTALFAMOUNT'];
                 } else {
-                     echo $Titem['TOTALFAMOUNT'];
-                    $FOLLOWSCHEME[0]['FREGIONSUAMOUNT'] = $Titem['TOTALFAMOUNT'];
+                     
+                    $item['FREGIONSUAMOUNT'] = $Titem['TOTALFAMOUNT'];
                 }
             }
             //判读用户是不是已经认购该项目
