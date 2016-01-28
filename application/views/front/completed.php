@@ -32,7 +32,7 @@
 					<td rowspan="2" width="80">认购时间</td>
 					<td colspan="2">认购额度</td>
 					<td colspan="2" class="displayNone">调整额度</td>
-					<td colspan="2">平衡额度</td>
+					<!--td colspan="2">平衡额度</td-->
 					<td rowspan="2" width="100">缴款确认金额<br>(万元)</td>
 					<td rowspan="2" width="100">已分红总额<br>(万元)</td>
 					<td rowspan="2" width="150">分红帐号</td>
@@ -43,8 +43,8 @@
 					<td width="110">杠杆金额(万元)</td>
 					<td width="110" class="displayNone">出资金额(万元)</td>
 					<td width="110" class="displayNone">杠杆金额(万元)</td>
-					<td width="110">出资金额(万元)</td>
-					<td width="110">杠杆金额(万元)</td>
+					<td width="110" class="displayNone">出资金额(万元)</td>
+					<td width="110" class="displayNone">杠杆金额(万元)</td>
 				</tr>
 			</thead>
 		<tbody id="compTbody">
@@ -179,9 +179,9 @@ function loadData(){
 				'<td>'+(val.FLEVERAMOUNT||0)+'</td>'+
 				//'<td class="displayNone">'+(val.adjustamt)+'</td>'+
 				//'<td class="displayNone">'+(val.adjustLeverageAmt)+'</td>'+
-				'<td>'+(val.FCONFIRMAMOUNT||0)+'</td>'+
+				//'<td>'+(val.FCONFIRMAMOUNT||0)+'</td>'+
 				// '<td width="120">'+formatMillions(val.bonusAmount)+'</td>'+
-				'<td>'+(val.FLEVERCONFIRMAMOUNT||0)+'</td>'+
+				//'<td>'+(val.FLEVERCONFIRMAMOUNT||0)+'</td>'+
 				'<td>'+(val.FAMOUNT || 0)+'</td>'+
 				'<td>'+(val.TOTALFBONUSAMOUNT || 0)+'</td>'+
 				'<td>'+val.FBANKNO+'</td>'+

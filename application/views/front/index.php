@@ -8,6 +8,15 @@
 <meta name="copyright" content="" />
 
 <?php require (dirname(dirname(__FILE__)).'/common/header_include.php'); ?>
+<link href="<?php echo site_url('application/views/plugins/jquery.datetimepicker.css')?>" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="<?php echo site_url('application/views/front/css/public.css')?>">
+<link rel="stylesheet" type="text/css" href="<?php echo site_url('application/views/front/css/header.css')?>">
+
+<script type="text/javascript" src="<?php echo site_url('application/views/plugins/jquery.datetimepicker.js')?>"></script>
+<script type="text/javascript" src="<?php echo site_url('application/views/plugins/jquery.json-2.4.js')?>"></script>
+<script type="text/javascript" src="<?php echo site_url('application/views/plugins/util.js')?>"></script>
+<script type="text/javascript" src="<?php echo site_url('application/views/plugins/dateFormat.js')?>"></script>
+<script type="text/javascript" src="<?php echo site_url('application/views/front/js/header.js')?>"></script>
 <style type="text/css">
 .float{float: left;}
 .divide25{width: 25%}
@@ -55,6 +64,43 @@ h2
 	text-align: center;
 }
 
+#header{}
+
+#contentLayer .searSTY{float: left;margin-right: 10%;}
+#contentLayer .floatR{float: right;margin-right: 0;}
+
+#contentLayer #naviTitle{height: 25px;line-height: 25px;}
+#contentLayer #searchLayer{overflow: hidden;margin: 5px 0px;}
+#contentLayer #searchLayer #searchText{width: 150px;}
+#contentLayer #searchLayer .dateSTY{height: 25px}
+#contentLayer #searchLayer .btnSTY{min-width: 60px;height:30px;line-height:30px;text-align: center;
+	border: 1px solid #A0A0A0;background: #FFF;	cursor: pointer;border-radius: 3px;}
+#contentLayer #searchLayer .btnSTY:hover{color: #f9371d;border-color: #f9371d;}
+
+#contentLayer #contentList{width: 100%;padding: 10px;background: #FFF;overflow:hidden;}
+#contentLayer #contentList .listSTY{    height: 160px;
+    width: 100%;
+    border-bottom: 1px dotted #FFC321;
+    overflow: hidden;
+    margin-bottom: 15px;}
+#contentLayer #contentList .listSTY .imgLayer{float: left;width: 210px;height: 130px;margin: 10px 15px;}
+#contentLayer #contentList .listSTY .textLayer{float: right;margin-left: 10px;width: 830px;}
+#contentLayer #contentList .listSTY .textLayer .proTitle{font-size: 1.3em;font-weight: bold;}
+#contentLayer #contentList .listSTY .textLayer .proInfo{height: 100px;}
+#contentLayer #contentList .listSTY .textLayer .proInfoTable{font-size: 1em;}
+#contentLayer #contentList .listSTY .textLayer .proInfoTable td{padding: 0px 5px;}
+#contentLayer #contentList .listSTY .textLayer .proInfoTable td span{color: #FF2608;font-weight: bold;}
+#contentLayer #contentList .listSTY .textLayer .proInfoTable .titleTd{text-align: right;width: 115px;color: black;font-weight: 100;}
+#contentLayer #contentList .listSTY .textLayer .proInfoTable .boldSTY{font-weight: bold;}
+#contentLayer #contentList .listSTY .textLayer .proInfoTable .pointSTY{color: #FF2608;}
+#contentLayer #contentList .listSTY .textLayer .buttonLayer{overflow: hidden;}
+#contentLayer #contentList .listSTY .textLayer .buttonLayer div{float:right;margin:0px 10px;
+	cursor: pointer;}
+#contentLayer #contentList .listSTY .textLayer .buttonLayer div a{display: block;text-align: center;
+	border: 1px solid #929090;border-radius: 5px;padding: 5px 10px;background: #d34134;color:#FFF;}
+#contentLayer #contentList .listSTY .textLayer .buttonLayer div a:hover{background: #FFF;color: #d34134;border: 1px solid #e8e8e8;}
+
+
 </style>
 </head>
 <body>
@@ -99,36 +145,12 @@ h2
 
 
 	<img src="<?php echo site_url() ?>application/views/front/img/subtitle2.png" width="100%" style="margin-top:20px">
-	<div class="content" style="clear:both; overflow:hidden">
-		<table width="100%" class="pay_bill " id="projects">
-	        <tbody>
-	        <!--tr class="row">
-	        	<td class="left_td"> 
-	        		<img src="application/views/front/img/title.jpg" alt="1" width="200px" height="150px">
-	        	</td>
-
-	            <td class="right_td">
-	            	<h2><a href="#" style="color:red">2015/12/23</a></h2>
-	            	<br>
-	                <h2><a href="#">养生餐</a></h2>
-	                <br>
-	                <h4>
-	                	测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试
-	                	测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试
-	                	测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试
-	                	测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试
-	                	测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试
-	                </h4>
-	                
-	            </td>
-	        </tr-->
-
-	        </tbody>
-		</table>
-	</div>
+	<div id="contentLayer">
+	<div id="contentList">
+	</div></div>
 
 	<div class="content moreinfo" style="clear:both; overflow:hidden">
-		<div><a href="<?php echo site_url() ?>/home/index/projectList">查看更多</a></div>
+		<div><a href="<?php echo site_url() ?>/home/index/projectList" style="color:white">查看更多</a></div>
 	</div>
 
 
@@ -204,7 +226,7 @@ function getProjectData(){
 	var ctx="<?php echo site_url();?>";
 	$.ajax({
 		type:'post',//可选get
-		url:ctx+'project/getAllFollowProject',
+		url:ctx+'project/getUserAllFollowProject',
 		dataType:'Json',//服务器返回的数据类型 可选XML ,Json jsonp script html text等
 		data:{
 			begin: 0,
@@ -218,7 +240,7 @@ function getProjectData(){
 		success:function(msg){
 			if(msg.success){
 				projectList=msg.data;
-				loadProjectData();
+				loadData(projectList);
 			}else{
 				alert(msg.error);
 			}
@@ -299,56 +321,90 @@ function loadNewsData(){
 	})
 	$("#news tbody").html(tempHtml);
 }
-function loadProjectData(){
-	var tempHtml = "";
-	var tempImg = "images/254_142.png";
-	var leng = 0;
-	if(projectList && projectList.length > 10){
-		leng = 10;
-	}else{
-		leng = projectList.length;
-	}
-	// $.each(projectList, function(ind, val){
-	for(var ind=0;ind<leng;ind++){
-		var val = projectList[ind];
-		tempImg = "application/views/front/img/title.jpg";
-		if(val.projectImages){
-			tempImg = "../images/projectFiles/"+val.projectImages;
-		}
-	/*
-		        <!--tr class="row">
-	        	<td class="left_td"> 
-	        		<img src="application/views/front/img/title.jpg" alt="1" width="200px" height="150px">
-	        	</td>
 
-	            <td class="right_td">
-	            	<h2><a href="#" style="color:red">2015/12/23</a></h2>
-	            	<br>
-	                <h2><a href="#">养生餐</a></h2>
-	                <br>
-	                <h4>
-	                	测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试
-	                	测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试
-	                	测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试
-	                	测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试
-	                	测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试
-	                </h4>
-	                
-	            </td>
-	        </tr-->
+
+function loadData(dataList){
+	/*
+FHDAMOUNT: ""
+FHDSUAMOUNT: null
+FISSU: 1
+FPAYENDDATE: "2016-01-27"
+FPAYSTARTDATE: "2016-01-27"
+FPROJECTID: "34"
+FPROJECTNAME: "new1"
+FREGIONAMOUNT: "10"
+FREGIONSUAMOUNT: null
+FSUBSCRIBEENDDATE: "2016-01-27"
+FSUBSCRIBESTARTDATE: "2016-01-27"
+ImageName: "default.jpg"
+总部最大可跟投总额（含杠杆）		总部实际已跟投总额（含杠杆）
+区域最大可跟投总额（含杠杆）		区域实际已跟投总额（含杠杆）
 	*/
-		tempHtml += '<tr class="row2"><td class="left_td"><img src="' + tempImg + '" width="200px" height="150px"></td>';
-		tempHtml += '<td class="right_td"><a href="home/index/projectDetail/?projectId='+val.FID+'"><h2 style="color:red">项目名称:  '+val.FNAME +'</a></h2><br>';
-		tempHtml += '<h4>总部最大可跟投总额（含杠杆）:'+val.HDAmount +'</a></h4><h4>区域最大可跟投总额（含杠杆）:'+val.regioAmount +'</a></h4><br></td></tr>';
-		/*tempHtml += 
-			'<div class="listSTY">'+
-				'<div class="proPic"><a href="./projectDetail.jsp?proId='+val.projectId+'"><img width="100%" height="100%" src="'+tempImg+'" /></a></div>'+
-				'<div class="proName"><a href="./projectDetail.jsp?proId='+val.projectId+'">'+val.projectName+'</a></div>'+
-			'</div>';*/
+	var tempHtml = "";
+	var tempObj = null;
+	var tempImg = "<?php echo site_url() ?>images/default.jpg";
+
+	for(var i=0; i<dataList.length; i++){
+		tempObj = dataList[i];
+		if(tempObj.ImageName){
+			tempImg = "<?php echo site_url() ?>images/"+tempObj.ImageName;
+		}
+		
+		/*测试数据 begin*/
+		/*if(tempObj.FNAME.indexOf("合肥")){
+			amm1 = 6650;
+			amm2 = 55;
+			amm3 = 3658;
+			amm4 = 45;
+		}else if(tempObj.FNAME.indexOf("苏州")){
+			amm1 = 7436;
+			amm2 = 55;
+			amm3 = 4089;
+			amm4 = 45;
+		}
+		/* end */
+		tempHtml = 
+		'<div class="listSTY">'+
+			'<div class="imgLayer"><a href="<?php echo site_url()?>home/index/projectDetail?projectId='+tempObj.FPROJECTID+'"><img src="'+tempImg+'" width="100%" height="100%"></a></div>'+
+			'<div class="textLayer">'+
+				'<div class="proTitle">项目名称：'+tempObj.FPROJECTNAME+'</a></div>'+
+				'<div class="proInfo">'+
+					'<table class="proInfoTable" height="100%" width="100%" border="0"><tr>'+
+						'<td class="titleTd">项目认购开始时间:</td>'+
+						'<td class=""><span>'+(new Date(tempObj.FSUBSCRIBESTARTDATE)).format('yyyy-MM-dd')+'</span> 至 <span>'
+						+(new Date(tempObj.FSUBSCRIBEENDDATE)).format('yyyy-MM-dd')+'</span></td>'+
+						'<td class="titleTd">资金募集时间:</td>'+
+						'<td class=""><span>'+(new Date(tempObj.FPAYSTARTDATE)).format('yyyy-MM-dd')+'</span> 至 <span>'
+						+(new Date(tempObj.FPAYENDDATE)).format('yyyy-MM-dd')+'</span></td>'+
+						/*'<td class="titleTd">跟投总额(含杠杆):</td>'+
+						'<td>'+amm1+' 万元</td>'+*/
+					'</tr><tr>'+
+						'<td class="titleTd">总部最大可跟投总额（含杠杆）:</td>'+
+						'<td class=""><span>'+(tempObj.FHDAMOUNT||0)+'</span> 万元</td>'+
+						'<td class="titleTd">总部实际已跟投总额（含杠杆）</td>'+
+						'<td class=""><span>'+(tempObj.FHDSUAMOUNT||0)+'</span> 万元</td>'+
+						/*'<td class="titleTd">已认购总额(含杠杆):</td>'+
+						'<td>'+0+' 万元</td>'+*/
+					'</tr><tr>'+
+						'<td class="titleTd">区域最大可跟投总额（含杠杆）:</td>'+/*强投包比例(含杠杆)*/
+						'<td id="groupForceAmount"><span>'+(tempObj.FREGIONAMOUNT||0)+'</span> 万元</td>'+
+						'<td class="titleTd">区域实际已跟投总额（含杠杆）:</td>'+/*强投包总额*/
+						'<td id="compForceAmount"><span>'+(tempObj.FREGIONSUAMOUNT||0)+'</span> 万元</td>'+
+						/*'<td class="titleTd">选投包比例(无杠杆):</td>'+
+						'<td id="compChoiceAmount">'+amm4+' %</td>'+*/
+					'</tr></table>'+
+				'</div>'+
+				'<div class="buttonLayer">';
+					//+'<div class="forumBtn"><a target="_blank" href="http://ekp.cifi.com.cn/module<?php echo site_url()?>?nav=/km/forum/tree.jsp&main=/km/forum/km_forum_cate/kmForumCategory.do?method=main">答疑讨论区</a></div>';
+				//if((tempObj.isPurchase=="" || tempObj.isPurchase==null || tempObj.isPurchase=="null") && new Date(tempObj.subscribeStartDate)<new Date() && new Date(tempObj.subscribeEndDate)>new Date()){
+					//tempHtml+='<div class="subscribeBtn"><a href="./subscribeApply?projectId='+tempObj.FPROJECTID+'">我要认购</a></div>';
+				//}
+				tempHtml+='</div>'+ 
+			'</div>'+
+		'</div>';
+		$("#contentList").append(tempHtml);
 	}
-	// })
-	//$("#projectListLayer .list").html(tempHtml);
-	 $("#projects tbody").append(tempHtml);
+	//lengVal = dataList.length;
 }
 </script>
 </body>

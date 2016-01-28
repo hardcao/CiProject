@@ -248,7 +248,7 @@ function delPayInFunc(){
 	<td width="110">部门
 	</td>
 	<td width="100">区域/总部</td>
-	<td width="120">平衡额度<br>(不含杠杆)(万元)</td>
+	<td width="120">认购金额<br></td>
 	<td width="120">缴款批次</td>
 	<td width="150">缴款日期</td>
 	<td>缴款金额(万元)</td>

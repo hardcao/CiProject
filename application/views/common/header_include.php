@@ -6,9 +6,10 @@
 	//$uid = $CI->session->userdata('username');
 	
 	//$CI->session->set_userdata('username', 'yanglei');
-	$uid = $CI->session->userdata('username');
+	$username = $CI->session->userdata('username');
+	$uid = $CI->session->userdata('uid');
 
-	if ($uid) {
+	if ($username) {
 		//echo "<script type='text/javascript'> $('#login').text('欢迎');</script>";
 	}
 	else

@@ -91,7 +91,7 @@ function getData(){
 	var _projectId = $("#searTextInp").val();
 	var ctx= "<?php echo site_url() ?>";
 	$.ajax({
-		type:'post',//可选get
+		type:'post',//可选getBonusRecord/getUserBonusRecord
 		url:ctx+'BonusRecord/getBonusDetail',
 		dataType:'Json',//服务器返回的数据类型 可选XML ,Json jsonp script html text等
 		data:{
@@ -101,7 +101,7 @@ function getData(){
 			"endDate":_eDate,
 			"projectName":_searText,
 			"projectId":"",*/
-			"uid":"1"
+			uid:"1"
 		},
 		success:function(msg){
 			if(msg.success){

@@ -101,7 +101,7 @@ function loadProData (argument) {
 				'<td class="areaTd">'+val.FSTATE+'</td>'+
 				'<td>'+tempSel+'</td>'+
 				'<td><a class="updBtn" ind="'+ind+'" href="javascript:void(0);">修改</a>&nbsp;&nbsp;'+
-				'<a href="javascript:delProject(\''+val.FID+'\')">删除</a>&nbsp;&nbsp;'+
+				//'<a href="javascript:delProject(\''+val.FID+'\')">删除</a>&nbsp;&nbsp;'+
 				'<a class="cancelUpdBtn" ind="'+ind+'" href="javascript:void(0);" style="display:none;" id="cancelBtn'+ind+'">取消</a></td></tr>';
 		});
 		$("#proTbody").html(tempHtml);

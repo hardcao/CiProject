@@ -113,7 +113,7 @@
 				<td rowspan="2" width="150">跟投项目</td>
 				<td colspan="2">认购额度</td>
 				<td colspan="2" class="displayNone">调整额度</td>
-				<td colspan="2">平衡额度</td>
+				<!--td colspan="2">认购金额</td-->
 				<td rowspan="2">缴款确认金额(万元)</td>
 				<td rowspan="2">已分红总额(万元)</td>
 			</tr><tr>
@@ -121,8 +121,8 @@
 				<td width="140">杠杆金额(万元)</td>
 				<td width="110" class="displayNone">出资金额(万元)</td>
 				<td width="110" class="displayNone">杠杆金额(万元)</td>
-				<td width="140">出资金额(万元)</td>
-				<td width="140">杠杆金额(万元)</td>
+				<!--td width="140">出资金额(万元)</td>
+				<td width="140">杠杆金额(万元)</td-->
 			</tr></thead>
 			<tbody id="compTbody">
 				<!-- <tr><td colspan="9" height="70" valign="middle">
@@ -147,7 +147,7 @@
 			<table width="100%" border="1" cellpadding="0" cellspacing="0"><thead><tr>
 				<td width="60" height="34">序号</td>
 				<td width="280">跟投项目</td>
-				<td width="170">平衡额度<br>(不含杠杆)(万元)</td>
+				<td width="170">认购金额(万元)</td>
 				<td>缴款批次</td>
 				<td width="170">缴款日期</td>
 				<td width="150">缴款金额<br>(万元)</td>
@@ -176,10 +176,11 @@
 			<table width="100%" border="1" cellpadding="0" cellspacing="0"><thead><tr>
 				<td width="60" height="34">序号</td>
 				<td width="280">跟投项目</td>
-				<td width="170">平衡额度<br>(含杠杆)(万元)</td>
+				<td width="170">认购金额(万元)</td>
 				<td width="170">分红日期</td>
 				<td width="150">分红金额<br>(万元)</td>
-				<td>备注</td>
+				<td width="60">分红批次</td>
+				<!--td>备注</td-->
 			</tr></thead>
 			<tbody id="bonusTbody">
 				<tr><td colspan="7" height="70" valign="middle">
@@ -244,11 +245,11 @@ function getPersonalInfo(){
 		type:'post',//可选get
 		url:ctx+'user/getUserBaseInfo',
 		dataType:'Json',//服务器返回的数据类型 可选XML ,Json jsonp script html text等
-		data:{"userId":currUser},
+		data:{uid:'1'},
 		success:function(msg){
 			if(msg.success){
-				if(msg.data && msg.data.length > 0){
-					personalInfoObj = msg.data[0];
+				if(msg.data ){
+					personalInfoObj = msg.data;
 					loadPersonalInfo();
 				}
 			}else{
@@ -263,26 +264,33 @@ function getPersonalInfo(){
 
 function loadPersonalInfo () {
 	if(personalInfoObj){
-		$("#amountTotalTd").text("￥ "+formatMillions(personalInfoObj.subscribeAmt));
-		$("#confirmAmountTd").text("￥ "+formatMillions(personalInfoObj.contributiveAmt));
-		$("#leverageAmountTd").text("￥ "+formatMillions(personalInfoObj.leverageAmt));
-		$("#bonusAmountTd").text("￥ "+formatMillions(personalInfoObj.bonusAmt));
-		$("#proCountTd").html(personalInfoObj.projectCount||0);
+		$("#amountTotalTd").text("￥ "+(personalInfoObj.FTOTALAMOUNT));
+		$("#confirmAmountTd").text("￥ "+(personalInfoObj.TATOLFPAYAMOUNT));
+		$("#leverageAmountTd").text("￥ "+(personalInfoObj.FTOTALFLEVERAMOUNT));
+		$("#bonusAmountTd").text("￥ "+(personalInfoObj.FTOTALBONUSAMOUNT));
+		$("#proCountTd").html(personalInfoObj.FPROJECTCOUNT||0);
 	}
 }
 
 // 未完成列表
 function getProjectInfo(){
+	var ctx="<?php echo site_url();?>";
 	$.ajax({
 		type:'post',//可选get
-		// url:'../subscribe/queryAllUnCompleteByUserId',
-		contentType: "application/json; charset=utf-8",
-		url:'../ProjectBasicController/getProjectList.action',
+		url:ctx+'project/getUserAllFollowProject',
 		dataType:'Json',//服务器返回的数据类型 可选XML ,Json jsonp script html text等
-		data:$.toJSON($("#listform").serializeArray()),
+		data:{
+			begin: 0,
+			count: 2,
+			uid: '1',
+			searchname: "",
+			subscribeStartDate: "",
+			subscribeEndDate:"",
+			queryType: 2,	
+		},
 		success:function(msg){
 			if(msg.success){
-				projectList = msg.dataDto;
+				projectList = msg.data;
 				loadProjectInfo();
 			}else{
 				alert(msg.error);
@@ -300,41 +308,55 @@ function loadProjectInfo(){
 		var tempHtml = "";
 		var tempPayDate;
 		var tempSubDate;
-		var tempImg = "./images/80_80.png";
+		var tempImg = "<?php echo site_url() ?>images/default.jpg";
 		$.each(projectList, function(ind, val){
 			tempPayDate = "";
 			tempSubDate = "";
 			tempImg = "./images/80_80.png";
-			if(val.payStartDate){
+			/*if(val.payStartDate){
 				tempPayDate = (new Date(val.payStartDate)).format('yyyy-MM-dd');
 			}
 			if(val.subscribeStartDate){
 				tempSubDate = (new Date(val.subscribeStartDate)).format('yyyy-MM-dd');
+			}*/
+			if(val.ImageName){
+				tempImg = "<?php echo site_url() ?>images/"+val.ImageName;
 			}
-			if(val.projectImages){
-				tempImg = "../images/projectFiles/"+val.projectImages;
-			}
-			tempHtml +=
-				'<div class="listSTY">'+
-					'<table border="0" cellspacing="0" cellpadding="0" width="100%" height="100%"><tr>'+
-						'<td colspan="2" height="90" align="left">'+
-							'<a href="projectDetail.jsp?proId='+val.projectId+'"><img src="'+tempImg+'" width="80" height="80" style="border-radius: 40px;"></a>'+
-						'</td>'+
-					'</tr><tr>'+
-						'<td colspan="2" class="proName"><a href="projectDetail.jsp?proId='+val.projectId+'">'+val.projectName+'</a></td>'+
-					'</tr><tr>'+
+			/*
+			FHDAMOUNT: ""
+FHDSUAMOUNT: null
+FISSU: 1
+FPAYENDDATE: "2016-01-27"
+FPAYSTARTDATE: "2016-01-27"
+FPROJECTID: "34"
+FPROJECTNAME: "new1"
+FREGIONAMOUNT: "10"
+FREGIONSUAMOUNT: null
+FSUBSCRIBEENDDATE: "2016-01-27"
+FSUBSCRIBESTARTDATE: "2016-01-27"
+			*/
+			tempHtml +='<div class="listSTY">'+
+							'<table border="0" cellspacing="0" cellpadding="0" width="100%" height="100%">'+
+								'<tr>'+
+									'<td colspan="2" height="90" align="left">'+
+										'<a href="<?php echo site_url() ?>home/index/projectDetail?projectId='+val.FPROJECTID+'">'+
+										'<img src="'+tempImg+'" width="80" height="80" style="border-radius: 0px;"></a>'+
+									'</td>'+
+								'</tr>'+
+								'<tr>'+
+									'<td colspan="2" class="proName"><a href="<?php echo site_url() ?>home/index/projectDetail?projectId='+val.FPROJECTID+'">'+val.FPROJECTNAME+'</a></td>'+
+					/*'</tr><tr>'+
 						'<td colspan="2">'+(val.groundPosition||"")+'</td>'+
 					'</tr><tr>'+
 						'<td>员工跟投总额:</td>'+
-						'<td>'+formatMillions(val.followAmount)+' 万元</td>'+
+						'<td>'+(val.followAmount||0)+' 万元</td>'+
 					'</tr><tr>'+
 						'<td>认购开始时间:</td>'+
 						'<td>'+tempSubDate+'</td>'+
 					'</tr><tr>'+
 						'<td>付款开始时间:</td>'+
-						'<td>'+tempPayDate+'</td>'+
-					'</tr></table>'+
-				'</div>';
+						'<td>'+tempPayDate+'</td>'+*/
+							'</tr></table></div>';
 		})
 		$("#projectList .proList").html(tempHtml);
 	}
@@ -404,15 +426,15 @@ function loadCompletedInfo(){
 			tempHtml +=
 				'<tr><td height="25">'+(ind+1)+'</td>'+
 					'<td>'+(val.projectName||"")+'</td>'+
-					'<td>'+formatMillions(val.contributiveAmount)+'</td>'+
-					'<td>'+formatMillions(val.leverageAmount)+'</td>'+
+					'<td>'+(val.contributiveAmount)+'</td>'+
+					'<td>'+(val.leverageAmount)+'</td>'+
 					'<td class="displayNone">'+(val.adjustamt)+'</td>'+
 					'<td class="displayNone">'+(val.adjustLeverageAmt)+'</td>'+
-					'<td>'+formatMillions(val.contributiveConfirmAmount)+'</td>'+
-					'<td>'+formatMillions(val.confirmLeverageAmt)+'</td>'+
-					'<td>'+formatMillions(val.confirmationPayment)+'</td>'+
+					'<td>'+(val.contributiveConfirmAmount)+'</td>'+
+					'<td>'+(val.confirmLeverageAmt)+'</td>'+
+					'<td>'+(val.confirmationPayment)+'</td>'+
 					// '<td width="150">'+formatMillions(val.bonusAmount)+'</td>'+
-				'<td>'+formatMillions(val.completeBonusAmount)+'</td></tr>';
+				'<td>'+(val.completeBonusAmount)+'</td></tr>';
 		})
 		$("#compTbody").html(tempHtml);
 	}else{
@@ -495,9 +517,10 @@ function loadPayInInfo(){
 }
 
 function getBonusInfo(){
+	var ctx = "<?php echo site_url() ?>";
 	$.ajax({
 		type:'post',//可选get
-		url:'../BonusDetailController/getBonusDetailList.action',
+		url:ctx+'BonusRecord/getUserBonusRecord',
 		dataType:'Json',//服务器返回的数据类型 可选XML ,Json jsonp script html text等
 		data:{
 			"startPage":0,
@@ -505,12 +528,12 @@ function getBonusInfo(){
 			"startDate":"",
 			"endDate":"",
 			"projectName":"",
-			"userid":"true",
+			"uid":"1",
 			"projectId":""
 		},
 		success:function(msg){
 			if(msg.success){
-				bonusList = msg.dataDto;
+				bonusList = msg.data;
 				loadBonusInfo();
 			}else{
 				alert(msg.error);
@@ -528,11 +551,11 @@ function loadBonusInfo(){
 		$.each(bonusList, function(ind, val){
 			tempHtml +=
 				'<tr><td height="25">'+(ind+1)+'</td>'+
-					'<td>'+val.projectName+'</td>'+
-					'<td>'+formatMillions(val.subscribeAmount)+'</td>'+
-					'<td>'+(new Date(val.bonusDate)).format('yyyy-MM-dd')+'</td>'+
-					'<td>'+formatMillions(val.bonusAmount)+'</td>'+
-					'<td>'+(val.completeSubscribeRecord||"")+'</td>'+
+					'<td>'+(val.FNAME||"")+'</td>'+
+					'<td>'+(val.subscribeAmount||0)+'</td>'+
+					'<td>'+(new Date(val.FBONUSDATE)).format('yyyy-MM-dd')+'</td>'+
+					'<td>'+(val.FBONUSAMOUNT||0)+'</td>'+
+					'<td>'+(val.FBONUSTIMES||0)+'</td>'+
 				'</tr>';
 		})
 		$("#bonusTbody").html(tempHtml);

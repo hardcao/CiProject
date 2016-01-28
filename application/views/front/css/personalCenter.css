@@ -11,7 +11,7 @@
 	background: #FFF;box-shadow:2px 2px 5px 0px #E6E6E6;}
 #contentLayer #projectList .proTitle{height: 42px;line-height: 42px;padding:0px 20px;border-bottom: 1px solid #e8e8e8;}
 #contentLayer #projectList .proList{}
-#contentLayer #projectList .proList .listSTY{float: left;width: 190px;margin:20px 27px;height: 215px;}
+#contentLayer #projectList .proList .listSTY{float: left;width: 190px;margin:20px 27px;height: 80px;}
 #contentLayer #projectList .proList .listSTY table{font-size: 1em;}
 #contentLayer #projectList .proList .listSTY table .proName{font-size: 1.2em;font-weight: bold;}
 #contentLayer #newsInfo{float: right;height: 285px;width: 325px;border: 1px solid #e8e8e8;border-radius: 3px;

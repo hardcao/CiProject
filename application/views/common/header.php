@@ -3,11 +3,11 @@
             <a id="logo" href="<?php echo site_url();?>"></a>
             <ul id="nav">
                 <li class="n1"><a href="<?php echo site_url();?>"><span>首页</span><span class="bkg"></span></a></li>
-                <li class="n2 more"><a href="<?php echo site_url().'home/index/projectList?query=0#1';?>"><span>跟投项目信息</span><span class="bkg"></span></a></li>
+                <li class="n2 more"><a href="<?php echo site_url().'home/index/projectList?query=0#1';?>"><span>认购项目列表</span><span class="bkg"></span></a></li>
                 <li class="n3 more"><a href="<?php echo site_url().'home/index/personalCenter#2';?>"><span>个人中心</span></span><span class="bkg"></span></a></li>
                 <li class="n4 "><a href="<?php echo site_url().'home/index/followRules#3';?>"><span>跟投制度</span><span class="bkg"></span></a></li>
                 <!--li class="n5 "><a href="<?php echo site_url().'home/index/helpCenter#4';?>"><span>帮助中心</span><span class="bkg"></span></a></li-->
-                <li class="n5 "><a href="<?php echo site_url().'back';?>"><span>后台管理</span><span class="bkg"></span></a></li>
+                <li class="n5 "><a href="<?php echo site_url().'back#5';?>"><span>后台管理</span><span class="bkg"></span></a></li>
             </ul>
 
             <div id="shop">
@@ -21,11 +21,11 @@
         <div id="subNav">
             <div class="g-wrap">
                 <div class="item about">
-                    <a href="<?php echo site_url().'home/index/projectList?query=0';?>">项目信息<span></a>
+                    <a href="<?php echo site_url().'home/index/projectList?query=0';?>">认购项目列表<span></a>
                     <a href="<?php echo site_url().'home/index/newsList#1';?>">动态新闻<span></a>
                 </div>
                 <div class="item news">
-                    <a href="<?php echo site_url().'home/index/projectList?query=0';?>">我要认购<span></a>
+                    <a href="<?php echo site_url().'home/index/projectList?query=1';?>">我要认购<span></a>
                     <a href="<?php echo site_url().'home/index/projectList?query=2';?>">未完成认购<span></a>
                     <a href="<?php echo site_url().'home/index/completed#2';?>">已完成认购<span></a>
                     <a href="<?php echo site_url().'home/index/payInDetail#2';?>">缴款确认<span></a>
@@ -46,7 +46,7 @@
         </div>
     </div>
 <script type="text/javascript">
-$('#login').text('登出:'+"<?php echo $uid ?>");
+$('#login').text('登出:'+"<?php echo $username ?>");
 
 function loginout() {
     var ctx= "<?php echo site_url() ?>";
@@ -62,5 +62,7 @@ function loginout() {
             }
         });
     }
+
+
 </script>
 
