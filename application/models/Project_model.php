@@ -67,29 +67,21 @@ class Project_model extends CI_Model
             $FOLLOWSCHEME=$query->result_array();
 
             //获得项目的认购信息
-            $selectdata = 'select SUM(T_SUBSCRIBECONFIRMRECORD.FAMOUNT) as TOTALFAMOUNT, T_USER.FORG as FORG from T_SUBSCRIBECONFIRMRECORD  join T_USER on T_USER.FID= T_SUBSCRIBECONFIRMRECORD.FPROJECTID  where FPROJECTID ='.$item['FID'].' group by T_USER.FORG';
+            $selectdata = 'select SUM(T_SUBSCRIBECONFIRMRECORD.FAMOUNT) as TOTALFAMOUNT, T_FOLLOWER.FSTATE as FSTATE from T_SUBSCRIBECONFIRMRECORD  join T_FOLLOWER on T_FOLLOWER.FPROJECTID= T_SUBSCRIBECONFIRMRECORD.FPROJECTID AND T_FOLLOWER.FUSERID= T_SUBSCRIBECONFIRMRECORD.FUSERID  where T_SUBSCRIBECONFIRMRECORD.FPROJECTID ='.$item['FID'].' group by T_FOLLOWER.FSTATE';
             $query = $this->db->query($selectdata);
-            $tmpdata=$query->row();
+            $tmpdata=$query->result_array();
             $FOLLOWSCHEME[0]['FHDSUAMOUNT'] = NULL;
             $FOLLOWSCHEME[0]['FREGIONSUAMOUNT']= NULL;
-            if(!$tmpdata!= NULL && $tmpdata['FORG'] == '总部')
-            {
-                if($tmpdata['FORG'] == '总部'){
-                    $FOLLOWSCHEME['FHDSUAMOUNT'] = $tmpdata['TOTALFAMOUNT'];
+            foreach ($tmpdata as $Titem) {
+                if($Titem['FSTATE'] == '总部'){
+                    
+                    $FOLLOWSCHEME[0]['FHDSUAMOUNT'] = $Titem['TOTALFAMOUNT'];
                 } else {
-                    $FOLLOWSCHEME['FREGIONSUAMOUNT'] = $tmpdata['TOTALFAMOUNT'];
+                     echo $Titem['TOTALFAMOUNT'];
+                    $FOLLOWSCHEME[0]['FREGIONSUAMOUNT'] = $Titem['TOTALFAMOUNT'];
                 }
             }
 
-            $tmpdata=$query->row(1);
-            if(!$tmpdata!= NULL && $tmpdata['FORG'] == '总部')
-            {
-                if($tmpdata['FORG'] == '总部'){
-                    $FOLLOWSCHEME['FHDSUAMOUNT'] = $tmpdata['TOTALFAMOUNT'];
-                } else {
-                    $FOLLOWSCHEME['FREGIONSUAMOUNT'] = $tmpdata['TOTALFAMOUNT'];
-                }
-            }
             //判读用户是不是已经认购该项目
              $selectdata = 'select * from T_SUBSCRIBECONFIRMRECORD where FUSERID ='.$userID.' AND FPROJECTID ='.$item['FID'];
             $query = $this->db->query($selectdata);
