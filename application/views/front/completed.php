@@ -183,7 +183,7 @@ function loadData(){
 				//'<td>'+(val.FCONFIRMAMOUNT||0)+'</td>'+
 				// '<td width="120">'+formatMillions(val.bonusAmount)+'</td>'+
 				//'<td>'+(val.FLEVERCONFIRMAMOUNT||0)+'</td>'+
-				'<td>'+(val.FAMOUNT || 0)+'</td>'+
+				'<td>'+(val.TOTALFPAYAMOUNT || 0)+'</td>'+
 				'<td>'+(val.TOTALFBONUSAMOUNT || 0)+'</td>'+
 				'<td>'+val.FBANKNO+'</td>'+
 				'<td>'+

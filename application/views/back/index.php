@@ -140,7 +140,7 @@ function loadProjectData () {
 		    perArr = catPermissionArr(val);//val.permissionFlag.split("");
 		    if (perArr[0] || perArr[1] || perArr[2] || perArr[3] || perArr[4] || perArr[5] || username == 'admin') 
 		    {
-			tempUrl = "back/index/projectManage?projectId="+val.PROJECTID+"&projectName="+escape(val.FPROJECTNAME);
+			tempUrl = "back/index/projectManage?projectId="+val.FPROJECTID+"&projectName="+escape(val.FPROJECTNAME);
 			tempHtml +=
 			'<tr><td height="40">'+(ind+1)+'</td>'+
 				'<td>'+val.FPROJECTNAME+'</td>'+

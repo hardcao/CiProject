@@ -235,7 +235,7 @@ function initListeners(){
 function initPages(){
 	getPersonalInfo();
 	getProjectInfo();
-	getNewsInfo();
+	//getNewsInfo();
 	getCompletedInfo();
 	getPayInInfo();
 	getBonusInfo();
@@ -364,7 +364,7 @@ FSUBSCRIBESTARTDATE: "2016-01-27"
 	}
 }
 
-function getNewsInfo (argument) {
+/*function getNewsInfo (argument) {
 	var userid=$("#userid").val();
 	$.ajax({
 		type:'post',//可选get
@@ -398,7 +398,7 @@ function loadNewsInfo(){
 		})
 		$("#newsInfo .newsList").html(tempHtml);
 	}
-}
+}*/
 
 function getCompletedInfo(){
 	$.ajax({
