@@ -496,7 +496,7 @@ class Project_model extends CI_Model
                 $tempResult['FBONUSDETAIL'] = false;
                 $tempResult['FBASICS'] = false;
                 $tempResult['FPROJECTNAME'] = $item['FNAME'];
-                 $tempResult['FPROJECTID'] = $item[''];
+                 $tempResult['FPROJECTID'] = $item['FID'];
             }
             array_push($insertArr,  $tempResult);
         }
