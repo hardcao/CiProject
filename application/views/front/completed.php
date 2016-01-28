@@ -101,6 +101,7 @@ var naviInd = "2";
 var dataList = [];
 var bankList = [];
 var tempObj = null;
+var uid ="<?php echo $uid ?>";
 
 $(function(){
 	initParams();
@@ -150,7 +151,7 @@ function getData(){
 		type:'post',//可选get
 		url:ctx+'Subscription/getHasSubscribe',
 		dataType:'json',//服务器返回的数据类型 可选XML ,Json jsonp script html text等
-		data:{uid:'1'},
+		data:{uid:uid},
 		success:function(msg){
 			if(msg.success){
 				dataList = msg.data;
@@ -201,7 +202,7 @@ function getBankData(){
 		type:'post',//可选get
 		url:ctx+'bankInfo/getPersonBankInfo',
 		dataType:'Json',//服务器返回的数据类型 可选XML ,Json jsonp script html text等
-		data:{uid: '1'},
+		data:{uid: uid},
 		success:function(msg){
 			if(msg.success){
 				bankList = msg.data;

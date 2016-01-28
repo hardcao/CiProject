@@ -512,7 +512,7 @@ function loadPayInInfo(){
 	}else{
 		var tempHtml = 
 			'<tr><td colspan="6" height="70" valign="middle">'+
-				'<img src="./images/tips.png" align="absmiddle">&nbsp; 对不起，暂无相关数据'+
+				'<img src="<?php echo site_url() ?>application/views/front/images/tips.png" align="absmiddle">&nbsp; 对不起，暂无相关数据'+
 			'</td></tr>';
 		$("#payInTbody").html(tempHtml);
 	}
@@ -564,7 +564,7 @@ function loadBonusInfo(){
 	}else{
 		var tempHtml = 
 			'<tr><td colspan="7" height="70" valign="middle">'+
-				'<img src="./images/tips.png" align="absmiddle">&nbsp; 对不起，暂无相关数据'+
+				'<img src="<?php echo site_url() ?>application/views/front/images/tips.png" align="absmiddle">&nbsp; 对不起，暂无相关数据'+
 			'</td></tr>';
 		$("#bonusTbody").html(tempHtml);
 	}

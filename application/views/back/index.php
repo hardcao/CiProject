@@ -44,6 +44,7 @@
 var naviVal = "projectInfo";
 var projectList = [];
 var currUserAcc = null;
+var username = "<?php echo $username ?>";
 $(function(){
 	initPageParams();
 	initPageListeners();
@@ -72,9 +73,9 @@ function initPageListeners(){
 	});
 }
 function initialPages(){
-	/*if(currUserAcc != "admin"){
-		$("#leftLayer .naviUl li[val!='projectInfo']").addClass("displayNone");
-	}*/
+	if(username == "admin"){
+		$("#leftLayer .naviUl li[val!='projectInfo']").removeClass("displayNone");
+	}
 	UserProjectList();
 }
 
@@ -137,6 +138,8 @@ function loadProjectData () {
 		var tempUrl = "";
 		$.each(projectList, function(ind,val){
 		    perArr = catPermissionArr(val);//val.permissionFlag.split("");
+		    if (perArr[0] || perArr[1] || perArr[2] || perArr[3] || perArr[4] || perArr[5] || username == 'admin') 
+		    {
 			tempUrl = "back/index/projectManage?projectId="+val.PROJECTID+"&projectName="+escape(val.FPROJECTNAME);
 			tempHtml +=
 			'<tr><td height="40">'+(ind+1)+'</td>'+
@@ -147,6 +150,7 @@ function loadProjectData () {
 				'<a href="'+tempUrl+'#payInConfirm" class="'+(isPermission(perArr,3)?"":"displayNone")+'">&nbsp;&nbsp;缴款确认</a><br>'+
 				'<a href="'+tempUrl+'#projectBonusInfo" class="'+(isPermission(perArr,4)?"":"displayNone")+'">&nbsp;&nbsp;分红明细</a>'+
 			'</tr>';
+			}
 		});
 		$("#projectTbody").html(tempHtml);
 	}
@@ -194,8 +198,8 @@ function loadContentPage () {
 		</div>
 		<ul class="naviUl">
 			<li val="projectInfo" class="focusOn">项目信息维护</li>
-			<li val="proListManage">项目列表管理</li>
-			<li val="permissionSet">项目权限分配</li>
+			<li val="proListManage" class="displayNone">项目列表管理</li>
+			<li val="permissionSet" class="displayNone">项目权限分配</li>
 			<!--li val="paramsSetting">系统参数设置</li>
 			<li val="orgzInfo">组织架构维护</li>
 			<li val="remissionSetting">豁免设置</li-->
