@@ -29,7 +29,7 @@ class User_model extends CI_Model
     public function checkLogin($userName, $password) {
         $this->db->select("*");
         if($userName) {
-            $this->db->where('FNAME',$userName);
+            $this->db->where('FNUMBER',$userName);
         }
         $result = $this->db->get('T_USER')->result_array();
         $data["errorCode"] = 0;
