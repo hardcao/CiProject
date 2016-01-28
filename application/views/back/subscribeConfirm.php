@@ -150,7 +150,8 @@ FLEVERAMOUNT: "200000"
 FLEVERCONFIRMAMOUNT: null
 FNAME: "123"
 FORG: "test"
-FSTATE: "区域"
+FSTATE: "区域"				//'<td>'+(val.FCONFIRMAMOUNT||0)+'</td>'+
+				//'<td>'+(val.FLEVERCONFIRMAMOUNT||0)+'</td>'+
 	*/
 	$("#confirmTbody").empty();
 	if(confirmList && confirmList.length > 0){
@@ -161,15 +162,10 @@ FSTATE: "区域"
 				'<td>'+(val.FNAME||"")+'</td>'+
 				'<td>'+(val.FORG||"")+'</td>'+
 				'<td>'+(val.FSTATE||'总部')+'</td>'+
-				'<td>'+ val.FLEVERRATIO||0+'</td>'+
-				//'<td'+ (val.dimission == true ? " class=marked>是" : ">否")+'</td>'+
-				'<td>'+val.FAMOUNT||0+'</td>'+
-				'<td>'+val.FLEVERAMOUNT||0+'</td>'+
-				//'<td class="displayNone"><input id="adjustInp_'+ind+'" value="0" /></td>'+
-				//'<td class="displayNone"><input id="adjustLevInp_'+ind+'" value="0" /></td>'+
-				//'<td>'+(val.FCONFIRMAMOUNT||0)+'</td>'+
-				//'<td>'+(val.FLEVERCONFIRMAMOUNT||0)+'</td>'+
-				'<td>'+val.FBANKNO+'</td>'+
+				'<td>'+ (val.FLEVERRATIO||0)+'</td>'+
+				'<td>'+(val.FAMOUNT||0)+'</td>'+
+				'<td>'+(val.FLEVERAMOUNT||0)+'</td>'+
+				'<td>'+(val.FBANKNO||'No Card!')+'</td>'+
 				//'<td><a class="saveBtn" ind="'+ind+'" href="javascript:void(0)">保存</a>'+
 				// '&nbsp;&nbsp;<a class="delBtn" ind="'+ind+'" href="javascript:void(0)">删除</a></td></tr>';
 				'</td></tr>';
