@@ -53,7 +53,7 @@ var naviInd = "1";
 var dataList;
 // 保存当前页面已展示数据量
 var lengVal = 0;
-
+var uid = "<?php echo $uid; ?>";
 $(function(){
 	initParams();
 	initListeners();
@@ -76,7 +76,7 @@ function searchProject(){
 		data:{
 			begin: 0,
 			count: 2,
-			uid: '1',
+			uid: uid,
 			searchname: _searText,
 			subscribeStartDate: _sDate,
 			subscribeEndDate:_eDate,

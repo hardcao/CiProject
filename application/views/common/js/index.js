@@ -21,12 +21,12 @@ $(function() {
             delay  = 5000,
             timeout = -1;
 
-        var index_hash = location.hash || 0;
+        /*var index_hash = location.hash || 0;
         idx = parseInt(index_hash.substring(1,index_hash.Length));
         curr_i = idxs.eq(idx);
         curr_i.addClass('on');
         auto();
-        idxs.hover(hover);
+        idxs.hover(hover);*/
 
         win.on('load', function() {
             idx_recu(0, 1500/len, function() {

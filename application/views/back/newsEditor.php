@@ -67,6 +67,8 @@ var currProId = null;
 var ueObj = null;
 var projectList = null;
 
+var uid =getReqParam('uid');
+
 $(function(){
 	ueObj = UE.getEditor('editor');
 	initParams();
@@ -209,7 +211,7 @@ function submitInfo(){
 			// 'author':"",
 			'FPROJECTID':_proid,
 			'FCONTENT':_cont,
-			'FCREATORID': 1,
+			'FCREATORID': uid,
 		};
 		addNews(_param);
 	}

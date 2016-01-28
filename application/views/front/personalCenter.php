@@ -215,6 +215,8 @@ var payInList = [];
 // 分红明细列表
 var bonusList = [];
 
+var uid ="<?php echo $uid ?>";
+
 $(function(){
 	initParams();
 	initListeners();
@@ -245,7 +247,7 @@ function getPersonalInfo(){
 		type:'post',//可选get
 		url:ctx+'user/getUserBaseInfo',
 		dataType:'Json',//服务器返回的数据类型 可选XML ,Json jsonp script html text等
-		data:{uid:'1'},
+		data:{uid:uid},
 		success:function(msg){
 			if(msg.success){
 				if(msg.data ){
@@ -264,10 +266,10 @@ function getPersonalInfo(){
 
 function loadPersonalInfo () {
 	if(personalInfoObj){
-		$("#amountTotalTd").text("￥ "+(personalInfoObj.FTOTALAMOUNT));
-		$("#confirmAmountTd").text("￥ "+(personalInfoObj.TATOLFPAYAMOUNT));
-		$("#leverageAmountTd").text("￥ "+(personalInfoObj.FTOTALFLEVERAMOUNT));
-		$("#bonusAmountTd").text("￥ "+(personalInfoObj.FTOTALBONUSAMOUNT));
+		$("#amountTotalTd").text("￥ "+(personalInfoObj.FTOTALAMOUNT||0));
+		$("#confirmAmountTd").text("￥ "+(personalInfoObj.TATOLFPAYAMOUNT||0));
+		$("#leverageAmountTd").text("￥ "+(personalInfoObj.FTOTALFLEVERAMOUNT||0));
+		$("#bonusAmountTd").text("￥ "+(personalInfoObj.FTOTALBONUSAMOUNT||0));
 		$("#proCountTd").html(personalInfoObj.FPROJECTCOUNT||0);
 	}
 }
@@ -282,7 +284,7 @@ function getProjectInfo(){
 		data:{
 			begin: 0,
 			count: 2,
-			uid: '1',
+			uid: uid,
 			searchname: "",
 			subscribeStartDate: "",
 			subscribeEndDate:"",
@@ -406,7 +408,7 @@ function getCompletedInfo(){
 		data:{"userId":currUser},
 		success:function(msg){
 			if(msg.success){
-				completedList = msg.dataDto;
+				completedList = msg.data;
 				loadCompletedInfo();
 			}else{
 				alert(msg.error);
@@ -426,15 +428,15 @@ function loadCompletedInfo(){
 			tempHtml +=
 				'<tr><td height="25">'+(ind+1)+'</td>'+
 					'<td>'+(val.projectName||"")+'</td>'+
-					'<td>'+(val.contributiveAmount)+'</td>'+
-					'<td>'+(val.leverageAmount)+'</td>'+
-					'<td class="displayNone">'+(val.adjustamt)+'</td>'+
-					'<td class="displayNone">'+(val.adjustLeverageAmt)+'</td>'+
-					'<td>'+(val.contributiveConfirmAmount)+'</td>'+
-					'<td>'+(val.confirmLeverageAmt)+'</td>'+
-					'<td>'+(val.confirmationPayment)+'</td>'+
+					'<td>'+(val.contributiveAmount||0)+'</td>'+
+					'<td>'+(val.leverageAmount||0)+'</td>'+
+					'<td class="displayNone">'+(val.adjustamt||0)+'</td>'+
+					'<td class="displayNone">'+(val.adjustLeverageAmt||0)+'</td>'+
+					'<td>'+(val.contributiveConfirmAmount||0)+'</td>'+
+					'<td>'+(val.confirmLeverageAmt||0)+'</td>'+
+					'<td>'+(val.confirmationPayment||0)+'</td>'+
 					// '<td width="150">'+formatMillions(val.bonusAmount)+'</td>'+
-				'<td>'+(val.completeBonusAmount)+'</td></tr>';
+				'<td>'+(val.completeBonusAmount||0)+'</td></tr>';
 		})
 		$("#compTbody").html(tempHtml);
 	}else{
@@ -491,10 +493,10 @@ function loadPayInInfo(){
 			tempHtml +=
 			'<tr><td width="50" height="35">'+(ind+1)+'</td>'+
 			'<td>'+(val.projectName||"")+'</td>'+
-			'<td>'+formatMillions(val.subscribeAmt)+'</td>'+
-			'<td>'+val.piTimes+'</td>'+
+			'<td>'+(val.subscribeAmt||0)+'</td>'+
+			'<td>'+(val.piTimes||0)+'</td>'+
 			'<td>'+(new Date(val.piDate)).format('yyyy-MM-dd')+'</td>'+
-			'<td>'+formatMillions(val.piAmt)+'</td></tr>';
+			'<td>'+(val.piAmt||0)+'</td></tr>';
 
 				// tempHtml += '<tr><td height="35">'+(ind+1)+'</td>'+
 				// '<td>'+val.uname+'</td>'+
@@ -528,7 +530,7 @@ function getBonusInfo(){
 			"startDate":"",
 			"endDate":"",
 			"projectName":"",
-			"uid":"1",
+			"uid":uid,
 			"projectId":""
 		},
 		success:function(msg){

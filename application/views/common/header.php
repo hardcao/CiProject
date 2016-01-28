@@ -13,6 +13,7 @@
             <div id="shop">
                 <a class="btn-lang tmp-unselect"  href="<?php echo site_url()?>home\index\login" id="login" onclick="loginout()">登录</a>
                 <!--a href="javascript:void(0);" onclick="check_login()"class="btn-search"></a-->
+                <input type="text" style="display:none" id="uid" value="" />
             </div>
         </div>
     </div>
@@ -47,6 +48,7 @@
     </div>
 <script type="text/javascript">
 $('#login').text('登出:'+"<?php echo $username ?>");
+$('#uid').attr('uid',"<?php echo $uid ?>");
 
 function loginout() {
     var ctx= "<?php echo site_url() ?>";
