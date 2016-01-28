@@ -139,7 +139,7 @@ h2
 		</table>
 	</div>
 	<div class="content moreinfo" style="clear:both; overflow:hidden">
-		<div><a href="<?php echo site_url() ?>/home/index/newsList" >查看更多</a></div>
+		<div><a href="<?php echo site_url() ?>/home/index/newsList"  style="color:white">查看更多</a></div>
 	</div>
 
 
