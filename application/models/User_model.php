@@ -35,10 +35,10 @@ class User_model extends CI_Model
         $data["errorCode"] = 0;
         $data["error"] = 0;
         if($result != NULL) {
-            $data['data'] = 'success';
+            $data['data'] = $result;
             $data["success"] = true;
         } else {
-             $data['data'] = 'false';
+             $data['data'] = $result;
             $data["success"] = false;
         }
         return  $data;

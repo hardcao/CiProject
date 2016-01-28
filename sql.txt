@@ -124,15 +124,36 @@ INSERT INTO T_NEWS ( FPROJECTID,
 					   FISMAINPIC boolean)ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='项目图片库表';	
 alter table T_PIC modify FID integer auto_increment;
 INSERT INTO T_PIC(FPROJECTID,FNAME,FCONTENT,FISMAINPIC) VALUES (27,'test.jpg','test.jpg',false);		   
-					   
-9 create table T_USER (FID integer PRIMARY KEY,
-					   FNUMBER VARCHAR(20),
-					   FUSERNAME VARCHAR(20),
-					   FORG VARCHAR(100))ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='用户表';
+			
+9 CREATE TABLE IF NOT EXISTS `T_USER` (
+  FID int(11) NOT NULL AUTO_INCREMENT,
+  F1 varchar(200) DEFAULT NULL,
+  F2 varchar(200) DEFAULT NULL,
+  F3 varchar(200) DEFAULT NULL,
+  F4 varchar(200) DEFAULT NULL,
+  F5 varchar(200) DEFAULT NULL,
+  F6 varchar(200) DEFAULT NULL,
+  F7 varchar(200) DEFAULT NULL,
+  F8 varchar(200) DEFAULT NULL,
+  F9 varchar(200) DEFAULT NULL,
+  F10 varchar(200) DEFAULT NULL,
+  FISUSER tinyint(4) NOT NULL,
+  FNUMBER varchar(200) DEFAULT NULL,
+  FNAME varchar(200) DEFAULT NULL,
+  FORG varchar(200) DEFAULT NULL,
+  PRIMARY KEY (FID),
+  KEY F1 (F1),
+  KEY F2 (F2),
+  KEY F3 (F3),
+  KEY F4 (F4),
+  KEY F5 (F5),
+  KEY F6 (F6),
+  KEY F7 (F7),
+  KEY F8 (F8),
+  KEY F9 (F9)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='用户表';		   
 alter table T_USER modify FID integer auto_increment;
-INSERT INTO T_USER (FNUMBER,
-					   FNAME,
-					   FORG) VALUES ('合肥高新','123',"test");
+
 	   
 10 create table T_BANKINFO (FID integer PRIMARY KEY,
 					   FUSERID integer,

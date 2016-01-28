@@ -257,6 +257,8 @@ class Project extends CI_Controller
          echo json_encode($result);
      }
 
+     //实现了获得所有项目链表和用户相应的权限
+     //project/getAllFollowProjectWithUserID
      public function getAllFollowProjectWithUserID()
      {
          $userID = $this->input->post('uid');

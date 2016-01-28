@@ -73,7 +73,9 @@ class Login extends CI_Controller {
 		$password = $this->input->post('password');
 		$result = $this->User_model->checkLogin($username, $password);
 		if($result['success'] == true) {
+			$userData = $result['data'][0];
 			$this->session->set_userdata('username', $username);
+			$this->session->set_userdata('uid', $userData);
 			
 		}
 
@@ -137,6 +139,7 @@ class Login extends CI_Controller {
 //login/logout
 	public function logout(){
 		$this->session->unset_userdata('username');
+		$this->session->unset_userdata('uid');
 		$data["success"] = true;
         $data["errorCode"] = 0;
         $data["error"] = 0;

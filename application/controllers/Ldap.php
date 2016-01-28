@@ -16,13 +16,22 @@ class Ldap extends CI_Controller {
 	 * map to /index.php/welcome/<method_name>
 	 * @see http://codeigniter.com/user_guide/general/urls.html
 	 */
-	public function index()
+
+	 public function __construct()
+    {
+        # code...
+        parent::__construct();
+        $this->load->helper(array('form', 'url'));
+        $this->load->model('Tools');
+         $this->load->database();
+    }
+	public function ldap()
 	{
 		//$this->db->query("truncate px_tmp");
-		$host = "192.168.8.232"; 
-		$user = "ldapuser"; 
-		$pswd = "CIFILdapuserRead"; 
-		echo "test";
+		$host = "192.168.5.3"; 
+		$user = "zldcgroup\zldc"; 
+		$pswd = "zldc@8888"; 
+		
 		$ad = ldap_connect($host) or die( "Could not connect!" ); 
 		//var_dump($ad);
 		if($ad){ 
@@ -33,18 +42,60 @@ class Ldap extends CI_Controller {
 			
 			$attrs = array("displayname","name","sAMAccountName","userPrincipalName","objectclass"); //鎸囧畾闇�鏌ヨ鐨勭敤鎴疯寖鍥� 
 			$filter = "(objectclass=*)"; //ldap_search ( resource $link_identifier , string $base_dn , string $filter [, array $attributes [, int $attrsonly [, int $sizelimit [, int $timelimit [, int $deref ]]]]] ) 
-			$search = ldap_search($ad, 'ou=旭辉集团股份有限公司,DC=cifi,DC=com,DC=cn', $filter, $attrs,0,0,0) or die ("ldap search failed"); 
+			$search = ldap_search($ad, 'ou=中梁集团,DC=zldcgroup,DC=com', $filter, $attrs,0,0,0) or die ("ldap search failed"); 
 			$entries = ldap_get_entries($ad, $search); 
+			//echo json_encode($entries);
 		//		var_dump($entries);
 
 			$data = array();
 			if ($entries["count"] > 0) { 
-				echo json_encode($entries['0']['objectclass']);
+				//echo '返回记录数：'.$entries["count"]; 
+				for ($i=0; $i<$entries["count"]; $i++) { //所要获取的字段，都必须小写 
+					//if(isset($entries[$i]["displayname"])){ 
+//						echo "<p>name: ".$entries[$i]["name"][0]."<br />";//用户名 
+//						echo "<p>sAMAccountName: ".@$entries[$i]["samaccountname"][0]."<br />";//用户名 
+						if(isset($entries[$i]["dn"][0])){ 
+//							echo "dn: ".$entries[$i]["dn"]."<br />";//用户名字 
+							$is_user = in_array('user',$entries[$i]["objectclass"]) ? 1:0; 
+							if($is_user == 0) continue;
+							$dn = $entries[$i]["dn"];
+							$dn = explode(",",$dn);
+							
+							$area = array();
+							foreach($dn as $v){
+								if(strpos($v,'OU=') !== false){
+									$area[] = str_replace("OU=","",$v);
+								}
+							}
+
+							$area = array_reverse($area);
+//							var_dump($area);
+							list($f1,$f2) = $area;
+							$insertArr = array(
+								'F1'=>$f1,
+								'F2'=>$f2,
+								
+								
+								'FISUSER'=>1,
+								'FNUMBER'=>@$entries[$i]["samaccountname"][0],
+								'FNAME'=>@$entries[$i]["name"][0],
+								'FORG' => 'test',
+								);
+							
+       						
+        					$tableName = 'T_USER';
+        					
+        					$result = $this->Tools->addData($insertArr,$tableName);
+        					//echo json_encode($result);
+    						}
+
+				} 
+					//} 
+				 
 			} else { 
 				//echo "<p>No results found!</p>"; 
 			} 
-		}else{ //echo "Unable to connect to AD server"; 
-		} 
+		}
 	}
 }
 
