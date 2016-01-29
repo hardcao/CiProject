@@ -54,6 +54,15 @@ $(function () {
             }
         }
 
+        index_hash = location.hash || 0;
+        index_hash = parseInt(index_hash.substring(1,index_hash.Length));
+        link_page = links.eq(index_hash)[0];
+        control(nav_on = link_curr = link_page, false);
+
+        if (index_hash != 0)
+            $("#index1").removeClass('on');
+
+
 
         win.on('load', function () {
             // 鼠标指向, 链接高亮
@@ -62,13 +71,18 @@ $(function () {
             // 鼠标离开导航栏, 恢复当前页面高亮
             nav.hover(none, function () {
                 timeout = setTimeout(function () {
-                    //control(link_page, true);
+                    control(link_page, true);
                 }, 10);
             });
             subNav.hover(function () {
                 clearTimeout(timeout);
             }, function () {
+                index_hash = location.hash || 0;
+                index_hash = parseInt(index_hash.substring(1,index_hash.Length));
+                link_page = links.eq(parseInt(index_hash))[0];
                 control(link_page, true);
+                idx = parseInt(link_page.getAttribute('idx'));
+                prev_item = subitem.eq(idx).removeClass('on');
             });
         });
 
@@ -88,7 +102,7 @@ $(function () {
 
 
         // 2015.06.09 修改搜索, 添加语言
-        var subitem_search = subitem.filter('.search'),
+        /*var subitem_search = subitem.filter('.search'),
             subitem_langs = subitem.filter('.langs');
         shop.find('.btn-search').hover(function () {
             prev_item.removeClass('on');
@@ -102,7 +116,7 @@ $(function () {
             timeout = setTimeout(function () {
                 prev_item.removeClass('on');
             }, 300);
-        });
+        });*/
     }());
 
     // 搜索按钮
@@ -225,10 +239,10 @@ $(function () {
         // });
     }());*/
     // 调整高度
-    (function () {
+    /*(function () {
         var copyright = $('#copyright'),
             hei = $('html').height() - $('body').height();
         if (hei <= 0) return;
         copyright.find('.g-wrap div').height(37 + hei);
-    }());
+    }());*/
 });
