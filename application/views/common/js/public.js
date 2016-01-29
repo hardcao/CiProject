@@ -54,8 +54,8 @@ $(function () {
             }
         }
 
-        index_hash = location.hash || '#0';
-        index_hash = parseInt(index_hash.substring(1,index_hash.Length));
+        index_hash = getHash();
+        //index_hash = parseInt(index_hash.substring(1,index_hash.Length));
         link_page = links.eq(index_hash)[0];
         control(nav_on = link_curr = link_page, false);
 
@@ -246,3 +246,38 @@ $(function () {
         copyright.find('.g-wrap div').height(37 + hei);
     }());*/
 });
+
+
+function getHash()
+{
+    if ((window.location.href.indexOf("newsEditor") != -1) 
+        ||(window.location.href.indexOf("paramsSetting") != -1) 
+        ||(window.location.href.indexOf("payInConfirm") != -1) 
+        ||(window.location.href.indexOf("permissionSet") != -1) 
+        ||(window.location.href.indexOf("projectBasicInfo") != -1) 
+        ||(window.location.href.indexOf("projectBonusInfo") != -1) 
+        ||(window.location.href.indexOf("projectMange") != -1) 
+        ||(window.location.href.indexOf("projectNewsInfo") != -1) 
+        ||(window.location.href.indexOf("projectPics") != -1) 
+        ||(window.location.href.indexOf("proListManage") != -1) 
+        ||(window.location.href.indexOf("remissionSetting") != -1) 
+        ||(window.location.href.indexOf("subscribeConfirm") != -1) )
+        {return 4;}
+    else if ((window.location.href.indexOf("subscribeApply") != -1) 
+        ||(window.location.href.indexOf("projectList") != -1)
+        ||(window.location.href.indexOf("newsList") != -1))
+    {
+        return 1;
+    }
+    else if ((window.location.href.indexOf("personalCenter") != -1) 
+        ||(window.location.href.indexOf("personalInfo") != -1) )
+    {
+        return 2;
+    }else if (window.location.href.indexOf("followRules") != -1) 
+    {
+        return 3;
+    }else
+    {
+        return 0;
+    }
+}
