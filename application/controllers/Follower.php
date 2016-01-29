@@ -79,4 +79,14 @@ class Follower extends CI_Controller
         $result = $this->Tools->addData($data,$tableName);
         echo json_encode($result);
     }
+
+// follower/getFollowerWithProjectIDAndUserID
+    public function getFollowerWithProjectIDAndUserID()
+    {
+        $userID = $this->input->post('uid');
+        $projectID = $this->input->post('projectId');
+         $result = $this->Follower_model->getFollowerWithProjectIDAndUserID($projectID,$userID);
+        echo json_encode($result);
+    
+    }
 }
