@@ -33,26 +33,26 @@ $(function () {
         // 初始化当前链接
         href = location.href.replace(/[_\d]{1,2}\./, '.');      // 静态页面用
         // href = location.href,                                   // 程序用
-        for (var i = 0; i < len; i++) {
-            link_page = links.eq(i);
-            if (href.indexOf(link_page.attr('href').replace(/(?:_\d)?\..*/, '')) > 0) {    // 静态页面用
-                // if (href.indexOf(link_page.attr('href').replace(/(?:_\d)?\..*/, '')) > 0) {    // 程序用
-                control(nav_on = link_curr = link_page = link_page[0], false);
-                delete i;
-                break;
-            }
-        }
+        // for (var i = 0; i < len; i++) {
+        //     link_page = links.eq(i);
+        //     if (href.indexOf(link_page.attr('href').replace(/(?:_\d)?\..*/, '')) > 0) {    // 静态页面用
+        //         // if (href.indexOf(link_page.attr('href').replace(/(?:_\d)?\..*/, '')) > 0) {    // 程序用
+        //         control(nav_on = link_curr = link_page = link_page[0], false);
+        //         delete i;
+        //         break;
+        //     }
+        // }
         links_2.each(function (idx) {
             if (this === nav_on) return;
             this.setAttribute('idx', idx);
         });
-        if (i === len) {
-            if (href.indexOf('/user') >= 0) {
-                control(nav_on = link_curr = link_page = links.eq(5)[0], false);
-            } else {
-                control(nav_on = link_curr = link_page = links.eq(0)[0], false);
-            }
-        }
+        // if (i === len) {
+        //     if (href.indexOf('/user') >= 0) {
+        //         control(nav_on = link_curr = link_page = links.eq(5)[0], false);
+        //     } else {
+        //         control(nav_on = link_curr = link_page = links.eq(0)[0], false);
+        //     }
+        // }
 
         index_hash = getHash();
         //index_hash = parseInt(index_hash.substring(1,index_hash.Length));
@@ -77,9 +77,8 @@ $(function () {
             subNav.hover(function () {
                 clearTimeout(timeout);
             }, function () {
-                index_hash = location.hash || 0;
-                index_hash = parseInt(index_hash.substring(1,index_hash.Length));
-                link_page = links.eq(parseInt(index_hash))[0];
+                index_hash = getHash();
+                link_page = links.eq(index_hash)[0];
                 control(link_page, true);
                 idx = parseInt(link_page.getAttribute('idx'));
                 prev_item = subitem.eq(idx).removeClass('on');
