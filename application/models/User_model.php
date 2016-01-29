@@ -237,15 +237,15 @@ class User_model extends CI_Model
         $query = $this->db->query('select FUSERID,count(FPROJECTID),FPROJECTID from T_SUBSCRIBECONFIRMRECORD where FUSERID ='.$userID.' group by FPROJECTID');
         $arr=$query->num_rows();
         if($arr != NULL){
-            $result['FPROJECTCOUNT'] = $arr[0]['FPROJECTCOUNT'];
+            $result['FPROJECTCOUNT'] = $arr;
         }  else {
-            $result['FTOTALBONUSAMOUNT'] = 0;
+            $result['FPROJECTCOUNT'] = 0;
         }
 
         //个人缴款总额
          $query = $this->db->query('select SUM(T_PAYRECORD.FPAYAMOUNT) as  TATOLFPAYAMOUNT from T_PAYRECORD JOIN T_SUBSCRIBECONFIRMRECORD ON T_SUBSCRIBECONFIRMRECORD.FID = T_PAYRECORD.FSUBSCRIBECONFIGRMRECORDID where T_SUBSCRIBECONFIRMRECORD.FUSERID = '.$userID);
         $arr=$query->result_array();
-        if($arr != NULL){
+        if($arr != NULL &&  $arr[0] != NULL){
             $result['TATOLFPAYAMOUNT'] = $arr[0]['TATOLFPAYAMOUNT'];
         }  else {
             $result['TATOLFPAYAMOUNT'] = 0;
@@ -255,7 +255,7 @@ class User_model extends CI_Model
 
          $query = $this->db->query("select  SUM(FAMOUNT+FLEVERAMOUNT) as FTOTALAMOUNT from T_SUBSCRIBECONFIRMRECORD where FUSERID =".$userID);
         $arr=$query->result_array();
-        if($arr != NULL){
+        if($arr != NULL &&  $arr[0] != NULL){
             $result['FTOTALAMOUNT'] = $arr[0]['FTOTALAMOUNT'];
         } else {
             $result['FTOTALBONUSAMOUNT'] = 0;
@@ -264,7 +264,7 @@ class User_model extends CI_Model
         //个人分红总额
         $query = $this->db->query(" select  SUM(FBONUSAMOUNT) as FTOTALBONUSAMOUNT from T_BONUSRECORD JOIN T_SUBSCRIBECONFIRMRECORD ON T_SUBSCRIBECONFIRMRECORD.FID = T_BONUSRECORD.FSUBSCRIBECONFIGRMRECORDID where T_SUBSCRIBECONFIRMRECORD.FUSERID = ".$userID);
         $arr=$query->result_array();
-        if($arr != NULL){
+        if($arr != NULL &&  $arr[0] != NULL){
             $result['FTOTALBONUSAMOUNT'] = $arr[0]['FTOTALBONUSAMOUNT'];
         } else {
             $result['FTOTALBONUSAMOUNT'] = 0;
@@ -273,7 +273,7 @@ class User_model extends CI_Model
         //个人杠杆认购总额
          $query = $this->db->query("select  SUM(FLEVERAMOUNT) as FTOTALFLEVERAMOUNT from T_SUBSCRIBECONFIRMRECORD where FUSERID =".$userID);
         $arr=$query->result_array();
-        if($arr != NULL){
+         if($arr != NULL &&  $arr[0] != NULL){
             $result['FTOTALFLEVERAMOUNT'] = $arr[0]['FTOTALFLEVERAMOUNT'];
         } else {
             $result['FTOTALFLEVERAMOUNT'] = 0;
