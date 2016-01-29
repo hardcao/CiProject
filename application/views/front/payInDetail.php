@@ -48,7 +48,7 @@
 		</tbody></table>
 	</div>
 </div>
-<div id="footer">中粮地产集团</div>
+<div id="footer">中梁地产集团</div>
 <script type="text/javascript">
 	var dataList = [];
 var uid = "<?php echo $uid ?>";
