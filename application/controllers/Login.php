@@ -77,7 +77,7 @@ class Login extends CI_Controller {
 			$this->session->set_userdata('username', $userData['FNAME']);
 			$this->session->set_userdata('uid', $userData['FID']);
 
-			$this->session->set_userdata('userRight',$userData['FUSERRIGHT']);	
+			$this->session->set_userdata('allow','4');	
 			if($username == 'admin')	
 			{
 				$this->session->set_userdata('userRight','1');	
