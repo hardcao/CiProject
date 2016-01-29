@@ -80,7 +80,7 @@ class Login extends CI_Controller {
 			$this->session->set_userdata('userRight',$userData['FUSERRIGHT']);	
 			if($username == 'admin')	
 			{
-				$this->session->set_userdata('userRight',true);	
+				$this->session->set_userdata('userRight','1');	
 			}
 		}
 		
