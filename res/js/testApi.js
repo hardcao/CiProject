@@ -33,7 +33,7 @@ $("#btn_login").click(function(){
 					uname:'admin',
 					uid:3895,
 					newsId:124,
-					username:'admin',
+					username:'lichangtao',
 					password:'asdfas',
 					queryType:0,
 				},

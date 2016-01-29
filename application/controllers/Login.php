@@ -83,7 +83,8 @@ class Login extends CI_Controller {
 				$this->session->set_userdata('userRight',true);	
 			}
 		}
-
+		
+		
 		//$result['test'] = $username;
 		echo json_encode($result);
     }
@@ -145,6 +146,7 @@ class Login extends CI_Controller {
 	public function logout(){
 		$this->session->unset_userdata('username');
 		$this->session->unset_userdata('uid');
+		$this->session->unset_userdata('userRight');	
 		$data["success"] = true;
         $data["errorCode"] = 0;
         $data["error"] = 0;
