@@ -98,7 +98,7 @@ function loadProData (argument) {
 		tempHtml +=
 			'<tr><td height="40">'+(ind+1)+'</td>'+
 				'<td class="nameTd">'+val.FNAME+'</td>'+
-				'<td class="areaTd">'+val.FSTATE+'</td>'+
+				//'<td class="areaTd">'+val.FSTATE+'</td>'+
 				'<td>'+tempSel+'</td>'+
 				'<td><a class="updBtn" ind="'+ind+'" href="javascript:void(0);">修改</a>&nbsp;&nbsp;'+
 				//'<a href="javascript:delProject(\''+val.FID+'\')">删除</a>&nbsp;&nbsp;'+
@@ -114,7 +114,7 @@ function addProRow(){
 					+'<option value="0">跟投关闭</option></select>';
 	var tempHtml = '<tr><td height="40">'+(leng+1)+'</td>'+
 						'<td><input id="nameInp_'+leng+'" /></td>'+
-						'<td><input id="areaInp_'+leng+'" /></td>'+
+						//'<td><input id="areaInp_'+leng+'" /></td>'+
 						'<td>'+tempSel+'</td>'+
 						'<td><a class="saveAddBtn" ind="'+leng+'" href="javascript:void(0);">保存</a></td>'+
 					'</tr>';
@@ -127,9 +127,9 @@ function addProject(_ev){
 	var _statusSel = $.trim($("#statusSel"+_ind).val());
 	if(_nameInpVal.length <= 0){
 		alert("请输入项目名！");
-	}else if(_areaInpVal.length <= 0){
+	}/*else if(_areaInpVal.length <= 0){
 		alert("请填写项目所在区域！");
-	}else{
+	}*/else{
 		 saveAddProject(_nameInpVal,_areaInpVal,_statusSel);
 	}
 }
@@ -157,7 +157,7 @@ function updProject() {
 	$(this).text("保存").removeClass("updBtn").addClass("saveUpdBtn");
 	//$(this).next(".cancelUpdBtn").show();
 	$(this).parent().prevAll(".nameTd").html('<input id="nameInp_'+_ind+'" value="'+proList[_ind].FNAME+'" />');
-	$(this).parent().prevAll(".areaTd").html('<input id="areaInp_'+_ind+'" value="'+proList[_ind].FSTATE+'" />');
+	//$(this).parent().prevAll(".areaTd").html('<input id="areaInp_'+_ind+'" value="'+proList[_ind].FSTATE+'" />');
 	//$(this).parent().prevAll(".statusTd").removeAttr("disabled");;
 	$('#statusSel'+_ind).removeAttr("disabled");
 	$('#cancelBtn'+_ind).show();
@@ -171,10 +171,10 @@ function saveUpdProject() {
 	if($.trim(_name) == ""){
 		alert("请输入项目名！");
 		return false;
-	}else if($.trim(_area) == ""){
+	}/*else if($.trim(_area) == ""){
 		alert("请填写项目所在区域！");
 		return false;
-	}
+	}*/
 
 	var ctx="<?php echo site_url();?>";
 	$.ajax({
@@ -214,7 +214,7 @@ function cancelUpdProject() {
 <table id="proTable" border="1"><thead><tr>
 	<td width="50" height="34">序号</td>
 	<td width="400">项目名称</td>
-	<td width="100">区域</td>
+	<!--td width="100">区域</td-->
 	<td width="200">项目状态</td>
 	<td>操作</td>
 </tr></thead>

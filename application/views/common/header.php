@@ -60,7 +60,7 @@ function loginout() {
                 location.href = ctx+'home/index/login';
             },
             error: function (XMLHttpRequest, textStatus, errorThrown) {
-                alert(errorThrown); 
+                //alert(errorThrown); 
             }
         });
     }
