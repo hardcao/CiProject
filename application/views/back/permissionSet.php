@@ -323,7 +323,7 @@ function loadMngUserData(){
 
 				var permStr = "";
 				for (var i = 0; i < permArr.length; i++) {
-					permStr += '<input type="checkbox" class="ckSTY" uid="'+val.FID+'" '+(isPermission(ckArr,i)?"checked='checked'":"")+' />'+permArr[i]+'&nbsp;&nbsp;'
+					permStr += '<input type="checkbox" class="ckSTY" uid="'+val.FID+'" '+(isPermission2(ckArr,i)?"checked='checked'":"")+' />'+permArr[i]+'&nbsp;&nbsp;'
 				};
 
 				tempHtml +=
@@ -343,11 +343,11 @@ function loadMngUserData(){
 		$("#managerList").html(tempHtml);
 	}
 }
-function isPermission(_arr,_ind){
-	if (uid == '3896') 
+function isPermission2(_arr,_ind){
+	/*if (uid == '3896') 
 	{
 		return true;
-	};
+	};*/
 	if(!_arr){
 		return false;
 	}else if(_ind >= _arr.length){
@@ -429,7 +429,7 @@ FUSERNAME，FORG: "米琦"
 
 			var permStr = "";
 			for (var i = 0; i < permArr.length; i++) {
-				permStr += '<input name="permCk" type="checkbox" class="ckSTY" uid="'+val.FUSERID+'" '+(isPermission(ckArr,i)?"checked='checked'":"")+' />'+permArr[i];
+				permStr += '<input name="permCk" type="checkbox" class="ckSTY" uid="'+val.FUSERID+'" '+(isPermission2(ckArr,i)?"checked='checked'":"")+' />'+permArr[i];
 				//if(i%3==0 && i>0 && i<permStr.length-1) permStr +="<br>";
 				//else 
 					permStr +="&nbsp;&nbsp;";
