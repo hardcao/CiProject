@@ -16,7 +16,6 @@
 <script type="text/javascript" src="<?php echo site_url('application/views/plugins/util.js')?>"></script>
 <script type="text/javascript" src="<?php echo site_url('application/views/plugins/dateFormat.js')?>"></script>
 <script type="text/javascript" src="<?php echo site_url('application/views/front/js/header.js')?>"></script>
-<script type="text/javascript" src="<?php echo site_url('application/views/front/js/projectDetail.js')?>"></script>
 <style type="text/css">
 	#ul-pics li {
     width: 32%;
@@ -91,9 +90,9 @@ input#item_pic {
 				</tr></table>
 			</div>
 			<div class="moduleTitle" ind="0_1">
-				<img src="<?php echo site_url().'application/views/front/images/arrow_up.png' ?>" width="13" height="13" />经营计划
+				<img src="<?php echo site_url().'application/views/front/images/arrow_down.png' ?>" width="13" height="13" />经营计划
 			</div>
-			<div id="0_1" class="content" style="display:block;">
+			<div id="0_1" class="content" style="">
 				<div class="titleSTY">预计销售计划</div>
 				<table border="1"><tr>
 					<td class="titleTd">项目均价</td>
@@ -149,9 +148,9 @@ input#item_pic {
 				</tr></table>
 			</div>
 			<div class="moduleTitle" ind="0_2">
-				<img src="<?php echo site_url().'application/views/front/images/arrow_up.png' ?>" width="13" height="13" />合作信息
+				<img src="<?php echo site_url().'application/views/front/images/arrow_down.png' ?>" width="13" height="13" />合作信息
 			</div>
-			<div id="0_2" class="content" style="display:block;">
+			<div id="0_2" class="content" style="">
 				<div class="titleSTY">预计回报水平</div>
 				<table border="1"><tr>
 					<td class="titleTd">合作方背景和资质</td>
@@ -168,9 +167,9 @@ input#item_pic {
 				</tr></table>
 			</div>
 			<div class="moduleTitle" ind="0_3">
-				<img src="<?php echo site_url().'application/views/front/images/arrow_up.png' ?>" width="13" height="13" />其他信息
+				<img src="<?php echo site_url().'application/views/front/images/arrow_down.png' ?>" width="13" height="13" />其他信息
 			</div>
-			<div id="0_3" class="content" style="display:block;">
+			<div id="0_3" class="content" style="">
 				<table border="1"><tr>
 					<td class="titleTd">答疑邮箱</td>
 					<td colspan="3" id="restAnswerMail"></td>
@@ -186,7 +185,7 @@ input#item_pic {
 				</tr></table>
 			</div>
 			<div class="moduleTitle" ind="0_4" style="display:none;">
-				<img src="<?php echo site_url().'application/views/front/images/arrow_up.png' ?>" width="13" height="13" />相关图片
+				<img src="<?php echo site_url().'application/views/front/images/arrow_down.png' ?>" width="13" height="13" />相关图片
 			</div>
 			<div id="0_4" class="content" style="display:none;">
 				<div class="picSTY"><img src="./images/254_142.png" width="254" height="142"></div>
@@ -194,7 +193,7 @@ input#item_pic {
 				<div class="picSTY"><img src="./images/254_142.png" width="254" height="142"></div>
 			</div>
 		</div>
-		<div id="scheme_info" class="info_STY" style="display:none;">
+		<div id="scheme_info" class="info_STY" style="display:none">
 			<div class="content">
 				<!--div class="titleSTY" class="displayNone">跟投计划安排</div-->
 				<table border="1"><tr>
@@ -403,8 +402,10 @@ function initListeners(){
 		var url = $('#site_url').text();
 		if("none" == _display){
 			$(this).find("img").attr("src", url+'application/views/front/images/arrow_down.png');
+			//$("#"+_id).show();
 		}else{
 			$(this).find("img").attr("src",url+'application/views/front/images/arrow_up.png');
+			//$("#"+_id).hide();
 		}
 		$("#"+_id).toggle();
 	});
