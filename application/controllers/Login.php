@@ -75,7 +75,8 @@ class Login extends CI_Controller {
 		if($result['success'] == true) {
 			$userData = $result['data'][0];
 			$this->session->set_userdata('username', $userData['FNAME']);
-			$this->session->set_userdata('uid', $userData['FID']);			
+			$this->session->set_userdata('uid', $userData['FID']);
+			$this->session->set_userdata('userRight',$userData['FUSERRIGHT']);		
 		}
 
 		//$result['test'] = $username;

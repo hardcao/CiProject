@@ -105,7 +105,7 @@ class FollowScheme_model extends CI_Model
          $where = 'T_SUBSCRIBECONFIRMRECORD.FPROJECTID ='.$projectID;
         if($FSTATE != NULL) {
             if($FSTATE == '总部')
-                 $this->db->where('T_FOLLOWER.FSTATE','总部');
+                $this->db->where('T_FOLLOWER.FSTATE','总部');
             else
                 $this->db->where('T_FOLLOWER.FSTATE','区域') ;
         }
@@ -113,7 +113,7 @@ class FollowScheme_model extends CI_Model
         $this->db->join('T_FOLLOWER','T_FOLLOWER.FPROJECTID = T_SUBSCRIBECONFIRMRECORD.FPROJECTID AND T_FOLLOWER.FUSERID = T_SUBSCRIBECONFIRMRECORD.FUSERID');
         $this->db->where('T_SUBSCRIBECONFIRMRECORD.FPROJECTID',$projectID);
         $arr=$this->db->get('T_SUBSCRIBECONFIRMRECORD')->result_array();
-         if($arr != NULL){
+         if($arr != NULL && $arr[0]['TATOLAMOUNT'] != NULL){
              return $arr[0]['TATOLAMOUNT'];
         } else {
             return 0;

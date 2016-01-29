@@ -32,6 +32,15 @@ class User_model extends CI_Model
             $this->db->where('FNUMBER',$userName);
         }
         $result = $this->db->get('T_USER')->result_array();
+        $result[0]['FUSERRIGHT'] = false;
+        if($result != NULL && $result[0] != NULL){
+            $this->db->select("*");
+            $this->db->where('FUSERID',$result[0]['FID']);
+            $rowNum = $this->db->get('T_USERRIGHT')->num_rows();
+            if($rowNum != 0) {
+                $result[0]['FUSERRIGHT'] = true;
+            } 
+        }
         $data["errorCode"] = 0;
         $data["error"] = 0;
         if($result != NULL) {
