@@ -95,7 +95,7 @@ class UserProjectRight_model extends CI_Model
         if($userName != NULL )
              $this->db->like('FNAME',$userName);
         $this->db->select( $selectData);
-        $this->db->limit(10,10);
+        $this->db->limit(10,0);
         $this->db->order_by('T_USER.FORG','DESC');
         $result = $this->db->get('T_USER')->result_array();
         return $result;
