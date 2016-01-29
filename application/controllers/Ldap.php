@@ -27,6 +27,7 @@ class Ldap extends CI_Controller {
     }
 	public function ldap()
 	{
+		set_time_limit(0);
 		//$this->db->query("truncate px_tmp");
 		$host = "192.168.5.3"; 
 		$user = "zldcgroup\zldc"; 
@@ -64,7 +65,7 @@ class Ldap extends CI_Controller {
 							$area = array();
 							foreach($dn as $v){
 								if(strpos($v,'OU=') !== false){
-									$area[] = str_replace("OU=","",$v);
+									$area[] = str_replace("OU=","",$v);//有的抬头不是OU
 								}
 							}
 
