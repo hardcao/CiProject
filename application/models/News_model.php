@@ -22,6 +22,7 @@ class News_model extends CI_Model
         $this->db->select( $selectData);
         $this->db->join('T_PROJECT', 'T_PROJECT.FID=T_NEWS.FPROJECTID');
         $this->db->join('T_USER', 'T_USER.FID=T_NEWS.FCREATORID');
+       $query=$this->db->order_by('T_NEWS.FRELEASEDATE','DESC');
         $result = $this->db->get('T_NEWS')->result_array();
         $data["success"] = true;
         $data["errorCode"] = 0;
@@ -38,6 +39,7 @@ class News_model extends CI_Model
         $query=$this->db->join('T_USER', 'T_USER.FID=T_NEWS.FCREATORID','left outer');
         $query=$this->db->join('T_PROJECT', 'T_PROJECT.FID=T_NEWS.FPROJECTID','left outer');
         $query=$this->db->get('T_NEWS');
+        $query=$this->db->order_by('T_NEWS.FRELEASEDATE','DESC');
         $result = $query->result_array();
         $data["success"] = true;
         $data["errorCode"] = 0;
@@ -90,6 +92,7 @@ class News_model extends CI_Model
         $this->db->where('T_NEWS.FID',$newsId);
         $this->db->join('T_PROJECT', 'T_PROJECT.FID=T_NEWS.FPROJECTID');
         $this->db->join('T_USER', 'T_USER.FID=T_NEWS.FCREATORID');
+        $query=$this->db->order_by('T_NEWS.FRELEASEDATE','DESC');
         $result = $this->db->get('T_NEWS')->result_array();
         $data["success"] = true;
         $data["errorCode"] = 0;
@@ -125,6 +128,7 @@ class News_model extends CI_Model
         $this->db->where('FPROJECTID',$projectID);
         $this->db->join('T_PROJECT', 'T_PROJECT.FID=T_NEWS.FPROJECTID');
         $this->db->join('T_USER', 'T_USER.FID=T_NEWS.FCREATORID');
+        $query=$this->db->order_by('T_NEWS.FRELEASEDATE','DESC');
         $result = $this->db->get('T_NEWS')->result_array();
         $data["success"] = true;
         $data["errorCode"] = 0;
@@ -139,6 +143,7 @@ class News_model extends CI_Model
         $this->db->where('FPROJECTID',$projectID);
         $this->db->join('T_PROJECT', 'T_PROJECT.FID=T_NEWS.FPROJECTID');
         $this->db->join('T_USER', 'T_USER.FID=T_NEWS.FCREATORID');
+        $query=$this->db->order_by('T_NEWS.FRELEASEDATE','DESC');
         $result = $this->db->get('T_NEWS')->result_array();
         $data["success"] = true;
         $data["errorCode"] = 0;
