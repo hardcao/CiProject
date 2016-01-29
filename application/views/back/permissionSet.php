@@ -35,6 +35,15 @@
 #dialogLayer .dialogSTY .btnDiv{width: 96%;text-align: right;margin: 0px auto;}
 #dialogLayer .ckSTY{width: 15px;height: 15px;padding: 0px;margin: 3px;vertical-align: middle;}
 #dialogLayer button{width: 50px;height: 25px;margin: 0px 5px;padding:0px 5px;}
+
+#dialogLayer .dialogSTY {
+    background: #fff;
+    border: 1px solid #e8e8e8;
+    border-radius: 5px;
+    width: 1000px;
+    height: 500px;
+    margin: 70px auto;
+}
 </style>
 <script type="text/javascript">
 var proInd = "0";
@@ -413,20 +422,21 @@ FUSERNAME，FORG: "米琦"
 		$.each(allUserList, function(ind, val){
 			ckStr = "";
 			ckArr = setAllPerm("0");
-			if(tempAddObj[val.FID] || (tempMngObj[val.FID] && !tempDelObj[val.FID])){
+			if(tempAddObj[val.FUSERID] || (tempMngObj[val.FUSERID] && !tempDelObj[val.FUSERID])){
 				 ckStr = 'checked="checked"';
 				 ckArr = catPermissionArrval(val); //.permissionFlag?val.permissionFlag.split(""):setAllPerm("1");
 			}
 
 			var permStr = "";
 			for (var i = 0; i < permArr.length; i++) {
-				permStr += '<input name="permCk" type="checkbox" class="ckSTY" uid="'+val.FID+'" '+(isPermission(ckArr,i)?"checked='checked'":"")+' />'+permArr[i];
-				if(i%3==0 && i>0 && i<permStr.length-1) permStr +="<br>";
-				else permStr +="&nbsp;&nbsp;";
+				permStr += '<input name="permCk" type="checkbox" class="ckSTY" uid="'+val.FUSERID+'" '+(isPermission(ckArr,i)?"checked='checked'":"")+' />'+permArr[i];
+				//if(i%3==0 && i>0 && i<permStr.length-1) permStr +="<br>";
+				//else 
+					permStr +="&nbsp;&nbsp;";
 			};
 
 			tempHtml +=
-			'<tr><td class="userTd"><input name="userCk" type="checkbox" class="ckSTY" '+ckStr+' uid="'+val.FID+'"></td>'+
+			'<tr><td class="userTd"><input name="userCk" type="checkbox" class="ckSTY" '+ckStr+' uid="'+val.FUSERID+'"></td>'+
 			'<td>'+val.FUSERNAME+'</td>'+
 			'<td>'+val.FNUMBER+'</td>'+
 			'<td>'+val.FORG+'</td>'+
@@ -555,11 +565,11 @@ function setAllPerm(_status){
 			<div class="tipTitle">请为<span id="proName">合肥高新项目</span>分配管理员</div>
 			<input id="searUserInp" placeholder="请输入用户名" /><button id="searUserBtn">搜索</button>
 		</div>
-		<div class="contentDiv"><table border="1"><thead><tr>
+		<div class="contentDiv"><table border="1" style="font-size:12px"><thead><tr>
 			<td width="28"></td>
 			<td width="80">中文名</td>
 			<td width="100">帐号</td>
-			<td width="150">区域</td>
+			<td width="100">区域</td>
 			<td>权限</td>
 		</tr></thead>
 		<tbody id="allUserTbody">
