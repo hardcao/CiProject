@@ -138,7 +138,7 @@ function loadProjectData () {
 		var tempUrl = "";
 		$.each(projectList, function(ind,val){
 		    perArr = catPermissionArr(val);//val.permissionFlag.split("");
-		    if (perArr[0] || perArr[1] || perArr[2] || perArr[3] || perArr[4] || perArr[5] || username == 'admin') 
+		    if ((perArr[0] || perArr[1] || perArr[2] || perArr[3] || perArr[4] || perArr[5] || username == 'admin') ) 
 		    {
 			tempUrl = "back/index/projectManage?projectId="+val.FPROJECTID+"&projectName="+escape(val.FPROJECTNAME);
 			tempHtml +=
