@@ -74,7 +74,7 @@ class Login extends CI_Controller {
 		$result = $this->User_model->checkLogin($username, $password);
 		if($result['success'] == true) {
 			$userData = $result['data'][0];
-			$this->session->set_userdata('username', $username);
+			$this->session->set_userdata('username', $userData['FNAME']);
 			$this->session->set_userdata('uid', $userData['FID']);			
 		}
 

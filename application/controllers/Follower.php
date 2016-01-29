@@ -59,7 +59,8 @@ class Follower extends CI_Controller
                
             }
         }
-        echo json_encode($result);
+        header('Location:'.$this->input->post('url'));
+        //echo json_encode($result);
     }
     
     public function deleteFollower() {

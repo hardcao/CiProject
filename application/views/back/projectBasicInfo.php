@@ -58,6 +58,7 @@ var tempAddForceObj = {};
 var indexOfFollower= 0;
 var schemeLinkArr = [];
 var protocalArr = [];
+$('.url').val(window.location.href);
 $(function(){
 	$("#uploadProtocalForm .delProtocalLink").live("click", deleteSchemeProtocalFunc);
 	$("#uploadForm .delSchemeLink").live("click", deleteSchemeLinkFunc);
@@ -602,6 +603,7 @@ function hideForceDialog(){
 		<td colspan="3"><input name="projectName" id="projectName"/></td>
 	</tr>
 
+	<input name="url" type="hidden"  style="display:none" class="url" />
 	<!--tr>
 		<td class="tdInfo"><b>----基础信息</b><br></td>
 
@@ -733,6 +735,7 @@ function hideForceDialog(){
 <div id="scheme_editor" class="editor displayNone">
 		<input type="hidden" name="projectId" id="schemeProjectid"/>
 		<input type="hidden" name="schemeId" id="schemeid"/>
+		<input name="url" type="hidden"  style="display:none" class="url" />
 	<table width="100%"><tr>
 		<td class="tdTitle">认购开始时间</td>
 		<td><input id="subscribeStartInp" name="subscribeStartDate"  /></td>
@@ -805,6 +808,7 @@ function hideForceDialog(){
 <div id="force" class="editTitle"><img src="../../application/views/back/images/arrow_down.png" />跟投人员名单</div>
 <form id="forceForm" method="post" action="/Follower/updateFollower">
 <input type="hidden" name="projectid" id="forceProjectId"/>
+<input name="url" type="hidden"  style="display:none" class="url" />
 <div id="force_editor" class="editor displayNone" style="">
 	<table id="forceTable" width="100%" border="1"><thead><tr class="trTitle">
 		<!-- <td rowspan="2" width="4%">序号</td> -->
@@ -827,6 +831,7 @@ function hideForceDialog(){
 <form id="subForm" method="post" action="${pageContext.request.contextPath}/subscribe/saveOrUpdate.action">
 <div id="subscribe_editor" class="editor displayNone">
 	<input type="hidden" id="subProjectId" name="projectId"/>
+	<input name="url" type="hidden"  style="display:none" class="url" />
 	<table id="subTable" width="100%" border="1"><thead><tr class="trTitle">
 		<td rowspan="2" width="4%">序号</td>
 		<td colspan="3" height="25">跟投额度</td>

@@ -126,7 +126,8 @@ class Project extends CI_Controller
             $where = 'FPROJECTID='.$insertArr['FPROJECTID'];
             $result = $this->Tools->updateData($insertArr,$tableName,$where);
         
-        echo json_encode($result);
+        header('Location:'.$this->input->post('url'));
+        //header($this->input->post('url'));
     }
     
     /*

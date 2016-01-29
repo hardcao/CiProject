@@ -458,8 +458,8 @@ function submitFunc (isRemissionSubscribe) {
 			alert("请选择银行帐号!");
 			return false;	
 		}
-		if(FAMOUNT%5 != 0){
-			alert("认购金额只能输入5万的倍数!");
+		if(FAMOUNT <= 0){
+			alert("请输入正确认购金额!");
 			return false;
 		}
 	//}
