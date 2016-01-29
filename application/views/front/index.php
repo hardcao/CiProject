@@ -85,9 +85,9 @@ h2
     margin-bottom: 15px;}
 #contentLayer #contentList .listSTY .imgLayer{float: left;width: 210px;height: 130px;margin: 10px 15px;}
 #contentLayer #contentList .listSTY .textLayer{float: right;margin-left: 10px;width: 830px;}
-#contentLayer #contentList .listSTY .textLayer .proTitle{font-size: 1.3em;font-weight: bold;}
+#contentLayer #contentList .listSTY .textLayer .proTitle{font-size: 14px;font-weight: bold;}
 #contentLayer #contentList .listSTY .textLayer .proInfo{height: 100px;}
-#contentLayer #contentList .listSTY .textLayer .proInfoTable{font-size: 1em;}
+#contentLayer #contentList .listSTY .textLayer .proInfoTable{font-size: 14px;}
 #contentLayer #contentList .listSTY .textLayer .proInfoTable td{padding: 0px 5px;}
 #contentLayer #contentList .listSTY .textLayer .proInfoTable td span{color: #FF2608;font-weight: bold;}
 #contentLayer #contentList .listSTY .textLayer .proInfoTable .titleTd{text-align: right;width: 115px;color: black;font-weight: 100;}

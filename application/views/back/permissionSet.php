@@ -394,6 +394,17 @@ FUSERNAME: "test1"
 }
 
 function loadAllUserData (argument) {
+
+	/*
+		FBASICS: false
+FBONUSDETAIL: false
+FNEWS: false
+FPAYCONFIRM: false
+FSTATUS: false
+FSUBSCRIPTION: false
+FUSERID: "3587"
+FUSERNAME，FORG: "米琦"
+	*/
 	$("#allUserTbody").empty();
 	if(allUserList && allUserList.length > 0){
 		var tempHtml = "";
@@ -416,9 +427,9 @@ function loadAllUserData (argument) {
 
 			tempHtml +=
 			'<tr><td class="userTd"><input name="userCk" type="checkbox" class="ckSTY" '+ckStr+' uid="'+val.FID+'"></td>'+
-			'<td>'+val.uname+'</td>'+
-			'<td>'+val.samaccountname+'</td>'+
-			'<td>'+val.filiale+'</td>'+
+			'<td>'+val.FUSERNAME+'</td>'+
+			'<td>'+val.FNUMBER+'</td>'+
+			'<td>'+val.FORG+'</td>'+
 			'<td class="permTd">'+ permStr +
 				// '<input name="permCk" type="checkbox" class="ckSTY" uid="'+val.uid+'" '+(isPermission(ckArr,0)?"checked='checked'":"")+'/>基础信息&nbsp;&nbsp;'+
 				// '<input name="permCk" type="checkbox" class="ckSTY" uid="'+val.uid+'" '+(isPermission(ckArr,1)?"checked='checked'":"")+'/>动态新闻&nbsp;&nbsp;'+
@@ -490,7 +501,7 @@ function delMngUser(_uid){
 function callDialog(){
 	getAllUserData();
 	tempMngObj = mngObj;
-	$("#dialogLayer #proName").text(permProList[proInd].projectName);
+	$("#dialogLayer #proName").text(permProList[proInd].FNAME);
 	$("#dialogBgLayer").show();
 	$("#dialogLayer").show();
 }
