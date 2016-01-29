@@ -67,11 +67,56 @@ class FollowScheme_model extends CI_Model
     public function getFollowerSchemeListWithProjectID($projectID) {
         $this->db->select("*");
         $this->db->where('FPROJECTID',$projectID);
-        $result = $this->db->get('T_FOLLOWSCHEME')->result_array();
+        $resultArr = $this->db->get('T_FOLLOWSCHEME')->result_array();
+        $result = $resultArr[0];
+        $selectData = 'SUM(FAMOUNT+FLEVERAMOUNT)';
+        $result['TATOLHASHDSU'] = $this->getSUBSCRIBECONFIRMData($projectID,'总部',$selectData);
+        $selectData = 'SUM(FAMOUNT)';
+        $result['TATOLHASHDPERSONSU'] = $this->getSUBSCRIBECONFIRMData($projectID,'总部',$selectData);
+         $selectData = 'SUM(FLEVERAMOUNT)';
+        $result['TATOLHASHDSUFLEVERAMOUNT'] = $this->getSUBSCRIBECONFIRMData($projectID,'总部',$selectData);
+         $selectData = 'SUM(FAMOUNT+FLEVERAMOUNT)';
+        $result['TATOLHASRGSU'] = $this->getSUBSCRIBECONFIRMData($projectID,'区域',$selectData);
+        $selectData = 'SUM(FAMOUNT)';
+        $result['TATOLHASRGPERSONSU'] = $this->getSUBSCRIBECONFIRMData($projectID,'区域',$selectData);
+        $selectData = 'SUM(FLEVERAMOUNT)';
+        $result['TATOLHASRGSUFLEVERAMOUNT'] = $this->getSUBSCRIBECONFIRMData($projectID,'区域',$selectData);
+
+
+        $selectData = 'SUM(FAMOUNT+FLEVERAMOUNT)';
+        $result['TATOLHASAMOUNT'] = $this->getSUBSCRIBECONFIRMData($projectID,NULL,$selectData);
+
+        $selectData = 'SUM(FAMOUNT+FLEVERAMOUNT)';
+        $result['TATOLHASPERSONAMOUNT'] = $this->getSUBSCRIBECONFIRMData($projectID,NULL,$selectData);
+
+
+        $selectData = 'SUM(FLEVERAMOUNT)';
+        $result['TATOLHASFLEVERAMOUNT'] = $this->getSUBSCRIBECONFIRMData($projectID,NULL,$selectData);
+
         $data["success"] = true;
         $data["errorCode"] = 0;
         $data["error"] = 0;
         $data['data'] = $result;
         return  $data; ;
+    }
+
+    public function getSUBSCRIBECONFIRMData($projectID,$FSTATE,$sl) {
+        $selectData = $sl.'as TATOLAMOUNT';
+         $where = 'T_SUBSCRIBECONFIRMRECORD.FPROJECTID ='.$projectID;
+        if($FSTATE != NULL) {
+            if($FSTATE == '总部')
+                 $this->db->where('T_FOLLOWER.FSTATE','总部');
+            else
+                $this->db->where('T_FOLLOWER.FSTATE','区域') ;
+        }
+        $this->db->select(" $selectData");
+        $this->db->join('T_FOLLOWER','T_FOLLOWER.FPROJECTID = T_SUBSCRIBECONFIRMRECORD.FPROJECTID AND T_FOLLOWER.FUSERID = T_SUBSCRIBECONFIRMRECORD.FUSERID');
+        $this->db->where('T_SUBSCRIBECONFIRMRECORD.FPROJECTID',$projectID);
+        $arr=$this->db->get('T_SUBSCRIBECONFIRMRECORD')->result_array();
+         if($arr != NULL){
+             return $arr[0]['TATOLAMOUNT'];
+        } else {
+            return 0;
+        }
     }
 }

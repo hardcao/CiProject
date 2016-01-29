@@ -64,9 +64,7 @@ class FollowScheme extends CI_Controller
         $insertArr['FPAYENDDATE'] =$payEndInp;
         $where='FID='.$FID;
         $result = $this->Tools->updateData($insertArr,$tableName,$where);
-
-        header('Location:'.$this->input->post('url'));
-        //echo json_encode($result);
+        echo json_encode($result);
     }
     
     public function deleteFollowerScheme() {
