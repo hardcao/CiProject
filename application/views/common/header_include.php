@@ -8,6 +8,8 @@
 	//$CI->session->set_userdata('username', 'yanglei');
 	$username = $CI->session->userdata('username');
 	$uid = $CI->session->userdata('uid');
+	$userRight = $CI->session->userdata('allow');
+
 
 	if ($uid) {
 	}

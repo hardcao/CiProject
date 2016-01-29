@@ -176,7 +176,7 @@ function initListeners(){
 
 	});
 	$("#leverSel").change(function(){
-		if($(this).val() == "0"){
+		/*if($(this).val() == "0"){
 			$("#levMoneyInp").val("0");
 			topLimitVal = topLimitVal*5;
 			downLimitVal = downLimitVal*5;
@@ -189,7 +189,7 @@ function initListeners(){
 		$("#levMoneyInp").val($("#subMoneyInp").val()*$("#leverSel").val());
 
 		$("#upLimitInp").text((topLimitVal));
-		$("#downLimitInp").text((downLimitVal));
+		$("#downLimitInp").text((downLimitVal));*/
 	});
 
 	$("#addBonusBtn").click(function(){
@@ -298,8 +298,8 @@ function getProScheme(){
 		dataType:'Json',//服务器返回的数据类型 可选XML ,Json jsonp script html text等
 		cache:false,
 		data:{'projectId':proId},
-		success:function(msg){
-			getForceData();*/
+		success:function(msg){*/
+			getForceData();
 			getBankData();
 			/*if(msg.success){
 				if(msg.baseModel){
@@ -316,15 +316,17 @@ function getProScheme(){
 }
 
 function getForceData(){
+	var ctx = "<?php echo site_url(); ?>";
 	$.ajax({
+		
 		type:'post',//可选get
-		url:'../ForceFollowController/getForceByProjectId.action?time=' + new Date().getTime(),
+		url:ctx+'Follower/getFollowerWithProjectIDAndUserID',
 		dataType:'Json',//服务器返回的数据类型 可选XML ,Json jsonp script html text等
 		cache:false,
-		data:{'projectId':proId,'forceType':''},
+		data:{'projectId':getReqParam('projectId'),'uid':"<?php echo $uid ?>"},
 		success:function(msg){
 			if(msg.success){
-				forceList = msg.dataDto;
+				forceList = msg.data[0];
 				loadLimitData();
 			}else{
 				alert(msg.error);
@@ -337,9 +339,9 @@ function getForceData(){
 }
 
 function loadLimitData(){
-	$("#proNameTd").text(currProDetail.FNAME);
+	//$("#proNameTd").text(currProDetail.FNAME);
 	// $("#proCompayTd").val(currProDetail);
-	if(isForcePerson()){
+	/*if(isForcePerson()){
 		topLimitVal = parseInt(forceObj.toplimit);
 		downLimitVal = parseInt(forceObj.downlimit);
 		$("#leverSelRow").show();
@@ -349,9 +351,11 @@ function loadLimitData(){
 		downLimitVal = (currscheDetail.minamount);
 		$("#leverSelRow").hide();
 		$("#leverageRow").hide();
-	}
-	$("#upLimitInp").text((topLimitVal));
-	$("#downLimitInp").text((downLimitVal));
+	}*/
+	$("#upLimitInp").text((forceList.FTOPLIMIT));
+	$("#upLimitInp").val((forceList.FTOPLIMIT));
+	$("#downLimitInp").text((forceList.FDOWNLIMIT));
+	$("#downLimitInp").val((forceList.FDOWNLIMIT));
 }
 
 function getBankData(argument) {
@@ -420,6 +424,10 @@ function submitFunc (isRemissionSubscribe) {
 	var FLEVERAMOUNT = parseInt($("#levMoneyInp").val());
 	var FBANKID = $("#bonusIdInp").val();
 	var FLEVERRATIO = $("#leverSel").val() ;
+    var topLimitVal =  parseInt($("#upLimitInp").val()) ;
+	var downLimitVal =  parseInt($("#downLimitInp").val()) ;
+
+	_subMoney = parseInt(FAMOUNT) + parseInt(FLEVERAMOUNT);
 	//var _bankNo = $("#bonusIdInp").val();
 	/*if(isRemissionSubscribe){
 		if(!window.confirm("您的总的可用豁免次数为：" + (userInfo.remissionCount - userInfo.usedRemissionCount) +"，您确认使用吗？")){
