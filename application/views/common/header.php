@@ -66,7 +66,7 @@ function loginout() {
 
 function checkback()
 {
-    var back = 1;
+    var back = "<?php echo $userRight ?>";
     if (back == '0') {
         alert('您没有后台管理的权限！');
     }

@@ -230,9 +230,10 @@ function editPerm(){
 	}
 	_tempUpdObj[_uid] = _arr;
 
+	var ctx = "<?php echo site_url() ?>";
 	$.ajax({
 		type:'post',//可选get
-		url:'../UserProjectRelateController/editRelateByUserProject.action',
+		url:'UserProjectRight/editUserProjectRight',
 		dataType:'Json',//服务器返回的数据类型 可选XML ,Json jsonp script html text等
 		data:{
 			'projectId':permProList[proInd].FID,
@@ -473,10 +474,11 @@ function saveMngUser(){
 	var _addUidStr = objConcatStr(tempAddObj);
 	var _updUidStr = objConcatStr(tempUpdObj);
 	
+	ctx ="<?php echo site_url() ?>";
 	$.ajax({
 		type:'post',//可选get
 		// url:'../UserProjectRelateController/deleteRelateByUserProject.action',
-		url:'../UserProjectRelateController/editRelateByUserProject.action',
+		url:ctx+'UserProjectRight/editUserProjectRight',
 		dataType:'Json',//服务器返回的数据类型 可选XML ,Json jsonp script html text等
 		data:{
 			'projectId':permProList[proInd].projectId,
