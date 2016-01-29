@@ -67,31 +67,31 @@ class FollowScheme_model extends CI_Model
     public function getFollowerSchemeListWithProjectID($projectID) {
         $this->db->select("*");
         $this->db->where('FPROJECTID',$projectID);
-        $resultArr = $this->db->get('T_FOLLOWSCHEME')->result_array();
-        $result = $resultArr[0];
+        $result = $this->db->get('T_FOLLOWSCHEME')->result_array();
+    
         $selectData = 'SUM(FAMOUNT+FLEVERAMOUNT)';
-        $result['TATOLHASHDSU'] = $this->getSUBSCRIBECONFIRMData($projectID,'总部',$selectData);
+        $result[0]['TATOLHASHDSU'] = $this->getSUBSCRIBECONFIRMData($projectID,'总部',$selectData);
         $selectData = 'SUM(FAMOUNT)';
-        $result['TATOLHASHDPERSONSU'] = $this->getSUBSCRIBECONFIRMData($projectID,'总部',$selectData);
+        $result[0]['TATOLHASHDPERSONSU'] = $this->getSUBSCRIBECONFIRMData($projectID,'总部',$selectData);
          $selectData = 'SUM(FLEVERAMOUNT)';
-        $result['TATOLHASHDSUFLEVERAMOUNT'] = $this->getSUBSCRIBECONFIRMData($projectID,'总部',$selectData);
+        $result[0]['TATOLHASHDSUFLEVERAMOUNT'] = $this->getSUBSCRIBECONFIRMData($projectID,'总部',$selectData);
          $selectData = 'SUM(FAMOUNT+FLEVERAMOUNT)';
-        $result['TATOLHASRGSU'] = $this->getSUBSCRIBECONFIRMData($projectID,'区域',$selectData);
+        $result[0]['TATOLHASRGSU'] = $this->getSUBSCRIBECONFIRMData($projectID,'区域',$selectData);
         $selectData = 'SUM(FAMOUNT)';
-        $result['TATOLHASRGPERSONSU'] = $this->getSUBSCRIBECONFIRMData($projectID,'区域',$selectData);
+        $result[0]['TATOLHASRGPERSONSU'] = $this->getSUBSCRIBECONFIRMData($projectID,'区域',$selectData);
         $selectData = 'SUM(FLEVERAMOUNT)';
-        $result['TATOLHASRGSUFLEVERAMOUNT'] = $this->getSUBSCRIBECONFIRMData($projectID,'区域',$selectData);
+        $result[0]['TATOLHASRGSUFLEVERAMOUNT'] = $this->getSUBSCRIBECONFIRMData($projectID,'区域',$selectData);
 
 
         $selectData = 'SUM(FAMOUNT+FLEVERAMOUNT)';
-        $result['TATOLHASAMOUNT'] = $this->getSUBSCRIBECONFIRMData($projectID,NULL,$selectData);
+        $result[0]['TATOLHASAMOUNT'] = $this->getSUBSCRIBECONFIRMData($projectID,NULL,$selectData);
 
         $selectData = 'SUM(FAMOUNT+FLEVERAMOUNT)';
-        $result['TATOLHASPERSONAMOUNT'] = $this->getSUBSCRIBECONFIRMData($projectID,NULL,$selectData);
+        $result[0]['TATOLHASPERSONAMOUNT'] = $this->getSUBSCRIBECONFIRMData($projectID,NULL,$selectData);
 
 
         $selectData = 'SUM(FLEVERAMOUNT)';
-        $result['TATOLHASFLEVERAMOUNT'] = $this->getSUBSCRIBECONFIRMData($projectID,NULL,$selectData);
+        $result[0]['TATOLHASFLEVERAMOUNT'] = $this->getSUBSCRIBECONFIRMData($projectID,NULL,$selectData);
 
         $data["success"] = true;
         $data["errorCode"] = 0;
