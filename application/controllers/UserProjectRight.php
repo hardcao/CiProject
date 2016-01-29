@@ -55,7 +55,89 @@ class UserProjectRight extends CI_Controller
     public function editUserProjectRight()
     {
         $data = $this->input->input_stream();
-        echo json_encode($data);
+        $projectId = $this->input->post('projectId');
+        $addstr = $this->input->post('addUserId');
+        $addArr = array();
+        $arr = explode(",",$addstr);
+        foreach($arr as $u){
+            $strarr = explode(":",$u);
+            $addArr[$strarr[0]] = $strarr[1];
+        }
+        //echo json_encode($addArr);
+
+        foreach ($addArr as $key => $value) {
+           $tmpstr = $value;
+            $area = array();      
+            for($i = 0;$i < strlen($tmpstr);$i++){
+               array_push($area,$tmpstr[$i]);
+            }
+            $addArr =  array(
+                'FUSERID' => $key,
+                'FPROJECTID'=>$projectId,
+                'FBASICS'=>$area[0],
+                'FNEWS'=>$area[1],
+                'FSUBSCRIPTION'=>$area[2],
+                'FPAYCONFIRM'=>$area[3],
+                'FBONUSDETAIL'=>$area[4],
+                );
+            //echo json_encode($addArr);
+            $tableName = 'T_USERPROJECTRIGHT';
+            $this->load->model('Tools');
+            $result = $this->Tools->addData($addArr,$tableName);
+           // echo json_encode($result);
+        }
+        $deletestr = $this->input->post('delUserId');
+        $deleteArr = array();
+        $arr = explode(",",$addstr);
+        foreach($arr as $u){
+            $strarr = explode(":",$u);
+            $deleteArr[$strarr[0]] = $strarr[1];
+        }
+       // echo json_encode($deleteArr);
+        
+        foreach ($deleteArr as $key => $value) {
+            $where =  'FUSERID ='.$key.' AND FPROJECTID ='.$projectId;
+            $tableName = 'T_USERPROJECTRIGHT';
+            $this->load->model('Tools');
+            $result = $this->Tools->deleteDataWithWhere($tableName,$where);
+            
+        }
+        $updatestr = $this->input->post('updUserId');
+        $updateArr = array();
+        $arr = explode(",",$updatestr);
+        foreach($arr as $u){
+            $strarr = explode(":",$u);
+            $updateArr[$strarr[0]] = $strarr[1];
+        }
+        //echo json_encode($updateArr);
+         foreach ($updateArr as $key => $value) {
+            $tmpstr = $value;
+
+            $area = array();      
+            for($i = 0;$i < strlen($tmpstr);$i++){
+               array_push($area,$tmpstr[$i]);
+            }
+            
+            $updatetArr =  array(
+                'FUSERID' => $key,
+                'FPROJECTID'=>$projectId,
+                'FBASICS'=>$area[0],
+                'FNEWS'=>$area[1],
+                'FSUBSCRIPTION'=>$area[2],
+                'FPAYCONFIRM'=>$area[3],
+                'FBONUSDETAIL'=>$area[4],
+                );
+            $where =  'FUSERID ='.$key.' AND FPROJECTID ='.$projectId;
+            $tableName = 'T_USERPROJECTRIGHT';
+            $this->load->model('Tools');
+            $result = $this->Tools->updateData($updatetArr,$tableName,$where);
+             //echo json_encode($result);
+        }
+        $data_result["success"] = true;
+        $data_result["errorCode"] = 0;
+        $data_result["error"] = 0;
+        $data_result['data'] = '';
+        echo json_encode($data_result);
     }
 
    //删除一个管理员
