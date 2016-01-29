@@ -157,7 +157,7 @@ h2
 	<div style="margin-bottom:80px"></div>
 
 	<div class=" moreinfo" style="clear:both; overflow:hidden;text-algin:center; color:#2e2e2e">
-		中粮地产集团
+		中梁地产集团
 	</div>
 
 </div>

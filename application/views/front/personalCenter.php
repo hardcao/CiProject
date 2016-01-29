@@ -198,7 +198,7 @@
 		</div>
 	</div>
 </div>
-<div id="footer">中粮地产集团</div>
+<div id="footer">中梁地产集团</div>
 <script type="text/javascript">
 	// 导航下标
 var naviInd = "2";
@@ -401,11 +401,12 @@ function loadNewsInfo(){
 }*/
 
 function getCompletedInfo(){
+	var ctx = "<?php echo site_url() ?>";
 	$.ajax({
 		type:'post',//可选get
-		url:'../subscribe/queryAllCompleteByUserId.action',
+		url:ctx+'Subscription/getHasSubscribe',
 		dataType:'Json',//服务器返回的数据类型 可选XML ,Json jsonp script html text等
-		data:{"userId":currUser},
+		data:{"uid":uid},
 		success:function(msg){
 			if(msg.success){
 				completedList = msg.data;
@@ -425,24 +426,25 @@ function loadCompletedInfo(){
 	if(completedList && completedList.length > 0){
 		var tempHtml = "";
 		$.each(completedList, function(ind, val){
+
 			tempHtml +=
 				'<tr><td height="25">'+(ind+1)+'</td>'+
-					'<td>'+(val.projectName||"")+'</td>'+
-					'<td>'+(val.contributiveAmount||0)+'</td>'+
-					'<td>'+(val.leverageAmount||0)+'</td>'+
+					'<td>'+(val.FNAME||"")+'</td>'+
+					'<td>'+(val.FAMOUNT||0)+'</td>'+
+					'<td>'+(val.FLEVERAMOUNT||0)+'</td>'+
 					'<td class="displayNone">'+(val.adjustamt||0)+'</td>'+
 					'<td class="displayNone">'+(val.adjustLeverageAmt||0)+'</td>'+
-					'<td>'+(val.contributiveConfirmAmount||0)+'</td>'+
-					'<td>'+(val.confirmLeverageAmt||0)+'</td>'+
-					'<td>'+(val.confirmationPayment||0)+'</td>'+
+					'<td>'+(val.TOTALFPAYAMOUNT||0)+'</td>'+
+					//'<td>'+(val.TOTALFBONUSAMOUNT||0)+'</td>'+
+					//'<td>'+(val.confirmationPayment||0)+'</td>'+
 					// '<td width="150">'+formatMillions(val.bonusAmount)+'</td>'+
-				'<td>'+(val.completeBonusAmount||0)+'</td></tr>';
+				'<td>'+(val.TOTALFBONUSAMOUNT||0)+'</td></tr>';
 		})
 		$("#compTbody").html(tempHtml);
 	}else{
 		var tempHtml = 
 			'<tr><td colspan="9" height="70" valign="middle">'+
-				'<img src="./images/tips.png" align="absmiddle">&nbsp; 对不起，暂无相关数据'+
+				'<img src="<?php echo site_url(); ?>application/views/front/images/tips.png" align="absmiddle">&nbsp; 对不起，暂无相关数据'+
 			'</td></tr>';
 		$("#compTbody").html(tempHtml);
 	}

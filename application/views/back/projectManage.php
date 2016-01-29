@@ -158,6 +158,6 @@ function loadContentPage(){
 	<div id="rightLayer" class="frameSTY">
 	</div>
 </div>
-<div id="footer">中粮地产集团</div>
+<div id="footer">中梁地产集团</div>
 </body>
 </html>
