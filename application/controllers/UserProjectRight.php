@@ -48,6 +48,16 @@ class UserProjectRight extends CI_Controller
         $result = $this->UserProjectRight_model->getAllUserRight($ProjctID,$userName);
         echo  json_encode($result);
     }
+
+
+    //编辑用户权限
+   // BonusRecord/editUserProjectRight
+    public function editUserProjectRight()
+    {
+        $data = $this->input->input_stream();
+        echo json_decode($data);
+    }
+
    //删除一个管理员
    // BonusRecord/deleteBonus
     public function deleteUserProjectRight() {
@@ -55,6 +65,29 @@ class UserProjectRight extends CI_Controller
         $tableName = 'T_USERPROJECTRIGHT';
         $this->load->model('Tools');
         $result = $this->Tools->deleteData($data,$tableName);
-        echo json_encode($result);
+        return $result;
+    }
+
+    //更新一个管理员
+   // BonusRecord/updateUserProjectRight
+    public function updateUserProjectRight() {
+    
+        
+        $data = $this->input->input_stream();
+        $where = 'FID='.$data['FID'];
+        $tableName = 'T_USERPROJECTRIGHT';
+        $this->load->model('Tools');
+        $result = $this->Tools->updateData($data,$tableName,$where);
+        return $result;
+    }
+    
+    //添加一个管理员
+   // BonusRecord/addUserProjectRight
+    public function addUserProjectRight() {
+        $data = $this->input->input_stream();
+        $tableName = 'T_USERPROJECTRIGHT';
+        $this->load->model('Tools');
+        $result = $this->Tools->addData($data,$tableName);
+        return $result;
     }
 }
