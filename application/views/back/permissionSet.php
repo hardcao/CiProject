@@ -35,6 +35,20 @@
 #dialogLayer .dialogSTY .btnDiv{width: 96%;text-align: right;margin: 0px auto;}
 #dialogLayer .ckSTY{width: 15px;height: 15px;padding: 0px;margin: 3px;vertical-align: middle;}
 #dialogLayer button{width: 50px;height: 25px;margin: 0px 5px;padding:0px 5px;}
+input#searUserInp {
+    width: 150px;
+    height: 40px;
+    line-height: 40px;
+    padding: 0px 5px;
+    margin: 3px;
+}
+
+#dialogLayer button {
+    width: 80px;
+    height: 40px;
+    margin: 0px 5px;
+    padding: 0px 5px;
+}
 
 #dialogLayer .dialogSTY {
     background: #fff;
