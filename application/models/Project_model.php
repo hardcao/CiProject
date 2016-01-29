@@ -64,6 +64,7 @@ class Project_model extends CI_Model
             //获得项目的方案信息
             $selectdata = 'select T_FOLLOWSCHEME.FSUBSCRIBESTARTDATE as FSUBSCRIBESTARTDATE,T_FOLLOWSCHEME.FSUBSCRIBEENDDATE as FSUBSCRIBEENDDATE,T_FOLLOWSCHEME.FPAYENDDATE as FPAYENDDATE,T_FOLLOWSCHEME.FPAYSTARTDATE,T_FOLLOWSCHEME.FHDAMOUNT as FHDAMOUNT,T_FOLLOWSCHEME.FHDAMOUNT as FHDAMOUNT, T_FOLLOWSCHEME.FREGIONAMOUNT as FREGIONAMOUNT from T_FOLLOWSCHEME where FPROJECTID ='.$item['FID'];
             $query = $this->db->query($selectdata);
+
             $FOLLOWSCHEME=$query->result_array();
 
             //获得项目的认购信息
@@ -335,6 +336,7 @@ class Project_model extends CI_Model
             $this->db->like('FNAME', $projectName); 
         }
         $this->db->join('T_FOLLOWSCHEME','T_FOLLOWSCHEME.FPROJECTID=T_PROJECT.FID');
+        $query=$this->db->order_by('T_FOLLOWSCHEME.FSUBSCRIBESTARTDATE','DESC');
         $result = $this->db->get('T_PROJECT')->result_array();
         if($result) return $result[0];
         return NULL;
