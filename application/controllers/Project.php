@@ -276,6 +276,7 @@ class Project extends CI_Controller
              $result = $this->Tools->updateData($followScheme,$tableName,$where);
              //echo json_encode($result);
          }
+         header('Location:'.$this->input->post('url'));
         
      }
      

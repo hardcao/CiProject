@@ -232,37 +232,37 @@ input#item_pic {
 				</tr>
 				<tr>
 					<td class="titleTd">总部已跟投总额（含杠杆）</td>
-					<td id="compChoiceRatio"></td>
+					<td id="zbze"></td>
 					<td class="titleTd">总部个人自有资金投入总额</td>
-					<td id="compChoiceAmount"></td>
+					<td id="zbzy"></td>
 				</tr>
 				<tr>
 					<td class="titleTd">总部平均杠杆水平</td>
-					<td id="compChoiceRatio"></td>
+					<td id="zbsp"></td>
 					<td class="titleTd"></td>
 					<td id=""></td>
 				</tr>
 				<tr>
 					<td class="titleTd">区域已跟投总额（含杠杆）</td>
-					<td id="compChoiceRatio"></td>
+					<td id="qyze"></td>
 					<td class="titleTd">区域个人自有资金投入总额</td>
-					<td id="compChoiceAmount"></td>
+					<td id="qyzy"></td>
 				</tr>
 				<tr>
 					<td class="titleTd">区域平均杠杆水平</td>
-					<td id="compChoiceRatio"></td>
+					<td id="qysp"></td>
 					<td class="titleTd"></td>
 					<td id=""></td>
 				</tr>
 				<tr>
 					<td class="titleTd">全部已跟投总额（含杠杆）</td>
-					<td id="compChoiceRatio"></td>
+					<td id="qbze"></td>
 					<td class="titleTd">全部个人自有资金投入总额</td>
-					<td id="compChoiceAmount"></td>
+					<td id="qbzy"></td>
 				</tr>
 				<tr>
 					<td class="titleTd">平均杠杆水平</td>
-					<td id="compChoiceRatio"></td>
+					<td id="qbsp"></td>
 					<td class="titleTd"></td>
 					<td id=""></td>
 				</tr>
@@ -681,6 +681,29 @@ function getSchemeInfo(){
 				 $("#compChoiceAmount").text((data.FALLAMOUNT||0)+" 万元");
 				 $("#leverageDes").text(data.FLEVERAGEDES||0);
 				 $("#subscribeRemind").text(data.FCOLLECTWAY||"");
+				 /*
+TATOLHASAMOUNT: "290"
+TATOLHASFLEVERAMOUNT: "180"
+TATOLHASHDPERSONSU: "20"
+TATOLHASHDSU: "60"
+TATOLHASHDSUFLEVERAMOUNT: "40"
+TATOLHASPERSONAMOUNT: "290"
+TATOLHASRGPERSONSU: null
+TATOLHASRGSU: null
+TATOLHASRGSUFLEVERAMOUNT: null
+				 */
+				 $("#zbze").text((data.TATOLHASHDSU||0)+" 万元");
+				 $("#zbzy").text((data.TATOLHASHDPERSONSU||0)+" 万元");
+				 $("#zbsp").text( ((parseInt(data.TATOLHASHDPERSONSU||0)/parseInt(data.TATOLHASHDSUFLEVERAMOUNT||0)) || 0)+" %");
+
+				 $("#qyze").text((data.TATOLHASRGSU||0)+" 万元");
+				 $("#qyzy").text((data.TATOLHASRGSUFLEVERAMOUNT||0)+" 万元");
+				 $("#qysp").text( ((parseInt(data.TATOLHASRGSU||0)/parseInt(data.TATOLHASRGSUFLEVERAMOUNT||0)) || 0)+" %");
+
+				 $("#qbze").text((data.TATOLHASAMOUNT||0)+" 万元");
+				 $("#qbzy").text((data.TATOLHASPERSONAMOUNT||0)+" 万元");
+				 $("#qbsp").text( ((parseInt(data.TATOLHASPERSONAMOUNT||0)/parseInt(data.TATOLHASFLEVERAMOUNT||0)) || 0)+" %");
+
 				 //$("#followChemeLink").html(structSchemeLink(data.FLINK));
 				 //$("#followChemeLink").html(msg.baseModel.followChemeLink?'<a href="files/数据表.doc">跟投方案下载链接</a>':"");
 				 if(data.FLINK){
