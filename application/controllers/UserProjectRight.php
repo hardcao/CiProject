@@ -51,15 +51,15 @@ class UserProjectRight extends CI_Controller
 
 
     //编辑用户权限
-   // BonusRecord/editUserProjectRight
+   // UserProjectRight/editUserProjectRight
     public function editUserProjectRight()
     {
         $data = $this->input->input_stream();
-        echo json_decode($data);
+        echo json_encode($data);
     }
 
    //删除一个管理员
-   // BonusRecord/deleteBonus
+   // UserProjectRight/deleteUserProjectRight
     public function deleteUserProjectRight() {
         $data = $this->input->input_stream();
         $tableName = 'T_USERPROJECTRIGHT';
@@ -69,7 +69,7 @@ class UserProjectRight extends CI_Controller
     }
 
     //更新一个管理员
-   // BonusRecord/updateUserProjectRight
+   // UserProjectRight/updateUserProjectRight
     public function updateUserProjectRight() {
     
         
@@ -82,7 +82,7 @@ class UserProjectRight extends CI_Controller
     }
     
     //添加一个管理员
-   // BonusRecord/addUserProjectRight
+   // UserProjectRight/addUserProjectRight
     public function addUserProjectRight() {
         $data = $this->input->input_stream();
         $tableName = 'T_USERPROJECTRIGHT';

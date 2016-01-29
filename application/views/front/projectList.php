@@ -161,6 +161,7 @@ ImageName: "default.jpg"
 
 	for(var i=0; i<dataList.length; i++){
 		tempObj = dataList[i];
+		if (tempObj.FSTATUS == '0') {continue;};
 		if(tempObj.ImageName){
 			tempImg = "<?php echo site_url() ?>images/"+tempObj.ImageName;
 		}
