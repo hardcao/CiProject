@@ -77,9 +77,8 @@ $(function () {
             subNav.hover(function () {
                 clearTimeout(timeout);
             }, function () {
-                index_hash = location.hash || 0;
-                index_hash = parseInt(index_hash.substring(1,index_hash.Length));
-                link_page = links.eq(parseInt(index_hash))[0];
+                index_hash = getHash();
+                link_page = links.eq(index_hash)[0];
                 control(link_page, true);
                 idx = parseInt(link_page.getAttribute('idx'));
                 prev_item = subitem.eq(idx).removeClass('on');
