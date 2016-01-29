@@ -54,7 +54,7 @@ $(function () {
             }
         }
 
-        index_hash = location.hash || 0;
+        index_hash = location.hash || '#0';
         index_hash = parseInt(index_hash.substring(1,index_hash.Length));
         link_page = links.eq(index_hash)[0];
         control(nav_on = link_curr = link_page, false);
