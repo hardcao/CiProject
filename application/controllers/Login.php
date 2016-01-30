@@ -73,8 +73,8 @@ class Login extends CI_Controller {
 
 		$this->config->set_item('sess_expiration', 3600*15);//秒
 	
-		$this->loginWithLocal();
-		//$this->loginWithAD();
+		//$this->loginWithLocal();
+		$this->loginWithAD();
 
     }
 
@@ -82,10 +82,28 @@ class Login extends CI_Controller {
     {
     	$usercode = $this->input->post('username');
 		$password = $this->input->post('password');
+		$result = $this->User_model->checkLogin($usercode, $password);
 		$error = 1 ;
 		$successState = true;
 		$message = 'success';
-		//echo('before：'.$usercode.$password);
+		
+		$userData = $result['data'][0];
+		$this->session->set_userdata('username', $userData['FNAME']);
+		$this->session->set_userdata('uid', $userData['FID']);
+
+		$this->session->set_userdata('allow',$userData['FUSERRIGHT']);	
+		if($usercode == 'admin')	
+		{
+			if( $password == $userData['FPASSWORD']) {
+				$this->session->set_userdata('allow','1');	
+				echo json_encode(array('error'=>$error,'data'=>$message,'errorCode'=>0,'success'=>$successState));
+			} else {
+				echo json_encode(array('error'=>0,'data'=>$message,'errorCode'=>0,'success'=>false));
+			}
+			exit;
+		}
+		
+		
 		if($usercode && $password){
 			$host = "192.168.5.3";  
 //			$user = "ldapuser"; 
@@ -155,8 +173,8 @@ class Login extends CI_Controller {
 				$message = "验证失败，请确认用户编号和密码是否正确。.";
 				$error = 0;
 				$successState = false;
-				$result["errorCode"] = 0;
-        		$result["error"] = 0;
+				 $result["errorCode"] = 0;
+        			$result["error"] = 0;
        
             	$result["success"] = false;
       
