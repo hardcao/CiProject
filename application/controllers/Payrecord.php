@@ -126,7 +126,7 @@ class Payrecord extends CI_Controller
             $col++;
             $row++;
         }
-        $fileName ="JiaoKuanMuBan-".date('y-m-d-h-i-s',time()).".xlsx";
+        $fileName ="JiaoKuanMuBan-".date('y-m-d-h-i-s',time()).".xls";
 
         $baseURL = site_url();
         $objWriter = IOFactory::createWriter($objPHPExcel, 'Excel5');
