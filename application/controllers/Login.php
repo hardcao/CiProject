@@ -130,10 +130,6 @@ class Login extends CI_Controller {
 							{
 
 								$this->session->set_userdata('allow','1');	
-							} else {
-								$message = "验证失败，请确认用户编号和密码是否正确。.";
-								$error = 0;
-								$successState = false;
 							}
 					} else{
 						$message = "验证失败，请确认用户编号和密码是否正确。.";
