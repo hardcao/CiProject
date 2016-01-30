@@ -73,8 +73,8 @@ class Login extends CI_Controller {
 
 		$this->config->set_item('sess_expiration', 3600*15);//秒
 	
-		//$this->loginWithLocal();
-		$this->loginWithAD();
+		$this->loginWithLocal();
+		//$this->loginWithAD();
 
     }
 
@@ -147,9 +147,19 @@ class Login extends CI_Controller {
 			$this->session->set_userdata('uid', $userData['FID']);
 
 			$this->session->set_userdata('allow',$userData['FUSERRIGHT']);	
-			if($username == 'admin')	
+			if($username == 'admin' && $password == $userData['FPASSWORD'])	
 			{
+
 				$this->session->set_userdata('allow','1');	
+			} else {
+				$message = "验证失败，请确认用户编号和密码是否正确。.";
+				$error = 0;
+				$successState = false;
+				$result["errorCode"] = 0;
+        		$result["error"] = 0;
+       
+            	$result["success"] = false;
+      
 			}
 		}
 		
