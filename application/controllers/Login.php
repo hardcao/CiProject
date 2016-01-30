@@ -69,6 +69,11 @@ class Login extends CI_Controller {
     public function login()
     {
 
+
+
+		$this->config->set_item('sess_expiration', 3600*15);//秒
+
+	
     	$username = $this->input->post('username');
 		$password = $this->input->post('password');
 		$result = $this->User_model->checkLogin($username, $password);

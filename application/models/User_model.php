@@ -37,7 +37,7 @@ class User_model extends CI_Model
             //echo $result;
             $this->db->select("*");
             $this->db->where('FUSERID',$result[0]['FID']);
-            $rowNum = $this->db->get('T_SUBSCRIBECONFIRMRECORD')->num_rows();
+            $rowNum = $this->db->get('T_USERPROJECTRIGHT')->num_rows();
             if($rowNum != 0) {
                 $result[0]['FUSERRIGHT'] = '1';
             } 
