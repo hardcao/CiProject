@@ -22,7 +22,7 @@ $("#btn_login").click(function(){
 				type: "post",
 				data:{
 					FID:2,
-					projectId:34,
+					projectId:39,
 					startDate:'2013-09-01 09:50:00',
 					endDate:'2016-09-01 09:50:00',
 					subscribeStartDate:'2013-09-01 09:50:00',

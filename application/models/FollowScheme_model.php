@@ -86,7 +86,7 @@ class FollowScheme_model extends CI_Model
         $selectData = 'SUM(FAMOUNT+FLEVERAMOUNT)';
         $result[0]['TATOLHASAMOUNT'] = $this->getSUBSCRIBECONFIRMData($projectID,NULL,$selectData);
 
-        $selectData = 'SUM(FAMOUNT+FLEVERAMOUNT)';
+        $selectData = 'SUM(FAMOUNT)';
         $result[0]['TATOLHASPERSONAMOUNT'] = $this->getSUBSCRIBECONFIRMData($projectID,NULL,$selectData);
 
 
