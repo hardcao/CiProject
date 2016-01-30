@@ -83,6 +83,7 @@ class Login extends CI_Controller {
     	$usercode = $this->input->post('username');
 		$password = $this->input->post('password');
 		$error = 1 ;
+		$successState = true;
 		$message = 'success';
 		//echo('before：'.$usercode.$password);
 		if($usercode && $password){
@@ -107,15 +108,24 @@ class Login extends CI_Controller {
 							$this->session->set_userdata('uid', $userData['FID']);
 
 							$this->session->set_userdata('allow',$userData['FUSERRIGHT']);	
-							if($usercode == 'admin')	
+							if($usercode == 'admin' && $password == $userData['FPASSWORD'])	
 							{
+
 								$this->session->set_userdata('allow','1');	
+							} else {
+								$message = "验证失败，请确认用户编号和密码是否正确。.";
+								$error = 0;
+								$successState = false;
 							}
 					} else{
 						$message = "验证失败，请确认用户编号和密码是否正确。.";
+						$error = 0;
+						$successState = false;
 					}
 				}else{
 					$message = "验证失败，请确认用户编号和密码是否正确。";
+					$error = 0;
+					$successState = false;
 				}
 			}
 		}
@@ -123,7 +133,7 @@ class Login extends CI_Controller {
 			$message = "请输入用户编号和用户密码";
 		}
 		
-		echo json_encode(array('error'=>$error,'data'=>$message,'errorCode'=>0,'success'=>true));
+		echo json_encode(array('error'=>$error,'data'=>$message,'errorCode'=>0,'success'=>$successState));
     }
 
     public function loginWithLocal()
