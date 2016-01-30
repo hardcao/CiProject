@@ -16,7 +16,6 @@
 <script type="text/javascript" src="<?php echo site_url('application/views/plugins/util.js')?>"></script>
 <script type="text/javascript" src="<?php echo site_url('application/views/plugins/dateFormat.js')?>"></script>
 <script type="text/javascript" src="<?php echo site_url('application/views/front/js/header.js')?>"></script>
-<script type="text/javascript" src="<?php echo site_url('application/views/front/js/projectDetail.js')?>"></script>
 <style type="text/css">
 	#ul-pics li {
     width: 32%;
@@ -91,9 +90,9 @@ input#item_pic {
 				</tr></table>
 			</div>
 			<div class="moduleTitle" ind="0_1">
-				<img src="<?php echo site_url().'application/views/front/images/arrow_up.png' ?>" width="13" height="13" />经营计划
+				<img src="<?php echo site_url().'application/views/front/images/arrow_down.png' ?>" width="13" height="13" />经营计划
 			</div>
-			<div id="0_1" class="content" style="display:block;">
+			<div id="0_1" class="content" style="">
 				<div class="titleSTY">预计销售计划</div>
 				<table border="1"><tr>
 					<td class="titleTd">项目均价</td>
@@ -149,9 +148,9 @@ input#item_pic {
 				</tr></table>
 			</div>
 			<div class="moduleTitle" ind="0_2">
-				<img src="<?php echo site_url().'application/views/front/images/arrow_up.png' ?>" width="13" height="13" />合作信息
+				<img src="<?php echo site_url().'application/views/front/images/arrow_down.png' ?>" width="13" height="13" />合作信息
 			</div>
-			<div id="0_2" class="content" style="display:block;">
+			<div id="0_2" class="content" style="">
 				<div class="titleSTY">预计回报水平</div>
 				<table border="1"><tr>
 					<td class="titleTd">合作方背景和资质</td>
@@ -168,9 +167,9 @@ input#item_pic {
 				</tr></table>
 			</div>
 			<div class="moduleTitle" ind="0_3">
-				<img src="<?php echo site_url().'application/views/front/images/arrow_up.png' ?>" width="13" height="13" />其他信息
+				<img src="<?php echo site_url().'application/views/front/images/arrow_down.png' ?>" width="13" height="13" />其他信息
 			</div>
-			<div id="0_3" class="content" style="display:block;">
+			<div id="0_3" class="content" style="">
 				<table border="1"><tr>
 					<td class="titleTd">答疑邮箱</td>
 					<td colspan="3" id="restAnswerMail"></td>
@@ -186,7 +185,7 @@ input#item_pic {
 				</tr></table>
 			</div>
 			<div class="moduleTitle" ind="0_4" style="display:none;">
-				<img src="<?php echo site_url().'application/views/front/images/arrow_up.png' ?>" width="13" height="13" />相关图片
+				<img src="<?php echo site_url().'application/views/front/images/arrow_down.png' ?>" width="13" height="13" />相关图片
 			</div>
 			<div id="0_4" class="content" style="display:none;">
 				<div class="picSTY"><img src="./images/254_142.png" width="254" height="142"></div>
@@ -194,7 +193,7 @@ input#item_pic {
 				<div class="picSTY"><img src="./images/254_142.png" width="254" height="142"></div>
 			</div>
 		</div>
-		<div id="scheme_info" class="info_STY" style="display:none;">
+		<div id="scheme_info" class="info_STY" style="display:none">
 			<div class="content">
 				<!--div class="titleSTY" class="displayNone">跟投计划安排</div-->
 				<table border="1"><tr>
@@ -233,37 +232,37 @@ input#item_pic {
 				</tr>
 				<tr>
 					<td class="titleTd">总部已跟投总额（含杠杆）</td>
-					<td id="compChoiceRatio"></td>
+					<td id="zbze"></td>
 					<td class="titleTd">总部个人自有资金投入总额</td>
-					<td id="compChoiceAmount"></td>
+					<td id="zbzy"></td>
 				</tr>
 				<tr>
 					<td class="titleTd">总部平均杠杆水平</td>
-					<td id="compChoiceRatio"></td>
+					<td id="zbsp"></td>
 					<td class="titleTd"></td>
 					<td id=""></td>
 				</tr>
 				<tr>
 					<td class="titleTd">区域已跟投总额（含杠杆）</td>
-					<td id="compChoiceRatio"></td>
+					<td id="qyze"></td>
 					<td class="titleTd">区域个人自有资金投入总额</td>
-					<td id="compChoiceAmount"></td>
+					<td id="qyzy"></td>
 				</tr>
 				<tr>
 					<td class="titleTd">区域平均杠杆水平</td>
-					<td id="compChoiceRatio"></td>
+					<td id="qysp"></td>
 					<td class="titleTd"></td>
 					<td id=""></td>
 				</tr>
 				<tr>
 					<td class="titleTd">全部已跟投总额（含杠杆）</td>
-					<td id="compChoiceRatio"></td>
+					<td id="qbze"></td>
 					<td class="titleTd">全部个人自有资金投入总额</td>
-					<td id="compChoiceAmount"></td>
+					<td id="qbzy"></td>
 				</tr>
 				<tr>
 					<td class="titleTd">平均杠杆水平</td>
-					<td id="compChoiceRatio"></td>
+					<td id="qbsp"></td>
 					<td class="titleTd"></td>
 					<td id=""></td>
 				</tr>
@@ -361,7 +360,7 @@ input#item_pic {
 
 
 
-<div id="footer">中粮地产集团</div>
+<div id="footer">中梁地产集团</div>
 <script type="text/javascript">
 	// 导航下标
 var naviInd = "1";
@@ -403,8 +402,10 @@ function initListeners(){
 		var url = $('#site_url').text();
 		if("none" == _display){
 			$(this).find("img").attr("src", url+'application/views/front/images/arrow_down.png');
+			//$("#"+_id).show();
 		}else{
 			$(this).find("img").attr("src",url+'application/views/front/images/arrow_up.png');
+			//$("#"+_id).hide();
 		}
 		$("#"+_id).toggle();
 	});
@@ -680,6 +681,29 @@ function getSchemeInfo(){
 				 $("#compChoiceAmount").text((data.FALLAMOUNT||0)+" 万元");
 				 $("#leverageDes").text(data.FLEVERAGEDES||0);
 				 $("#subscribeRemind").text(data.FCOLLECTWAY||"");
+				 /*
+TATOLHASAMOUNT: "290"
+TATOLHASFLEVERAMOUNT: "180"
+TATOLHASHDPERSONSU: "20"
+TATOLHASHDSU: "60"
+TATOLHASHDSUFLEVERAMOUNT: "40"
+TATOLHASPERSONAMOUNT: "290"
+TATOLHASRGPERSONSU: null
+TATOLHASRGSU: null
+TATOLHASRGSUFLEVERAMOUNT: null
+				 */
+				 $("#zbze").text((data.TATOLHASHDSU||0)+" 万元");
+				 $("#zbzy").text((data.TATOLHASHDPERSONSU||0)+" 万元");
+				 $("#zbsp").text( ((parseInt(data.TATOLHASHDPERSONSU||0)/parseInt(data.TATOLHASHDSUFLEVERAMOUNT||0)*100) || 0)+" %");
+
+				 $("#qyze").text((data.TATOLHASRGSU||0)+" 万元");
+				 $("#qyzy").text((data.TATOLHASRGPERSONSU||0)+" 万元");
+				 $("#qysp").text( ((parseInt(data.TATOLHASRGPERSONSU||0)/parseInt(data.TATOLHASRGSUFLEVERAMOUNT||0)*100) || 0)+" %");
+
+				 $("#qbze").text((data.TATOLHASAMOUNT||0)+" 万元");
+				 $("#qbzy").text((data.TATOLHASPERSONAMOUNT||0)+" 万元");
+				 $("#qbsp").text( ((parseInt(data.TATOLHASPERSONAMOUNT||0)/parseInt(data.TATOLHASFLEVERAMOUNT||0)*100) || 0)+" %");
+
 				 //$("#followChemeLink").html(structSchemeLink(data.FLINK));
 				 //$("#followChemeLink").html(msg.baseModel.followChemeLink?'<a href="files/数据表.doc">跟投方案下载链接</a>':"");
 				 if(data.FLINK){
@@ -706,7 +730,7 @@ function structSchemeLink(_str){
 	if(_str && _str.length>0){
 		_linkArr = _str.split(";");
 		$.each(_linkArr, function(ind, val){
-			_htmlStr += '<div><a href="files/'+val+'">'+(ind+1)+'、'+val+'</a></div>';
+			_htmlStr += '<div><a href="<?php echo site_url()?>fileFolder/'+val+'">'+(ind+1)+'、'+val+'</a></div>';
 		});
 	}
 	return _htmlStr;

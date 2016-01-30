@@ -85,9 +85,9 @@ h2
     margin-bottom: 15px;}
 #contentLayer #contentList .listSTY .imgLayer{float: left;width: 210px;height: 130px;margin: 10px 15px;}
 #contentLayer #contentList .listSTY .textLayer{float: right;margin-left: 10px;width: 830px;}
-#contentLayer #contentList .listSTY .textLayer .proTitle{font-size: 1.3em;font-weight: bold;}
+#contentLayer #contentList .listSTY .textLayer .proTitle{font-size: 14px;font-weight: bold;}
 #contentLayer #contentList .listSTY .textLayer .proInfo{height: 100px;}
-#contentLayer #contentList .listSTY .textLayer .proInfoTable{font-size: 1em;}
+#contentLayer #contentList .listSTY .textLayer .proInfoTable{font-size: 14px;}
 #contentLayer #contentList .listSTY .textLayer .proInfoTable td{padding: 0px 5px;}
 #contentLayer #contentList .listSTY .textLayer .proInfoTable td span{color: #FF2608;font-weight: bold;}
 #contentLayer #contentList .listSTY .textLayer .proInfoTable .titleTd{text-align: right;width: 115px;color: black;font-weight: 100;}
@@ -139,7 +139,7 @@ h2
 		</table>
 	</div>
 	<div class="content moreinfo" style="clear:both; overflow:hidden">
-		<div><a href="<?php echo site_url() ?>/home/index/newsList" >查看更多</a></div>
+		<div><a href="<?php echo site_url() ?>/home/index/newsList"  style="color:white">查看更多</a></div>
 	</div>
 
 
@@ -157,7 +157,7 @@ h2
 	<div style="margin-bottom:80px"></div>
 
 	<div class=" moreinfo" style="clear:both; overflow:hidden;text-algin:center; color:#2e2e2e">
-		中粮地产集团
+		中梁地产集团
 	</div>
 
 </div>
@@ -171,6 +171,8 @@ var newsList = [];
 var projectList = [];
 // 系统概览内容
 var systemInfo = {};
+
+var uid="<?php echo $uid; ?>";
 
 $(function(){
 	initParams();
@@ -199,6 +201,7 @@ function initPages(){
 }
 function getNewsData(){
 	var ctx="<?php echo site_url();?>";
+
 	//var userid=$("#userid").val();
 	$.ajax({
 		type:'post',//可选get
@@ -207,8 +210,8 @@ function getNewsData(){
 		//begin=0&count=2&uid=test&projectId=123
 		data:{//begin: 0,
 			//count:2,
-		    uid: '1',
-		    pojectId: '123'},
+		    uid: uid,
+		    /*pojectId: '123'*/},
 		success:function(msg){
 			if(msg.success){
 				newsList=msg.data;
@@ -231,7 +234,7 @@ function getProjectData(){
 		data:{
 			begin: 0,
 			count: 2,
-			uid: '1',
+			uid: uid,
 			searchname: "",
 			subscribeStartDate: "",
 			subscribeEndDate:"",
@@ -346,6 +349,7 @@ ImageName: "default.jpg"
 
 	for(var i=0; i<dataList.length; i++){
 		tempObj = dataList[i];
+		if (tempObj.FSTATUS == '0') {continue;};
 		if(tempObj.ImageName){
 			tempImg = "<?php echo site_url() ?>images/"+tempObj.ImageName;
 		}

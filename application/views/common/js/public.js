@@ -33,26 +33,35 @@ $(function () {
         // 初始化当前链接
         href = location.href.replace(/[_\d]{1,2}\./, '.');      // 静态页面用
         // href = location.href,                                   // 程序用
-        for (var i = 0; i < len; i++) {
-            link_page = links.eq(i);
-            if (href.indexOf(link_page.attr('href').replace(/(?:_\d)?\..*/, '')) > 0) {    // 静态页面用
-                // if (href.indexOf(link_page.attr('href').replace(/(?:_\d)?\..*/, '')) > 0) {    // 程序用
-                control(nav_on = link_curr = link_page = link_page[0], false);
-                delete i;
-                break;
-            }
-        }
+        // for (var i = 0; i < len; i++) {
+        //     link_page = links.eq(i);
+        //     if (href.indexOf(link_page.attr('href').replace(/(?:_\d)?\..*/, '')) > 0) {    // 静态页面用
+        //         // if (href.indexOf(link_page.attr('href').replace(/(?:_\d)?\..*/, '')) > 0) {    // 程序用
+        //         control(nav_on = link_curr = link_page = link_page[0], false);
+        //         delete i;
+        //         break;
+        //     }
+        // }
         links_2.each(function (idx) {
             if (this === nav_on) return;
             this.setAttribute('idx', idx);
         });
-        if (i === len) {
-            if (href.indexOf('/user') >= 0) {
-                control(nav_on = link_curr = link_page = links.eq(5)[0], false);
-            } else {
-                control(nav_on = link_curr = link_page = links.eq(0)[0], false);
-            }
-        }
+        // if (i === len) {
+        //     if (href.indexOf('/user') >= 0) {
+        //         control(nav_on = link_curr = link_page = links.eq(5)[0], false);
+        //     } else {
+        //         control(nav_on = link_curr = link_page = links.eq(0)[0], false);
+        //     }
+        // }
+
+        index_hash = getHash();
+        //index_hash = parseInt(index_hash.substring(1,index_hash.Length));
+        link_page = links.eq(index_hash)[0];
+        control(nav_on = link_curr = link_page, false);
+
+        if (index_hash != 0)
+            $("#index1").removeClass('on');
+
 
 
         win.on('load', function () {
@@ -68,7 +77,11 @@ $(function () {
             subNav.hover(function () {
                 clearTimeout(timeout);
             }, function () {
+                index_hash = getHash();
+                link_page = links.eq(index_hash)[0];
                 control(link_page, true);
+                idx = parseInt(link_page.getAttribute('idx'));
+                prev_item = subitem.eq(idx).removeClass('on');
             });
         });
 
@@ -88,7 +101,7 @@ $(function () {
 
 
         // 2015.06.09 修改搜索, 添加语言
-        var subitem_search = subitem.filter('.search'),
+        /*var subitem_search = subitem.filter('.search'),
             subitem_langs = subitem.filter('.langs');
         shop.find('.btn-search').hover(function () {
             prev_item.removeClass('on');
@@ -102,11 +115,11 @@ $(function () {
             timeout = setTimeout(function () {
                 prev_item.removeClass('on');
             }, 300);
-        });
+        });*/
     }());
 
     // 搜索按钮
-    (function () {
+    /*function () {
         var sup = $('#header'),
             btn = sup.find('.btn-search'),
             box = sup.find('#searchbox'),
@@ -136,10 +149,10 @@ $(function () {
                 close();
             }, delay);
         }
-    }());
+    }());*/
 
     // placeholder 处理
-    (function () {
+    /*(function () {
         // 情况1，如果浏览器支持 placeholder，则优先使用默认。
         var input = document.createElement("input");
         input.type = "text";
@@ -223,12 +236,48 @@ $(function () {
         //     } else window.event.cancelBubble = true;
         //     // return false;
         // });
-    }());
+    }());*/
     // 调整高度
-    (function () {
+    /*(function () {
         var copyright = $('#copyright'),
             hei = $('html').height() - $('body').height();
         if (hei <= 0) return;
         copyright.find('.g-wrap div').height(37 + hei);
-    }());
+    }());*/
 });
+
+
+function getHash()
+{
+    if ((window.location.href.indexOf("newsEditor") != -1) 
+        ||(window.location.href.indexOf("paramsSetting") != -1) 
+        ||(window.location.href.indexOf("payInConfirm") != -1) 
+        ||(window.location.href.indexOf("permissionSet") != -1) 
+        ||(window.location.href.indexOf("projectBasicInfo") != -1) 
+        ||(window.location.href.indexOf("projectBonusInfo") != -1) 
+        ||(window.location.href.indexOf("projectMange") != -1) 
+        ||(window.location.href.indexOf("projectNewsInfo") != -1) 
+        ||(window.location.href.indexOf("projectPics") != -1) 
+        ||(window.location.href.indexOf("proListManage") != -1) 
+        ||(window.location.href.indexOf("remissionSetting") != -1) 
+        ||(window.location.href.indexOf("subscribeConfirm") != -1)
+        ||(window.location.href.indexOf("back") != -1) )
+        {return 4;}
+    else if ((window.location.href.indexOf("subscribeApply") != -1) 
+        ||(window.location.href.indexOf("projectList") != -1)
+        ||(window.location.href.indexOf("newsList") != -1))
+    {
+        return 1;
+    }
+    else if ((window.location.href.indexOf("personalCenter") != -1) 
+        ||(window.location.href.indexOf("personalInfo") != -1) )
+    {
+        return 2;
+    }else if (window.location.href.indexOf("followRules") != -1) 
+    {
+        return 3;
+    }else
+    {
+        return 0;
+    }
+}

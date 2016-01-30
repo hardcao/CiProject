@@ -94,13 +94,14 @@
 		</div>
 	</div>
 </div>
-<div id="footer">中粮地产集团</div>
+<div id="footer">中梁地产集团</div>
 <script type="text/javascript">
 	// 导航下标
 var naviInd = "2";
 var dataList = [];
 var bankList = [];
 var tempObj = null;
+var uid ="<?php echo $uid ?>";
 
 $(function(){
 	initParams();
@@ -150,7 +151,7 @@ function getData(){
 		type:'post',//可选get
 		url:ctx+'Subscription/getHasSubscribe',
 		dataType:'json',//服务器返回的数据类型 可选XML ,Json jsonp script html text等
-		data:{uid:'1'},
+		data:{uid:uid},
 		success:function(msg){
 			if(msg.success){
 				dataList = msg.data;
@@ -182,7 +183,7 @@ function loadData(){
 				//'<td>'+(val.FCONFIRMAMOUNT||0)+'</td>'+
 				// '<td width="120">'+formatMillions(val.bonusAmount)+'</td>'+
 				//'<td>'+(val.FLEVERCONFIRMAMOUNT||0)+'</td>'+
-				'<td>'+(val.FAMOUNT || 0)+'</td>'+
+				'<td>'+(val.TOTALFPAYAMOUNT || 0)+'</td>'+
 				'<td>'+(val.TOTALFBONUSAMOUNT || 0)+'</td>'+
 				'<td>'+val.FBANKNO+'</td>'+
 				'<td>'+
@@ -201,7 +202,7 @@ function getBankData(){
 		type:'post',//可选get
 		url:ctx+'bankInfo/getPersonBankInfo',
 		dataType:'Json',//服务器返回的数据类型 可选XML ,Json jsonp script html text等
-		data:{uid: '1'},
+		data:{uid: uid},
 		success:function(msg){
 			if(msg.success){
 				bankList = msg.data;

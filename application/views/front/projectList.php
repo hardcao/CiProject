@@ -46,14 +46,14 @@
 	</div>
 </div>
 
-<div id="footer">中粮地产集团</div>
+<div id="footer">中梁地产集团</div>
 <script type="text/javascript">
 	// 导航下标
 var naviInd = "1";
 var dataList;
 // 保存当前页面已展示数据量
 var lengVal = 0;
-
+var uid = "<?php echo $uid; ?>";
 $(function(){
 	initParams();
 	initListeners();
@@ -76,7 +76,7 @@ function searchProject(){
 		data:{
 			begin: 0,
 			count: 2,
-			uid: '1',
+			uid: uid,
 			searchname: _searText,
 			subscribeStartDate: _sDate,
 			subscribeEndDate:_eDate,
@@ -161,6 +161,7 @@ ImageName: "default.jpg"
 
 	for(var i=0; i<dataList.length; i++){
 		tempObj = dataList[i];
+		if (tempObj.FSTATUS == '0') {continue;};
 		if(tempObj.ImageName){
 			tempImg = "<?php echo site_url() ?>images/"+tempObj.ImageName;
 		}
@@ -211,9 +212,10 @@ ImageName: "default.jpg"
 				'</div>'+
 				'<div class="buttonLayer">';
 					//+'<div class="forumBtn"><a target="_blank" href="http://ekp.cifi.com.cn/module<?php echo site_url()?>?nav=/km/forum/tree.jsp&main=/km/forum/km_forum_cate/kmForumCategory.do?method=main">答疑讨论区</a></div>';
-				//if((tempObj.isPurchase=="" || tempObj.isPurchase==null || tempObj.isPurchase=="null") && new Date(tempObj.subscribeStartDate)<new Date() && new Date(tempObj.subscribeEndDate)>new Date()){
+				if(tempObj.FISSU == 2 && new Date(tempObj.FSUBSCRIBESTARTDATE)<=new Date() && new Date(tempObj.FSUBSCRIBEENDDATE)>=new Date())
+				{
 					tempHtml+='<div class="subscribeBtn"><a href="./subscribeApply?projectId='+tempObj.FPROJECTID+'">我要认购</a></div>';
-				//}
+				}
 				tempHtml+='</div>'+ 
 			'</div>'+
 		'</div>';

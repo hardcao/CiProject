@@ -77,9 +77,11 @@ class Project extends CI_Controller
         $insertArr['FSTRUCTAREA'] = $this->input->post('structArea');
         $insertArr['FRJL'] = $this->input->post('plotArea');
         $insertArr['FSALEAREA'] = $this->input->post('saleStructArea');
-        $startdatetime = new DateTime($this->input->post('groundInp'));
+        $startdatetime = new DateTime($this->input->post('groundDate'));
         $groundInp= $startdatetime->format('Y-m-d H:i:s');
         $insertArr['FGETDATE'] = $groundInp;
+       
+        
         $insertArr['FTOTAL'] = $this->input->post('groundAmount');
         $insertArr['FCASHFLOWBACK'] = $this->input->post('returndate');
         $insertArr['FGETWAY'] = $this->input->post('groundType');
@@ -92,19 +94,19 @@ class Project extends CI_Controller
         $insertArr['FIRR'] = $this->input->post('planIrr');
         $insertArr['FPREPROFIT'] = $this->input->post('FPREPROFIT');
         $insertArr['FPROFIT'] = $this->input->post('FPROFIT');
-        $startdatetime = new DateTime($this->input->post('stageStartInp'));
+        $startdatetime = new DateTime($this->input->post('planStageStartDate'));
         $stageStartInp= $startdatetime->format('Y-m-d H:i:s');
         $insertArr['FSTARTDATE'] = $stageStartInp;
-        $startdatetime = new DateTime($this->input->post('stageOpenInp'));
+        $startdatetime = new DateTime($this->input->post('planStageOpenDate'));
         $stageOpenInp= $startdatetime->format('Y-m-d H:i:s');
         $insertArr['FOPENDATE'] = $stageOpenInp;
-        $startdatetime = new DateTime($this->input->post('deliverInp'));
+        $startdatetime = new DateTime($this->input->post('deliverDate'));
         $deliverInp= $startdatetime->format('Y-m-d H:i:s');
         $insertArr['FHANDDATE'] = $this->input->post($deliverInp);
-        $startdatetime = new DateTime($this->input->post('carryoverInp'));
+        $startdatetime = new DateTime($this->input->post('planCarryoverDate'));
         $carryoverInp= $startdatetime->format('Y-m-d H:i:s');
         $insertArr['FCARRYOVERDATE'] = $carryoverInp;
-        $startdatetime = new DateTime($this->input->post('liquidateInp'));
+        $startdatetime = new DateTime($this->input->post('planLiquidateDate'));
         $liquidateInp= $startdatetime->format('Y-m-d H:i:s');
         $insertArr['FLIQUIDATE'] = $liquidateInp;
         $insertArr['FPROPERTYSCHEME'] = $this->input->post('planPropertyScheme');
@@ -124,7 +126,8 @@ class Project extends CI_Controller
             $where = 'FPROJECTID='.$insertArr['FPROJECTID'];
             $result = $this->Tools->updateData($insertArr,$tableName,$where);
         
-        echo json_encode($result);
+        header('Location:'.$this->input->post('url'));
+        //header($this->input->post('url'));
     }
     
     /*
@@ -273,6 +276,7 @@ class Project extends CI_Controller
              $result = $this->Tools->updateData($followScheme,$tableName,$where);
              //echo json_encode($result);
          }
+         header('Location:'.$this->input->post('url'));
         
      }
      
@@ -284,8 +288,6 @@ class Project extends CI_Controller
          echo json_encode($result);
      }
 
-     //实现了获得所有项目链表和用户相应的权限
-     //project/getAllFollowProjectWithUserID
      public function getAllFollowProjectWithUserID()
      {
          $userID = $this->input->post('uid');

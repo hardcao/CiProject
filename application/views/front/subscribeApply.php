@@ -56,18 +56,17 @@
 		</tr><tr id="leverSelRow">
 			<td class="titleTd">杠杆比例:</td>
 			<td><select id="leverSel">
-				<option value="1">1</option>
-				<option value="2">2</option>
-				<option value="3">3</option>
-				<option value="4">4</option>
+				<option value="1">1:1</option>
+				<option value="2">1:2</option>
+				<option value="3">1:3</option>
 			</select></td>
-		</tr><!--tr>
+		</tr><tr>
 			<td class="titleTd">出资下限:</td>
 			<td><span id="downLimitInp">0</span> (万元)</td>
 		</tr><tr>
 			<td class="titleTd">出资上限:</td>
 			<td><span id="upLimitInp">0</span> (万元)</td>
-		</tr--><tr>
+		</tr><tr>
 			<td class="titleTd">认购金额:</td>
 			<td><input id="subMoneyInp" class="inpSTY" value="0" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')" />&nbsp;(万元)</td>
 		</tr><tr id="leverageRow">
@@ -109,7 +108,7 @@
 		</table>
 	</div>
 </div>
-<div id="footer">中粮地产集团</div>
+<div id="footer">中梁地产集团</div>
 <script type="text/javascript">
 	
 	// 导航下标
@@ -122,7 +121,7 @@ var forceObj = null;
 var bankList = null;
 var topLimitVal = 0;
 var downLimitVal = 0;
-
+var uid ="<?php echo $uid ?>";
 $(function(){
 	initParams();
 	initListeners();
@@ -185,12 +184,12 @@ function initListeners(){
 			$("#levMoneyInp").val($("#subMoneyInp").val()*4);
 			topLimitVal = topLimitVal/5;
 			downLimitVal = downLimitVal/5;
-		}*/
+		}
 
 		$("#levMoneyInp").val($("#subMoneyInp").val()*$("#leverSel").val());
 
-		//$("#upLimitInp").text(formatMillions(topLimitVal));
-		//$("#downLimitInp").text(formatMillions(downLimitVal));
+		$("#upLimitInp").text((topLimitVal));
+		$("#downLimitInp").text((downLimitVal));*/
 	});
 
 	$("#addBonusBtn").click(function(){
@@ -299,8 +298,8 @@ function getProScheme(){
 		dataType:'Json',//服务器返回的数据类型 可选XML ,Json jsonp script html text等
 		cache:false,
 		data:{'projectId':proId},
-		success:function(msg){
-			getForceData();*/
+		success:function(msg){*/
+			getForceData();
 			getBankData();
 			/*if(msg.success){
 				if(msg.baseModel){
@@ -317,15 +316,17 @@ function getProScheme(){
 }
 
 function getForceData(){
+	var ctx = "<?php echo site_url(); ?>";
 	$.ajax({
+		
 		type:'post',//可选get
-		url:'../ForceFollowController/getForceByProjectId.action?time=' + new Date().getTime(),
+		url:ctx+'Follower/getFollowerWithProjectIDAndUserID',
 		dataType:'Json',//服务器返回的数据类型 可选XML ,Json jsonp script html text等
 		cache:false,
-		data:{'projectId':proId,'forceType':''},
+		data:{'projectId':getReqParam('projectId'),'uid':"<?php echo $uid ?>"},
 		success:function(msg){
 			if(msg.success){
-				forceList = msg.dataDto;
+				forceList = msg.data[0];
 				loadLimitData();
 			}else{
 				alert(msg.error);
@@ -338,9 +339,9 @@ function getForceData(){
 }
 
 function loadLimitData(){
-	$("#proNameTd").text(currProDetail.FNAME);
+	//$("#proNameTd").text(currProDetail.FNAME);
 	// $("#proCompayTd").val(currProDetail);
-	if(isForcePerson()){
+	/*if(isForcePerson()){
 		topLimitVal = parseInt(forceObj.toplimit);
 		downLimitVal = parseInt(forceObj.downlimit);
 		$("#leverSelRow").show();
@@ -350,9 +351,11 @@ function loadLimitData(){
 		downLimitVal = (currscheDetail.minamount);
 		$("#leverSelRow").hide();
 		$("#leverageRow").hide();
-	}
-	$("#upLimitInp").text(formatMillions(topLimitVal));
-	$("#downLimitInp").text(formatMillions(downLimitVal));
+	}*/
+	$("#upLimitInp").text((forceList.FTOPLIMIT));
+	$("#upLimitInp").val((forceList.FTOPLIMIT));
+	$("#downLimitInp").text((forceList.FDOWNLIMIT));
+	$("#downLimitInp").val((forceList.FDOWNLIMIT));
 }
 
 function getBankData(argument) {
@@ -364,7 +367,7 @@ function getBankData(argument) {
 		dataType:'Json',//服务器返回的数据类型 可选XML ,Json jsonp script html text等
 		cache:false,
 		data:{
-			uid:'1',
+			uid:"<?php echo $uid ?>",
 		},
 		success:function(msg){
 			if(msg.success){
@@ -421,6 +424,10 @@ function submitFunc (isRemissionSubscribe) {
 	var FLEVERAMOUNT = parseInt($("#levMoneyInp").val());
 	var FBANKID = $("#bonusIdInp").val();
 	var FLEVERRATIO = $("#leverSel").val() ;
+    var topLimitVal =  parseInt($("#upLimitInp").val()) ;
+	var downLimitVal =  parseInt($("#downLimitInp").val()) ;
+
+	_subMoney = parseInt(FAMOUNT) + parseInt(FLEVERAMOUNT);
 	//var _bankNo = $("#bonusIdInp").val();
 	/*if(isRemissionSubscribe){
 		if(!window.confirm("您的总的可用豁免次数为：" + (userInfo.remissionCount - userInfo.usedRemissionCount) +"，您确认使用吗？")){
@@ -454,12 +461,19 @@ function submitFunc (isRemissionSubscribe) {
 				return false;			
 			}
 		}*/
+		if(_subMoney > topLimitVal){
+				alert("总认购金额超过上限!");
+				return false;
+			}else if(_subMoney < downLimitVal){
+				alert("总认购金额低于下限!");
+				return false;			
+			}
 		if(!FBANKID){
 			alert("请选择银行帐号!");
 			return false;	
 		}
-		if(FAMOUNT%5 != 0){
-			alert("认购金额只能输入5万的倍数!");
+		if(FAMOUNT <= 0){
+			alert("请输入正确认购金额!");
 			return false;
 		}
 	//}
@@ -471,7 +485,7 @@ function submitFunc (isRemissionSubscribe) {
 		dataType:'Json',//服务器返回的数据类型 可选XML ,Json jsonp script html text等
 		cache:false,
 		data:{
-			"FUSERID":1,
+			"FUSERID":uid,
 			"FPROJECTID":getReqParam('projectId'),//"024ec88b-188b-4ada-a807-1f79454eeea3",
 			"FAMOUNT":FAMOUNT,
 			"FLEVERAMOUNT":(FAMOUNT*FLEVERRATIO||0),

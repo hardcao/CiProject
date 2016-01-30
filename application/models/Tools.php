@@ -35,6 +35,16 @@ class Tools extends CI_Model
        return  $data_result;
     }
     
+     public function deleteDataWithWhere($tableName,$where) {
+        $this->db->where($where);
+        $result=  $this->db->delete($tableName);
+        $data_result["success"] = $result;
+        $data_result["errorCode"] = 0;
+        $data_result["error"] = 0;
+        $data_result['data'] = '';
+        return  $data_result;
+    }
+
     public function deleteData($data,$tableName) {
         $this->db->where('FID',$data['FID']);
         $result=  $this->db->delete($tableName);

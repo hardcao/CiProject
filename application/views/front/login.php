@@ -1,4 +1,4 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <title>登录</title>
@@ -8,7 +8,7 @@
 
 <style type="text/css">
 body{font-size: 16px;font-family: "黑体"; 
-background-image: url("<?php echo site_url('application/views/front/images/login_bg.jpg') ?>");
+background-image: url("<?php echo site_url();?>application/views/front/images/login_bg.jpg");
 background-size:cover;}
 #loginBg{    background: #fff;
     opacity: 0.8;

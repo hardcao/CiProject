@@ -1,14 +1,4 @@
-﻿
-
-<?php
-/*<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%
-	String loginId = (String)request.getSession().getAttribute("loginId");
-	String loginName = (String)request.getSession().getAttribute("loginName");
-	// System.out.println("wyyyyyyy --- loginId:::"+loginId);
-%>	*/
-?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <title>数据维护平台</title>
@@ -54,6 +44,7 @@
 var naviVal = "projectInfo";
 var projectList = [];
 var currUserAcc = null;
+var username = "<?php echo $username ?>";
 $(function(){
 	initPageParams();
 	initPageListeners();
@@ -82,9 +73,9 @@ function initPageListeners(){
 	});
 }
 function initialPages(){
-	/*if(currUserAcc != "admin"){
-		$("#leftLayer .naviUl li[val!='projectInfo']").addClass("displayNone");
-	}*/
+	if(username == "admin"){
+		$("#leftLayer .naviUl li[val!='projectInfo']").removeClass("displayNone");
+	}
 	UserProjectList();
 }
 
@@ -99,12 +90,13 @@ function initialPages(){
 function UserProjectList(){
 	var ctx="<?php echo site_url();?>";
 	var projectName=$("#projectName").val();
+	var uid = "<?php echo $uid;?>";
 	$.ajax({
 		type:'post',//可选get
 		url:ctx+'project/getAllFollowProjectWithUserID',
 		dataType:'Json',//服务器返回的数据类型 可选XML ,Json jsonp script html text等
 		data:{	
-			'uid':1
+			'uid': uid,
 		},
 		success:function(msg){
 			if(msg.success){
@@ -146,7 +138,9 @@ function loadProjectData () {
 		var tempUrl = "";
 		$.each(projectList, function(ind,val){
 		    perArr = catPermissionArr(val);//val.permissionFlag.split("");
-			tempUrl = "back/index/projectManage?projectId="+val.PROJECTID+"&projectName="+escape(val.FPROJECTNAME);
+		    if ((perArr[0] || perArr[1] || perArr[2] || perArr[3] || perArr[4] || perArr[5] || username == 'admin') ) 
+		    {
+			tempUrl = "back/index/projectManage?projectId="+val.FPROJECTID+"&projectName="+escape(val.FPROJECTNAME);
 			tempHtml +=
 			'<tr><td height="40">'+(ind+1)+'</td>'+
 				'<td>'+val.FPROJECTNAME+'</td>'+
@@ -156,11 +150,17 @@ function loadProjectData () {
 				'<a href="'+tempUrl+'#payInConfirm" class="'+(isPermission(perArr,3)?"":"displayNone")+'">&nbsp;&nbsp;缴款确认</a><br>'+
 				'<a href="'+tempUrl+'#projectBonusInfo" class="'+(isPermission(perArr,4)?"":"displayNone")+'">&nbsp;&nbsp;分红明细</a>'+
 			'</tr>';
+			}
 		});
 		$("#projectTbody").html(tempHtml);
 	}
 }
 function isPermission(_arr,_ind){
+	var uid = "<?php echo $uid;?>";
+	if (uid == '3896') 
+	{
+		return true;
+	};
 	if(!_arr){
 		return false;
 	}else if(_ind >= _arr.length){
@@ -198,8 +198,8 @@ function loadContentPage () {
 		</div>
 		<ul class="naviUl">
 			<li val="projectInfo" class="focusOn">项目信息维护</li>
-			<li val="proListManage">项目列表管理</li>
-			<li val="permissionSet">项目权限分配</li>
+			<li val="proListManage" class="displayNone">项目列表管理</li>
+			<li val="permissionSet" class="displayNone">项目权限分配</li>
 			<!--li val="paramsSetting">系统参数设置</li>
 			<li val="orgzInfo">组织架构维护</li>
 			<li val="remissionSetting">豁免设置</li-->
@@ -220,6 +220,6 @@ function loadContentPage () {
 	<div id="sysManageLayer" class="frameSTY" style="display:none;">
 	</div>
 </div>
-<div id="footer">中粮地产集团</div>
+<div id="footer">中梁地产集团</div>
 </body>
 </html>

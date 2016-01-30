@@ -78,7 +78,7 @@ class Subscription extends CI_Controller
     }
 
     //获得已经认购信息
-    // Subscription/getHasSubscribe
+    // SubscriptiogetHasSubscriben/
     public function getHasSubscribe()
 
 

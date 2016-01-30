@@ -14,7 +14,7 @@ class UserProjectRight_model extends CI_Model
     }
     
     public function getUserProjectRight($userID,$ProjctID) {
-        $selectData = "T_PROJECT.FID as PROJECTID,T_PROJECT.FID as PROJECTID,T_USERPROJECTRIGHT.FID as FID,T_USERPROJECTRIGHT.FBASICS as FBASICS,T_USERPROJECTRIGHT.FNEWS as FNEWS,T_USERPROJECTRIGHT.FSUBSCRIPTION as FSUBSCRIPTION,T_USERPROJECTRIGHT.FPAYCONFIRM as FPAYCONFIRM,T_USER.FNAME as FUSERNAME,T_PROJECT.FNAME as FPROJECTNAME,T_USERPROJECTRIGHT.FBONUSDETAIL as FBONUSDETAIL";
+        $selectData = "T_PROJECT.FID as FPROJECTID,T_PROJECT.FID as PROJECTID,T_USERPROJECTRIGHT.FID as FID,T_USERPROJECTRIGHT.FBASICS as FBASICS,T_USERPROJECTRIGHT.FNEWS as FNEWS,T_USERPROJECTRIGHT.FSUBSCRIPTION as FSUBSCRIPTION,T_USERPROJECTRIGHT.FPAYCONFIRM as FPAYCONFIRM,T_USER.FNAME as FUSERNAME,T_PROJECT.FNAME as FPROJECTNAME,T_USERPROJECTRIGHT.FBONUSDETAIL as FBONUSDETAIL";
         $where = 'T_PROJECT.FID ='.$ProjctID.' AND T_USER.FID = '.$userID;
         $this->db->where($where);
         $this->db->select( $selectData);
@@ -68,7 +68,7 @@ class UserProjectRight_model extends CI_Model
        
        
         foreach ($userInfo as $item) {
-            $searchResult = $this->getUserProjectRight($item['FID'],$ProjctID);
+            $searchResult = $this->getUserProjectRight($item['FUSERID'],$ProjctID);
             
             $tempResult = $searchResult['data'];
             if($tempResult != NULL) {
@@ -91,10 +91,11 @@ class UserProjectRight_model extends CI_Model
 
     public function getAllUserInfo($userName)
     {
-        $selectData = "T_USER.FID as FUSERID,T_USER.FNAME as FUSERNAME，T_USER.FORG as FORG";
+        $selectData = "FID as FUSERID,FNAME as FUSERNAME,FORG,FNUMBER";
         if($userName != NULL )
              $this->db->like('FNAME',$userName);
         $this->db->select( $selectData);
+        $this->db->limit(10,0);
         $this->db->order_by('T_USER.FORG','DESC');
         $result = $this->db->get('T_USER')->result_array();
         return $result;

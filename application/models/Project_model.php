@@ -62,34 +62,28 @@ class Project_model extends CI_Model
         if($arr != NULL){
           foreach ($arr as $item) {
             //获得项目的方案信息
-            $selectdata = 'select T_FOLLOWSCHEME.FSUBSCRIBESTARTDATE as FSUBSCRIBESTARTDATE,T_FOLLOWSCHEME.FSUBSCRIBEENDDATE as FSUBSCRIBEENDDATE,T_FOLLOWSCHEME.FPAYENDDATE as FPAYENDDATE,T_FOLLOWSCHEME.FPAYSTARTDATE,T_FOLLOWSCHEME.FHDAMOUNT as FHDAMOUNT,T_FOLLOWSCHEME.FHDAMOUNT as FHDAMOUNT, T_FOLLOWSCHEME.FREGIONAMOUNT as FREGIONAMOUNT from T_FOLLOWSCHEME where FPROJECTID ='.$item['FID'];
-            $query = $this->db->query($selectdata);
+            $selectdata = 'T_FOLLOWSCHEME.FSUBSCRIBESTARTDATE as FSUBSCRIBESTARTDATE,T_FOLLOWSCHEME.FSUBSCRIBEENDDATE as FSUBSCRIBEENDDATE,T_FOLLOWSCHEME.FPAYENDDATE as FPAYENDDATE,T_FOLLOWSCHEME.FPAYSTARTDATE,T_FOLLOWSCHEME.FHDAMOUNT as FHDAMOUNT,T_FOLLOWSCHEME.FHDAMOUNT as FHDAMOUNT, T_FOLLOWSCHEME.FREGIONAMOUNT as FREGIONAMOUNT';
+            $query = $this->db->select($selectdata);
+             $query = $this->db->where('FPROJECTID',$item['FID']);
+             $query = $this->db->get('T_FOLLOWSCHEME');
             $FOLLOWSCHEME=$query->result_array();
 
             //获得项目的认购信息
-            $selectdata = 'select SUM(T_SUBSCRIBECONFIRMRECORD.FAMOUNT) as TOTALFAMOUNT, T_USER.FORG as FORG from T_SUBSCRIBECONFIRMRECORD  join T_USER on T_USER.FID= T_SUBSCRIBECONFIRMRECORD.FPROJECTID  where FPROJECTID ='.$item['FID'].' group by T_USER.FORG';
+            $selectdata = 'select SUM(T_SUBSCRIBECONFIRMRECORD.FAMOUNT) as TOTALFAMOUNT, T_FOLLOWER.FSTATE as FSTATE from T_SUBSCRIBECONFIRMRECORD  join T_FOLLOWER on T_FOLLOWER.FPROJECTID= T_SUBSCRIBECONFIRMRECORD.FPROJECTID AND T_FOLLOWER.FUSERID= T_SUBSCRIBECONFIRMRECORD.FUSERID  where T_SUBSCRIBECONFIRMRECORD.FPROJECTID ='.$item['FID'].' group by T_FOLLOWER.FSTATE';
             $query = $this->db->query($selectdata);
-            $tmpdata=$query->row();
+            $tmpdata=$query->result_array();
             $FOLLOWSCHEME[0]['FHDSUAMOUNT'] = NULL;
             $FOLLOWSCHEME[0]['FREGIONSUAMOUNT']= NULL;
-            if(!$tmpdata!= NULL && $tmpdata['FORG'] == '总部')
-            {
-                if($tmpdata['FORG'] == '总部'){
-                    $FOLLOWSCHEME['FHDSUAMOUNT'] = $tmpdata['TOTALFAMOUNT'];
+            foreach ($tmpdata as $Titem) {
+                if($Titem['FSTATE'] == '总部'){
+                    
+                    $FOLLOWSCHEME[0]['FHDSUAMOUNT'] = $Titem['TOTALFAMOUNT'];
                 } else {
-                    $FOLLOWSCHEME['FREGIONSUAMOUNT'] = $tmpdata['TOTALFAMOUNT'];
+                     echo $Titem['TOTALFAMOUNT'];
+                    $FOLLOWSCHEME[0]['FREGIONSUAMOUNT'] = $Titem['TOTALFAMOUNT'];
                 }
             }
 
-            $tmpdata=$query->row(1);
-            if(!$tmpdata!= NULL && $tmpdata['FORG'] == '总部')
-            {
-                if($tmpdata['FORG'] == '总部'){
-                    $FOLLOWSCHEME['FHDSUAMOUNT'] = $tmpdata['TOTALFAMOUNT'];
-                } else {
-                    $FOLLOWSCHEME['FREGIONSUAMOUNT'] = $tmpdata['TOTALFAMOUNT'];
-                }
-            }
             //判读用户是不是已经认购该项目
              $selectdata = 'select * from T_SUBSCRIBECONFIRMRECORD where FUSERID ='.$userID.' AND FPROJECTID ='.$item['FID'];
             $query = $this->db->query($selectdata);
@@ -131,12 +125,13 @@ class Project_model extends CI_Model
         }
 
           //获得项目的方案信息
-        $query=$this->db->select('T_PROJECT.FSTATUS as FSTATUS,T_PROJECT.FID as FPROJECTID,T_PROJECT.FNAME as FPROJECTNAME, T_FOLLOWSCHEME.FSUBSCRIBESTARTDATE as FSUBSCRIBESTARTDATE,T_FOLLOWSCHEME.FSUBSCRIBEENDDATE as FSUBSCRIBEENDDATE,T_FOLLOWSCHEME.FPAYENDDATE as FPAYENDDATE,T_FOLLOWSCHEME.FPAYSTARTDATE,T_FOLLOWSCHEME.FHDAMOUNT as FHDAMOUNT,T_FOLLOWSCHEME.FHDAMOUNT as FHDAMOUNT, T_FOLLOWSCHEME.FREGIONAMOUNT as FREGIONAMOUNT from T_FOLLOWSCHEME');
+        $query=$this->db->select('T_PROJECT.FSTATUS as FSTATUS,T_PROJECT.FID as FPROJECTID,T_PROJECT.FNAME as FPROJECTNAME, T_FOLLOWSCHEME.FSUBSCRIBESTARTDATE as FSUBSCRIBESTARTDATE,T_FOLLOWSCHEME.FSUBSCRIBEENDDATE as FSUBSCRIBEENDDATE,T_FOLLOWSCHEME.FPAYENDDATE as FPAYENDDATE,T_FOLLOWSCHEME.FPAYSTARTDATE,T_FOLLOWSCHEME.FHDAMOUNT as FHDAMOUNT,T_FOLLOWSCHEME.FHDAMOUNT as FHDAMOUNT, T_FOLLOWSCHEME.FREGIONAMOUNT as FREGIONAMOUNT');
         if($where != NULL)
             $query=$this->db->where($where);
         if($projectName) {
             $query=$this->db->like('T_PROJECT.FNAME',$projectName);
         }
+        $query=$this->db->order_by('T_FOLLOWSCHEME.FSUBSCRIBESTARTDATE','DESC');
         $query = $this->db->join('T_FOLLOWSCHEME','T_FOLLOWSCHEME.FPROJECTID = T_PROJECT.FID');
         $query = $this->db->get('T_PROJECT');
         $arr=$query->result_array();
@@ -148,27 +143,18 @@ class Project_model extends CI_Model
             $FOLLOWSCHEME= $item;
 
             //获得项目的认购信息
-            $selectdata = 'select SUM(T_SUBSCRIBECONFIRMRECORD.FAMOUNT) as TOTALFAMOUNT, T_USER.FORG as FORG from T_SUBSCRIBECONFIRMRECORD  join T_USER on T_USER.FID= T_SUBSCRIBECONFIRMRECORD.FPROJECTID  where FPROJECTID ='.$item['FPROJECTID'].' group by T_USER.FORG';
+               $selectdata = 'select SUM(T_SUBSCRIBECONFIRMRECORD.FAMOUNT) as TOTALFAMOUNT, T_FOLLOWER.FSTATE as FSTATE from T_SUBSCRIBECONFIRMRECORD  join T_FOLLOWER on T_FOLLOWER.FPROJECTID= T_SUBSCRIBECONFIRMRECORD.FPROJECTID AND T_FOLLOWER.FUSERID= T_SUBSCRIBECONFIRMRECORD.FUSERID  where T_SUBSCRIBECONFIRMRECORD.FPROJECTID ='.$item['FPROJECTID'].' group by T_FOLLOWER.FSTATE';
             $query = $this->db->query($selectdata);
-            $tmpdata=$query->row();
+            $tmpdata=$query->result_array();
             $item['FHDSUAMOUNT'] = NULL;
             $item['FREGIONSUAMOUNT']= NULL;
-            if(!$tmpdata!= NULL && $tmpdata['FORG'] == '总部')
-            {
-                if($tmpdata['FORG'] == '总部'){
-                    $item['FHDSUAMOUNT'] = $tmpdata['TOTALFAMOUNT'];
+            foreach ($tmpdata as $Titem) {
+                if($Titem['FSTATE'] == '总部'){
+                    
+                    $item['FHDSUAMOUNT'] = $Titem['TOTALFAMOUNT'];
                 } else {
-                    $$item['FREGIONSUAMOUNT'] = $tmpdata['TOTALFAMOUNT'];
-                }
-            }
-
-            $tmpdata=$query->row(1);
-            if(!$tmpdata!= NULL && $tmpdata['FORG'] == '总部')
-            {
-                if($tmpdata['FORG'] == '总部'){
-                    $item['FHDSUAMOUNT'] = $tmpdata['TOTALFAMOUNT'];
-                } else {
-                    $item['FREGIONSUAMOUNT'] = $tmpdata['TOTALFAMOUNT'];
+                     
+                    $item['FREGIONSUAMOUNT'] = $Titem['TOTALFAMOUNT'];
                 }
             }
             //判读用户是不是已经认购该项目
@@ -351,6 +337,7 @@ class Project_model extends CI_Model
             $this->db->like('FNAME', $projectName); 
         }
         $this->db->join('T_FOLLOWSCHEME','T_FOLLOWSCHEME.FPROJECTID=T_PROJECT.FID');
+        $query=$this->db->order_by('T_FOLLOWSCHEME.FSUBSCRIBESTARTDATE','DESC');
         $result = $this->db->get('T_PROJECT')->result_array();
         if($result) return $result[0];
         return NULL;
@@ -513,6 +500,7 @@ class Project_model extends CI_Model
                 $tempResult['FBONUSDETAIL'] = false;
                 $tempResult['FBASICS'] = false;
                 $tempResult['FPROJECTNAME'] = $item['FNAME'];
+                 $tempResult['FPROJECTID'] = $item['FID'];
             }
             array_push($insertArr,  $tempResult);
         }

@@ -83,7 +83,7 @@
 		</div>
 	</div>
 </div>
-<div id="footer">中粮地产集团</div>
+<div id="footer">中梁地产集团</div>
 <script type="text/javascript">
 	// 导航下标
 var naviInd = "2";
@@ -93,6 +93,8 @@ var dataList = [];
 var editFlag = "add";
 var tempEditObj = null;
 var tempProId = null;
+
+var uid = "<?php echo $uid; ?>";
 
 $(function(){
 	initParams();
@@ -162,7 +164,7 @@ function getData(){
 		url:'/BankInfo/getPersonBankInfo',
 		dataType:'Json',//服务器返回的数据类型 可选XML ,Json jsonp script html text等
 		data:{
-			uid:"1"
+			uid:uid
 		},
 		success:function(msg){
 			if(msg.success){
@@ -210,7 +212,7 @@ function addBank(){
 			url:'/BankInfo/addBankInfo',
 			dataType:'Json',//服务器返回的数据类型 可选XML ,Json jsonp script html text等
 			data:{
-				"FUSERID": 1,
+				"FUSERID": uid,
 				"FBANKNO": bankNo,
 				"FNAME": bankName,
 				"FBANKATTRIBUTE": bankAttribute

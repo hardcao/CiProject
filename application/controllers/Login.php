@@ -69,18 +69,68 @@ class Login extends CI_Controller {
     public function login()
     {
 
+
+
+		$this->config->set_item('sess_expiration', 3600*15);//秒
+
+	
     	$username = $this->input->post('username');
 		$password = $this->input->post('password');
 		$result = $this->User_model->checkLogin($username, $password);
 		if($result['success'] == true) {
 			$userData = $result['data'][0];
-			$this->session->set_userdata('username', $username);
-			$this->session->set_userdata('uid', $userData);
-			
-		}
+			$this->session->set_userdata('username', $userData['FNAME']);
+			$this->session->set_userdata('uid', $userData['FID']);
 
-		//$result['test'] = $username;
+			$this->session->set_userdata('allow',$userData['FUSERRIGHT']);	
+			if($username == 'admin')	
+			{
+				$this->session->set_userdata('allow','1');	
+			}
+		}
+		
+		
+		
 		echo json_encode($result);
+/*
+		$usercode = $this->input->post('username');
+		$password = $this->input->post('password');
+		$error = 1 ;
+		if($usercode && $password){
+			$host = "192.168.5.3";  
+//			$user = "ldapuser"; 
+//			$pswd = "CIFILdapuserRead"; 
+			$ad = ldap_connect($host) or die( "Could not connect!" ); 
+//			var_dump($ad);
+			if($ad){ 
+				//设置参数 
+				ldap_set_option ( $ad, LDAP_OPT_PROTOCOL_VERSION, 3 ); 
+				ldap_set_option ( $ad, LDAP_OPT_REFERRALS, 0 ); // bool ldap_bind ( resource $link_identifier [, string $bind_rdn = NULL [, string $bind_password = NULL ]] ) 
+				$bd = ldap_bind($ad, $usercode . '@zldcgroup.com', $password); 
+				//$bd = 1;
+				if($bd){
+					$result = $this->User_model->checkLogin($username, $password);
+					if($result['success'] == true) {
+							$userData = $result['data'][0];
+							$this->session->set_userdata('username', $username);
+							$this->session->set_userdata('uid', $userData);
+							$this->session->set_userdata('allow',$userData['FUSERRIGHT']);	
+							if($username == 'admin') {
+								$this->session->set_userdata('allow','1');	
+							}
+					} else{
+						$message = "验证失败，请确认用户编号和密码是否正确。.";
+					}
+				}else{
+					$message = "验证失败，请确认用户编号和密码是否正确。";
+				}
+			}
+		}
+		else {
+			$message = "请输入用户编号和用户密码";
+		}
+		
+		echo json_encode(array('error'=>$error,'data'=>$message,'errorCode'=>0,'success'=>true));*/
     }
 
 	public function userlogin(){
@@ -140,6 +190,7 @@ class Login extends CI_Controller {
 	public function logout(){
 		$this->session->unset_userdata('username');
 		$this->session->unset_userdata('uid');
+		$this->session->unset_userdata('allow');	
 		$data["success"] = true;
         $data["errorCode"] = 0;
         $data["error"] = 0;

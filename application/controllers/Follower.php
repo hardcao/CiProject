@@ -59,7 +59,8 @@ class Follower extends CI_Controller
                
             }
         }
-        echo json_encode($result);
+        header('Location:'.$this->input->post('url'));
+        //echo json_encode($result);
     }
     
     public function deleteFollower() {
@@ -77,5 +78,15 @@ class Follower extends CI_Controller
         $this->load->model('Tools');
         $result = $this->Tools->addData($data,$tableName);
         echo json_encode($result);
+    }
+
+// follower/getFollowerWithProjectIDAndUserID
+    public function getFollowerWithProjectIDAndUserID()
+    {
+        $userID = $this->input->post('uid');
+        $projectID = $this->input->post('projectId');
+         $result = $this->Follower_model->getFollowerWithProjectIDAndUserID($projectID,$userID);
+        echo json_encode($result);
+    
     }
 }
