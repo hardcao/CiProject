@@ -157,7 +157,7 @@ function loadProjectData () {
 }
 function isPermission(_arr,_ind){
 	var uid = "<?php echo $uid;?>";
-	if (uid == '3896') 
+	if (uid == 'admin') 
 	{
 		return true;
 	};
