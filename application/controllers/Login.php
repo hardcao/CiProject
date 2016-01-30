@@ -72,28 +72,14 @@ class Login extends CI_Controller {
 
 
 		$this->config->set_item('sess_expiration', 3600*15);//秒
+		$this->loginWithLocal();
+		//$this->loginWithAD();
 
-	
-    	$username = $this->input->post('username');
-		$password = $this->input->post('password');
-		$result = $this->User_model->checkLogin($username, $password);
-		if($result['success'] == true) {
-			$userData = $result['data'][0];
-			$this->session->set_userdata('username', $userData['FNAME']);
-			$this->session->set_userdata('uid', $userData['FID']);
+    }
 
-			$this->session->set_userdata('allow',$userData['FUSERRIGHT']);	
-			if($username == 'admin')	
-			{
-				$this->session->set_userdata('allow','1');	
-			}
-		}
-		
-		
-		
-		echo json_encode($result);
-/*
-		$usercode = $this->input->post('username');
+    public function loginWithAD()
+    {
+    	$usercode = $this->input->post('username');
 		$password = $this->input->post('password');
 		$error = 1 ;
 		if($usercode && $password){
@@ -130,7 +116,29 @@ class Login extends CI_Controller {
 			$message = "请输入用户编号和用户密码";
 		}
 		
-		echo json_encode(array('error'=>$error,'data'=>$message,'errorCode'=>0,'success'=>true));*/
+		echo json_encode(array('error'=>$error,'data'=>$message,'errorCode'=>0,'success'=>true));
+    }
+
+    public function loginWithLocal()
+    {
+    	$username = $this->input->post('username');
+		$password = $this->input->post('password');
+		$result = $this->User_model->checkLogin($username, $password);
+		if($result['success'] == true) {
+			$userData = $result['data'][0];
+			$this->session->set_userdata('username', $userData['FNAME']);
+			$this->session->set_userdata('uid', $userData['FID']);
+
+			$this->session->set_userdata('allow',$userData['FUSERRIGHT']);	
+			if($username == 'admin')	
+			{
+				$this->session->set_userdata('allow','1');	
+			}
+		}
+		
+		
+		
+		echo json_encode($result);
     }
 
 	public function userlogin(){
