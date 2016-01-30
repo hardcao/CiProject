@@ -73,7 +73,7 @@ function checkSubmit(){
 					$(".tipsTd").text("用户与密码不匹配!");
 			},
 			error: function (XMLHttpRequest, textStatus, errorThrown) {
-	        	alert(errorThrown); 
+	        	$(".tipsTd").text("用户或密码错误!");
 	        }
 		});
 	}
