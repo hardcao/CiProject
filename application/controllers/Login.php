@@ -103,10 +103,12 @@ class Login extends CI_Controller {
 					$result = $this->User_model->checkLogin($usercode, $password);
 					if($result['success'] == true) {
 							$userData = $result['data'][0];
-							$this->session->set_userdata('username', $usercode);
-							$this->session->set_userdata('uid', $userData);
+							$this->session->set_userdata('username', $userData['FNAME']);
+							$this->session->set_userdata('uid', $userData['FID']);
+
 							$this->session->set_userdata('allow',$userData['FUSERRIGHT']);	
-							if($usercode == 'admin') {
+							if($username == 'admin')	
+							{
 								$this->session->set_userdata('allow','1');	
 							}
 					} else{
