@@ -72,8 +72,9 @@ class Login extends CI_Controller {
 
 
 		$this->config->set_item('sess_expiration', 3600*15);//秒
-		$this->loginWithLocal();
-		//$this->loginWithAD();
+	
+		//$this->loginWithLocal();
+		$this->loginWithAD();
 
     }
 
@@ -81,13 +82,36 @@ class Login extends CI_Controller {
     {
     	$usercode = $this->input->post('username');
 		$password = $this->input->post('password');
+		$result = $this->User_model->checkLogin($usercode, $password);
 		$error = 1 ;
+		$successState = true;
+		$message = 'success';
+		
+		$userData = $result['data'][0];
+		$this->session->set_userdata('username', $userData['FNAME']);
+		$this->session->set_userdata('uid', $userData['FID']);
+
+		$this->session->set_userdata('allow',$userData['FUSERRIGHT']);	
+		if($usercode == 'admin')	
+		{
+			if( $password == $userData['FPASSWORD']) {
+				$this->session->set_userdata('allow','1');	
+				echo json_encode(array('error'=>$error,'data'=>$message,'errorCode'=>0,'success'=>$successState));
+			} else {
+				echo json_encode(array('error'=>0,'data'=>$message,'errorCode'=>0,'success'=>false));
+			}
+			exit;
+		}
+		
+		
 		if($usercode && $password){
 			$host = "192.168.5.3";  
 //			$user = "ldapuser"; 
 //			$pswd = "CIFILdapuserRead"; 
 			$ad = ldap_connect($host) or die( "Could not connect!" ); 
-//			var_dump($ad);
+			//echo('after：'.$after.$host.$ad);
+			//exit;
+			//var_dump($ad);
 			if($ad){ 
 				//设置参数 
 				ldap_set_option ( $ad, LDAP_OPT_PROTOCOL_VERSION, 3 ); 
@@ -95,20 +119,27 @@ class Login extends CI_Controller {
 				$bd = ldap_bind($ad, $usercode . '@zldcgroup.com', $password); 
 				//$bd = 1;
 				if($bd){
-					$result = $this->User_model->checkLogin($username, $password);
+					$result = $this->User_model->checkLogin($usercode, $password);
 					if($result['success'] == true) {
 							$userData = $result['data'][0];
-							$this->session->set_userdata('username', $username);
-							$this->session->set_userdata('uid', $userData);
+							$this->session->set_userdata('username', $userData['FNAME']);
+							$this->session->set_userdata('uid', $userData['FID']);
+
 							$this->session->set_userdata('allow',$userData['FUSERRIGHT']);	
-							if($username == 'admin') {
+							if($usercode == 'admin' && $password == $userData['FPASSWORD'])	
+							{
+
 								$this->session->set_userdata('allow','1');	
 							}
 					} else{
 						$message = "验证失败，请确认用户编号和密码是否正确。.";
+						$error = 0;
+						$successState = false;
 					}
 				}else{
 					$message = "验证失败，请确认用户编号和密码是否正确。";
+					$error = 0;
+					$successState = false;
 				}
 			}
 		}
@@ -116,7 +147,7 @@ class Login extends CI_Controller {
 			$message = "请输入用户编号和用户密码";
 		}
 		
-		echo json_encode(array('error'=>$error,'data'=>$message,'errorCode'=>0,'success'=>true));
+		echo json_encode(array('error'=>$error,'data'=>$message,'errorCode'=>0,'success'=>$successState));
     }
 
     public function loginWithLocal()
@@ -130,9 +161,19 @@ class Login extends CI_Controller {
 			$this->session->set_userdata('uid', $userData['FID']);
 
 			$this->session->set_userdata('allow',$userData['FUSERRIGHT']);	
-			if($username == 'admin')	
+			if($username == 'admin' && $password == $userData['FPASSWORD'])	
 			{
+
 				$this->session->set_userdata('allow','1');	
+			} else {
+				$message = "验证失败，请确认用户编号和密码是否正确。.";
+				$error = 0;
+				$successState = false;
+				 $result["errorCode"] = 0;
+        			$result["error"] = 0;
+       
+            	$result["success"] = false;
+      
 			}
 		}
 		
