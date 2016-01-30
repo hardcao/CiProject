@@ -233,7 +233,7 @@ function editPerm(){
 	var ctx = "<?php echo site_url() ?>";
 	$.ajax({
 		type:'post',//可选get
-		url:'UserProjectRight/editUserProjectRight',
+		url:ctx+'UserProjectRight/editUserProjectRight',
 		dataType:'Json',//服务器返回的数据类型 可选XML ,Json jsonp script html text等
 		data:{
 			'projectId':permProList[proInd].FID,
@@ -257,7 +257,7 @@ function editPerm(){
 function getPermProjectList(){
 	// var ctx=$("#ctx").val();
 	// var projectName=$("#projectNameList").val();
-	var ctx="http://localhost/";
+	var ctx="<?php echo site_url() ?>";
 	$.ajax({
 		type:'post',//可选get
 		url:ctx+'Project/getProjectBack',
