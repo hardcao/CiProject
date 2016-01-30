@@ -156,7 +156,7 @@ function loadProjectData () {
 	}
 }
 function isPermission(_arr,_ind){
-	var username = "<?php echo $uid;?>";
+	var username = "<?php echo $username;?>";
 	if (username == 'admin') 
 	{
 		return true;
