@@ -162,7 +162,7 @@ FSTATE: "区域"				//'<td>'+(val.FCONFIRMAMOUNT||0)+'</td>'+
 				'<td>'+(val.FNAME||"")+'</td>'+
 				'<td>'+(val.FORG||"")+'</td>'+
 				'<td>'+(val.FSTATE||'总部')+'</td>'+
-				'<td>'+ (val.FLEVERRATIO||0)+':1'+'</td>'+
+				'<td>'+ '1:'+(val.FLEVERRATIO||0)+'</td>'+
 				'<td>'+(val.FAMOUNT||0)+'</td>'+
 				'<td>'+(val.FLEVERAMOUNT||0)+'</td>'+
 				'<td>'+((parseInt(val.FLEVERAMOUNT)+parseInt(val.FAMOUNT))||0)+'</td>'+
