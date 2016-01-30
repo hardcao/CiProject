@@ -85,8 +85,15 @@ class Ldap extends CI_Controller {
 							
        						
         					$tableName = 'T_USER';
-        					
-        					$result = $this->Tools->addData($insertArr,$tableName);
+        					$where = 'FNUMBER = '.@$entries[$i]["samaccountname"][0];
+        					$this->db->select('*');
+        					$this->db->where($where);
+        					$rowNum = $this->db->get('T_USER')->num_rows();
+        					if($rowNum == 0) {
+        						$result = $this->Tools->addData($insertArr,$tableName);
+        					} else {
+        						$result = $this->Tools->addData($insertArr,$tableName,$where);
+        					}
         					echo json_encode($result);
     						}
 

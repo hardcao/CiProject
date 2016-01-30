@@ -68,5 +68,4 @@ class Tools extends CI_Model
         $data_result['data'] = $result;
         return $data_result;
     }
-
 }
