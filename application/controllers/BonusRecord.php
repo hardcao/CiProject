@@ -128,7 +128,7 @@ class BonusRecord extends CI_Controller
             $col++;
             $row++;
         }
-        $fileName ="FengHongMuBan-".date('y-m-d-h-i-s',time()).".xlsx";
+        $fileName ="FengHongMuBan-".date('y-m-d-h-i-s',time()).".xls";
 
         $baseURL = site_url();
         $objWriter = IOFactory::createWriter($objPHPExcel, 'Excel5');
