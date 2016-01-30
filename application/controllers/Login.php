@@ -107,7 +107,7 @@ class Login extends CI_Controller {
 							$this->session->set_userdata('uid', $userData['FID']);
 
 							$this->session->set_userdata('allow',$userData['FUSERRIGHT']);	
-							if($username == 'admin')	
+							if($usercode == 'admin')	
 							{
 								$this->session->set_userdata('allow','1');	
 							}
