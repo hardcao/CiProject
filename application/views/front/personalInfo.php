@@ -71,7 +71,7 @@
 			</tr><tr>
 				<td class="titleTd">开户银行：</td>
 				<td><input id="bankNameInp" /><br>
-				<span class="tipsSTY">请精确到支行,例如：中国建设银行(上海市怒江路支行)</span></td>
+				<span class="tipsSTY">请精确到支行,例如：中国建设银行(温州市XXX路支行)</span></td>
 			</tr><!-- <tr>
 				<td class="titleTd">开户点：</td>
 				<td><input id="bankAttrInp" /></td>

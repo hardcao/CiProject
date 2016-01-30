@@ -371,7 +371,7 @@ ImageName: "default.jpg"
 		'<div class="listSTY">'+
 			'<div class="imgLayer"><a href="<?php echo site_url()?>home/index/projectDetail?projectId='+tempObj.FPROJECTID+'"><img src="'+tempImg+'" width="100%" height="100%"></a></div>'+
 			'<div class="textLayer">'+
-				'<div class="proTitle">项目名称：'+tempObj.FPROJECTNAME+'</a></div>'+
+				'<div class="proTitle"><a href="<?php echo site_url()?>home/index/projectDetail?projectId='+tempObj.FPROJECTID+'">项目名称：'+tempObj.FPROJECTNAME+'</a></div>'+
 				'<div class="proInfo">'+
 					'<table class="proInfoTable" height="100%" width="100%" border="0"><tr>'+
 						'<td class="titleTd">项目认购开始时间:</td>'+

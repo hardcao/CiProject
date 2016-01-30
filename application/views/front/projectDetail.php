@@ -694,15 +694,18 @@ TATOLHASRGSUFLEVERAMOUNT: null
 				 */
 				 $("#zbze").text((data.TATOLHASHDSU||0)+" 万元");
 				 $("#zbzy").text((data.TATOLHASHDPERSONSU||0)+" 万元");
-				 $("#zbsp").text( ((parseInt(data.TATOLHASHDPERSONSU||0)/parseInt(data.TATOLHASHDSUFLEVERAMOUNT||0)*100) || 0)+" %");
+				 var zbsp = (parseInt(data.TATOLHASHDPERSONSU||0)/parseInt(data.TATOLHASHDSUFLEVERAMOUNT||0)*100|| 0);
+				 $("#zbsp").text((zbsp.toFixed(2)||0)+" %");
 
 				 $("#qyze").text((data.TATOLHASRGSU||0)+" 万元");
 				 $("#qyzy").text((data.TATOLHASRGPERSONSU||0)+" 万元");
-				 $("#qysp").text( ((parseInt(data.TATOLHASRGPERSONSU||0)/parseInt(data.TATOLHASRGSUFLEVERAMOUNT||0)*100) || 0)+" %");
+				 var qysp = (parseInt(data.TATOLHASRGPERSONSU||0)/parseInt(data.TATOLHASRGSUFLEVERAMOUNT||0)*100 || 0);
+				 $("#qysp").text((qysp.toFixed(2)||0)+" %");
 
 				 $("#qbze").text((data.TATOLHASAMOUNT||0)+" 万元");
 				 $("#qbzy").text((data.TATOLHASPERSONAMOUNT||0)+" 万元");
-				 $("#qbsp").text( ((parseInt(data.TATOLHASPERSONAMOUNT||0)/parseInt(data.TATOLHASFLEVERAMOUNT||0)*100) || 0)+" %");
+				 var qbsp = (parseInt(data.TATOLHASPERSONAMOUNT||0)/parseInt(data.TATOLHASFLEVERAMOUNT||0)*100|| 0);
+				 $("#qbsp").text((qbsp.toFixed(2)||0)+" %");
 
 				 //$("#followChemeLink").html(structSchemeLink(data.FLINK));
 				 //$("#followChemeLink").html(msg.baseModel.followChemeLink?'<a href="files/数据表.doc">跟投方案下载链接</a>':"");
