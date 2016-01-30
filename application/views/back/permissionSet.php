@@ -481,7 +481,7 @@ function saveMngUser(){
 		url:ctx+'UserProjectRight/editUserProjectRight',
 		dataType:'Json',//服务器返回的数据类型 可选XML ,Json jsonp script html text等
 		data:{
-			'projectId':permProList[proInd].projectId,
+			'projectId':permProList[proInd].FID,
 			'delUserId':_delUidStr,
 			'addUserId':_addUidStr,
 			'updUserId':_updUidStr
@@ -508,7 +508,7 @@ function delMngUser(_uid){
 		url:'../UserProjectRelateController/deleteRelateByUserProject.action',
 		dataType:'Json',//服务器返回的数据类型 可选XML ,Json jsonp script html text等
 		data:{
-			'projectId':permProList[proInd].projectId,
+			'projectId':permProList[proInd].FID,
 			'userId':_uid
 		},
 		success:function(msg){
