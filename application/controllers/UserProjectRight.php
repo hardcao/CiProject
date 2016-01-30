@@ -54,18 +54,42 @@ class UserProjectRight extends CI_Controller
    // UserProjectRight/editUserProjectRight
     public function editUserProjectRight()
     {
-        $data = $this->input->input_stream();
+    
         $projectId = $this->input->post('projectId');
+
+        $deletestr = $this->input->post('delUserId');
+        $deleteArr = array();
+        $arr = explode(",",$deletestr);
+        foreach($arr as $u){
+            $strarr = explode(":",$u);
+            if($strarr[0] != NULL) {
+                $deleteArr[$strarr[0]] = $strarr[1];
+            }
+        }
+       // echo json_encode($deleteArr);
+        
+        foreach ($deleteArr as $key => $value) {
+            echo "test delete";
+            $where =  'FUSERID ='.$key.' AND FPROJECTID ='.$projectId;
+            $tableName = 'T_USERPROJECTRIGHT';
+            $this->load->model('Tools');
+            $result = $this->Tools->deleteDataWithWhere($tableName,$where);
+            
+        }
+
         $addstr = $this->input->post('addUserId');
-        $addArr = array();
+        $addArr1 = array();
         $arr = explode(",",$addstr);
         foreach($arr as $u){
             $strarr = explode(":",$u);
-            $addArr[$strarr[0]] = $strarr[1];
+            if($strarr[0] != NULL) {
+                $addArr1[$strarr[0]] = $strarr[1];
+            }
+            
         }
         //echo json_encode($addArr);
 
-        foreach ($addArr as $key => $value) {
+        foreach ($addArr1 as $key => $value) {
            $tmpstr = $value;
             $area = array();      
             for($i = 0;$i < strlen($tmpstr);$i++){
@@ -80,37 +104,24 @@ class UserProjectRight extends CI_Controller
                 'FPAYCONFIRM'=>$area[3],
                 'FBONUSDETAIL'=>$area[4],
                 );
-            //echo json_encode($addArr);
+            
             $tableName = 'T_USERPROJECTRIGHT';
             $this->load->model('Tools');
             $result = $this->Tools->addData($addArr,$tableName);
-           // echo json_encode($result);
-        }
-        $deletestr = $this->input->post('delUserId');
-        $deleteArr = array();
-        $arr = explode(",",$addstr);
-        foreach($arr as $u){
-            $strarr = explode(":",$u);
-            $deleteArr[$strarr[0]] = $strarr[1];
-        }
-       // echo json_encode($deleteArr);
-        
-        foreach ($deleteArr as $key => $value) {
-            $where =  'FUSERID ='.$key.' AND FPROJECTID ='.$projectId;
-            $tableName = 'T_USERPROJECTRIGHT';
-            $this->load->model('Tools');
-            $result = $this->Tools->deleteDataWithWhere($tableName,$where);
             
         }
         $updatestr = $this->input->post('updUserId');
-        $updateArr = array();
+        $updateArr1 = array();
         $arr = explode(",",$updatestr);
         foreach($arr as $u){
             $strarr = explode(":",$u);
-            $updateArr[$strarr[0]] = $strarr[1];
+            if($strarr[0] != NULL) {
+                $updateArr1[$strarr[0]] = $strarr[1];
+            }
+          
         }
         //echo json_encode($updateArr);
-         foreach ($updateArr as $key => $value) {
+         foreach ($updateArr1 as $key => $value) {
             $tmpstr = $value;
 
             $area = array();      
