@@ -8,7 +8,7 @@
 
 <style type="text/css">
 body{font-size: 16px;font-family: "黑体"; 
-background-image: url("<?php echo site_url('application/views/front/images/login_bg.jpg') ?>");
+background-image: url("<?php echo site_url();?>application/views/front/images/login_bg.jpg");
 background-size:cover;}
 #loginBg{    background: #fff;
     opacity: 0.8;

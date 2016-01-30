@@ -730,7 +730,7 @@ function structSchemeLink(_str){
 	if(_str && _str.length>0){
 		_linkArr = _str.split(";");
 		$.each(_linkArr, function(ind, val){
-			_htmlStr += '<div><a href="files/'+val+'">'+(ind+1)+'、'+val+'</a></div>';
+			_htmlStr += '<div><a href="<?php echo site_url()?>fileFolder/'+val+'">'+(ind+1)+'、'+val+'</a></div>';
 		});
 	}
 	return _htmlStr;
