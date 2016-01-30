@@ -87,7 +87,7 @@ class Ldap extends CI_Controller {
         					$tableName = 'T_USER';
         					
         					$result = $this->Tools->addData($insertArr,$tableName);
-        					//echo json_encode($result);
+        					echo json_encode($result);
     						}
 
 				} 
