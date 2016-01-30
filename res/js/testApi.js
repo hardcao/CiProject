@@ -22,21 +22,20 @@ $("#btn_login").click(function(){
 				type: "post",
 				data:{
 					FID:2,
-					projectId:39,
+					projectId:34,
 					startDate:'2013-09-01 09:50:00',
 					endDate:'2016-09-01 09:50:00',
 					subscribeStartDate:'2013-09-01 09:50:00',
 					subscribeEndDate:'2016-09-01 09:50:00',
-<<<<<<< HEAD
 					uname:'',
 					uid:1368,
-=======
-					addUserId:"3335:11111,3581:11111,3843:11111",
-					updUserId:"3354:11111,3530:11111,3842:11111",
-					delUserId:"3336:11111,3580:11111,3844:11111",
+
+					addUserId:"3328:11111",
+					updUserId:"",
+					delUserId:"",
 					uname:'admin',
 					uid:3895,
->>>>>>> cf47cd604f2a7064f9c3a0678174016c9c39630c
+
 					newsId:124,
 					username:'lichangtao',
 					password:'asdfas',
