@@ -317,9 +317,15 @@ function loadNewsData(){
     var ctx = "<?php echo site_url();?>";
     var newslink = ctx+'home/index/newsDetail?newsId=';
 	//{"FID":"123","FPROJECTID":"123","FTITLE":"\u5408","FCREATORID":"123","FRELEASEDATE":"2014-09-01 09:53:00","FCONTENT":"\u5408\u80a5\u9ad8"}
+	var listNum = 0;
 	$.each(newsList, function(ind, val){
+		if (listNum >= 3) 
+		{
+			return false;
+		};
 	    tempHtml += '<tr class="row"><td><h2><a style="color:red">'+val.FRELEASEDATE+'</a></h2><br>';
 	    tempHtml += '<h4 style="font-weight:600"><a href="'+newslink+val.FID+'">'+val.FTITLE+'</a></h2></td></tr>';
+	    listNum++;
 		//tempHtml += '<h4 style=""><a href="'+newslink+val.FID+'">'+val.FCONTENT +'</a></h4><br></td></tr>';
 	})
 	$("#news tbody").html(tempHtml);
@@ -400,9 +406,10 @@ ImageName: "default.jpg"
 				'</div>'+
 				'<div class="buttonLayer">';
 					//+'<div class="forumBtn"><a target="_blank" href="http://ekp.cifi.com.cn/module<?php echo site_url()?>?nav=/km/forum/tree.jsp&main=/km/forum/km_forum_cate/kmForumCategory.do?method=main">答疑讨论区</a></div>';
-				//if((tempObj.isPurchase=="" || tempObj.isPurchase==null || tempObj.isPurchase=="null") && new Date(tempObj.subscribeStartDate)<new Date() && new Date(tempObj.subscribeEndDate)>new Date()){
-					//tempHtml+='<div class="subscribeBtn"><a href="./subscribeApply?projectId='+tempObj.FPROJECTID+'">我要认购</a></div>';
-				//}
+				if(tempObj.FISSU == 2 && new Date(tempObj.FSUBSCRIBESTARTDATE)<=new Date() && new Date(tempObj.FSUBSCRIBEENDDATE)>=new Date())
+				{
+					tempHtml+='<div class="subscribeBtn"><a href="./subscribeApply?projectId='+tempObj.FPROJECTID+'">我要认购</a></div>';
+				}
 				tempHtml+='</div>'+ 
 			'</div>'+
 		'</div>';

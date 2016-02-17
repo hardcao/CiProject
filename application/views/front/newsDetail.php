@@ -105,7 +105,7 @@ FTITLE: "合肥高新"
 __proto__: Object
 		*/
 		$("#newsTitle").text(newsInfo.FTITLE);
-		$("#newsProperty").html('<span>发布人：'+newsInfo.FCREATORID+'</span><span>'+(new Date(newsInfo.FRELEASEDATE)).format('yyyy-MM-dd')+'</span><span>'+(newsInfo.FPROJECTID||"")+'</span>');
+		$("#newsProperty").html('<span>发布人：'+newsInfo.FUSERNAME+'</span><span>'+(new Date(newsInfo.FRELEASEDATE)).format('yyyy-MM-dd')+'</span><span>'+(newsInfo.FPROJECTID||"")+'</span>');
 		$("#newscontent").html(newsInfo.FCONTENT);
 
 		if(newsInfo.projectId){

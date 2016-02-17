@@ -61,10 +61,10 @@
 				<option value="3">1:3</option>
 			</select></td>
 		</tr><tr>
-			<td class="titleTd">出资下限:</td>
+			<td class="titleTd">认购下限:</td>
 			<td><span id="downLimitInp">0</span> (万元)</td>
 		</tr><tr>
-			<td class="titleTd">出资上限:</td>
+			<td class="titleTd">认购上限:</td>
 			<td><span id="upLimitInp">0</span> (万元)</td>
 		</tr><tr>
 			<td class="titleTd">认购金额:</td>
@@ -72,6 +72,9 @@
 		</tr><tr id="leverageRow">
 			<td class="titleTd">杠杆金额:</td>
 			<td><input id="levMoneyInp" class="inpSTY readonly" value="0" readonly />&nbsp;(万元)</td>
+		</tr><tr>
+			<td class="titleTd">认购总额（含杠杆）:</td>
+			<td><input id="totalInp" class="inpSTY readonly" value="0" readonly />&nbsp;(万元)</td>
 		</tr>
 		<tr>
 			<td class="titleTd">分红账号:</td>
@@ -174,7 +177,10 @@ function initListeners(){
 
 	$("#subMoneyInp").blur(function(){
 
-		$("#levMoneyInp").val($(this).val()*$("#leverSel").val());
+		var leverVal = parseInt($(this).val()*$("#leverSel").val());
+		var totalVal = leverVal + parseInt($(this).val());
+		$("#levMoneyInp").val(leverVal);
+		$("#totalInp").val(totalVal);
 
 	});
 	$("#leverSel").change(function(){

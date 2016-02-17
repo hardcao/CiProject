@@ -929,8 +929,8 @@ function hideForceDialog(){
 		</div>
 		<div class="contentDiv"><table border="1"><thead><tr>
 			<td rowspan="2" width="25" height="28"></td>
-			<td rowspan="2" width="110">帐号</td>
-			<td rowspan="2" width="120">名称</td>
+			<td rowspan="2" width="110">名称</td>
+			<td rowspan="2" width="120">帐号</td>
 			<!-- <td rowspan="2" width="150">认购类型</td> -->
 			<td rowspan="2" width="150">组织</td>
 			<!-- <td rowspan="2" width="150">职务</td> -->

@@ -73,8 +73,8 @@ class Login extends CI_Controller {
 
 		$this->config->set_item('sess_expiration', 3600*15);//秒
 	
-		//$this->loginWithLocal();
-		$this->loginWithAD();
+		$this->loginWithLocal();
+		//$this->loginWithAD();
 
     }
 
