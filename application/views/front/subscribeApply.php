@@ -129,7 +129,7 @@ $(function(){
 });
 
 function initParams(){
-	proId = getReqParam("proId");
+	proId = getReqParam("projectId");
 }
 
 function initListeners(){
@@ -141,17 +141,19 @@ function initListeners(){
 
 
 	$("#downLoadProtocal").click(function(){
+		var ctx="<?php echo site_url();?>";
+		///var projectId=getReqParam('projectid');
 		$.ajax({
 			type:'post',//可选get
-			url:'../ProjectBasicController/subscribeProtocalList.action',
+			url:ctx+'/FollowScheme/getFollowShemeListWithProjectID',
 			dataType:'Json',//服务器返回的数据类型 可选XML ,Json jsonp script html text等
 			cache:false,
 			data:{'projectId':proId},
 			success:function(msg){
 				if(msg.success){
-					if(msg.dataDto){
-						showProtocalList(msg.data);
-					}
+					var data = msg.data[0].FLINK;
+					//var fileList = data.split(";");
+					showProtocalList(data);
 				}else{
 					alert(msg.error);
 				}
@@ -246,10 +248,12 @@ function generatePage(protocalList){
 function generateProtocalList(protocalList){
 	var result = "";
 	protocalArr = protocalList.split(";");
+	var ctx="<?php echo site_url();?>";
+	var upload_link = ctx+"fileFolder/";
 	if(protocalArr && protocalArr.length > 0){
 		for(var i = 0; i < protocalArr.length; i++){
 			result = result + "<li>" + 
-								"<a href='files/" + protocalArr[i] + "'>" + (i + 1 + "、 ") + protocalArr[i] + "</a>" +
+								'<a href="'+upload_link+protocalArr[i]+'">' + (i + 1 + "、 ") + protocalArr[i] + "</a>" +
 						"</li>";
 		}
 	}else{
