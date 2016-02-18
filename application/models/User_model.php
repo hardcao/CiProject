@@ -204,8 +204,12 @@ class User_model extends CI_Model
                     break;
                 }
             }
-            if($flag)
-                array_push($insertArry, $userValue);
+            if($flag) {
+                if($userValue['F1'] != NULL && $userValue['F2'] != NULL)
+                    $userValue['FORG'] = $userValue['F1']."/".$userValue['F2'];
+                if($userValue['F1'] != NULL && $userValue['F2'] != NULL)
+                    array_push($insertArry, $userValue);
+            }
         }
        
         $data["success"] = true;

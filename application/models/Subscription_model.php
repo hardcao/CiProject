@@ -60,24 +60,17 @@ class Subscription_model extends CI_Model
 
     public function getSubscribeList($projectId)
     {
-        $selectData = "T_SUBSCRIBECONFIRMRECORD.FID as FID,T_USER.FNAME as FNAME, T_USER.FORG as FORG,T_USER.F1 as F1,T_USER.F2 as F2,T_FOLLOWER.FSTATE as FSTATE,T_SUBSCRIBECONFIRMRECORD.FAMOUNT as FAMOUNT,T_SUBSCRIBECONFIRMRECORD.FLEVERAMOUNT as FLEVERAMOUNT,T_SUBSCRIBECONFIRMRECORD.FCONFIRMAMOUNT as FCONFIRMAMOUNT,T_SUBSCRIBECONFIRMRECORD.FLEVERCONFIRMAMOUNT as FLEVERCONFIRMAMOUNT,T_SUBSCRIBECONFIRMRECORD.FLEVERRATIO as FLEVERRATIO,T_BANKINFO.FBANKNO as FBANKNO";
+        $selectData = "T_SUBSCRIBECONFIRMRECORD.FID as FID,T_USER.FNAME as FNAME, T_USER.FORG as FORG,T_FOLLOWER.FSTATE as FSTATE,T_SUBSCRIBECONFIRMRECORD.FAMOUNT as FAMOUNT,T_SUBSCRIBECONFIRMRECORD.FLEVERAMOUNT as FLEVERAMOUNT,T_SUBSCRIBECONFIRMRECORD.FCONFIRMAMOUNT as FCONFIRMAMOUNT,T_SUBSCRIBECONFIRMRECORD.FLEVERCONFIRMAMOUNT as FLEVERCONFIRMAMOUNT,T_SUBSCRIBECONFIRMRECORD.FLEVERRATIO as FLEVERRATIO,T_BANKINFO.FBANKNO as FBANKNO";
         $this->db->select($selectData);
         $this->db->join('T_USER','T_USER.FID=T_SUBSCRIBECONFIRMRECORD.FUSERID');
         $this->db->join('T_FOLLOWER','T_FOLLOWER.FUSERID=T_SUBSCRIBECONFIRMRECORD.FUSERID AND T_FOLLOWER.FPROJECTID=T_SUBSCRIBECONFIRMRECORD.FPROJECTID');
         $this->db->join('T_BANKINFO','T_BANKINFO.FID=T_SUBSCRIBECONFIRMRECORD.FBANKID');
         $this->db->where('T_SUBSCRIBECONFIRMRECORD.FPROJECTID',$projectId);
         $result = $this->db->get('T_SUBSCRIBECONFIRMRECORD')->result_array();
-        $insertArr = array();
-        foreach ($userInfo as $item) {
-            if($item['F1'] != NULL && $item['F2'] != NULL)
-                $item['FORG'] = $item['F1']."/".$item['F2'];
-            if($item['F1'] != NULL && $item['F2'] != NULL)
-                array_push($insertArr,  $item);
-        }
         $data["success"] = true;
         $data["errorCode"] = 0;
         $data["error"] = 0;
-        $data['data'] = $insertArr;
+        $data['data'] = $result;
         return  $data;
     }
     
