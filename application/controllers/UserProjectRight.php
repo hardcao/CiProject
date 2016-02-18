@@ -161,6 +161,19 @@ class UserProjectRight extends CI_Controller
         return $result;
     }
 
+    // 删除一个管理员
+    //UserProjectRight/deleteRelateByUserProject
+
+    public function deleteRelateByUserProject() {
+        $ProjctID =$this->input->post('projectId');
+        $userID =$this->input->post('uid');
+        $where = 'FPROJECTID='.$ProjctID.' AND FUSERID = '.$userID;
+        $tableName = 'T_USERPROJECTRIGHT';
+        $this->load->model('Tools');
+        $result = $this->Tools->deleteDataWithWhere($tableName,$where);
+        return $result;
+    }
+
     //更新一个管理员
    // UserProjectRight/updateUserProjectRight
     public function updateUserProjectRight() {

@@ -21,7 +21,7 @@
    {
      # code...Api
     //$this->load->view('loginview');
-    $this->load->view('A03_FORM_EDIT');
+    $this->load->view('TestApi');
     //echo $_SERVER['PHP_SELF']."<br>";
      //$this->load->view('loginview');
    }
