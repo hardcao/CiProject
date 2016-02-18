@@ -59,22 +59,22 @@ $(function(){
 
 	$("#confirmTbody").on("click",".saveBtn",function(){
 		var _ind = $(this).attr("ind");
-		var _adVal = $("#adjustInp_"+_ind).val();
-		var _adLevVal = $("#adjustLevInp_"+_ind).val();
+		//var _adVal = $("#adjustInp_"+_ind).val();
+		//var _adLevVal = $("#adjustLevInp_"+_ind).val();
 		var _cfmVal = $("#confirmInp_"+_ind).val();
 		var _cfmLevVal = $("#confirmLevInp_"+_ind).val();
-
+		ctx = "<?php echo site_url();?>"
 		$.ajax({
 			type:'post',//可选get
 			url:'../subscribe/saveAdjAndConfirmtSubscribe.action',
 			// contentType:"application/json",
 			dataType:'json',//服务器返回的数据类型 可选XML ,Json jsonp script html text等
 			data:{
-				"csrid": confirmList[_ind].csrId,
-				"AdjustSubAmt":parseFloat(_adVal)*10000,
-				"AdjustLevelAmt":parseFloat(_adLevVal)*10000,
-				"confirmSubAmt": parseFloat(_cfmVal)*10000,
-				"confirmLevelAmt": parseFloat(_cfmLevVal)*10000
+				"csrid": confirmList[_ind].FID,
+				//"AdjustSubAmt":parseFloat(_adVal)*10000,
+				//"AdjustLevelAmt":parseFloat(_adLevVal)*10000,
+				"confirmSubAmt": (_cfmVal),
+				"confirmLevelAmt": (_cfmLevVal)
 			},
 			success:function(msg){
 				if(msg.success){
@@ -163,8 +163,8 @@ FSTATE: "区域"				//'<td>'+(val.FCONFIRMAMOUNT||0)+'</td>'+
 				'<td>'+(val.FORG||"")+'</td>'+
 				'<td>'+(val.FSTATE||'总部')+'</td>'+
 				'<td>'+ '1:'+(val.FLEVERRATIO||0)+'</td>'+
-				'<td>'+(val.FAMOUNT||0)+'</td>'+
-				'<td>'+(val.FLEVERAMOUNT||0)+'</td>'+
+				'<td>'+(val.FCONFIRMAMOUNT||0)+'</td>'+
+				'<td>'+(val.FLEVERCONFIRMAMOUNT||0)+'</td>'+
 				'<td><input id="confirmInp_'+ind+'" value="'+val.FAMOUNT+'" /></td>'+
 				'<td><input id="confirmLevInp_'+ind+'" value="'+val.FLEVERAMOUNT+'" /></td>'+
 				'<td>'+((parseInt(val.FLEVERAMOUNT)+parseInt(val.FAMOUNT))||0)+'</td>'+

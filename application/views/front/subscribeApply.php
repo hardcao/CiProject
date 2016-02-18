@@ -253,6 +253,11 @@ function generatePage(protocalList){
 
 function generateProtocalList(protocalList){
 	var result = "";
+	if (protocalList == null) 
+	{
+		result = "<li><a href='#'>没有可下载的协议!</a></li>" ;
+		return result;
+	}
 	protocalArr = protocalList.split(";");
 	var ctx="<?php echo site_url();?>";
 	var upload_link = ctx+"fileFolder/";
