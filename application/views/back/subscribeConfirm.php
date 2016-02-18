@@ -250,9 +250,9 @@ function keyForceFunc(){
 			<td rowspan="2" width="50">操作</td>
 		</tr>
 	<tr>
-		<td width="85">出资金额</td>
+		<td width="85">认购金额</td>
 		<td width="85">杠杆金额</td>
-		<td width="95" class="">出资金额</td>
+		<td width="95" class="">认购金额</td>
 		<td width="95" class="">杠杆金额</td>
 		<!--td width="85">出资金额</td-->
 		<!--td width="85">杠杆金额</td-->
