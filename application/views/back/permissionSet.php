@@ -338,11 +338,11 @@ function loadMngUserData(){
 
 				var permStr = "";
 				for (var i = 0; i < permArr.length; i++) {
-					permStr += '<input type="checkbox" class="ckSTY" uid="'+val.FID+'" '+(isPermission2(ckArr,i)?"checked='checked'":"")+' />'+permArr[i]+'&nbsp;&nbsp;'
+					permStr += '<input type="checkbox" class="ckSTY" uid="'+val.FUSERID+'" '+(isPermission2(ckArr,i)?"checked='checked'":"")+' />'+permArr[i]+'&nbsp;&nbsp;'
 				};
 
 				tempHtml +=
-				'<div class="mngListSTY">'+val.FUSERNAME+'<a class="delBtn" uid="'+val.FID+'" '+
+				'<div class="mngListSTY">'+val.FUSERNAME+'<a class="delBtn" uid="'+val.FUSERID+'" '+
 					'href="javascript:void(0);"> x </a>'+
 					'<span class="ckbox">'+ permStr +
 					// '<input type="checkbox" class="ckSTY" uid="'+val.uid+'" '+(isPermission(ckArr,0)?"checked='checked'":"")+' />基础信息&nbsp;&nbsp;'+
@@ -503,13 +503,14 @@ function saveMngUser(){
 
 function delMngUser(_uid){	
 	var _addUidStr = objConcatStr(tempAddObj);
+	ctx ="<?php echo site_url() ?>";
 	$.ajax({
 		type:'post',//可选get
-		url:'../UserProjectRelateController/deleteRelateByUserProject.action',
+		url:ctx+'UserProjectRight/deleteRelateByUserProject',
 		dataType:'Json',//服务器返回的数据类型 可选XML ,Json jsonp script html text等
 		data:{
 			'projectId':permProList[proInd].FID,
-			'userId':_uid
+			'uid':_uid
 		},
 		success:function(msg){
 			if(msg.success){
