@@ -171,7 +171,7 @@ class UserProjectRight extends CI_Controller
         $tableName = 'T_USERPROJECTRIGHT';
         $this->load->model('Tools');
         $result = $this->Tools->deleteDataWithWhere($tableName,$where);
-        return $result;
+        echo json_encode($result);
     }
 
     //更新一个管理员
