@@ -408,7 +408,9 @@ ImageName: "default.jpg"
 					//+'<div class="forumBtn"><a target="_blank" href="http://ekp.cifi.com.cn/module<?php echo site_url()?>?nav=/km/forum/tree.jsp&main=/km/forum/km_forum_cate/kmForumCategory.do?method=main">答疑讨论区</a></div>';
 				if(tempObj.FISSU == 2 && new Date(tempObj.FSUBSCRIBESTARTDATE)<=new Date() && new Date(tempObj.FSUBSCRIBEENDDATE)>=new Date())
 				{
-					tempHtml+='<div class="subscribeBtn"><a href="./subscribeApply?projectId='+tempObj.FPROJECTID+'">我要认购</a></div>';
+					var ctx = "<?php echo site_url();?>";
+   					var newslink = ctx+'home/index/subscribeApply?projectId=';		
+					tempHtml+='<div class="subscribeBtn"><a href="'+newslink+tempObj.FPROJECTID+'">我要认购</a></div>';
 				}
 				tempHtml+='</div>'+ 
 			'</div>'+

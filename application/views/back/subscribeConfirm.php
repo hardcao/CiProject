@@ -165,9 +165,11 @@ FSTATE: "区域"				//'<td>'+(val.FCONFIRMAMOUNT||0)+'</td>'+
 				'<td>'+ '1:'+(val.FLEVERRATIO||0)+'</td>'+
 				'<td>'+(val.FAMOUNT||0)+'</td>'+
 				'<td>'+(val.FLEVERAMOUNT||0)+'</td>'+
+				'<td><input id="confirmInp_'+ind+'" value="'+val.FAMOUNT+'" /></td>'+
+				'<td><input id="confirmLevInp_'+ind+'" value="'+val.FLEVERAMOUNT+'" /></td>'+
 				'<td>'+((parseInt(val.FLEVERAMOUNT)+parseInt(val.FAMOUNT))||0)+'</td>'+
 				'<td>'+(val.FBANKNO||'No Card!')+'</td>'+
-				//'<td><a class="saveBtn" ind="'+ind+'" href="javascript:void(0)">保存</a>'+
+				'<td><a class="saveBtn" ind="'+ind+'" href="javascript:void(0)">保存</a>'+
 				// '&nbsp;&nbsp;<a class="delBtn" ind="'+ind+'" href="javascript:void(0)">删除</a></td></tr>';
 				'</td></tr>';
 		});
@@ -235,23 +237,23 @@ function keyForceFunc(){
 	<thead>
 		<tr>
 			<td rowspan="2" height="34" width="40">序号</td>
-			<td rowspan="2" width="80">认购人</td>
-			<td rowspan="2" width="90">部门</td>
-			<td rowspan="2" width="80">区域/总部</td>
+			<td rowspan="2" width="70">认购人</td>
+			<td rowspan="2" width="60">部门</td>
+			<td rowspan="2" width="60">区域/总部</td>
 			<!--td rowspan="2" width="70">豁免认购</td-->
-			<td rowspan="2" width="70">杠杆比例</td>
+			<td rowspan="2" width="60">杠杆比例</td>
 			<td colspan="2">认购额度(万元)</td>
-			<td rowspan="2" width="90">认购总额(含杠杆)</td>
 			<!--td colspan="2" class="displayNone">调整额度(万元)</td-->
-			<!--td colspan="2">平衡额度(万元)</td-->
+			<td colspan="2">平衡额度(万元)</td>
+			<td rowspan="2" width="70">认购总额(含杠杆)</td>
 			<td rowspan="2">分红账号</td>
-			<!--td rowspan="2" width="60">操作</td-->
+			<td rowspan="2" width="50">操作</td>
 		</tr>
 	<tr>
 		<td width="85">出资金额</td>
 		<td width="85">杠杆金额</td>
-		<!--td width="95" class="displayNone">出资金额</td>
-		<td width="95" class="displayNone">杠杆金额</td-->
+		<td width="95" class="">出资金额</td>
+		<td width="95" class="">杠杆金额</td>
 		<!--td width="85">出资金额</td-->
 		<!--td width="85">杠杆金额</td-->
 	</tr>
