@@ -312,6 +312,8 @@ function loadProjectInfo(){
 		var tempSubDate;
 		var tempImg = "<?php echo site_url() ?>images/default.jpg";
 		$.each(projectList, function(ind, val){
+		if(new Date(val.FSUBSCRIBESTARTDATE)<=new Date() && new Date(val.FSUBSCRIBEENDDATE)>=new Date())
+		{
 			tempPayDate = "";
 			tempSubDate = "";
 			tempImg = "./images/80_80.png";
@@ -359,6 +361,7 @@ FSUBSCRIBESTARTDATE: "2016-01-27"
 						'<td>付款开始时间:</td>'+
 						'<td>'+tempPayDate+'</td>'+*/
 							'</tr></table></div>';
+			}
 		})
 		$("#projectList .proList").html(tempHtml);
 	}
