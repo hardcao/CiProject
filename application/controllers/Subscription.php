@@ -49,6 +49,7 @@ class Subscription extends CI_Controller
         echo  json_encode($result);
     }
 
+   // subscription/getSubscribeList
     public function getSubscribeList()
     {
          $projectId = $this->input->post('projectId');
@@ -91,6 +92,7 @@ class Subscription extends CI_Controller
 
 
 // 更新认购表信息
+    //subscription/updateSubscribe
     public function updateSubscribe() {
         $data = $this->input->input_stream();
         $where = 'FID='.$data['FID'];
