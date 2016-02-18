@@ -354,6 +354,8 @@ ImageName: "default.jpg"
 	var tempImg = "<?php echo site_url() ?>images/default.jpg";
 
 	for(var i=0; i<dataList.length; i++){
+		if(i==5)
+			break;
 		tempObj = dataList[i];
 		if (tempObj.FSTATUS == '0') {continue;};
 		if(tempObj.ImageName){
