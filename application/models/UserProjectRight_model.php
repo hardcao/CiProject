@@ -82,7 +82,10 @@ class UserProjectRight_model extends CI_Model
                 $tempResult['FBONUSDETAIL'] = false;
                 $tempResult['FBASICS'] = false;
             }
-            array_push($insertArr,  $tempResult);
+            if($item['F1'] != NULL && $item['F2'] != NULL)
+                $tempResult['FORG'] = $item['F1']."/".$item['F2'];
+            if($item['F1'] != NULL && $item['F2'] != NULL)
+                array_push($insertArr,  $tempResult);
         }
        
         $data['data'] = $insertArr;
@@ -91,12 +94,12 @@ class UserProjectRight_model extends CI_Model
 
     public function getAllUserInfo($userName)
     {
-        $selectData = "FID as FUSERID,FNAME as FUSERNAME,FORG,FNUMBER";
+        $selectData = "FID as FUSERID,FNAME as FUSERNAME,FORG,FNUMBER,F1,F2";
         if($userName != NULL )
              $this->db->like('FNAME',$userName);
         $this->db->select( $selectData);
         $this->db->limit(10,0);
-        $this->db->order_by('T_USER.FORG','DESC');
+        $this->db->order_by('T_USER.F1','DESC');
         $result = $this->db->get('T_USER')->result_array();
         return $result;
     }
