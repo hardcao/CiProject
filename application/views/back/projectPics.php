@@ -72,8 +72,12 @@ input#item_pic {
 </style>
 <script type="text/javascript">
 
-$(function(){
 
+
+$(function(){
+		var projectId =getReqParam('projectid');
+		$("#master_projectId").val(projectId);
+		$('.url').val(window.location.href);
 		getMainPic();
 		getPics();
 });
@@ -245,16 +249,18 @@ function delPic(id)
 <div id="basic" class="editTitle"><img src="<?php echo site_url();?>application/views/back/images/arrow_down.png" />项目封面图</div>
 		<div><img src="<?php echo site_url();?>images/default.jpg" width="600px" id="main_pic"></div>
 
-		<input type="file" id="file" name="file" class="displayNone">
+		<!--input type="file" id="file" name="file" class="displayNone">
 		<button id="importBtn" onclick="importBtn_click()" 
-		class="btnSTY" style="margin:10px 10px 10px 0px; padding:5px">修改封面图片</button>
+		class="btnSTY" style="margin:10px 10px 10px 0px; padding:5px">修改封面图片</button-->
 
-		<!--form method="post" action="<?=site_url()?>files/img/" enctype="multipart/form-data" />
+		<form method="post" action="<?=site_url()?>Pic/updateImage/" enctype="multipart/form-data" />
 		    <div style="margin:0 0 0.5em 0em;">
-		        <input type="file" name="userfile" size="20" class="button" />
+		    	<input type="hidden" name="projectId" id="master_projectId" value=""/>
+		        <input type="file" name="file" size="20" class="button" />
 		        <input type="submit" value=" 修改封面图片 " class="button" />
+		        <input name="url" type="hidden"  style="display:none" class="url" />
 		    </div>
-		</form-->
+		</form>
 
 
 <div id="basic" class="editTitle"><img src="<?php echo site_url();?>application/views/back/images/arrow_down.png" />项目图库</div>

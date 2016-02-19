@@ -19,6 +19,8 @@ body{font-size: 12px;}
     font-size: 14px;
     padding: 5px;}
 #rightLayer #confirmTable input{width: 60px;height: 25px;}
+
+input{text-align: center;}
 </style>
 
 <script type="text/javascript">
