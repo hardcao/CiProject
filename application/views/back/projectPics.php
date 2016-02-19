@@ -10,6 +10,9 @@
 <script type="text/javascript" src="<?php echo site_url('application/views/plugins/ajaxFileUpload.js')?>"></script>
 <script type="text/javascript" src="<?php echo site_url('application/views/plugins/dateFormat.js')?>"></script>
 <script type="text/javascript" src="<?php echo site_url('application/views/plugins/util.js')?>"></script>
+<script type="text/javascript" src="<?php echo site_url('application/views/plugins/mobileFix.mini.js')?>"></script>
+<script type="text/javascript" src="<?php echo site_url('application/views/plugins/exif.js')?>"></script>
+<script type="text/javascript" src="<?php echo site_url('application/views/plugins/lrz.js')?>"></script>
 
 <!-- <link rel="stylesheet" type="text/css" href="../plugins/jquery.datetimepicker.css">
 <script type="text/javascript" src="application/views/plugins/jquery.datetimepicker.js"></script>
@@ -69,6 +72,32 @@ input#item_pic {
 	margin-right: 10px
 }
 
+
+.file {
+    position: relative;
+    display: inline-block;
+    background: #D0EEFF;
+    border: 1px solid #99D3F5;
+    padding: 4px 12px;
+    overflow: hidden;
+    color: #1E88C7;
+    text-decoration: none;
+    text-indent: 0;
+    line-height: 20px;
+}
+.file input {
+    position: absolute;
+    font-size: 14px;
+    right: 0;
+    top: 0;
+    opacity: 0;
+}
+.file:hover {
+    background: #AADFFD;
+    border-color: #78C3F3;
+    color: #004974;
+    text-decoration: none;
+}
 </style>
 <script type="text/javascript">
 
@@ -243,6 +272,33 @@ function delPic(id)
 	})
 }
 
+var main_base64;
+
+$("#main_pic_upload").live("change", upload_main); 
+function upload_main(){
+            lrz(this.files[0], {width: 280}, function (results) {
+                // 你需要的数据都在这里，可以以字符串的形式传送base64给服务端转存为图片。
+                console.log("图片压缩成功"+results);
+                main_base64 = results.base64;
+
+                		var projectId = getReqParam('projectId');
+		var ctx = "<?php echo site_url();?>";
+        var _obj = {"projectId": projectId};
+        $.ajax({ type: 'POST', 
+                        url: ctx+'Pic/updateImage', 
+                        data: _obj, 
+                        success: function(data) 
+						        {
+								   alert('上传成功');
+								},
+                        complete: function() {}, 
+                        error:function(){}, 
+                        dataType: "json" });
+		      });
+ }
+
+
+
 </script>
 </head>
 <body id="rightLayer">
@@ -253,22 +309,22 @@ function delPic(id)
 		<button id="importBtn" onclick="importBtn_click()" 
 		class="btnSTY" style="margin:10px 10px 10px 0px; padding:5px">修改封面图片</button-->
 
-		<form method="post" action="<?=site_url()?>Pic/updateImage/" enctype="multipart/form-data" />
-		    <div style="margin:0 0 0.5em 0em;">
-		    	<input type="hidden" name="projectId" id="master_projectId" value=""/>
-		        <input type="file" name="file" size="20" class="button" />
-		        <input type="submit" value=" 修改封面图片 " class="button" />
+		<!--form method="post" action="<?=site_url()?>Pic/updateImage/" enctype="multipart/form-data" /-->
+		    <div style="margin:10px 0 0.5em 0em;">
+		    	<!--input type="hidden" name="projectId" id="" value=""/-->
+		        <input id="main_pic_upload" type="file" name="file"/>
+		        <!--a href="javascript:;" class="file"><input type="submit" value=" " class="button" />上传修改</a-->
 		        <input name="url" type="hidden"  style="display:none" class="url" />
 		    </div>
-		</form>
+		<!--/form-->
 
 
-<div id="basic" class="editTitle"><img src="<?php echo site_url();?>application/views/back/images/arrow_down.png" />项目图库</div>
+<!--div id="basic" class="editTitle"><img src="<?php echo site_url();?>application/views/back/images/arrow_down.png" />项目图库</div>
 <ul id="ul-pics">
 </ul>
 <div style="clear:both">
 	<input type="file" id="file1" name="file1" class="displayNone">
 	<button id="importBtn1" class="btnSTY" style="margin:10px 10px 10px 0px; padding:5px">上传图片</button>	
-</div>
+</div-->
 
 </html>
