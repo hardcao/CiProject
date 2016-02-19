@@ -586,7 +586,7 @@ function setAllPerm(_status){
 			<td width="28"></td>
 			<td width="80">中文名</td>
 			<td width="100">帐号</td>
-			<td width="100">区域</td>
+			<td width="100">组织</td>
 			<td>权限</td>
 		</tr></thead>
 		<tbody id="allUserTbody">

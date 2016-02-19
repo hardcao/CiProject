@@ -66,15 +66,15 @@ $(function(){
 		ctx = "<?php echo site_url();?>"
 		$.ajax({
 			type:'post',//可选get
-			url:'../subscribe/saveAdjAndConfirmtSubscribe.action',
+			url:ctx+'subscription/updateSubscribe',
 			// contentType:"application/json",
 			dataType:'json',//服务器返回的数据类型 可选XML ,Json jsonp script html text等
 			data:{
-				"csrid": confirmList[_ind].FID,
+				"FID": confirmList[_ind].FID,
 				//"AdjustSubAmt":parseFloat(_adVal)*10000,
 				//"AdjustLevelAmt":parseFloat(_adLevVal)*10000,
-				"confirmSubAmt": (_cfmVal),
-				"confirmLevelAmt": (_cfmLevVal)
+				"FAMOUNT": (_cfmVal),
+				"FLEVERAMOUNT": (_cfmLevVal)
 			},
 			success:function(msg){
 				if(msg.success){
@@ -244,15 +244,15 @@ function keyForceFunc(){
 			<td rowspan="2" width="60">杠杆比例</td>
 			<td colspan="2">认购额度(万元)</td>
 			<!--td colspan="2" class="displayNone">调整额度(万元)</td-->
-			<td colspan="2">平衡额度(万元)</td>
+			<td colspan="2">核准额度(万元)</td>
 			<td rowspan="2" width="70">认购总额(含杠杆)</td>
 			<td rowspan="2">分红账号</td>
 			<td rowspan="2" width="50">操作</td>
 		</tr>
 	<tr>
-		<td width="85">出资金额</td>
+		<td width="85">认购金额</td>
 		<td width="85">杠杆金额</td>
-		<td width="95" class="">出资金额</td>
+		<td width="95" class="">认购金额</td>
 		<td width="95" class="">杠杆金额</td>
 		<!--td width="85">出资金额</td-->
 		<!--td width="85">杠杆金额</td-->

@@ -504,17 +504,21 @@ function submitFunc (isRemissionSubscribe) {
 			"FPROJECTID":getReqParam('projectId'),//"024ec88b-188b-4ada-a807-1f79454eeea3",
 			"FAMOUNT":FAMOUNT,
 			"FLEVERAMOUNT":(FAMOUNT*FLEVERRATIO||0),
+			"FCONFIRMAMOUNT":FAMOUNT,
+			"FLEVERCONFIRMAMOUNT":(FAMOUNT*FLEVERRATIO||0),
 			"FBANKID":FBANKID,
 			"FLEVERRATIO":FLEVERRATIO
 			//"isRemissionSubscribe":isRemissionSubscribe
 		},
 		success:function(msg){
 			alert("认购成功！");
-			//location.href = "personalCenter.jsp";
-			history.go(-1);
+			location.href = "<?php echo site_url()?>home/index/projectList?query=0#1";
+			//history.go(-1);
+
 		},
 		error: function (XMLHttpRequest, textStatus, errorThrown) {
         	sessionTimeout(XMLHttpRequest, textStatus, errorThrown);
+        	alert("认购失败！");
         }
 	});
 }
