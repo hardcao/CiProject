@@ -168,9 +168,9 @@ class Project_model extends CI_Model
             //获得项目的主图
             $selectdata = 'select FCONTENT from T_PIC where FPROJECTID ='.$item['FPROJECTID'].' AND FISMAINPIC = true';
             $query = $this->db->query($selectdata);
-            $imageData = $query->row();
+            $imageData = $query->result_array();
             if($imageData != NULL) {
-                $item['ImageName']  = $imageData['FCONTENT'];
+                $item['ImageName']  = $imageData[0]['FCONTENT'];
             } else {
                 $item['ImageName']  = 'default.jpg';
             }
