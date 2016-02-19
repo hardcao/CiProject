@@ -69,22 +69,23 @@ class Pic extends CI_Controller
      public function updateImage()
      {
 
-        $id = $_POST['id'];
+      $id = $this->input->post('projectId');
         if(!$id)
         {
-            $arr = array(
-                'status'=>'0',
-                'msg'=>"图片上传失败");
-            echo json_encode($arr);
+              $data_result["success"] = 0;
+              $data_result["errorCode"] = 0;
+              $data_result["error"] = 0;
+              $data_result['data'] = "图片上传失败";
+            echo json_encode($data_result);
             exit;
         }
-      
+      pic_data
       //save img  
-        $ex = explode(",",$_POST['pic']);//分割data-url数据
+        $ex = explode(",",$this->input->post('pic_data'));//分割data-url数据
         $filter=explode('/', trim($ex[0],';base64'));//获取文件类型
         $ss = base64_decode(str_replace($filter[1] , '', $ex[1]));//图片解码
-        $picname =  'images/'.$id.'.'.$filter[1];//生成文件名
-        base64_to_jpeg($_POST['pic'], $picname);
+        $picname =  md5( 'images/'.$id.'.'.$filter[1]);//生成文件名
+        base64_to_jpeg($this->input->post('pic_data'), $picname);
         $insertdata['FCONTENT'] = picname;
         $tableName = 'T_PIC';
         $where='FPROJECTID='.$id.' AND FISMAINPIC = true';
@@ -92,7 +93,7 @@ class Pic extends CI_Controller
         $result = $this->Tools->updateData($insertdata,$tableName,$where);
         $result['data'] = $picname;
              //echo json_encode($result);
-         header('Location:'.$this->input->post('url'));
+        echo json_encode($result);
      }
 
      function base64_to_jpeg($base64_string, $output_file) {
