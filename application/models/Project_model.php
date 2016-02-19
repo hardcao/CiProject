@@ -120,7 +120,7 @@ class Project_model extends CI_Model
             $startTime= $startdatetime->format('Y-m-d H:i:s');
             $endDatetime = new DateTime($subscribeEndDate);
             $endTime = $endDatetime->format('Y-m-d H:i:s');
-            $Startwhere = "'".$startTime."' < DATE_FORMAT(T_FOLLOWSCHEME.FSUBSCRIBESTARTDATE,'%Y-%m-%d %H:%i:%s') AND DATE_FORMAT(T_FOLLOWSCHEME.FSUBSCRIBESTARTDATE,'%Y-%m-%d %H:%i:%s') <'".$endTime."'";
+            $where = "'".$startTime."' < DATE_FORMAT(T_FOLLOWSCHEME.FSUBSCRIBESTARTDATE,'%Y-%m-%d %H:%i:%s') AND DATE_FORMAT(T_FOLLOWSCHEME.FSUBSCRIBESTARTDATE,'%Y-%m-%d %H:%i:%s') <'".$endTime."'";
             $whereflag = 0;
         }
 
