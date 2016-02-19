@@ -69,13 +69,12 @@ class Pic extends CI_Controller
      public function updateImage()
      {
          $projectID = $this->input->post('projectId');
-         echo $projectID;
-         exit;
+
          $config['upload_path']      = './images/';
          $config['allowed_types']    = 'gif|jpg';
-         $config['max_size']     = 100;
-         $config['max_width']        = 1024;
-         $config['max_height']       = 768;
+         $config['max_size']     = 2048;
+         $config['max_width']        = 2000;
+         $config['max_height']       = 2000;
          $name = $_FILES["file"]["name"];
          $config['file_name']  =  date('y-m-d-h-i-s',time()).iconv("UTF-8","gb2312", $name);
          $this->load->library('upload', $config);
@@ -83,8 +82,8 @@ class Pic extends CI_Controller
          if ( ! $this->upload->do_upload('file'))
          {
              $error = array('error' => $this->upload->display_errors());
-         
-             $this->load->view('upload_form', $error);
+             echo json_encode($error);
+             //$this->load->view('upload_form', $error);
          }
          else
          {
@@ -96,7 +95,8 @@ class Pic extends CI_Controller
              $this->load->model('Tools');
              $result = $this->Tools->updateData($insertdata,$tableName,$where);
              $result['data'] = $filePath;
-             echo json_encode($result);
+             //echo json_encode($result);
+              header('Location:'.$this->input->post('url'));
          }
      }
 

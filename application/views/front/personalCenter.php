@@ -52,7 +52,7 @@
 	<div id="personalInfo">
 		<table class="infoTable" border="0" cellpadding="0" cellspacing="0"><tr>
 			<td width="200">个人跟投总额(万元)</td>
-			<td width="200">个人出资总额(万元)</td>
+			<td width="200">个人认购总额(万元)</td>
 			<td width="200">杠杆认购总额(万元)</td>
 			<td width="200">分红总额(万元)</td>
 			<td>认购项目数量</td>
@@ -266,8 +266,9 @@ function getPersonalInfo(){
 
 function loadPersonalInfo () {
 	if(personalInfoObj){
+		var personamount = parseInt(personalInfoObj.FTOTALAMOUNT||0) - parseInt(personalInfoObj.FTOTALFLEVERAMOUNT||0)
 		$("#amountTotalTd").text("￥ "+(personalInfoObj.FTOTALAMOUNT||0));
-		$("#confirmAmountTd").text("￥ "+(personalInfoObj.TATOLFPAYAMOUNT||0));
+		$("#confirmAmountTd").text("￥ "+personamount);
 		$("#leverageAmountTd").text("￥ "+(personalInfoObj.FTOTALFLEVERAMOUNT||0));
 		$("#bonusAmountTd").text("￥ "+(personalInfoObj.FTOTALBONUSAMOUNT||0));
 		$("#proCountTd").html(personalInfoObj.FPROJECTCOUNT||0);

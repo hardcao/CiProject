@@ -941,11 +941,11 @@ function hideForceDialog(){
 			<td>上限(元)</td>
 		</tr> --></thead>
 		<tbody id="allUserTbody">
-			<tr><td><input name="userCk" type="checkbox" class="ckSTY"></td>
-			<td>张三</td>
+			<tr><!--td><input name="userCk" type="checkbox" class="ckSTY"></td>
+			<!--td>张三</td>
 			<td>zhangsan</td>
 			<!-- <td><input value="集团强投包" /></td> -->
-			<td>人力资源部</td>
+			<!--td>人力资源部</td>
 			<!-- <td>集团总裁</td> -->
 			<!-- <td><input type="number" value="50000" /></td>
 			<td><input type="number" value="200000" /></td> -->
