@@ -236,8 +236,8 @@ function getProjectData(){
 			count: 2,
 			uid: uid,
 			searchname: "",
-			subscribeStartDate: "",
-			subscribeEndDate:"",
+			subscribeStartDate: "2000-01-01",
+			subscribeEndDate:"2100-01-01",
 			queryType: 0,	
 		},
 		success:function(msg){

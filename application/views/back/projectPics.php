@@ -290,7 +290,8 @@ function upload_main(){
 		             data: _obj, 
 		             success: function(data) 
 			        {
-					   alert('上传成功');
+					   //alert('上传成功');
+					   getMainPic();
 					},
 					error: function (XMLHttpRequest, textStatus, errorThrown)
 					 {
@@ -315,8 +316,8 @@ function upload_main(){
 		<!--form method="post" action="<?=site_url()?>Pic/updateImage/" enctype="multipart/form-data" /-->
 		    <div style="margin:10px 0 0.5em 0em;">
 		    	<!--input type="hidden" name="projectId" id="" value=""/-->
-		        <input id="main_pic_upload" type="file" name="file"/>
-		        <!--a href="javascript:;" class="file"><input type="submit" value=" " class="button" />上传修改</a-->
+		        <a href="javascript:;" class="file"><input id="main_pic_upload" type="file" name="file"/>修改封面图片</a>
+		        <!--input type="submit" value=" " class="button" />上传修改-->
 		        <input name="url" type="hidden"  style="display:none" class="url" />
 		    </div>
 		<!--/form-->

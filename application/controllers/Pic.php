@@ -84,10 +84,11 @@ class Pic extends CI_Controller
         $ex = explode(",",$this->input->post('pic_data'));//分割data-url数据
         $filter=explode('/', trim($ex[0],';base64'));//获取文件类型
         $ss = base64_decode(str_replace($filter[1] , '', $ex[1]));//图片解码
-        $picname =  './images/'.md5(uniqid(rand())).'.'.$filter[1];//生成文件名
+        $namewithoutpath = md5(uniqid(rand())).'.'.$filter[1];
+        $picname =  'images/'.$namewithoutpath;//生成文件名
         $this->base64_to_jpeg($this->input->post('pic_data'), $picname);
-        $insertdata['FCONTENT'] = md5(uniqid(rand())).'.'.$filter[1];
-        $insertdata['FNAME'] = md5(uniqid(rand())).'.'.$filter[1];
+        $insertdata['FCONTENT'] = $namewithoutpath;//md5(uniqid(rand())).'.'.$filter[1];
+        $insertdata['FNAME'] = $namewithoutpath;//md5(uniqid(rand())).'.'.$filter[1];
         $tableName = 'T_PIC';
         $where='FPROJECTID='.$id.' AND FISMAINPIC = true';
         $this->load->model('Tools');
