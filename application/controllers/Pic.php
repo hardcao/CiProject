@@ -68,37 +68,43 @@ class Pic extends CI_Controller
      // Pic/updateImage
      public function updateImage()
      {
-         $projectID = $this->input->post('projectId');
 
-         $config['upload_path']      = './images/';
-         $config['allowed_types']    = 'gif|jpg';
-         $config['max_size']     = 2048;
-         $config['max_width']        = 2000;
-         $config['max_height']       = 2000;
-         $name = $_FILES["file"]["name"];
-         $config['file_name']  =  date('y-m-d-h-i-s',time()).iconv("UTF-8","gb2312", $name);
-         $this->load->library('upload', $config);
-         
-         if ( ! $this->upload->do_upload('file'))
-         {
-             $error = array('error' => $this->upload->display_errors());
-             echo json_encode($error);
-             //$this->load->view('upload_form', $error);
-         }
-         else
-         {
-             $data = array('upload_data' => $this->upload->data());
-             $filePath =  $data['upload_data']['file_name'];
-             $insertdata['FCONTENT'] = iconv("gb2312","UTF-8", $filePath);
-             $tableName = 'T_PIC';
-             $where='FPROJECTID='.$projectID.' AND FISMAINPIC = true';
-             $this->load->model('Tools');
-             $result = $this->Tools->updateData($insertdata,$tableName,$where);
-             $result['data'] = $filePath;
+        $id = $_POST['id'];
+        if(!$id)
+        {
+            $arr = array(
+                'status'=>'0',
+                'msg'=>"图片上传失败");
+            echo json_encode($arr);
+            exit;
+        }
+      
+      //save img  
+        $ex = explode(",",$_POST['pic']);//分割data-url数据
+        $filter=explode('/', trim($ex[0],';base64'));//获取文件类型
+        $ss = base64_decode(str_replace($filter[1] , '', $ex[1]));//图片解码
+        $picname =  'images/'.$id.'.'.$filter[1];//生成文件名
+        base64_to_jpeg($_POST['pic'], $picname);
+        $insertdata['FCONTENT'] = picname;
+        $tableName = 'T_PIC';
+        $where='FPROJECTID='.$id.' AND FISMAINPIC = true';
+        $this->load->model('Tools');
+        $result = $this->Tools->updateData($insertdata,$tableName,$where);
+        $result['data'] = $picname;
              //echo json_encode($result);
-              header('Location:'.$this->input->post('url'));
-         }
+         header('Location:'.$this->input->post('url'));
      }
+
+     function base64_to_jpeg($base64_string, $output_file) {
+        $ifp = fopen($output_file, "wb"); 
+
+        $data = explode(',', $base64_string);
+
+        fwrite($ifp, base64_decode($data[1])); 
+        fclose($ifp); 
+
+        return $output_file; 
+    }
 
      public function deleteImage()
      {
