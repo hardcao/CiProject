@@ -272,29 +272,32 @@ function delPic(id)
 	})
 }
 
-var main_base64;
+//var main_base64;
 
 $("#main_pic_upload").live("change", upload_main); 
 function upload_main(){
             lrz(this.files[0], {width: 280}, function (results) {
                 // 你需要的数据都在这里，可以以字符串的形式传送base64给服务端转存为图片。
                 console.log("图片压缩成功"+results);
-                main_base64 = results.base64;
+                //main_base64 = results.base64;
 
-                		var projectId = getReqParam('projectId');
-		var ctx = "<?php echo site_url();?>";
-        var _obj = {"projectId": projectId};
-        $.ajax({ type: 'POST', 
-                        url: ctx+'Pic/updateImage', 
-                        data: _obj, 
-                        success: function(data) 
-						        {
-								   alert('上传成功');
-								},
-                        complete: function() {}, 
-                        error:function(){}, 
-                        dataType: "json" });
-		      });
+                var projectId = getReqParam('projectId');
+				var ctx = "<?php echo site_url();?>";
+		        var _obj = {"projectId": projectId, "pic_data":results.base64};
+		        $.ajax({
+		        	 type: 'POST', 
+		             url: ctx+'Pic/updateImage', 
+		             data: _obj, 
+		             success: function(data) 
+			        {
+					   alert('上传成功');
+					},
+					error: function (XMLHttpRequest, textStatus, errorThrown)
+					 {
+					        	 sessionTimeout(XMLHttpRequest, textStatus, errorThrown);
+					 }, 
+		            dataType: "json" });
+				      });
  }
 
 
