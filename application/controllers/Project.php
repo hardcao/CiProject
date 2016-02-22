@@ -221,7 +221,7 @@ class Project extends CI_Controller
         $tableName = 'T_FOLLOWSCHEME';
         $result = $this->Tools->addData($projectDetail,$tableName);
         $tableName = 'T_PIC';
-        $PICData['FPROJECTID']=$result['data'];
+        $PICData['FPROJECTID']=$projectDetail['FPROJECTID'];
         $PICData['FNAME']='default.jpg';
         $PICData['FCONTENT']='default.jpg';
         $PICData['FISMAINPIC']=true;

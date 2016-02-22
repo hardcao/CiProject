@@ -21,8 +21,8 @@ $("#btn_login").click(function(){
 				url: window.location.origin+"/"+password,
 				type: "post",
 				data:{
-					FID:1,
-					FCONTENT:'sadfasfdsadffffffffffffffffffffffffffffffffffffffffffffffffffff'
+					'FNAME':'testApp',
+					'FSTATE':'FSTATE'
 				
 				},
 				success: function(data){
