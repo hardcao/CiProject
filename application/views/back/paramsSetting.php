@@ -46,9 +46,7 @@
 var ueObj = null;
 var newsInfo = null;
 var FID;
-
-$(function(){
-	var ctx="<?php echo site_url();?>";
+var ctx="<?php echo site_url();?>";
 window.UEDITOR_HOME_URL = ctx+"application/views/plugins/ueditor/";
 window.UEDITOR_CONFIG.toolbars = [[
     'undo', 'redo', '|',
@@ -60,11 +58,10 @@ window.UEDITOR_CONFIG.toolbars = [[
     'justifyleft', 'justifycenter', 'justifyright', 'justifyjustify', '|', 
     'touppercase', 'tolowercase'
 ]];
-	ueObj = UE.getEditor('editor');
+ueObj = UE.getEditor('editor');
+$(function(){
 	initListeners();
-	
 	setTimeout(getNewsInfo(), 500);
-	//getNewsInfo();
 });
 
 function initParams(){

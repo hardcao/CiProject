@@ -89,6 +89,7 @@ $(function(){
 	if (newsId) 
 		{
 			setTimeout(getNewsInfo(), 500);
+		}
 	else
 	{
 		setTimeout(getProjectInfo(), 500);
