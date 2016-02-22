@@ -11,7 +11,7 @@
 <script type="text/javascript" src="<?php echo site_url('application/views/plugins/jquery-1.8.0.min.js')?>"></script>
 <script type="text/javascript" src="<?php echo site_url('application/views/plugins/ueditor/ueditor.config.js')?>"></script>
 <script type="text/javascript" src="<?php echo site_url('application/views/plugins/ueditor/ueditor.all.min.js')?>"></script>
-<script type="text/javascript" src="<?php echo site_url('application/views/plugins/ueditor/lang/zh-cn/zh-cn.js')?>"></script>
+
 <script type="text/javascript" src="<?php echo site_url('application/views/plugins/util.js')?>"></script>
 
 <style type="text/css">
@@ -62,7 +62,9 @@ window.UEDITOR_CONFIG.toolbars = [[
 ]];
 	ueObj = UE.getEditor('editor');
 	initListeners();
-	getNewsInfo();
+	
+	setTimeout(getNewsInfo(), 500);
+	//getNewsInfo();
 });
 
 function initParams(){
