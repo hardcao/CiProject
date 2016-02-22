@@ -11,7 +11,7 @@
 <script type="text/javascript" src="<?php echo site_url('application/views/plugins/jquery-1.8.0.min.js')?>"></script>
 <script type="text/javascript" src="<?php echo site_url('application/views/plugins/ueditor/ueditor.config.js')?>"></script>
 <script type="text/javascript" src="<?php echo site_url('application/views/plugins/ueditor/ueditor.all.min.js')?>"></script>
-<script type="text/javascript" src="<?php echo site_url('application/views/plugins/ueditor/lang/zh-cn/zh-cn.js')?>"></script>
+
 <script type="text/javascript" src="<?php echo site_url('application/views/plugins/util.js')?>"></script>
 
 <style type="text/css">
@@ -42,6 +42,10 @@
 </body>
 
 <script type="text/javascript">
+
+var ueObj = null;
+var newsInfo = null;
+var FID;
 var ctx="<?php echo site_url();?>";
 window.UEDITOR_HOME_URL = ctx+"application/views/plugins/ueditor/";
 window.UEDITOR_CONFIG.toolbars = [[
@@ -52,18 +56,12 @@ window.UEDITOR_CONFIG.toolbars = [[
     'customstyle', 'paragraph', 'fontfamily', 'fontsize', '|',
     'directionalityltr', 'directionalityrtl', 'indent', '|',
     'justifyleft', 'justifycenter', 'justifyright', 'justifyjustify', '|', 
-    'touppercase', 'tolowercase',
+    'touppercase', 'tolowercase'
 ]];
-
-var ueObj = null;
-var newsInfo = null;
-var FID;
-
+ueObj = UE.getEditor('editor');
 $(function(){
-	ueObj = UE.getEditor('editor');
-	initParams();
 	initListeners();
-	getNewsInfo();
+	setTimeout(getNewsInfo, 500);
 });
 
 function initParams(){
@@ -98,7 +96,8 @@ function getNewsInfo(){
 
 function loadNewsInfo(){
 	if(newsInfo){
-		ueObj.execCommand('insertHtml', newsInfo.FCONTENT);
+		//ueObj.execCommand('insertHtml', newsInfo.FCONTENT);
+		ueObj.setContent(newsInfo.FCONTENT, false);
 	}
 }
 

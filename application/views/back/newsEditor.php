@@ -1,4 +1,4 @@
-﻿
+
 <html>
 <head>
 <title>数据维护系统 - 新闻编辑</title>
@@ -88,11 +88,11 @@ $(function(){
 
 	if (newsId) 
 		{
-			getNewsInfo();
+			setTimeout(getNewsInfo, 500);
 		}
 	else
 	{
-		getProjectInfo();
+		setTimeout(getProjectInfo, 500);
 	}
 	
 	// setTimeout(function(){
