@@ -56,11 +56,13 @@ window.UEDITOR_CONFIG.toolbars = [[
 
 var ueObj = null;
 var newsInfo = null;
+var FID;
 
 $(function(){
 	ueObj = UE.getEditor('editor');
 	initParams();
 	initListeners();
+	getNewsInfo();
 });
 
 function initParams(){
@@ -76,11 +78,12 @@ function getNewsInfo(){
 	var ctx="<?php echo site_url();?>";
 	$.ajax({
 		type:'post',//可选get
-		url:ctx+'/',
+		url:ctx+'SubscriptionSystem/getSubscriptionSystemInfo',
 		dataType:'Json',//服务器返回的数据类型 可选XML ,Json jsonp script html text等
 		success:function(msg){
 			if(msg.success){
 				newsInfo = msg.data[0];
+				FID = newsInfo.FID;
 				loadNewsInfo();
 			}else{
 				alert(msg.error);
@@ -102,6 +105,7 @@ function submitInfo(){
 	var _cont = ueObj.getContent();
 	var _param = {};
 	_param = {
+			'FID': FID,
 			'FCONTENT':_cont,
 		};
 	updateNews(_param);
@@ -112,15 +116,12 @@ function updateNews(_param)
 	var ctx ="<?php echo site_url() ?>";
 	$.ajax({
 		type:'post',//可选get
-		url:ctx+'/',
+		url:ctx+'SubscriptionSystem/updateSubscriptionSystemInfo',
 		dataType:'Json',//服务器返回的数据类型 可选XML ,Json jsonp script html text等
 		data:_param,
 		success:function(msg){
 			if(msg.success){
 				var _tip = "新增成功！";
-				if(newsId){
-					_tip = "更新成功！";
-				}
 				alert(_tip);
 			}else{
 				alert(msg.error);

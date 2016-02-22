@@ -23,7 +23,7 @@
 			<!-- <div anchor="company" class="tabSTY">城市公司相关说明</div> -->
 			<!--div anchor="law" class="tabSTY">法律文件范本</div-->
 		</div>
-		<div id="scheme_info" class="info_STY">
+		<div id="scheme_info" class="info_STY" style="width:98%; margin-left:1%">
 <!--pre>为进一步落实集团项目跟投规定，帮助各一线公司更明确制定具体项目跟投方案，特对项目跟投方案提报内容作出以下要求。各一线公司需按照跟投要求编写项目跟投方案，并报集团跟投工作
 小组审批。
 项目跟投提报详细方案中必须包括：
@@ -107,5 +107,30 @@
 	</div>
 </div>
 <div id="footer">中梁地产集团</div>
+<script type="text/javascript">
+
+	getNewsInfo();
+
+	function getNewsInfo(){
+
+	var ctx="<?php echo site_url();?>";
+	$.ajax({
+		type:'post',//可选get
+		url:ctx+'SubscriptionSystem/getSubscriptionSystemInfo',
+		dataType:'Json',//服务器返回的数据类型 可选XML ,Json jsonp script html text等
+		success:function(msg){
+			if(msg.success){
+				newsInfo = msg.data[0];
+				$('#scheme_info').html(newsInfo.FCONTENT); 
+			}else{
+				alert(msg.error);
+			}
+		},
+		error: function (XMLHttpRequest, textStatus, errorThrown) {
+			sessionTimeout(XMLHttpRequest, textStatus, errorThrown);
+		}
+	});
+}
+</script>
 </body>
 </html>
