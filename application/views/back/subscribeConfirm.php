@@ -167,8 +167,8 @@ FSTATE: "区域"				//'<td>'+(val.FCONFIRMAMOUNT||0)+'</td>'+
 				'<td>'+ '1:'+(val.FLEVERRATIO||0)+'</td>'+
 				'<td>'+(val.FCONFIRMAMOUNT||0)+'</td>'+
 				'<td>'+(val.FLEVERCONFIRMAMOUNT||0)+'</td>'+
-				'<td><input id="confirmInp_'+ind+'" value="'+val.FAMOUNT+'" /></td>'+
-				'<td><input id="confirmLevInp_'+ind+'" value="'+val.FLEVERAMOUNT+'" /></td>'+
+				'<td><input id="confirmInp_'+ind+'" value="'+val.FAMOUNT+'" onBlur="changeLeverConfirm('+ind+')" ind="'+ind+'"/></td>'+
+				'<td><input id="confirmLevInp_'+ind+'" value="'+val.FLEVERAMOUNT+'" readonly="true" style="background-color:#E4E4E4; border:none"/></td>'+
 				'<td>'+((parseInt(val.FLEVERAMOUNT)+parseInt(val.FAMOUNT))||0)+'</td>'+
 				'<td>'+(val.FBANKNO||'No Card!')+'</td>'+
 				'<td><a class="saveBtn" ind="'+ind+'" href="javascript:void(0)">保存</a>'+
@@ -178,6 +178,18 @@ FSTATE: "区域"				//'<td>'+(val.FCONFIRMAMOUNT||0)+'</td>'+
 		$("#confirmTbody").html(tempHtml);
 	}
 }
+
+function changeLeverConfirm(id)
+{
+	//alert(id);
+	//var id = inputObj.attr("ind");
+	
+	var inputval = parseInt($('#confirmInp_'+id).val());
+	//alert(inputval);
+	var leverval = parseInt(confirmList[id].FLEVERRATIO)*inputval
+	$('#confirmLevInp_'+id).val(leverval);
+}
+
 function importSubFunc() {
 	$.ajaxFileUpload({
 		url: '../subscribe/callSubscribeImport.action', //用于文件上传的服务器端请求地址

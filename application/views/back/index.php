@@ -183,7 +183,14 @@ function loadContentPage () {
 	}else{
 		var ctx="<?php echo site_url();?>";
 		$("#proManageLayer").hide();
-		$("#sysManageLayer").show().load('/back/index/'+naviVal);
+		if(naviVal == "paramsSetting")
+		{
+			window.location.href=ctx+"back/index/paramsSetting";
+		}
+		else
+		{
+			$("#sysManageLayer").show().load('/back/index/'+naviVal);
+		}
 	}
 }
 </script>
@@ -200,8 +207,8 @@ function loadContentPage () {
 			<li val="projectInfo" class="focusOn">项目信息维护</li>
 			<li val="proListManage" class="displayNone">项目列表管理</li>
 			<li val="permissionSet" class="displayNone">项目权限分配</li>
-			<!--li val="paramsSetting">系统参数设置</li>
-			<li val="orgzInfo">组织架构维护</li>
+			<li val="paramsSetting" class="displayNone">跟投制度</li>
+			<!--li val="orgzInfo">组织架构维护</li>
 			<li val="remissionSetting">豁免设置</li-->
 		</ul>
 	</div>

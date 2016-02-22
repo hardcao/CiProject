@@ -35,6 +35,17 @@
 	<td><input id="projectInp" disabled="true" >
 	</input></td>
 </tr><tr>
+	<td class="titleTd">阅读权限</td>
+	<td><select id="permissionSel">
+		<option value="0">
+			公开
+		</option>
+		<option value="1">
+			仅跟投人员可阅读
+		</option>
+	</select>
+	</input></td>
+</tr><tr>
 	<td class="titleTd">内容</td>
 	<td class="richTd">
 		<textarea style="display:none;"></textarea>
@@ -174,6 +185,7 @@ function loadNewsInfo(){
 function submitInfo(){
 	var _cont = ueObj.getContent();
 	var _title = $("#titleInp").val();
+	var _permission = $("#permissionSel").val();
 
 	if(!_cont || _cont.length <= 0){
 		alert("内容不能为空！");
@@ -195,7 +207,8 @@ function submitInfo(){
 			// 'author':"",
 			// 'projectId':_proid,
 			'FCONTENT':_cont,
-			'FPROJECTID':_proid
+			'FPROJECTID':_proid,
+			'FPERMISSION': _permission
 		};
 		updateNews(_param);
 	}else{
@@ -212,6 +225,7 @@ function submitInfo(){
 			'FPROJECTID':_proid,
 			'FCONTENT':_cont,
 			'FCREATORID': uid,
+			'FPERMISSION': _permission
 		};
 		addNews(_param);
 	}

@@ -175,7 +175,7 @@ function getPics()
 }
 
 		// 导入缴款数据
-	function importBtn_click(){
+	/*function importBtn_click(){
 		$("#file").click();
 	}
 
@@ -183,7 +183,7 @@ function getPics()
 		$("#file").click();
 	});*/
 
-	$("#file").live("change", importPIFunc); 
+	/*$("#file").live("change", importPIFunc); 
 
 	function importPIFunc(){
 		if($("#file").val() == ""){
@@ -246,7 +246,7 @@ function getPics()
 				alert("2:"+e);
 			}
 		})
-	}
+	}*/
 
 function delPic(id)
 {
@@ -301,7 +301,32 @@ function upload_main(){
 				      });
  }
 
+$("#pic_upload").live("change", upload_pic); 
+function upload_pic(){
+            lrz(this.files[0], {width: 280}, function (results) {
+                // 你需要的数据都在这里，可以以字符串的形式传送base64给服务端转存为图片。
+                console.log("图片压缩成功"+results);
+                //main_base64 = results.base64;
 
+                var projectId = getReqParam('projectId');
+				var ctx = "<?php echo site_url();?>";
+		        var _obj = {"projectId": projectId, "pic_data":results.base64};
+		        $.ajax({
+		        	 type: 'POST', 
+		             url: ctx+'Pic/addImage', 
+		             data: _obj, 
+		             success: function(data) 
+			        {
+					   //alert('上传成功');
+					   getPics();
+					},
+					error: function (XMLHttpRequest, textStatus, errorThrown)
+					 {
+					        	 sessionTimeout(XMLHttpRequest, textStatus, errorThrown);
+					 }, 
+		            dataType: "json" });
+				      });
+ }
 
 </script>
 </head>
@@ -323,12 +348,14 @@ function upload_main(){
 		<!--/form-->
 
 
-<!--div id="basic" class="editTitle"><img src="<?php echo site_url();?>application/views/back/images/arrow_down.png" />项目图库</div>
+<div id="basic" class="editTitle"><img src="<?php echo site_url();?>application/views/back/images/arrow_down.png" />项目图库</div>
 <ul id="ul-pics">
 </ul>
 <div style="clear:both">
-	<input type="file" id="file1" name="file1" class="displayNone">
-	<button id="importBtn1" class="btnSTY" style="margin:10px 10px 10px 0px; padding:5px">上传图片</button>	
-</div-->
+	<div style="margin:10px 0 0.5em 0em;">
+		<a href="javascript:;" class="file"><input id="pic_upload" type="file" name="file"/>上传图片</a>
+		<input name="url" type="hidden"  style="display:none" class="url" />
+	</div>
+</div>
 
 </html>

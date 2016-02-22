@@ -1,7 +1,7 @@
 ﻿<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<title>跟投制度说明</title>
+<title>跟投制度</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 
 <?php require (dirname(dirname(__FILE__)).'/common/header_include.php'); ?>
@@ -15,13 +15,13 @@
 <body>
 <?php require (dirname(dirname(__FILE__)).'/common/header.php'); ?>
 <div id="contentLayer">
-	<div id="naviTitle"><a href="<?php echo site_url()?>">首页</a> > 跟投制度说明</div>
+	<div id="naviTitle"><a href="<?php echo site_url()?>">首页</a> > 跟投制度</div>
 	<div id="contentFrame">
 		<div id="titleTab">
-			<div anchor="scheme" class="tabSTY focusOn">跟投方案提报要求</div>
-			<div anchor="explain" class="tabSTY">跟投细则要点说明</div>
+			<div anchor="scheme" class="tabSTY focusOn">跟投制度</div>
+			<!--div anchor="explain" class="tabSTY">跟投细则要点说明</div>
 			<!-- <div anchor="company" class="tabSTY">城市公司相关说明</div> -->
-			<div anchor="law" class="tabSTY">法律文件范本</div>
+			<!--div anchor="law" class="tabSTY">法律文件范本</div-->
 		</div>
 		<div id="scheme_info" class="info_STY">
 <!--pre>为进一步落实集团项目跟投规定，帮助各一线公司更明确制定具体项目跟投方案，特对项目跟投方案提报内容作出以下要求。各一线公司需按照跟投要求编写项目跟投方案，并报集团跟投工作

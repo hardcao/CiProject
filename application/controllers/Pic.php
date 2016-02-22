@@ -31,7 +31,7 @@ class Pic extends CI_Controller
      // Pic/addImage
     public function addImage()
     {
-         $projectID = $this->input->post('projectId');
+         /*$projectID = $this->input->post('projectId');
 
          $config['upload_path']      = './images/';
          $config['allowed_types']    = 'gif|jpg';
@@ -61,7 +61,37 @@ class Pic extends CI_Controller
              $result = $this->Tools->addData($insertdata,$tableName);
              $result['data'] = $filePath;
              echo json_encode($result);
-         }
+         }*/
+
+        $id = $this->input->post('projectId');
+        if(!$id)
+        {
+              $data_result["success"] = 0;
+              $data_result["errorCode"] = 0;
+              $data_result["error"] = 0;
+              $data_result['data'] = "图片上传失败";
+            echo json_encode($data_result);
+            exit;
+        }
+      //pic_data
+      //save img  
+        $ex = explode(",",$this->input->post('pic_data'));//分割data-url数据
+        $filter=explode('/', trim($ex[0],';base64'));//获取文件类型
+        $ss = base64_decode(str_replace($filter[1] , '', $ex[1]));//图片解码
+        $namewithoutpath = md5(uniqid(rand())).'.'.$filter[1];
+        $picname =  'images/'.$namewithoutpath;//生成文件名
+        $this->base64_to_jpeg($this->input->post('pic_data'), $picname);
+
+        $insertdata['FPROJECTID'] = $id;
+        $insertdata['FCONTENT'] = iconv("gb2312","UTF-8", $namewithoutpath);
+        $insertdata['FISMAINPIC'] = false;
+        $insertdata['FNAME'] = iconv("gb2312","UTF-8", $namewithoutpath);
+        $tableName = 'T_PIC';
+        $this->load->model('Tools');
+        $result = $this->Tools->addData($insertdata,$tableName);
+        $result['data'] = $picname;
+
+        echo json_encode($result);
     }
      
      // 更新项目图片
