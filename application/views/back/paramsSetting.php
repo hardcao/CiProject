@@ -42,7 +42,13 @@
 </body>
 
 <script type="text/javascript">
-var ctx="<?php echo site_url();?>";
+
+var ueObj = null;
+var newsInfo = null;
+var FID;
+
+$(function(){
+	var ctx="<?php echo site_url();?>";
 window.UEDITOR_HOME_URL = ctx+"application/views/plugins/ueditor/";
 window.UEDITOR_CONFIG.toolbars = [[
     'undo', 'redo', '|',
@@ -52,16 +58,13 @@ window.UEDITOR_CONFIG.toolbars = [[
     'customstyle', 'paragraph', 'fontfamily', 'fontsize', '|',
     'directionalityltr', 'directionalityrtl', 'indent', '|',
     'justifyleft', 'justifycenter', 'justifyright', 'justifyjustify', '|', 
-    'touppercase', 'tolowercase',
+    'touppercase', 'tolowercase', '|',
+    'link', 'unlink', 'anchor', '|', 
+    'imagenone', 'imageleft', 'imageright', 'imagecenter', '|',
+    'simpleupload', 'emotion', 'attachment', '|',
+    'inserttable', 'deletetable', 'preview'
 ]];
-
-var ueObj = null;
-var newsInfo = null;
-var FID;
-
-$(function(){
 	ueObj = UE.getEditor('editor');
-	initParams();
 	initListeners();
 	getNewsInfo();
 });
