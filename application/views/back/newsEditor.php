@@ -88,11 +88,11 @@ $(function(){
 
 	if (newsId) 
 		{
-			setTimeout(getNewsInfo(), 500);
+			setTimeout(getNewsInfo, 500);
 		}
 	else
 	{
-		setTimeout(getProjectInfo(), 500);
+		setTimeout(getProjectInfo, 500);
 	}
 	
 	// setTimeout(function(){

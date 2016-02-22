@@ -61,7 +61,7 @@ window.UEDITOR_CONFIG.toolbars = [[
 ueObj = UE.getEditor('editor');
 $(function(){
 	initListeners();
-	setTimeout(getNewsInfo(), 500);
+	setTimeout(getNewsInfo, 500);
 });
 
 function initParams(){
