@@ -58,11 +58,7 @@ window.UEDITOR_CONFIG.toolbars = [[
     'customstyle', 'paragraph', 'fontfamily', 'fontsize', '|',
     'directionalityltr', 'directionalityrtl', 'indent', '|',
     'justifyleft', 'justifycenter', 'justifyright', 'justifyjustify', '|', 
-    'touppercase', 'tolowercase', '|',
-    'link', 'unlink', 'anchor', '|', 
-    'imagenone', 'imageleft', 'imageright', 'imagecenter', '|',
-    'simpleupload', 'emotion', 'attachment', '|',
-    'inserttable', 'deletetable', 'preview'
+    'touppercase', 'tolowercase'
 ]];
 	ueObj = UE.getEditor('editor');
 	initListeners();
@@ -101,7 +97,8 @@ function getNewsInfo(){
 
 function loadNewsInfo(){
 	if(newsInfo){
-		ueObj.execCommand('insertHtml', newsInfo.FCONTENT);
+		//ueObj.execCommand('insertHtml', newsInfo.FCONTENT);
+		ueObj.setContent(newsInfo.FCONTENT, false);
 	}
 }
 
