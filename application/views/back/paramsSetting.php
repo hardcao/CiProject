@@ -43,7 +43,7 @@
 
 <script type="text/javascript">
 var ctx="<?php echo site_url();?>";
-window.UEDITOR_HOME_URL = ctx+"/application/views/plugins/ueditor/";
+window.UEDITOR_HOME_URL = ctx+"application/views/plugins/ueditor/";
 window.UEDITOR_CONFIG.toolbars = [[
     'undo', 'redo', '|',
     'bold', 'italic', 'underline', 'fontborder', 'strikethrough', 'superscript', 'subscript', 'removeformat', 'formatmatch', 'autotypeset', 'blockquote', 'pasteplain', '|', 
