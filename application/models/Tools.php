@@ -10,6 +10,7 @@ class Tools extends CI_Model
     {
         # code...
         parent::__construct();
+        $this->load->database();
     }
     
     public function getDataTime($inputTime) {
@@ -56,9 +57,15 @@ class Tools extends CI_Model
     }
 
     public function getData($where,$tableName) {
-         $this->db->select("*");
-        $this->db->where($where);
+        $this->db->select('*');
+        if($where != null)
+          $this->db->where($where);
         $result = $this->db->get($tableName)->result_array();
+         $data_result["success"] = true;
+        $data_result["errorCode"] = 0;
+        $data_result["error"] = 0;
+        $data_result['data'] = $result;
+         return  $data_result;
     }
 
     public function AssembleData($result, $success) {

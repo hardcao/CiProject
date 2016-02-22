@@ -21,24 +21,9 @@ $("#btn_login").click(function(){
 				url: window.location.origin+"/"+password,
 				type: "post",
 				data:{
-					FID:2,
-					projectId:43,
-					startDate:'2016-09-01 09:50:00',
-					endDate:'2016-10-01 09:50:00',
-					
-					uname:'',
-					uid:5517,
-
-					addUserId:"3328:11111",
-					updUserId:"",
-					delUserId:"",
-					uname:'admin',
-					uid:5517,
-
-					newsId:124,
-					username:'lichangtao',
-					password:'asdfas',
-					queryType:0,
+					FID:1,
+					FCONTENT:'sadfasfdsadffffffffffffffffffffffffffffffffffffffffffffffffffff'
+				
 				},
 				success: function(data){
 					bootbox.alert(data);
