@@ -66,7 +66,7 @@ function getNewsData(){
 	var ctx="<?php echo site_url();?>";
 	$.ajax({
 		type:'post',//可选get
-		url:ctx+'News/getNewListProjectID',
+		url:ctx+'News/getBackNewListProjectID',
 		dataType:'Json',//服务器返回的数据类型 可选XML ,Json jsonp script html text等
 		//begin=0&count=2&uid=test&projectId=123
 		data:{//begin: 0,
