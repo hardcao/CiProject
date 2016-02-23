@@ -61,8 +61,8 @@ class News extends CI_Controller
     }
     
 
-    //API :News/getNewListProjectID
-    //根据项目id  把该项目的所有新闻列出来
+    //API :News/getBackNewListProjectID
+    //根据项目id  管理员把该项目的所有新闻列出来
 
     public function  getBackNewListProjectID() {
         $projectID = $this->input->post('projectId');
