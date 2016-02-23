@@ -22,7 +22,8 @@ $("#btn_login").click(function(){
 				type: "post",
 				data:{
 					'FNAME':'testApp',
-					'FSTATE':'FSTATE'
+					'FSTATE':'FSTATE',
+					'uid':6012
 				
 				},
 				success: function(data){

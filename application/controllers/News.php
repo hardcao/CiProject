@@ -45,7 +45,8 @@ class News extends CI_Controller
 
     public function getAllNews()
     {
-        $result = $this->news_model->getAllNews();
+        $userID = $this->input->post('uid');
+        $result = $this->news_model->getAllNews($userID);
         echo json_encode($result);
     }
      
@@ -53,9 +54,9 @@ class News extends CI_Controller
     //根据项目id  把该项目的所有新闻列出来
 
     public function  getNewListProjectID() {
-    
+        $userID = $this->input->post('uid');
         $projectID = $this->input->post('projectId');
-        $result = $this->news_model->getNewListProjectID($projectID);
+        $result = $this->news_model->getNewListProjectID($projectID,$userID);
         echo json_encode($result);
     }
     
