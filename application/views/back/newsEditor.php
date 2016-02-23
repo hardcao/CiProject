@@ -186,7 +186,7 @@ function loadNewsInfo(){
 function submitInfo(){
 	var _cont = ueObj.getContent();
 	var _title = $("#titleInp").val();
-	var _permission = $("#permissionSel").val();
+	var _permission = $("#permissionSel").val() == "公开"?1:0;
 
 	if(!_cont || _cont.length <= 0){
 		alert("内容不能为空！");
@@ -209,7 +209,7 @@ function submitInfo(){
 			// 'projectId':_proid,
 			'FCONTENT':_cont,
 			'FPROJECTID':_proid,
-			'FPERMISSION': _permission
+			'FSTATE': _permission
 		};
 		updateNews(_param);
 	}else{
@@ -226,7 +226,7 @@ function submitInfo(){
 			'FPROJECTID':_proid,
 			'FCONTENT':_cont,
 			'FCREATORID': uid,
-			'FPERMISSION': _permission
+			'FSTATE': _permission
 		};
 		addNews(_param);
 	}
