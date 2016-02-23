@@ -323,7 +323,7 @@ function loadNewsData(){
 		{
 			return false;
 		};
-	    tempHtml += '<tr class="row"><td><h2><a style="color:red">'+val.FRELEASEDATE+'</a></h2><br>';
+	    tempHtml += '<tr class="row"><td><h4><a style="color:red">'+val.FRELEASEDATE+'</a></h4><br>';
 	    tempHtml += '<h4 style="font-weight:600"><a href="'+newslink+val.FID+'">'+val.FTITLE+'</a></h2></td></tr>';
 	    listNum++;
 		//tempHtml += '<h4 style=""><a href="'+newslink+val.FID+'">'+val.FCONTENT +'</a></h4><br></td></tr>';
