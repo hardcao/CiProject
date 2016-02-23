@@ -19,6 +19,7 @@ class News_model extends CI_Model
     {
         
         $selectData = "T_NEWS.FID as FID,T_NEWS.FTITLE as FTITLE,T_NEWS.FCONTENT as FCONTENT,T_NEWS.FRELEASEDATE as FRELEASEDATE,T_USER.FNAME as FUSERNAME,T_PROJECT.FNAME as FPROJECTNAME";
+        $where = "FPROJECTID in (select FPROJECTID from T_FOLLOWER where FUSERID = 5517) or FSTATE = 1";
         $this->db->select( $selectData);
         $this->db->join('T_PROJECT', 'T_PROJECT.FID=T_NEWS.FPROJECTID');
         $this->db->join('T_USER', 'T_USER.FID=T_NEWS.FCREATORID');
