@@ -37,10 +37,10 @@
 </tr><tr>
 	<td class="titleTd">阅读权限</td>
 	<td><select id="permissionSel">
-		<option value="0">
+		<option value="1" selected="true">
 			公开
 		</option>
-		<option value="1">
+		<option value="0">
 			仅跟投人员可阅读
 		</option>
 	</select>

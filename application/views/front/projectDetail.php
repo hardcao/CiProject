@@ -787,6 +787,7 @@ function getNewsList(){
 		dataType:'Json',//服务器返回的数据类型 可选XML ,Json jsonp script html text等
 		data:{
 			'projectId':projectId,
+			'uid':"<?php echo $uid; ?>"
 		},
 		success:function(msg){
 			if(msg.success){

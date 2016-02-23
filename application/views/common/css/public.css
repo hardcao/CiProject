@@ -10,7 +10,7 @@ html, body {width:100%; }
 body {margin:0 auto; font:12px/1 "Microsoft Yahei", "微软雅黑", sans-serif;  overflow-y:scroll;}
 h1 {font-weight:bold; font-size:18px; line-height:18px; color:#474545;}
 h3 {font-weight:normal; font-size:12px; color:#746969;}
-h2, h4, h5, h6 {font-weight:normal; font-size:100%;}
+h2, h4, h5, h6 {font-weight:normal; font-size:14px;}
 table {border-collapse:collapse; border-spacing:0;}
 caption, th, td {text-align:left;font-weight:normal;}
 a {text-decoration:none;}
