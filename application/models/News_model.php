@@ -142,9 +142,23 @@ class News_model extends CI_Model
     public function getNewListProjectID($projectID,$userID) {
        $selectData = "T_NEWS.FID as FID,T_NEWS.FTITLE as FTITLE,T_NEWS.FCONTENT as FCONTENT,T_NEWS.FRELEASEDATE as FRELEASEDATE,T_USER.FNAME as FUSERNAME,T_PROJECT.FNAME as FPROJECTNAME";
        if($userID){
-            $whereStr = 'FPROJECTID in (select FPROJECTID from T_FOLLOWER where FUSERID = '.$userID.') or T_NEWS.FSTATE = 0';
+            $whereStr = 'FPROJECTID in (select FPROJECTID from T_FOLLOWER where FUSERID = '.$userID.' AND FPROJECTID = '.$projectID.') or T_NEWS.FSTATE = 0';
             $this->db->where($whereStr);
        }
+        $this->db->select( $selectData);
+        $this->db->join('T_PROJECT', 'T_PROJECT.FID=T_NEWS.FPROJECTID');
+        $this->db->join('T_USER', 'T_USER.FID=T_NEWS.FCREATORID');
+        $query=$this->db->order_by('T_NEWS.FRELEASEDATE','DESC');
+        $result = $this->db->get('T_NEWS')->result_array();
+        $data["success"] = true;
+        $data["errorCode"] = 0;
+        $data["error"] = 0;
+        $data['data'] = $result;
+        return  $data; ;
+    }
+    
+    public function getBackNewListProjectID($projectID) {
+       $selectData = "T_NEWS.FID as FID,T_NEWS.FTITLE as FTITLE,T_NEWS.FCONTENT as FCONTENT,T_NEWS.FRELEASEDATE as FRELEASEDATE,T_USER.FNAME as FUSERNAME,T_PROJECT.FNAME as FPROJECTNAME";
         $this->db->select( $selectData);
         $this->db->where('FPROJECTID',$projectID);
         $this->db->join('T_PROJECT', 'T_PROJECT.FID=T_NEWS.FPROJECTID');
@@ -157,6 +171,4 @@ class News_model extends CI_Model
         $data['data'] = $result;
         return  $data; ;
     }
-    
-    
 }

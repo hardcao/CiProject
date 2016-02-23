@@ -60,6 +60,15 @@ class News extends CI_Controller
         echo json_encode($result);
     }
     
+
+    //API :News/getNewListProjectID
+    //根据项目id  把该项目的所有新闻列出来
+
+    public function  getBackNewListProjectID() {
+        $projectID = $this->input->post('projectId');
+        $result = $this->news_model->getBackNewListProjectID($projectID);
+        echo json_encode($result);
+    }
     
     /*
      *
@@ -112,7 +121,7 @@ class News extends CI_Controller
 					FCONTENT: 'tes1111t'		
 				},
      * 
-     * API:news/addNews
+     * API:News/getAllNews
      * 
      * */
     
