@@ -167,9 +167,9 @@ FSTATE: "区域"				//'<td>'+(val.FCONFIRMAMOUNT||0)+'</td>'+
 				'<td>'+ '1:'+(val.FLEVERRATIO||0)+'</td>'+
 				'<td>'+(val.FCONFIRMAMOUNT||0)+'</td>'+
 				'<td>'+(val.FLEVERCONFIRMAMOUNT||0)+'</td>'+
-				'<td><input id="confirmInp_'+ind+'" value="'+val.FAMOUNT+'" onBlur="changeLeverConfirm('+ind+')" ind="'+ind+'"/></td>'+
-				'<td><input id="confirmLevInp_'+ind+'" value="'+val.FLEVERAMOUNT+'" readonly="true" style="background-color:#E4E4E4; border:none"/></td>'+
-				'<td>'+((parseInt(val.FLEVERAMOUNT)+parseInt(val.FAMOUNT))||0)+'</td>'+
+				'<td><input id="confirmInp_'+ind+'" value="'+val.FAMOUNT+'" onBlur="changeConfirm('+ind+')" ind="'+ind+'"/></td>'+
+				'<td><input id="confirmLevInp_'+ind+'" value="'+val.FLEVERAMOUNT+'" onBlur="changeLeverConfirm('+ind+')" ind="'+ind+'"/></td>'+
+				'<td><span id="leverAmount_'+ind+'">'+((parseInt(val.FLEVERAMOUNT)+parseInt(val.FAMOUNT))||0)+'</span></td>'+
 				'<td>'+(val.FBANKNO||'No Card!')+'</td>'+
 				'<td><a class="saveBtn" ind="'+ind+'" href="javascript:void(0)">保存</a>'+
 				// '&nbsp;&nbsp;<a class="delBtn" ind="'+ind+'" href="javascript:void(0)">删除</a></td></tr>';
@@ -179,7 +179,7 @@ FSTATE: "区域"				//'<td>'+(val.FCONFIRMAMOUNT||0)+'</td>'+
 	}
 }
 
-function changeLeverConfirm(id)
+function changeConfirm(id)
 {
 	//alert(id);
 	//var id = inputObj.attr("ind");
@@ -188,6 +188,19 @@ function changeLeverConfirm(id)
 	//alert(inputval);
 	var leverval = parseInt(confirmList[id].FLEVERRATIO)*inputval
 	$('#confirmLevInp_'+id).val(leverval);
+	$('#leverAmount_'+id).text(inputval+leverval);
+}
+
+function changeLeverConfirm(id)
+{
+	//alert(id);
+	//var id = inputObj.attr("ind");
+	
+	var inputval = parseInt($('#confirmLevInp_'+id).val());
+	//alert(inputval);
+	var val = parseInt(inputval/parseInt(confirmList[id].FLEVERRATIO));
+	$('#confirmInp_'+id).val(val);
+	$('#leverAmount_'+id).text(inputval+val);
 }
 
 function importSubFunc() {
