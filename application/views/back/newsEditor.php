@@ -179,6 +179,7 @@ function loadNewsInfo(){
 	if(newsInfo){
 		$("#titleInp").val(newsInfo.FTITLE);
 		$("#projectInp").val(newsInfo.FPROJECTNAME);
+		$("#permissionSel").val( newsInfo.FSTATE).prop('selected',true);
 		ueObj.execCommand('insertHtml', newsInfo.FCONTENT);
 	}
 }
@@ -186,7 +187,7 @@ function loadNewsInfo(){
 function submitInfo(){
 	var _cont = ueObj.getContent();
 	var _title = $("#titleInp").val();
-	var _permission = $("#permissionSel").val() == "公开"?1:0;
+	var _permission = $("#permissionSel").val();
 
 	if(!_cont || _cont.length <= 0){
 		alert("内容不能为空！");
