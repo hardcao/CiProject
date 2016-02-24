@@ -168,8 +168,8 @@ FSTATE: "区域"				//'<td>'+(val.FCONFIRMAMOUNT||0)+'</td>'+
 				'<td>'+(val.FCONFIRMAMOUNT||0)+'</td>'+
 				'<td>'+(val.FLEVERCONFIRMAMOUNT||0)+'</td>'+
 				'<td><input id="confirmInp_'+ind+'" value="'+val.FAMOUNT+'" onBlur="changeConfirm('+ind+')" ind="'+ind+'"/></td>'+
-				'<td><input id="confirmLevInp_'+ind+'" value="'+val.FLEVERAMOUNT+'" onBlur="changeLeverConfirm('+ind+')" ind="'+ind+'"/></td>'+
-				'<td><span id="leverAmount_'+ind+'">'+((parseInt(val.FLEVERAMOUNT)+parseInt(val.FAMOUNT))||0)+'</span></td>'+
+				'<td><input id="confirmLevInp_'+ind+'" value="'+val.FLEVERAMOUNT+'" ind="'+ind+'" readonly="true" style="border:none; background-color:#CFCFCF"/></td>'+
+				'<td><input id="amountInp_'+ind+'" value="'+((parseInt(val.FLEVERAMOUNT)+parseInt(val.FAMOUNT))||0)+'" onBlur="changeLeverConfirm('+ind+')" ind="'+ind+'"/></td>'+
 				'<td>'+(val.FBANKNO||'No Card!')+'</td>'+
 				'<td><a class="saveBtn" ind="'+ind+'" href="javascript:void(0)">保存</a>'+
 				// '&nbsp;&nbsp;<a class="delBtn" ind="'+ind+'" href="javascript:void(0)">删除</a></td></tr>';
@@ -188,7 +188,7 @@ function changeConfirm(id)
 	//alert(inputval);
 	var leverval = parseInt(confirmList[id].FLEVERRATIO)*inputval
 	$('#confirmLevInp_'+id).val(leverval);
-	$('#leverAmount_'+id).text(inputval+leverval);
+	$('#amountInp_'+id).val(inputval+leverval);
 }
 
 function changeLeverConfirm(id)
@@ -196,11 +196,12 @@ function changeLeverConfirm(id)
 	//alert(id);
 	//var id = inputObj.attr("ind");
 	
-	var inputval = parseInt($('#confirmLevInp_'+id).val());
+	var inputval = parseInt($('#amountInp_'+id).val());
 	//alert(inputval);
-	var val = parseInt(inputval/parseInt(confirmList[id].FLEVERRATIO));
+	var val = parseInt(inputval/(1+parseInt(confirmList[id].FLEVERRATIO)));
 	$('#confirmInp_'+id).val(val);
-	$('#leverAmount_'+id).text(inputval+val);
+	$('#confirmLevInp_'+id).val(inputval-val);
+	//$('#leverAmount_'+id).text(inputval+val);
 }
 
 function importSubFunc() {
