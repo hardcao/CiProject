@@ -26,6 +26,15 @@ class Tools extends CI_Model
         $data_result['data'] = '';
         return  $data_result;
     }
+
+     public  function  updateDataWithFID($data,$tableName,$FID) {
+        $this->db->where('FID',$FID);
+        $data_result["success"] = $this->db->update($tableName, $data);
+        $data_result["errorCode"] = 0;
+        $data_result["error"] = 0;
+        $data_result['data'] = '';
+        return  $data_result;
+    }
     
     public function addData($data,$tableName) {
        $result=  $this->db->insert($tableName, $data);

@@ -65,37 +65,52 @@ class Ldap extends CI_Controller {
 							$area = array();
 							foreach($dn as $v){
 								if(strpos($v,'OU=') !== false){
-									$area[] = str_replace("OU=","",$v);//有的抬头不是OU
+									 array_push($area, str_replace("OU=","",$v));//有的抬头不是OU
+								} else if(strpos($v,'CN=') !== false){
+									array_push($area, str_replace("CN=","",$v));//有的抬头不是CN
+								} else if(strpos($v,'DC=') !== false){
+									array_push($area, str_replace("DC=","",$v));//有的抬头不是DC
 								}
 							}
 
 							$area = array_reverse($area);
+							$insertArr = array();
+							$flag = 1;
+							if(is_array($area))
+							{
+								$flag = count($area,COUNT_NORMAL);
+							} 
 //							var_dump($area);
-							list($f1,$f2) = $area;
-							$insertArr = array(
-								'F1'=>$f1,
-								'F2'=>$f2,
-								
-								
-								'FISUSER'=>1,
-								'FNUMBER'=>@$entries[$i]["samaccountname"][0],
-								'FNAME'=>@$entries[$i]["name"][0],
-								'FORG' => 'test',
-								);
+						//	list($f6,$f5,$f4,$f3,$f2,$f1) = $area;
+							foreach ($area as $val) {
+								$keyStr = 'F'.$flag;
+								$flag --;
+								$insertArr[$keyStr ] = $val;
+							}
+							$insertArr['FISUSER'] = 1;
+							$insertArr['FNUMBER'] = $entries[$i]["samaccountname"][0];
+							$insertArr['FNAME'] = $entries[$i]["name"][0];
+							$insertArr['FORG'] = 'test';
+							if(is_array($area))
+							{
+								if(count($area,COUNT_NORMAL) >= 7) {
+									//echo "test 5  ";
+								}
+							} 
 							
-       						
+							
+       						$where = 'FNUMBER = '.$entries[$i]["samaccountname"][0];
         					$tableName = 'T_USER';
-        					$where = 'FNUMBER = '.@$entries[$i]["samaccountname"][0];
         					$this->db->select('*');
-        					$this->db->where($where);
-        					$rowNum = $this->db->get('T_USER')->num_rows();
-        					if($rowNum == 0) {
-        						$result = $this->Tools->addData($insertArr,$tableName);
-        					} else {
-        						$result = $this->Tools->addData($insertArr,$tableName,$where);
-        					}
-        					echo json_encode($result);
-    						}
+        					$this->db->where('FNUMBER',$entries[$i]["samaccountname"][0]);
+        					$row = $this->db->get('T_USER')->row_array();
+							if (isset($row))
+							{
+    							$result = $this->Tools->updateDataWithFID($insertArr,$tableName,$row['FID']);
+							} else {
+								$result = $this->Tools->addData($insertArr,$tableName);
+							}
+    					}
 
 				} 
 					//} 
