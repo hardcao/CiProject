@@ -19,7 +19,7 @@ class News_model extends CI_Model
     {
         
         $selectData = "T_NEWS.FID as FID,T_NEWS.FTITLE as FTITLE,T_NEWS.FCONTENT as FCONTENT,T_NEWS.FRELEASEDATE as FRELEASEDATE,T_USER.FNAME as FUSERNAME,T_PROJECT.FNAME as FPROJECTNAME";
-        $whereStr = 'FPROJECTID in (select FPROJECTID from T_FOLLOWER where FUSERID = '.$userID.') or T_NEWS.FSTATE = 0';
+        $whereStr = 'FPROJECTID in (select FPROJECTID from T_FOLLOWER where FUSERID = '.$userID.') or T_NEWS.FSTATE = 1';
         $this->db->select( $selectData);
         $this->db->where($whereStr);
         $this->db->join('T_PROJECT', 'T_PROJECT.FID=T_NEWS.FPROJECTID');
@@ -142,7 +142,7 @@ class News_model extends CI_Model
     public function getNewListProjectID($projectID,$userID) {
        $selectData = "T_NEWS.FID as FID,T_NEWS.FTITLE as FTITLE,T_NEWS.FCONTENT as FCONTENT,T_NEWS.FRELEASEDATE as FRELEASEDATE,T_USER.FNAME as FUSERNAME,T_PROJECT.FNAME as FPROJECTNAME";
        if($userID){
-            $whereStr = 'FPROJECTID in (select FPROJECTID from T_FOLLOWER where FUSERID = '.$userID.' AND FPROJECTID = '.$projectID.') or T_NEWS.FSTATE = 0';
+            $whereStr = 'FPROJECTID in (select FPROJECTID from T_FOLLOWER where FUSERID = '.$userID.' AND FPROJECTID = '.$projectID.') or T_NEWS.FSTATE = 1';
             $this->db->where($whereStr);
        }
         $this->db->select( $selectData);
