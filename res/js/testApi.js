@@ -24,7 +24,7 @@ $("#btn_login").click(function(){
 					
 					'FNAME':'testApp',
 					'FSTATUS':true,
-					'FSTATE':"test"
+					'FSTATE':"test",
 					'FNUMBER':"test",
 				
 				},
