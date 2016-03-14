@@ -1,5 +1,5 @@
 ﻿1 create table T_PROJECT (FID integer PRIMARY KEY,
-		            FPROJECTNAME VARCHAR(50), 
+		            FNAME VARCHAR(50), 
 			        FNUMBER VARCHAR(50), 
 			        FSTATE VARCHAR(50), 
 			        FSTATUS BOOLEAN, 
