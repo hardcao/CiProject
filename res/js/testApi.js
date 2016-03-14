@@ -21,9 +21,11 @@ $("#btn_login").click(function(){
 				url: window.location.origin+"/"+password,
 				type: "post",
 				data:{
+					
 					'FNAME':'testApp',
-					'FSTATE':'FSTATE',
-					'uid':6012
+					'FSTATUS':true,
+					'FSTATE':"test"
+					'FNUMBER':"test",
 				
 				},
 				success: function(data){
