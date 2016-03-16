@@ -44,7 +44,7 @@ input#item_pic {
 		<div id="titleTab">
 			<div anchor="basic" class="tabSTY focusOn">项目基础信息</div>
 			<div anchor="scheme" class="tabSTY">跟投方案</div>
-			<div anchor="danger" class="tabSTY">风险提示</div>
+			<!--div anchor="danger" class="tabSTY">风险提示</div-->
 			<div anchor="protocal" class="tabSTY">跟投协议</div>
 			<div anchor="force" class="tabSTY">跟投人员</div>
 			<div anchor="news" class="tabSTY">项目动态新闻</div>
