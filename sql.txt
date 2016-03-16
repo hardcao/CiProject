@@ -121,8 +121,8 @@ INSERT INTO T_NEWS ( FPROJECTID,
 					   
 8 create table T_PIC (FID integer PRIMARY KEY,
 					   FPROJECTID integer,
-					   FNAME VARCHAR(10),
-					   FCONTENT VARCHAR(10),
+					   FNAME VARCHAR(50),
+					   FCONTENT VARCHAR(50),
 					   FISMAINPIC boolean)ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='项目图片库表';	
 alter table T_PIC modify FID integer auto_increment;
 INSERT INTO T_PIC(FPROJECTID,FNAME,FCONTENT,FISMAINPIC) VALUES (27,'test.jpg','test.jpg',false);		   
