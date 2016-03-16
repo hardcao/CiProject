@@ -1,4 +1,4 @@
-<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+﻿<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 date_default_timezone_set('Asia/Shanghai');
 
 
@@ -73,8 +73,8 @@ class Login extends CI_Controller {
 
 		$this->config->set_item('sess_expiration', 3600*15);//秒
 	
-		$this->loginWithLocal();
-		//$this->loginWithAD();
+		//$this->loginWithLocal();
+		$this->loginWithAD();
 
     }
 

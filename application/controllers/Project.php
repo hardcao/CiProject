@@ -242,7 +242,7 @@ class Project extends CI_Controller
      public function  addEnclosure() {
          $FID = $this->input->post('uploadSchemeId');
          $config['upload_path']      = './fileFolder/';
-         $config['allowed_types']    = 'gif|jpg|png|txt|xls|doc';
+         $config['allowed_types']    = 'gif|jpg|png|txt|xls|doc|docx';
          $config['max_size']     = 100;
          $config['max_width']        = 1024;
          $config['max_height']       = 768;
