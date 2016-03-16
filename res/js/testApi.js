@@ -22,10 +22,8 @@ $("#btn_login").click(function(){
 				type: "post",
 				data:{
 					
-					'FNAME':'testApp',
-					'FSTATUS':true,
-					'FSTATE':"test",
-					'FNUMBER':"test",
+					"FPROJECTID":3
+					
 				
 				},
 				success: function(data){
