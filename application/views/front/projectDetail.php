@@ -312,8 +312,8 @@ input#item_pic {
 				<td colspan="2" height="17">个人额度范围</td>
 				<td rowspan="2">备注</td>
 			</tr><tr>
-				<td width="150">下限(万元)</td>
-				<td width="150" height="17">上限(万元)</td>
+				<td width="150">上限(万元)</td>
+				<td width="150" height="17">下限(万元)</td>
 			</tr></thead>
 			<tbody id="forceTbody">
 				<!-- <tr>

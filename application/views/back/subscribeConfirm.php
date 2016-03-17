@@ -162,7 +162,6 @@ FSTATE: "区域"				//'<td>'+(val.FCONFIRMAMOUNT||0)+'</td>'+
 			tempHtml += 
 			'<tr><td>'+(ind+1)+'</td>'+
 				'<td>'+(val.FNAME||"")+'</td>'+
-				'<td>'+(val.FORG||"")+'</td>'+
 				'<td>'+(val.FSTATE||'总部')+'</td>'+
 				'<td>'+ '1:'+(val.FLEVERRATIO||0)+'</td>'+
 				'<td>'+(val.FCONFIRMAMOUNT||0)+'</td>'+
@@ -266,7 +265,7 @@ function keyForceFunc(){
 		<tr>
 			<td rowspan="2" height="34" width="40">序号</td>
 			<td rowspan="2" width="70">认购人</td>
-			<td rowspan="2" width="60">部门</td>
+			<!--td rowspan="2" width="60">部门</td-->
 			<td rowspan="2" width="60">区域/总部</td>
 			<!--td rowspan="2" width="70">豁免认购</td-->
 			<td rowspan="2" width="60">杠杆比例</td>

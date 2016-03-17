@@ -205,7 +205,6 @@ function loadBonusList(){
 			tempHtml +=
 			'<tr><td height="35">'+(ind+1)+'</td>'+
 			'<td>'+val.FNAME+'</td>'+
-			'<td>'+(val.FORG||"")+'</td>'+
 			'<td>'+val.FSTATE+'</td>'+
 			'<td>'+(val.FCONFIRMAMOUNT)+'</td>'+
 			'<td>'+val.FBONUSTIMES+'</td>'+
@@ -466,7 +465,6 @@ function getPath(obj,fileQuery){
 <table id="bonusTable" border="1" width="100%"><thead><tr>
 	<td height="34" width="40">序号</td>
 	<td width="100">跟投人</td>
-	<td width="100">部门</td>
 	<td width="110">区域/总部</td>
 	<td width="100">认购金额</td>
 	<td width="70">分红批次</td>
