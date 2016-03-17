@@ -84,7 +84,7 @@ function initBonusListeners(){
 			url: ctx+'BonusRecord/outputXls', //用于文件上传的服务器端请求地址
 			dataType: 'JSON', //返回值类型 一般设置为json
 			data:{
-				projectId:27,
+				projectId:getReqParam("projectId"),
 					startDate:'2013-09-01 09:50:00',
 					endDate:'2016-09-01 09:50:00',
 					uname:'',

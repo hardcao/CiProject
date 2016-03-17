@@ -75,6 +75,14 @@ class Subscription extends CI_Controller
         $tableName = 'T_SUBSCRIBECONFIRMRECORD';
         $this->load->model('Tools');
         $result = $this->Tools->addData($data,$tableName);
+		/*if($result){
+			$inserdata['FSUBSCRIBECONFIGRMRECORDID'] = $result['data'];
+			$inserdata['FBONUSAMOUNT'] = 0;
+			$inserdata['FBONUSTIMES'] = 0;
+			$tableName = 'T_BONUSRECORD';
+			$this->load->model('Tools');
+			$result = $this->Tools->addData($data,$tableName);
+		}*/
         echo json_encode($result);
     }
 
