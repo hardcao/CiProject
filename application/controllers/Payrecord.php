@@ -94,7 +94,7 @@ class Payrecord extends CI_Controller
             $col++;
             $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow($col, 1, '总部/区域');
             $col++;
-            $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow($col, 1, '平衡金额');
+            $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow($col, 1, '认购金额');
             $col++;
              $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow($col, 1, '缴款批次');
             $col++;
@@ -239,7 +239,7 @@ class Payrecord extends CI_Controller
             $col++;
             $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow($col, 1, '总部/区域');
             $col++;
-            $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow($col, 1, '平衡金额');
+            $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow($col, 1, '认购金额');
             $col++;
              $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow($col, 1, '缴款批次');
             $col++;
