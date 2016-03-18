@@ -255,7 +255,11 @@ class Project extends CI_Controller
              echo "update fail";
              return ;
          }
-         $followScheme['FLINK'] = $followScheme['FLINK'].';'.$name;
+         if($followScheme['FLINK']){
+             $followScheme['FLINK'] = $followScheme['FLINK'].';'.$name;
+         } else {
+             $followScheme['FLINK'] = $name;
+         }
          $config['file_name']  =  iconv("UTF-8","gb2312", $name);
          $this->load->library('upload', $config);
          
