@@ -193,7 +193,7 @@ function importPIFunc(){
 		},
 		success: function (data, status){  //服务器成功响应处理函数			
 			if(status == "success"){
-				alert("导入成功!");
+				alert("导入缴款成功!");
 				getPayInList();
 				//$("#file").prop("outerHTML", $("#piFileUp").prop("outerHTML"));
 			}else{

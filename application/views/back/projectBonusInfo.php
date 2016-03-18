@@ -387,7 +387,7 @@ function importBonusFunc(){
 		},
 		success: function (data, status){  //服务器成功响应处理函数			
 			if(status == "success"){
-				alert("导入成功!");
+				alert("导入分红成功!");
 				getBonusList();
 				//$("#file").prop("outerHTML", $("#piFileUp").prop("outerHTML"));
 			}else{

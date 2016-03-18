@@ -307,7 +307,6 @@ input#item_pic {
 				<td rowspan="2" width="50">序号</td>
 				<td rowspan="2" width="90">姓名</td>
 				<td rowspan="2" width="150">区域/总部</td> <!-- "所属公司"字段名改为：认购类型 -->
-				<td rowspan="2" width="150">部门</td>
 				<td rowspan="2" width="150">职务</td>
 				<td colspan="2" height="17">个人额度范围</td>
 				<td rowspan="2">备注</td>
@@ -570,7 +569,7 @@ function getProjectInfo(){
 				$("#stageOpenInp").text((new Date(data.FOPENDATE)).format('yyyy-MM-dd'));
 				// $("#peakInp").text((new Date(data.planPeakeDate)).format('yyyy-MM-dd'));
 				// $("#cashflowReturnInp").text((new Date(data.planCashflowReturnDate)).format('yyyy-MM-dd'));
-				//$("#returnDateInp").text(data.returndate+" 个月");				
+				$("#returnDateInp").text(data.FCASHFLOWBACK||0+" 个月");				
 				$("#deliverInp").text((new Date(data.FHANDDATE)).format('yyyy-MM-dd'));
 				$("#carryoverInp").text((new Date(data.FCARRYOVERDATE)).format('yyyy-MM-dd'));
 				$("#liquidateInp").text((new Date(data.FLIQUIDATE)).format('yyyy-MM-dd'));
@@ -758,7 +757,6 @@ function getForceList(){
 							'<tr><td height="30">'+(ind+1)+'</td>'+
 								'<td>'+val.FNAME+'</td>'+
 								'<td>'+(val.FSTATE||"")+'</td>'+
-								'<td>'+(val.FORG||"")+'</td>'+
 								'<td>'+(val.FDUTY||"")+'</td>'+
 								'<td>'+val.FTOPLIMIT+'</td>'+
 								'<td>'+val.FDOWNLIMIT+'</td>'+
