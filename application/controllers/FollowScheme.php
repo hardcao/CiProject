@@ -45,6 +45,7 @@ class FollowScheme extends CI_Controller
         $insertArr['FSUBSCRIBESTARTDATE'] = $subscribeStartInp;
         
         $insertArr['FREGIONAMOUNT'] = $this->input->post('compForceAmount');
+         $insertArr['FHDAMOUNT'] = $this->input->post('groupForceAmount');
         $insertArr['FALLRATION'] = $this->input->post('compChoiceRatio');
         $insertArr['FALLAMOUNT'] = $this->input->post('compChoiceAmount');
         $insertArr['FLEVERAGEDES'] = $this->input->post('leverageDes');

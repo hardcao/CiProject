@@ -17,7 +17,7 @@ class SubscriptionSystem extends CI_Controller
      * */
     public function  getSubscriptionSystemInfo() {
     
-        $where = '';
+        $where = 'FID=1';
         $tableName = 'T_SUBSCRIPTIONSYSTEM';
         $result = $this->Tools->getData($where,$tableName);
         echo json_encode($result);
@@ -32,7 +32,7 @@ class SubscriptionSystem extends CI_Controller
     
         
         $data = $this->input->input_stream();
-        $where = 'FID='.$data['FID'];
+        $where = 'FID=1';
         $tableName = 'T_SUBSCRIPTIONSYSTEM';
         $result = $this->Tools->updateData($data,$tableName,$where);
         echo json_encode($result);
