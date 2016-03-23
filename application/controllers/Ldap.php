@@ -32,7 +32,10 @@ class Ldap extends CI_Controller {
 		$host = "192.168.5.3"; 
 		$user = "zldcgroup\zldc"; 
 		$pswd = "zldc@8888"; 
-		
+		$cookie = '';
+    	$result = [];
+   	 $result['count'] = 0;
+    do {
 		$ad = ldap_connect($host) or die( "Could not connect!" ); 
 		//var_dump($ad);
 		if($ad){ 
@@ -40,11 +43,20 @@ class Ldap extends CI_Controller {
 			ldap_set_option ( $ad, LDAP_OPT_PROTOCOL_VERSION, 3 ); 
 			ldap_set_option ( $ad, LDAP_OPT_REFERRALS, 0 ); // bool ldap_bind ( resource $link_identifier [, string $bind_rdn = NULL [, string $bind_password = NULL ]] ) 
 			$bd = ldap_bind($ad, $user, $pswd) or die ("Could not bind"); 
-			
+			ldap_control_paged_result($ad, 500, true, $cookie);
 			$attrs = array("displayname","name","sAMAccountName","userPrincipalName","objectclass"); //鎸囧畾闇�鏌ヨ鐨勭敤鎴疯寖鍥� 
 			$filter = "(objectclass=*)"; //ldap_search ( resource $link_identifier , string $base_dn , string $filter [, array $attributes [, int $attrsonly [, int $sizelimit [, int $timelimit [, int $deref ]]]]] ) 
 			$search = ldap_search($ad, 'ou=中梁集团,DC=zldcgroup,DC=com', $filter, $attrs,0,0,0) or die ("ldap search failed"); 
 			$entries = ldap_get_entries($ad, $search); 
+
+			ldap_set_option($ad, LDAP_OPT_PROTOCOL_VERSION, 3);
+       
+      
+       
+
+        $result = array_merge($result, $entries);
+
+        ldap_control_paged_result_response($ad, $search, $cookie);
 			//echo json_encode($entries);
 		//		var_dump($entries);
 
@@ -119,6 +131,9 @@ class Ldap extends CI_Controller {
 				//echo "<p>No results found!</p>"; 
 			} 
 		}
+		} while ($cookie !== null && $cookie != '');
+
+    return $result;
 	}
 }
 

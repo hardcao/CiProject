@@ -100,9 +100,9 @@ class Project extends CI_Controller
         $startdatetime = new DateTime($this->input->post('planStageOpenDate'));
         $stageOpenInp= $startdatetime->format('Y-m-d H:i:s');
         $insertArr['FOPENDATE'] = $stageOpenInp;
-        $startdatetime = new DateTime($this->input->post('deliverDate'));
+        $startdatetime = new DateTime($this->input->post('planDeliverDate'));
         $deliverInp= $startdatetime->format('Y-m-d H:i:s');
-        $insertArr['FHANDDATE'] = $this->input->post($deliverInp);
+        $insertArr['FHANDDATE'] = $deliverInp;
         $startdatetime = new DateTime($this->input->post('planCarryoverDate'));
         $carryoverInp= $startdatetime->format('Y-m-d H:i:s');
         $insertArr['FCARRYOVERDATE'] = $carryoverInp;
@@ -125,9 +125,9 @@ class Project extends CI_Controller
             $tableName = 'T_PROJECTDETAILINFO';
             $where = 'FPROJECTID='.$insertArr['FPROJECTID'];
             $result = $this->Tools->updateData($insertArr,$tableName,$where);
-        
-        header('Location:'.$this->input->post('url'));
-        //header($this->input->post('url'));
+       
+       // header('Location:'.$this->input->post('url'));
+        header($this->input->post('url'));
     }
     
     /*
