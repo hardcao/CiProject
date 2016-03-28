@@ -238,7 +238,7 @@ function getProjectData(){
 			searchname: "",
 			subscribeStartDate: "2000-01-01",
 			subscribeEndDate:"2100-01-01",
-			queryType: 0,	
+			queryType: 1,	
 		},
 		success:function(msg){
 			if(msg.success){
