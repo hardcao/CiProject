@@ -80,7 +80,7 @@ function searchProject(){
 			searchname: _searText,
 			subscribeStartDate: _sDate,
 			subscribeEndDate:_eDate,
-			queryType: _queryType,	
+			queryType: 1,	
 		},
 		success:function(msg){
 			if(msg.success){
