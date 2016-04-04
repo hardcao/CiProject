@@ -60,7 +60,14 @@ class BonusRecord_model extends CI_Model
                 $result = $this->Tools->addData( $insertArr,$tableName);
             } 
         }
-        return $this->getAllPayRecod($projectID);
+        $this->db->select("*");
+        $result = $this->db->get('T_BONUSRECORD')->result_array();
+        $data["success"] = true;
+        $data["errorCode"] = 0;
+        $data["error"] = 0;
+        $data['data'] =  $result;
+        return $data;
+       
     }
 
      public function getBonusCountWithTime($FID,$time)
