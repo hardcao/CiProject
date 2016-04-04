@@ -19,6 +19,7 @@
 	}
 ?>
 
+<META http-equiv="X-UA-Compatible" content="IE=9" >
 <link rel="stylesheet"  type="text/css" href="<?php echo site_url('application/views/common/css/public.css')?>" />
 <link rel="stylesheet"  type="text/css" href="<?php echo site_url('application/views/common/css/index.css')?>" />
 <link rel="stylesheet"  type="text/css" href="<?php echo site_url('application/views/common/css/font-dincond.css')?>" />

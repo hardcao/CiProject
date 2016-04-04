@@ -167,7 +167,6 @@ function loadPayInList(){
 		$.each(payInList, function(ind,val){
 			tempHtml += '<tr><td height="35">'+(ind+1)+'</td>'+
 				'<td>'+val.FNAME+'</td>'+
-				'<td>'+(val.FORG||"")+'</td>'+
 				'<td>'+val.FSTATE+'</td>'+
 				'<td>'+(val.FCONFIRMAMOUNT)+'</td>'+
 				'<td>'+val.FPAYTIMES+'</td>'+
@@ -194,7 +193,7 @@ function importPIFunc(){
 		},
 		success: function (data, status){  //服务器成功响应处理函数			
 			if(status == "success"){
-				alert("导入成功!");
+				alert("导入缴款成功!");
 				getPayInList();
 				//$("#file").prop("outerHTML", $("#piFileUp").prop("outerHTML"));
 			}else{
@@ -245,8 +244,6 @@ function delPayInFunc(){
 <table id="payInTable" border="1" width="100%"><thead><tr>
 	<td height="34" width="40">序号</td>
 	<td width="110">跟投人</td>
-	<td width="110">部门
-	</td>
 	<td width="100">区域/总部</td>
 	<td width="120">认购金额<br></td>
 	<td width="120">缴款批次</td>

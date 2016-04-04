@@ -100,9 +100,9 @@ class Project extends CI_Controller
         $startdatetime = new DateTime($this->input->post('planStageOpenDate'));
         $stageOpenInp= $startdatetime->format('Y-m-d H:i:s');
         $insertArr['FOPENDATE'] = $stageOpenInp;
-        $startdatetime = new DateTime($this->input->post('deliverDate'));
+        $startdatetime = new DateTime($this->input->post('planDeliverDate'));
         $deliverInp= $startdatetime->format('Y-m-d H:i:s');
-        $insertArr['FHANDDATE'] = $this->input->post($deliverInp);
+        $insertArr['FHANDDATE'] = $deliverInp;
         $startdatetime = new DateTime($this->input->post('planCarryoverDate'));
         $carryoverInp= $startdatetime->format('Y-m-d H:i:s');
         $insertArr['FCARRYOVERDATE'] = $carryoverInp;
@@ -125,9 +125,9 @@ class Project extends CI_Controller
             $tableName = 'T_PROJECTDETAILINFO';
             $where = 'FPROJECTID='.$insertArr['FPROJECTID'];
             $result = $this->Tools->updateData($insertArr,$tableName,$where);
-        
-        header('Location:'.$this->input->post('url'));
-        //header($this->input->post('url'));
+       
+       // header('Location:'.$this->input->post('url'));
+        header($this->input->post('url'));
     }
     
     /*
@@ -242,7 +242,7 @@ class Project extends CI_Controller
      public function  addEnclosure() {
          $FID = $this->input->post('uploadSchemeId');
          $config['upload_path']      = './fileFolder/';
-         $config['allowed_types']    = 'gif|jpg|png|txt|xls|doc';
+         $config['allowed_types']    = 'gif|jpg|png|txt|xls|doc|docx';
          $config['max_size']     = 100;
          $config['max_width']        = 1024;
          $config['max_height']       = 768;
@@ -255,7 +255,11 @@ class Project extends CI_Controller
              echo "update fail";
              return ;
          }
-         $followScheme['FLINK'] = $followScheme['FLINK'].';'.$name;
+         if($followScheme['FLINK']){
+             $followScheme['FLINK'] = $followScheme['FLINK'].';'.$name;
+         } else {
+             $followScheme['FLINK'] = $name;
+         }
          $config['file_name']  =  iconv("UTF-8","gb2312", $name);
          $this->load->library('upload', $config);
          

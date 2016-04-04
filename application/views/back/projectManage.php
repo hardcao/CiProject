@@ -125,7 +125,7 @@ function initPages(){
 function loadContentPage(){
 	location.hash = naviVal;
 	var ctx="<?php echo site_url();?>";
-	var url = ctx+'back/index/'+naviVal;
+	var url = ctx+'back/index/'+naviVal+'?'+Math.random(0-100);
 	$("#rightLayer").load(url);
 }
 </script>

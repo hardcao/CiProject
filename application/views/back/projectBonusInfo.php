@@ -84,7 +84,7 @@ function initBonusListeners(){
 			url: ctx+'BonusRecord/outputXls', //用于文件上传的服务器端请求地址
 			dataType: 'JSON', //返回值类型 一般设置为json
 			data:{
-				projectId:27,
+				projectId:getReqParam("projectId"),
 					startDate:'2013-09-01 09:50:00',
 					endDate:'2016-09-01 09:50:00',
 					uname:'',
@@ -205,7 +205,6 @@ function loadBonusList(){
 			tempHtml +=
 			'<tr><td height="35">'+(ind+1)+'</td>'+
 			'<td>'+val.FNAME+'</td>'+
-			'<td>'+(val.FORG||"")+'</td>'+
 			'<td>'+val.FSTATE+'</td>'+
 			'<td>'+(val.FCONFIRMAMOUNT)+'</td>'+
 			'<td>'+val.FBONUSTIMES+'</td>'+
@@ -388,7 +387,7 @@ function importBonusFunc(){
 		},
 		success: function (data, status){  //服务器成功响应处理函数			
 			if(status == "success"){
-				alert("导入成功!");
+				alert("导入分红成功!");
 				getBonusList();
 				//$("#file").prop("outerHTML", $("#piFileUp").prop("outerHTML"));
 			}else{
@@ -466,7 +465,6 @@ function getPath(obj,fileQuery){
 <table id="bonusTable" border="1" width="100%"><thead><tr>
 	<td height="34" width="40">序号</td>
 	<td width="100">跟投人</td>
-	<td width="100">部门</td>
 	<td width="110">区域/总部</td>
 	<td width="100">认购金额</td>
 	<td width="70">分红批次</td>
