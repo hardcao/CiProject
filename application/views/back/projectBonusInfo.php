@@ -105,6 +105,47 @@ function initBonusListeners(){
 			}
 		})
 	});
+
+
+	// 自动生成分红
+	$("#rightLayer #autobonus").click(function(){
+		alert("导入成功");
+		//	<input  id="noInp" style="width:70px" placeholder="分红批次" />
+	//<input  id="noAmount"  style="width:70px" placeholder="分红总额" />
+	//<!-- <button id="callBonusDialog" class="btnSTY">新增分红</button> -->
+	//<button id="autobonus" class="btnSTY">生成分红明细</button>
+
+	var _noInp = $("#noInp").val();
+	var _noAmount = $("#noAmount").val();
+	var _obj = {
+		'projectId': getReqParam("projectId"),
+		'time': _noInp,
+		'totalBonus': _noAmount
+	};
+
+	var ctx = "<?php echo site_url();?>";
+	$.ajax({
+		type:'post',//可选get
+		url: ctx+'BonusRecord/updateBonusRecordWithTotalBonues', //用于文件上传的服务器端请求地址
+		dataType: 'JSON', //返回值类型 一般设置为json
+		data:_obj,
+		success: function (msg){  //服务器成功响应处理函数			
+			if(msg.success == true){
+				bonusList = msg.data;
+				loadBonusList();
+			}else{
+				alert("1:"+msg.error);
+			}
+		},
+		error: function (data, status, e){//服务器响应失败处理函数		
+			alert("2:"+e);
+		}
+	})
+
+	});
+
+
+
 	// 导入分红
 	$("#rightLayer #importBtn").click(function(){
 		$("#file").click();
@@ -456,12 +497,18 @@ function getPath(obj,fileQuery){
 	<button id="exportSubBtn" class="btnSTY">导出分红模板</button>
 	<button id="importBtn" class="btnSTY">导入分红</button>
 	<button id="exportBonusBtn" class="btnSTY">导出分红</button>
-	<input type="file" id="file" name="file" style="left:90px;" class="displayNone">
-	分红日期：<input id="sDateInp" readonly class="dateSTY" />至<input id="eDateInp" readonly class="dateSTY" style="margin-right: 40px;" />
-	<input id="searTextInp" placeholder="请输入项目名或认购人" />
+	<input  id="noInp" style="width:70px" placeholder="分红批次" />
+	<input  id="noAmount"  style="width:70px" placeholder="分红总额" />
+	<!-- <button id="callBonusDialog" class="btnSTY">新增分红</button> -->
+	<button id="autobonus" class="btnSTY">生成分红明细</button>
+
+	<input type="file" id="file" name="file" style="left:90px; " class="displayNone">
+	分红日期：<input id="sDateInp" readonly class="dateSTY"   style="width:100px" />至<input id="eDateInp" readonly class="dateSTY" style="margin-right: 20px;width:100px" />
+	<input id="searTextInp"  style="width:100px" placeholder="项目名或认购人" />
 	<button id="searTextBtn">搜索</button>
 	<button id="clearTextBtn">清空</button>
 </div>
+
 <table id="bonusTable" border="1" width="100%"><thead><tr>
 	<td height="34" width="40">序号</td>
 	<td width="100">跟投人</td>
