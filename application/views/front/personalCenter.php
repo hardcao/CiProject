@@ -432,8 +432,20 @@ function loadCompletedInfo(){
 	$("#compTbody").empty();
 	if(completedList && completedList.length > 0){
 		var tempHtml = "";
+		var bNotify = 0;
 		$.each(completedList, function(ind, val){
 
+			if (val.FSTATE == 0) 
+			{
+				if (parseInt(val.FAMOUNT) == parseInt(val.FCONFIRMAMOUNT) ) 
+				{
+
+				}
+				else
+				{
+					bNotify = 1;
+				}
+			};
 			tempHtml +=
 				'<tr><td height="25">'+(ind+1)+'</td>'+
 					'<td>'+(val.FNAME||"")+'</td>'+
@@ -441,14 +453,27 @@ function loadCompletedInfo(){
 					'<td>'+(val.FLEVERAMOUNT||0)+'</td>'+
 					'<td class="displayNone">'+(val.adjustamt||0)+'</td>'+
 					'<td class="displayNone">'+(val.adjustLeverageAmt||0)+'</td>'+
-					'<td>'+(val.TOTALFPAYAMOUNT||0)+'</td>'+
-					//'<td>'+(val.TOTALFBONUSAMOUNT||0)+'</td>'+
-					//'<td>'+(val.confirmationPayment||0)+'</td>'+
-					// '<td width="150">'+formatMillions(val.bonusAmount)+'</td>'+
+					'<td>'+(val.TOTALFPAYAMOUNT||0)+'</td>';
+
+			if (bNotify == 1)
+			{
+				tempHtml +=
+				'<td>'+(val.TOTALFBONUSAMOUNT||0)+'</td>'+
+				'<td style="color:red">'+'认购申请金额'+val.FCONFIRMAMOUNT+'万元与<br>缴款确认金额'+val.FAMOUNT+'万元不符！</td>'+
+				'<td><a onclick="confirmAdjust('+val.FID+')">确认</a>'+'</td>'+
+				'</tr>';
+			}
+			else
+			{
+				tempHtml +=
 				'<td>'+(val.TOTALFBONUSAMOUNT||0)+'</td>'+
 				'<td>'+' '+'</td>'+
-				'<td><a onclick="confirmAdjust('+ind+')">确认</a>'+'</td>'+
-				'</tr>';
+				'<td>'+'</tr>';
+			}		
+			//'<td>'+(val.TOTALFBONUSAMOUNT||0)+'</td>'+
+			//'<td>'+(val.confirmationPayment||0)+'</td>'+
+			// '<td width="150">'+formatMillions(val.bonusAmount)+'</td>'+
+
 		})
 		$("#compTbody").html(tempHtml);
 	}else{
@@ -462,7 +487,27 @@ function loadCompletedInfo(){
 
 function confirmAdjust(ind)
 {
-	alert(ind);
+	var ctx = "<?php echo site_url() ?>";
+	$.ajax({
+		type:'post',//可选get
+		url:ctx+'Subscription/updateSubscribe',
+		dataType:'Json',//服务器返回的数据类型 可选XML ,Json jsonp script html text等
+		data:{
+			"FID":ind,
+			"FSTATE": 1
+		},
+		success:function(msg){
+			if(msg.success){
+				alert('确认成功！');
+				window.location.reload();
+			}else{
+				alert(msg.error);
+			}
+		},
+		error: function (XMLHttpRequest, textStatus, errorThrown) {
+        	// sessionTimeout(XMLHttpRequest, textStatus, errorThrown);
+        }
+	})
 }
 
 function getPayInInfo() {
