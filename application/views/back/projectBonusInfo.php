@@ -109,7 +109,6 @@ function initBonusListeners(){
 
 	// 自动生成分红
 	$("#rightLayer #autobonus").click(function(){
-		alert("导入成功");
 		//	<input  id="noInp" style="width:70px" placeholder="分红批次" />
 	//<input  id="noAmount"  style="width:70px" placeholder="分红总额" />
 	//<!-- <button id="callBonusDialog" class="btnSTY">新增分红</button> -->
@@ -117,6 +116,9 @@ function initBonusListeners(){
 
 	var _noInp = $("#noInp").val();
 	var _noAmount = $("#noAmount").val();
+
+
+	if (_noInp != undefined || _noAmount != undefined) {alert('请输入有效的分红批次值或总额！'); return;};
 	var _obj = {
 		'projectId': getReqParam("projectId"),
 		'time': _noInp,
@@ -130,9 +132,11 @@ function initBonusListeners(){
 		dataType: 'JSON', //返回值类型 一般设置为json
 		data:_obj,
 		success: function (msg){  //服务器成功响应处理函数			
-			if(msg.success == true){
-				bonusList = msg.data;
-				loadBonusList();
+			if(msg){
+				//bonusList = msg.data;
+				//loadBonusList();
+				alert("生成成功");
+				window.location.reload();
 			}else{
 				alert("1:"+msg.error);
 			}
@@ -497,8 +501,8 @@ function getPath(obj,fileQuery){
 	<button id="exportSubBtn" class="btnSTY">导出分红模板</button>
 	<button id="importBtn" class="btnSTY">导入分红</button>
 	<button id="exportBonusBtn" class="btnSTY">导出分红</button>
-	<input  id="noInp" style="width:70px" placeholder="分红批次" />
-	<input  id="noAmount"  style="width:70px" placeholder="分红总额" />
+	<input  id="noInp" style="width:70px; float:left" placeholder="分红批次" />
+	<input  id="noAmount"  style="width:70px; float:left" placeholder="分红总额" />
 	<!-- <button id="callBonusDialog" class="btnSTY">新增分红</button> -->
 	<button id="autobonus" class="btnSTY">生成分红明细</button>
 
