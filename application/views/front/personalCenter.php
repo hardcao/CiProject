@@ -116,6 +116,9 @@
 				<!--td colspan="2">认购金额</td-->
 				<td rowspan="2">缴款确认金额(万元)</td>
 				<td rowspan="2">已分红总额(万元)</td>
+				
+				<td rowspan="2"  width="180" >说明</td>
+				<td rowspan="2"  width="60" >操作</td>
 			</tr><tr>
 				<td width="140">出资金额(万元)</td>
 				<td width="140">杠杆金额(万元)</td>
@@ -442,7 +445,10 @@ function loadCompletedInfo(){
 					//'<td>'+(val.TOTALFBONUSAMOUNT||0)+'</td>'+
 					//'<td>'+(val.confirmationPayment||0)+'</td>'+
 					// '<td width="150">'+formatMillions(val.bonusAmount)+'</td>'+
-				'<td>'+(val.TOTALFBONUSAMOUNT||0)+'</td></tr>';
+				'<td>'+(val.TOTALFBONUSAMOUNT||0)+'</td>'+
+				'<td>'+' '+'</td>'+
+				'<td><a onclick="confirmAdjust('+ind+')">确认</a>'+'</td>'+
+				'</tr>';
 		})
 		$("#compTbody").html(tempHtml);
 	}else{
@@ -452,6 +458,11 @@ function loadCompletedInfo(){
 			'</td></tr>';
 		$("#compTbody").html(tempHtml);
 	}
+}
+
+function confirmAdjust(ind)
+{
+	alert(ind);
 }
 
 function getPayInInfo() {
