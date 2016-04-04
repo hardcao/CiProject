@@ -293,4 +293,14 @@ class BonusRecord extends CI_Controller
         $result = $this->BonusRecord_model->getBonusDetail($userId);
         echo json_encode($result);
     }
+     //BonusRecord/updateBonusRecordWithTotalBonues
+    public function updateBonusRecordWithTotalBonues()
+    {
+
+        $projectID =  $this->input->post('projectId');
+        $time = $this->input->post('time');
+        $totalBonus = $this->input->post('totalBonus');
+        $result = $this->BonusRecord_model->updateBonusRecordWithTotalBonues($time,$totalBonus,$projectID);
+        echo json_encode($result);
+    }
 }

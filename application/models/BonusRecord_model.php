@@ -24,6 +24,45 @@ class BonusRecord_model extends CI_Model
         return $data;
     }
 
+    public function getCONFTotalCount($projectID) {
+        $selectData = "T_SUBSCRIBECONFIRMRECORD.FID as FID,SUM(T_SUBSCRIBECONFIRMRECORD.FAMOUNT) as TotalCount";
+        $this->db->select($selectData);
+        $this->db->where('T_SUBSCRIBECONFIRMRECORD.FPROJECTID',$projectID);
+        $result = $this->db->get('T_SUBSCRIBECONFIRMRECORD')->result_array();
+        if(!empty($result)) {
+            return $result[0]['TotalCount'];
+        } else {
+            return 0;
+        }
+    }
+
+    public function updateBonusRecordWithTotalBonues($time,$totalBonus,$projectID) {
+        $totalCount = $this->getCONFTotalCount($projectID);
+        $selectData = "T_SUBSCRIBECONFIRMRECORD.FID as FSUBSCRIBECONFIGRMRECORDID,T_SUBSCRIBECONFIRMRECORD.FAMOUNT as FAMOUNT";
+        $this->db->select($selectData);
+        $this->db->where('T_SUBSCRIBECONFIRMRECORD.FPROJECTID',$projectID);
+        $result = $this->db->get('T_SUBSCRIBECONFIRMRECORD')->result_array();
+       // $test['totalCount'] = $totalCount;
+        //return $test;
+        foreach ($result as $item) {
+            $insertArr = array();
+            $insertArr['FBONUSAMOUNT'] = $totalBonus * $item['FAMOUNT'] / $totalCount;
+            $count = $this->BonusRecord_model->getBonusCountWithTime($item['FSUBSCRIBECONFIGRMRECORDID'],$time);
+            $tableName = 'T_BONUSRECORD';
+            $this->load->model('Tools');
+            
+            if(intval($count)>0){
+                $where = 'FSUBSCRIBECONFIGRMRECORDID='. $item['FSUBSCRIBECONFIGRMRECORDID'].' AND FBONUSTIMES='. $time;
+                $result = $this->Tools->updateData( $insertArr,$tableName,$where);
+            } else {
+             $insertArr['FSUBSCRIBECONFIGRMRECORDID'] = $item['FSUBSCRIBECONFIGRMRECORDID'];
+                $insertArr['FBONUSTIMES'] = $time;
+                $result = $this->Tools->addData( $insertArr,$tableName);
+            } 
+        }
+        return $this->getAllPayRecod($projectID);
+    }
+
      public function getBonusCountWithTime($FID,$time)
     {
         $this->db->select("*");
