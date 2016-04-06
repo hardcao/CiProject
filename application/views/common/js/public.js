@@ -59,7 +59,6 @@ $(function () {
         link_page = links.eq(index_hash)[0];
         if (typeof(link_page) == "undefined" || link_page == null) 
         {
-            window.location.reload();
             return;
         }
         else
