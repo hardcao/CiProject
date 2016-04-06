@@ -57,6 +57,7 @@ $(function () {
         index_hash = getHash();
         //index_hash = parseInt(index_hash.substring(1,index_hash.Length));
         link_page = links.eq(index_hash)[0];
+        if (typeof(link_page) == "undefined" || link_page == null) {window.location.reload();}
         control(nav_on = link_curr = link_page, false);
 
         if (index_hash != 0)
