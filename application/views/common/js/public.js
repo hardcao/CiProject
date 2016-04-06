@@ -3,32 +3,32 @@ var win = $(window),
 $(function () {
     // 导航栏控制
     (function () {
-        var nav = $('#nav'),
-            shop = $('#shop'),
-            // search_box = shop.find('#searchbox'),
-            // search_btn = shop.find('.btn-search')[0],
-            lis = nav.children(),
-            lis_1 = lis.filter(':not(.more)'),
-            lis_2 = lis.filter('.more'),
-            links = lis.children(),
-            links_1 = lis_1.children(),
-            links_2 = lis_2.children(),
-            subNav = $('#subNav'),
-            subitem = $('#subNav').find('.item'),
-            prev_item = $(),
-            spans = links.children(),
-            offs = spans.filter('.off'),
-            ons = spans.filter('.on'),
-            sbs = spans.filter('.slideBlock'),
+        var nav = $('#nav');
+        var shop = $('#shop');
+            // search_box = shop.find('#searchbox');
+            // search_btn = shop.find('.btn-search')[0];
+            var lis = nav.children();
+            var lis_1 = lis.filter(':not(.more)');
+            var lis_2 = lis.filter('.more');
+            var links = lis.children();
+            var links_1 = lis_1.children();
+            var links_2 = lis_2.children();
+            var subNav = $('#subNav');
+            var subitem = $('#subNav').find('.item');
+            var prev_item = $();
+            var spans = links.children();
+            var offs = spans.filter('.off');
+            var ons = spans.filter('.on');
+            var sbs = spans.filter('.slideBlock');
 
-            hei = links.eq(0).height(),
-            len = lis.length,
+            var hei = links.eq(0).height();
+            var len = lis.length;
 
             // 记录当前
-            link_page = null,
-            link_curr = null,
+            var link_page = null;
+            var link_curr = null;
 
-            timeout = -1;
+            var timeout = -1;
 
         // 初始化当前链接
         href = location.href.replace(/[_\d]{1,2}\./, '.');      // 静态页面用
