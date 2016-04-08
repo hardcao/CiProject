@@ -175,7 +175,7 @@ function loadData(){
 			'<tr><td height="35">'+(ind+1)+'</td>'+
 				'<td><a href="projectDetail.jsp?proId='+val.FID+'">'+(val.FNAME||"")+'</a></td>'+
 				//'<td>'+ (val.isRemissionSubscribe == true ? "是" : "否") +'</td>'+
-				'<td>'+formatDate(val.FCREATETIME)+'</td>'+
+				'<td>'+(val.FCREATETIME)+'</td>'+
 				'<td>'+(val.FAMOUNT||0)+'</td>'+
 				'<td>'+(val.FLEVERAMOUNT||0)+'</td>'+
 				//'<td class="displayNone">'+(val.adjustamt)+'</td>'+

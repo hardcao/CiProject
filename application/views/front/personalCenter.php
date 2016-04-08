@@ -460,7 +460,7 @@ function loadCompletedInfo(){
 				tempHtml +=
 				'<td>'+(val.TOTALFBONUSAMOUNT||0)+'</td>'+
 				'<td style="color:red">'+'认购申请金额'+val.FCONFIRMAMOUNT+'万元与<br>缴款确认金额'+val.FAMOUNT+'万元不符！</td>'+
-				'<td><a onclick="confirmAdjust('+val.FID+')">确认</a>'+'</td>'+
+				'<td><a style="cursor:pointer" onclick="confirmAdjust('+val.FID+')">确认</a>'+'</td>'+
 				'</tr>';
 			}
 			else
