@@ -5,7 +5,7 @@
 #contentFrame #titleTab .focusOn{background: url(./../images/tab.png);border-left: 1px solid #e8e8e8;
 	border-right: 1px solid #e8e8e8;color: #FF2608;font-weight: 600;}
 
-#contentFrame .info_STY{height: 430px;overflow-y: auto;}
+#contentFrame .info_STY{height: 430px;overflow-y: auto;overflow-x: hidden;}
 #contentFrame pre{line-height: 20px;padding: 10px 20px;}
 #contentFrame #law_info div{padding:5px 0px 10px 30px;}
 
